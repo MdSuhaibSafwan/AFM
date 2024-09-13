@@ -17,6 +17,7 @@ from phonenumber_field.widgets import PhoneNumberPrefixWidget
 
 from administration.templatetags.administration_extras import getsubject
 from django.templatetags.static import static
+from django.db.utils import ProgrammingError
 
 questions_choice = (
     (0, 'NO'),
@@ -42,15 +43,18 @@ class CustomMCF(forms.ModelChoiceField):
 
 
 class SelectMentorForm(forms.ModelForm):
-    active_mentors = MentorPersonalInformation.objects.using(
-        'afm_personal_information').filter(currently_studying=6).values('admin__user_slug')
-    temp = []
-    for i in active_mentors:
-        temp.append(i['admin__user_slug'])
-    queryset = Mentor.objects.filter(profile_status=True, admin__is_active=True, admin__slug__in=temp)
-    mentor = CustomMCF(queryset=queryset,
-                       label='If a Mentor helped you to complete your application form, please select them here',
-                       required=False)
+    try:
+        active_mentors = MentorPersonalInformation.objects.using(
+            'afm_personal_information').filter(currently_studying=6).values('admin__user_slug')
+        temp = []
+        for i in active_mentors:
+            temp.append(i['admin__user_slug'])
+        queryset = Mentor.objects.filter(profile_status=True, admin__is_active=True, admin__slug__in=temp)
+        mentor = CustomMCF(queryset=queryset,
+                        label='If a Mentor helped you to complete your application form, please select them here',
+                        required=False)
+    except ProgrammingError as e:
+        print(e)
 
     class Meta:
         model = Application

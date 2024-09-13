@@ -149,25 +149,27 @@ FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 if DEVELOPMENT_MODE:
     DATABASES = {
-        'default': {},
-        'afm': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / "afm.sqlite3",
-            # 'NAME': config('DB_AFM'),
-            # 'USER': config('DB_AFM_USER'),
-            # 'PASSWORD': config('DB_AFM_PASSWORD'),
-            # 'HOST': config('DB_AFM_HOST'),
-            # 'PORT': config('DB_AFM_PORT'),
-        },
-        'afm_personal_information': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / "afm_p.sqlite3",
-            # 'NAME': config('DB_personal_information'),
-            # 'USER': config('DB_personal_information_USER'),
-            # 'PASSWORD': config('DB_personal_information_PASSWORD'),
-            # 'HOST': config('DB_personal_information_HOST'),
-            # 'PORT': config('DB_personal_information_PORT'),
-        }
+        'default': dj_database_url.parse(config('DATABASE_URL_GENERAL')),
+        # 'afm': {
+        #     'ENGINE': 'django.db.backends.sqlite3',
+        #     'NAME': BASE_DIR / "afm.sqlite3",
+        #     # 'NAME': config('DB_AFM'),
+        #     # 'USER': config('DB_AFM_USER'),
+        #     # 'PASSWORD': config('DB_AFM_PASSWORD'),
+        #     # 'HOST': config('DB_AFM_HOST'),
+        #     # 'PORT': config('DB_AFM_PORT'),
+        # },
+        # 'afm_personal_information': {
+        #     'ENGINE': 'django.db.backends.sqlite3',
+        #     'NAME': BASE_DIR / "afm_p.sqlite3",
+        #     # 'NAME': config('DB_personal_information'),
+        #     # 'USER': config('DB_personal_information_USER'),
+        #     # 'PASSWORD': config('DB_personal_information_PASSWORD'),
+        #     # 'HOST': config('DB_personal_information_HOST'),
+        #     # 'PORT': config('DB_personal_information_PORT'),
+        # }
+        'afm': dj_database_url.parse(config('DATABASE_URL_GENERAL')),
+        'afm_personal_information': dj_database_url.parse(config('DATABASE_URL_PERSONAL')),
     }
 elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
     if config('DATABASE_URL_GENERAL', None) is None or config('DATABASE_URL_PERSONAL', None) is None:

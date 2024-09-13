@@ -6,7 +6,7 @@ from personal_information.models import MentorPersonalInformation, SpokenLanguag
 from django import forms
 from django_countries import countries
 from django.db.models import Q
-
+from django.db.utils import ProgrammingError
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -36,16 +36,25 @@ class DemandAndSupplyFilter(django_filters.FilterSet):
     )
     subject = django_filters.ChoiceFilter(choices=SUBJECT, empty_label='Select')
     COUNTRY = []
-    for i in DemandAndSupply.objects.all().distinct('country').order_by('country'):
-        country_data = (i.country, i.country.name)
-        COUNTRY.append(country_data)
+    try:
+        for i in DemandAndSupply.objects.all().distinct('country').order_by('country'):
+            country_data = (i.country, i.country.name)
+            COUNTRY.append(country_data)
+    except ProgrammingError as e:
+        print(e)
 
-    country = django_filters.ChoiceFilter(choices=COUNTRY, empty_label='Select')
+    try:
+        country = django_filters.ChoiceFilter(choices=COUNTRY, empty_label='Select')
+    except ProgrammingError as e:
+        print(e)
+
     LANGUAGES = []
-
-    for i in DemandAndSupply.objects.all().distinct('spoken_language').order_by('spoken_language'):
-        language_data = (i.spoken_language, i.spoken_language)
-        LANGUAGES.append(language_data)
+    try:
+        for i in DemandAndSupply.objects.all().distinct('spoken_language').order_by('spoken_language'):
+            language_data = (i.spoken_language, i.spoken_language)
+            LANGUAGES.append(language_data)
+    except ProgrammingError as e:
+            print(e)
 
     spoken_language = django_filters.ChoiceFilter(choices=LANGUAGES, empty_label='Select')
 
