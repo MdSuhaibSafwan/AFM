@@ -1,0 +1,11 @@
+{% load static gdpr_cookie_consent_tags %}
+
+{% url "cookie_consent:cookies_management" as cookies_management_url %}
+
+{% if "cookie_consent" not in request.COOKIES or request.path == cookies_management_url %}
+    {# Handle cookie management and render the conditional HTML dynamically #}
+    <script id="cc_script" data-modal-dialog-url="{% url 'cookie_consent:modal_dialog' %}" src="{% static 'gdpr-cookie-consent/js/gdpr-cookie-consent.min.js' %}" nonce="{{ request.csp_nonce }}"></script>
+{% else %}
+    {# Render the conditional HTML immediately based on the current cookie_consent cookie #}
+    {% render_conditional_html %}
+{% endif %}

@@ -1,0 +1,116 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}Study medicine at the University of Warwick{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %} Apply for graduate entry into medicine at the University of Warwick offering a medical degree
+course open to graduates{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%} https://applyformedicine.com/uk-medical-schools/studying-medicine-at-warwick/
+{% endblock %}{% endblock %}
+
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">Apply for Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:uk_medical_schools' %}">UK Medical Schools</a>
+                            <span> >
+                            </span>University of Warwick
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">Warwick Medical School</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in England</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="right-icon-img-area">
+                        <div>
+                            <p style="text-align: right; margin-bottom: 0px;">
+                                <span>*</span>
+                            </p>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>Fees (International/Non-EU students): </td>
+                                        <td>Year 1: £22,460 Years 2, 3, 4: £39,150</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Interview Style: </td>
+                                        <td>MMI</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Course Structure: </td>
+                                        <td>Integrated</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <h2>Study Medicine at Warwick Medical School</h2>
+                        <p> Warwick only offers a four-year medicine course for postgraduate students. The graduate
+                            medicine course offers early exposure to the clinical environment and high-standard
+                            anatomical education through new teaching facilities.</p>
+                        <p>The first and second year of the course involves teaching primarily based on the university
+                            campus which includes small-group teaching and integrated clinical teaching in hospitals and
+                            GPs. Some of the content of learning in these years includes neuroscience, reproduction,
+                            circulation, metabolism, etc. Components of clinical teaching in these years involve
+                            establishing basic clinical skills, professionalism and communication skills. This clinical
+                            teaching will also involve learning on the wards, in outpatient clinics, operating theatres
+                            and in labs. In addition to this, students will get to experience involvement in clinical
+                            settings out-of-hours and during on-calls.</p>
+                        <p>In the final two years involve further clinical education through many blocks of placements
+                            in various hospital and community settings. During these years students will take on
+                            specialist placements in disciplines including Child Health, Acute medicine, Women’s health,
+                            Psychiatry, etc.</p>
+                        <p>In the fourth year, students will also undertake an elective (either abroad or in the UK) and
+                            student assistantships to allow them an opportunity to work with a clinical team in
+                            preparation for their roles and responsibilities as a Foundation Doctor after the end of the
+                            medical course. Student-Selected Components (SSCs) are also offered throughout the duration
+                            of the course which allows students the chance to study further into an area of interest to
+                            them.</p>
+                        <h3>Get mentored by medical students at Warwick Medical School</h3>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <p> * Please confirm all relevant information on this page with your medical school application mentor </p>
+    </div>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> globalcommunity of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

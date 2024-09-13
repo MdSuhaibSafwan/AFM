@@ -1,0 +1,557 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2 %}Apply to Study Medicine in the UK{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}Find medical school mentors to support and advise international
+students who want to study medicine in the UK.{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/uk-medical-schools/
+{% endblock %}{% endblock %}
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">Apply for Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}"> Study Medicine</a>
+                            <span> >
+                            </span>UK Medical Schools
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">Applying to Medical Schools <br> in the
+                            United Kingdom </h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Find the right medical school in the UK and
+                            connect directly with students who are already studying these courses to get a special
+                            insight and edge before making your application </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12">
+                    <div class="right-icon-img-area parent-img">
+                        <img src="{% static 'assets/img/flag-img/uk-flag.png' %}"
+                           class="img-fluid" alt="Medical Admission Blogs" width="400" height="250" loading="lazy">
+                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="pt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <div class="site-title">
+                        <h2>Applying to UK medical schools</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-xl-6">
+                    <img src="{% static 'assets/img/content-img/Universities-list-uk.png' %}" class="img-fluid mb-3"
+                        alt="Universities list uk" title="Universities list uk" width="620" height="907" loading="lazy">
+                </div>
+                <div class="col-md-6 col-xl-6">
+                    <div id="accordion" class="accordion">
+                        <div class="card shadow-none">
+                            <div class="card-header collapse-bg">
+                                <a class="card-link" data-toggle="collapse" href="#collapseThree"
+                                    data-parent="#accordion">Medical Schools In Scotland<i class="fa fa-plus">
+                                    </i>
+                                </a>
+                            </div>
+                            <div id="collapseThree" class="collapse show">
+                                <div class="card-body">
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_the_university_of_aberdeen_school_of_medicine' %}">
+                                            1- University of Aberdeen School of Medicine and Dentistry</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_the_university_of_dundee' %}">
+                                            2- University of Dundee School of Medicine</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_the_university_of_st_andrews' %}">
+                                            3- University of St. Andrews School of Medicine</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_the_university_of_edinburgh' %}">
+                                            4- University of Edinburgh Medical School</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_the_university_of_glasgow' %}">
+                                            5- University of Glasgow School of Medicine</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card shadow-none">
+                            <div class="card-header collapse-bg">
+                                <a class="card-link" data-toggle="collapse" href="#collapseOne"
+                                    data-parent="#accordion"> Medical Schools In England<i class="fa fa-plus">
+                                    </i>
+                                </a>
+                            </div>
+                            <div id="collapseOne" class="collapse">
+                                <div class="card-body">
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_newcastle_university' %}">
+                                            6- Newcastle University School of Medical Education</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_the_university_of_sunderlandol' %}">
+                                            7- Sunderland Medical School</a>
+                                    </p>
+
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_lancaster_university' %}">
+                                            9- Lancaster University Medical School</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_the_university_of_central_lancashire_uclan' %}">
+                                            10- University of Central Lancashire School of Medicine</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_edge_hill_university' %}">
+                                            11- Edge Hill University Medical School</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_hull_york_medical_school' %}">
+                                            12- Hull York Medical School</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_the_university_of_leeds' %}">
+                                            13- University of Leeds School of Medicine</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_the_university_of_sheffield' %}">
+                                            14- University of Sheffield Medical School</a>
+                                    </p>
+                                    <p>
+                                        <a href="{% url 'administration:studying_medicine_at_manchester' %}">
+                                            15- University of Manchester Medical School</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_the_university_of_liverpool' %}">
+                                            16- University of Liverpool School of Medicine</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_the_university_of_lincoln' %}">
+                                            17- Lincoln Medical School</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_keele_university' %}">
+                                            18- Keele university School of Medicine</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_the_university_of_nottingham' %}">
+                                            19- University of Nottingham School of Medicine</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_the_university_of_leicester' %}">
+                                            20- University of Leicester School of Medicine</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_aston_university' %}">
+                                            21- Aston Medical School</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_the_university_of_birmingham' %}">
+                                            22- University of Birmingham Medical School</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_norwich_medical_school' %}">
+                                            23- Norwich Medical School</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_the_university_of_cambridge' %}">
+                                            24- University of Cambridge School of Clinical Medicine</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_the_university_of_buckingham' %}">
+                                            25- University of Buckingham Medical School</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_the_university_of_oxford' %}">
+                                            26- University of Oxford Medical Sciences Division</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_the_university_of_bristol' %}">
+                                            29- University of Bristol, School of Health Sciences</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_anglia_ruskin_university' %}">
+                                            30- Anglia Ruskin University, School of Medicine</a>
+                                    </p>
+                                    <p id="londonuniversity">
+                                        <a href="javascript:void(0);">
+                                            <span class="weight-600"> 31- Medical Schools in London <i
+                                                    class="fas fa-angle-down">
+                                                </i>
+                                            </span>
+                                        </a>
+                                    </p>
+                                    <div class="london-uni">
+                                        <p>
+                                            <a href="{% url 'administration:studying_medicine_at_barts' %}"> -
+                                                Barts & The London, School of Medicine & Dentistry</a>
+                                        </p>
+                                        <p>
+                                            <a
+                                                href="{% url 'administration:studying_medicine_at_st_georges_university_of_london' %}">
+                                                - St George's Medical School, University of London</a>
+                                        </p>
+                                        <p>
+                                            <a
+                                                href="{% url 'administration:studying_medicine_at_the_university_college_london_ucl' %}">
+                                                - University College London (UCL)</a>
+                                        </p>
+                                        <p>
+                                            <a
+                                                href="{% url 'administration:studying_medicine_at_kings_college_london_kcl' %}">
+                                                - GKT School of Medical Education, Kings College London</a>
+                                        </p>
+                                        <p>
+                                            <a
+                                                href="{% url 'administration:studying_medicine_at_imperial_college_london' %}">
+                                                - Faculty of Medicine, Imperial College London</a>
+                                        </p>
+                                        <p>
+                                            <a
+                                                href="{% url 'administration:studying_medicine_at_brunel_university_london' %}">
+                                                - Brunel Medical School</a>
+                                        </p>
+                                    </div>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_kent_and_medway_medical_school' %}">
+                                            32- Kent & Medway Medical School</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_brighton_and_sussex_medical_school' %}">
+                                            33- Brighton & Sussex Medical School</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_the_university_of_southampton' %}">
+                                            34- University of Southampton, School of Medicine</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_the_university_of_exeter' %}">
+                                            35- University of Exeter Medical School</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_peninsula_medical' %}">
+                                            36- Peninsula School of Medicine & Dentistry</a>
+                                    </p>
+                                    <p>
+                                        <a href="{% url 'administration:studying_medicine_at_warwick' %}"> 39-
+                                            Warwick Medical School</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card shadow-none">
+                            <div class="card-header collapse-bg">
+                                <a class="card-link" data-toggle="collapse" href="#collapseTwo"
+                                    data-parent="#accordion"> Medical Schools In Wales<i class="fa fa-plus">
+                                    </i>
+                                </a>
+                            </div>
+                            <div id="collapseTwo" class="collapse accordion-content">
+                                <div class="card-body">
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_swansea_university' %}">
+                                            27- Swansea University, College of Medicine </a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_cardiff_university' %}">
+                                            28- Cardiff University, School of Medicine</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card shadow-none">
+                            <div class="card-header collapse-bg">
+                                <a class="card-link" data-toggle="collapse" href="#collapsefour"
+                                    data-parent="#accordion"> Medical Schools In Northern Ireland<i class="fa fa-plus">
+                                    </i>
+                                </a>
+                            </div>
+                            <div id="collapsefour" class="collapse ">
+                                <div class="card-body">
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_queens_university' %}">
+                                            37- Queen's University, Belfast</a>
+                                    </p>
+                                    <p>
+                                        <a
+                                            href="{% url 'administration:studying_medicine_at_ulster_university' %}">
+                                            38- Ulster University</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <p> Choosing to apply to the right medical schools for you is essential since one of those
+                            universities may end up being where you spend over 5 years of your life training to become a
+                            doctor. So first you must understand how medical schools in the UK in the UK train medical
+                            students to become doctors. </p>
+                        <p> Undergraduate Medicine is usually a 5/6-year course at most universities in the UK. Graduate
+                            Medicine is typically a 4-year course. There are over 40 different medical schools across
+                            the country and over 23,000 prospective medical students, including international medical
+                            school applicants, applied for places last year. In the UK, to study medicine you can apply
+                            to up to 4 medical schools via UCAS or you can apply directly to the medical schools. </p>
+                        <p> The medical profession guarantees you the chance to give something back to society and
+                            contribute to improving people’s lives. If you keep this at heart during the process of
+                            applying to medical schools and while you train to become a doctor, it will take you a long
+                            way in getting you where you want to be.</p>
+                        <p> The years of training and hours of study require dedication and strong motivation to get you
+                            through it. So it is important that you take your time and give it some thought whether this
+                            is the career path for you. Read books written by doctors about what it is really like to do
+                            their job. If you know someone who is a healthcare professional or a current medical student
+                            ask them questions about their job and the journey getting there. Watch a documentary about
+                            the NHS / doctors. There are many ways you can learn about what this career path will
+                            entail. </p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <div class="site-title">
+                        <h3>Types of medical courses</h3>
+                        <p class="afm-text-center"> There are 3 different types of medical courses offered by
+                            universities in the UK</p>
+                    </div>
+                </div>
+                <div class="col-md-6 order-md-2 d-flex align-items-center">
+                    <div class="right-content" data-animate="fadeInUp" data-animate-delay="0">
+                        <h4>Traditional courses</h4>
+                        <p> Traditional courses will dedicate your first two years of education to teaching you the
+                            scientific theory underlying medicine – this includes learning anatomy, physiology,
+                            pathology, pharmacology and more. After this, your remaining years will be spent learning
+                            clinical medicine during hospital and GP placements. During this second part of your medical
+                            education you will learn to apply everything you learnt in your first two years into
+                            clinical practice. This type of course would best suit students who prefer to have all the
+                            knowledge they need before learning to apply it practically. </p>
+                    </div>
+                </div>
+                <div class="col-md-6 order-md-1">
+                    <div class="left-img">
+                        <img src="{% static 'assets/img/content-img/traditional-medical-course-in-uk.png' %}"
+                            class="img-fluid" alt="Get an unbiased view" title="Get an unbiased view" width="620" height="403" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-right-content bg-1 ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 order-md-1 d-flex align-items-center">
+                    <div class="right-content" data-animate="fadeInUp" data-animate-delay="0">
+                        <h4>Integrated courses</h4>
+                        <p> Integrated medicine courses are different to traditional courses in that you will be exposed
+                            to the clinical environment from the very beginning of your course. In this type of course,
+                            you will learn the scientific background of medicine while simultaneously learning to apply
+                            that knowledge in a clinical setting. This type of course would best suit students who
+                            prefer to learn and apply knowledge at the same time and who would like to be exposed to the
+                            clinical environment from early on in their course. </p>
+                    </div>
+                </div>
+                <div class="col-md-6 order-md-1">
+                    <div class="left-img">
+                        <img src="{% static 'assets/img/content-img/integrated-medical-course-in-uk.png' %}"
+                            class="img-fluid" alt="Integrated Medical Course In Uk" title="Integrated Medical Course In Uk" width="620" height="403" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-right-content ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 order-md-2 d-flex align-items-center">
+                    <div class="right-content" data-animate="fadeInUp" data-animate-delay="0">
+                        <h4>Problem-based Learning courses</h4>
+                        <p> PBL course are unique in that they strongly focus on self-directed learning and
+                            problem-solving. Like traditional courses you will learn the scientific theory behind
+                            medicine before exposure to the clinical setting. In this type of course you would work in
+                            small groups alongside a tutor to solve hypothetical clinical scenarios – thus in this way
+                            your pre-clinical education would be very clinically-focused and patient-oriented. Only a
+                            small handful of universities offer this type of medical course because it is a very modern
+                            approach to learning. </p>
+                    </div>
+                </div>
+                <div class="col-md-6 order-md-1">
+                    <div class="left-img">
+                        <img src="{% static 'assets/img/content-img/problem-based-Learning-medical-course-in-uk.png' %}"
+                            class="img-fluid" alt="Problem Based Learning Medical Course In Uk" title="Problem Based Learning Medical Course In Uk" width="620" height="403" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-right-content bg-1 ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 order-md-1 d-flex align-items-center">
+                    <div class="right-content" data-animate="fadeInUp" data-animate-delay="0">
+                        <h4>Team-Based Learning Courses</h4>
+                        <p> Team Based Learning (TBL) has become more popular in recent times with medical schools. It
+                            is a form of blended learning and provides an alternative to PBL as described above. As the
+                            name suggests, medical students gain experience of working in a team to solve clinical
+                            problems. There are a number of advantages to this approach including, encouraging
+                            pre-learning by medical students before meeting in the teams (of usually 5-6). It also
+                            encourages peer-learning, bringing a range of diverse views and methods of learning to be
+                            exchanged. </p>
+                        <p> One of the newest medical schools in the UK to adopt TBL right from the first year is <a
+                                href="{% url 'administration:studying_medicine_at_brunel_university_london' %}"
+                                class="afm-link"> Brunel Medical School</a> , opening its door to its first students in
+                            September 2022. </p>
+                    </div>
+                </div>
+                <div class="col-md-6 order-md-1">
+                    <div class="left-img">
+                        <img src="{% static 'assets/img/content-img/team-based-learning-courses.png' %}"
+                            class="img-fluid" alt="Team Based Learning Courses" title="Team Based Learning Courses" width="620" height="403" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <p>
+                            <span class="font-weight-600"> Intercalated degree: </span> An intercalated medical degree
+                            is offered by some medical schools in which you study a specific area of interest for one
+                            additional year in the middle of your medicine degree. This intercalated degree means you
+                            obtain a BA or BSc (or equivalent) in addition to your medical degree in the end. At some
+                            medical schools intercalating is compulsory while at others this is optional.
+                        </p>
+                        <p> This is just an overview of UK medical schools and you will need much more information to
+                            help you pick the right universities to apply to. It is important that you not only visit
+                            the medical school websites but also to speak to current students at these various
+                            universities to get an idea from them of what their medical school is like. </p>
+                        <p> Book a free discovery call now by registering here, and we can connect you with medical
+                            school application mentors that suit you.</p>
+                        <p> Before applying to medical schools you also need to know what they will require from you.
+                            This will help you to not only choose the right medical school for you but also to prepare
+                            for the UK medicine application process. </p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <div class="site-title">
+                        <h3>Entry requirements for UK medical schools</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <div class="grade-requirments">
+                        <p> To apply for British Medical Schools, an applicant would require the following:</p>
+                        <ul class="grade-li">
+                            <li> Minimum grades of AAA-AAB at A-level or usually at least a minimum of 36 points overall
+                                if you do International Baccalaureate (IB). (Note: these requirements can vary during
+                                the UCAS Clearing Period)</li>
+                            <li> Most UK medical schools require that you have studied Chemistry and Biology would also
+                                be a strong advantage.</li>
+                            <li> Studying another science (Physics or Physical Science) or Mathematics may also be
+                                required. </li>
+                            <li> Studying an Arts subject or Modern Language may also be accepted by some medical
+                                schools. </li>
+                            <li> Good grades in GCSE (or equivalent) in at least Mathematics, Science and English in
+                                addition to the other subjects you studied would help make you a competitive applicant.
+                            </li>
+                        </ul>
+                    </div>
+                    <article>
+                        <p> But it is important that you visit the websites of the medical schools you are interested in
+                            applying to and find out the specific subjects and grades that they require of their
+                            applicants since these do vary between universities. </p>
+                        <p> Visit <a href="{% url 'administration:medical_school_admissions_tests' %}"
+                                class="afm-link"> Admissions Tests at
+                                UK Medical schools</a> to find out more</p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p> Start your application journey to university and join a fast-growing<br> global community of
+                            students by searching for a mentor now </p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:contact_us' %}" class="theme-btn"> Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main> {% endblock %}
+{% block js %}
+<script> $(document).ready(function () { $(".london-uni").hide(); $("#londonuniversity").click(function () { $(".london-uni").toggle(); }); $(".collapse.show").each(function () { $(this).prev(".card-header").find(".fa").addClass("fa-minus").removeClass("fa-plus"); }); $(".collapse").on('show.bs.collapse', function () { $(this).prev(".card-header").find(".fa").removeClass("fa-plus").addClass("fa-minus"); }).on('hide.bs.collapse', function () { $(this).prev(".card-header").find(".fa").removeClass("fa-minus").addClass("fa-plus"); }); }); feather.replace()</script>
+{% endblock %}

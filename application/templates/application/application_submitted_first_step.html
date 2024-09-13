@@ -1,0 +1,109 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Application Submitted{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="#">Application Status</a></li>
+    </ol>
+</nav>
+<div class="page-header">
+    <h3 class="faq-title"><i data-feather="thumbs-up"></i> Well done! You now have 3 fantastic options:</h3>
+</div>
+<div class="row d-none d-lg-flex">
+    <div class="col-xl-4 col-md-6 col-sm-12 mb-3">
+        <div class="card h-100">
+            <div class="text-center p-5">
+                <h2 class="mb-3">Search Alumni</h2>
+                <img src="{% static 'assets/img/content-img/become-a-mentor.png' %}" alt="Become Alumni"
+                     class="img-fluid" width="500" height="500">
+                <p class="pt-3">Well done for completing the first 3 pages! You are now able to reach out to existing university
+                    students that can Mentor or tutor you.</p>
+
+                <a href="{% url 'administration:search_mentors_twfl' %}" class="btn btn-outline-indigo rounded-pill">Search Alumni</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-md-6 col-sm-12 mb-3">
+        <div class="card h-100">
+            <div class="text-center p-5">
+                <h2 class="mb-3">Send Message</h2>
+                <img src="{% static 'assets/img/content-img/get-in-touch.png' %}" alt="Get In Touch" class="img-fluid"
+                width="500" height="500">
+                <p class="pt-3">Alternatively, please message the Team and TAG on <img src="{% static 'email-img/whatsapp.png' %}"
+                                                                          alt="whatsapp" title="whatsapp" width="25"> if
+                    you would like to discuss any aspect of your application.</p>
+
+                <a href="https://wa.me/447361901027" target="_blank" class="btn btn-outline-indigo rounded-pill">Send Message</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-md-6 col-sm-12 mb-3">
+        <div class="card h-100">
+            <div class="text-center p-5">
+                <h2 class="mb-3">Continue Application</h2>
+                <img src="{% static 'assets/img/content-img/medical-admission-blogs.png' %}" alt="Medical Admission"
+                     class="img-fluid" width="500" height="400">
+                <p class="pt-3">You may also continue to complete this application yourself - before allowing suitable universities
+                    to contact you!</p>
+                <a href="{% url 'application:application_training_twfl' app.slug %}"
+                   class="btn btn-indigo rounded-pill" >Continue Application</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-block d-lg-none faq-content application-faq-section">
+    <div id="accordion-1" class="accordion mt-4">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+               <h5 class="mb-0">
+                  <a data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" aria-controls="collapseOne">Continue Application</a>
+               </h5>
+            </div>
+            <div id="collapse_1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion-1">
+               <div class="card-body">
+                <p>You may also continue to complete this application yourself - before allowing suitable universities
+                    to contact you!</p>
+                    <a href="{% url 'application:application_training_twfl' app.slug %}"
+                       class="btn btn-indigo rounded-pill mt-3" >Continue Application</a>
+               </div>
+            </div>
+         </div>
+
+         <div class="card">
+            <div class="card-header" id="headingTwo">
+               <h5 class="mb-0">
+                  <a data-toggle="collapse" data-target="#collapse_2" aria-expanded="false" aria-controls="collapseTwo">Search Alumni</a>
+               </h5>
+            </div>
+            <div id="collapse_2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-1">
+               <div class="card-body">
+                <p>Well done for completing the first 3 pages! You are now able to reach out to existing university
+                    students that can Mentor or tutor you.</p>
+
+                <a href="{% url 'administration:search_mentors_twfl' %}" class="btn btn-outline-indigo rounded-pill mt-3">Search Alumni</a>
+               </div>
+            </div>
+         </div>
+
+         <div class="card">
+            <div class="card-header" id="headingThree">
+               <h5 class="mb-0">
+                  <a data-toggle="collapse" data-target="#collapse_3" aria-expanded="false" aria-controls="collapseThrheadingThree">Send Message</a>
+               </h5>
+            </div>
+            <div id="collapse_3" class="collapse" aria-labelledby="headingThree" data-parent="#accordion-1">
+               <div class="card-body">
+                <p>Alternatively, please message the Team and TAG on <img src="{% static 'email-img/whatsapp.png' %}"
+                    alt="whatsapp" title="whatsapp" width="25"> if
+                you would like to discuss any aspect of your application.</p>
+
+                <a href="https://wa.me/447361901027" target="_blank" class="btn btn-outline-indigo rounded-pill mt-3">Send Message</a>
+               </div>
+            </div>
+         </div>
+    </div>
+</div>
+{% endblock %}

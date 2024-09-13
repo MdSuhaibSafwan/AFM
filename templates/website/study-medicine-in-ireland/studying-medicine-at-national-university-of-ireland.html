@@ -1,0 +1,95 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}Medical Course at the National University of Ireland{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}Study Medicine, Nursing, Psychology from one of the reputed universities in England under the
+guidance of skilled professionals and practitioners.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/study-medicine-in-ireland/studying-medicine-at-national-university-of-ireland/
+{% endblock %}{% endblock %}
+ {% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">Apply for Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine_in_ireland' %}">
+                                Medical schools in Ireland</a>
+                            <span> >
+                            </span>National University of Ireland (NUI)
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">National University of Ireland (NUI)</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in Ireland</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <div class="row">
+                        <div class="col-md-12 col-xl-12">
+                            <article>
+                                <h2>Study Medicine at National University of Ireland (NUI)</h2>
+                                <p>The medical programme at NUI is a five/six-year course that aims to shape students
+                                    into professional and intelligent doctors with highly developed skills in
+                                    communication, teamwork, compassion and safe, ethical medical practice.</p>
+                                <p>The medical education provided at NUI takes on a systems-based approach to teaching
+                                    within their modern, integrated curriculum. Early on, students are taught the
+                                    fundamental biomedical science underlying medicine and learn about the body in
+                                    health, mechanismsof disease as well as the treatments for such clinical conditions.
+                                    In the latter years of the course, students develop advanced clinical skills and
+                                    massively expand their clinical knowledge and experience. clinical placements during
+                                    the course take place at hospitals such as Mayo University Hospital, Letterkenny
+                                    University Hospital, Portiuncula Hospital or Sligo University Hospital, in addition
+                                    to a range of GPs and primaryhealthcare environments.</p>
+                                <p>NUI offer a special study programme to allow students to explore their fascinations
+                                    and interests within the medical field. A chance to participate in a summer research
+                                    programme alongside a senior researcher is also given to students – this providesan
+                                    opportunity to develop research skills and to get a taste of what a career in
+                                    medical/clinical research is like. In the final year of the programme, students
+                                    prepare for their future role as a doctor througha transitioning programme and a
+                                    junior internship to allow them to start becoming familiar with their specific roles
+                                    and responsibilities.</p>
+                                <h3>Get mentored by medical students at Study Medicine at National University of Ireland
+                                    (NUI)</h3>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> globalcommunity of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,186 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}The Royal College of Surgeons in Ireland (RCSI){% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %} RCSI school of medicine offers pharmacy, physiotherapy & nursing and provides undergraduate and
+postgraduate levels of education and research activities.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/study-medicine-in-ireland/studying-medicine-at-royal-college-of-surgeons/
+{% endblock %}{% endblock %}
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">Apply for Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:uk_medical_schools' %}">UK Medical Schools</a>
+                            <span> >
+                            </span>Study medicine at RCSI
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">Study medicine at RCSI</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in Ireland</p>
+                    </div>
+                </div>
+                <!-- <div class="col-xl-6 col-md-6">
+<div class="right-icon-img-area">
+<img src="{% static 'website/img/content-img/studying-medicine-at-university/-of-cambridge.png' %}" class="img-fluid" alt="Why be an ambassador, when you can mentor?">
+</div>
+</div> -->
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <h2>Study Medicine at Royal College of Surgeons</h2>
+                        <p>RSCI is Ireland’s largest medical school that offers a five/six-year programme that offers
+                            early exposure to the clinical environment with a chance to develop basi cclinical skills
+                            from the very beginning.</p>
+                        <p>In the first year of the course, students learn the principles of biomedical
+                            science underlying medicine and about the body’s structure and function in a state of
+                            health.Teaching is delivered through lectures, tutorials, practicals, clinical skills
+                            training and some patient interaction opportunities. This includes learning anatomy from
+                            surgeons and other healthcare professional through cadaveric dissection.</p>
+                        <p>In the second year, the focus shifts to studying the body in pathological and diseased states.
+                            During this time students also begin to develop clinical skills through workshops, case-based
+                            learning activities and small-group tutorials.</p>
+                        <p>In the third year students will also have clinical placements in medicine, surgery
+                            and orthopaedics at various hospitals as well as undertake a Student Selected
+                            Component project and a research placement.</p>
+                        <p>In the final two years, students massively expand their clinical knowledge through extensive
+                            placements in different medical and surgical specialties. In this time students also hone the
+                            clinical, professional and communication skills that are gradually developed throughout the
+                            course.</p>
+                        <p>RCSI also offer students opportunities to develop research skills and explore medicine in the
+                            wider world through research electives, the RCSI Research Summer School, clinical electives
+                            and sub-internships.</p>
+                        <h3>Get mentored by medical students at Royal College of Surgeons</h3>
+                    </article>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-xl-8">
+                    <article>
+                        <p>
+                            <em> Hi aspiring medics!</em>
+                        </p>
+                        <p>I am Chang, a second-year medical student at the Royal College of Surgeons Ireland. RCSI was
+                            founded in 1784 and is home to Ireland's largest medical school and one of the
+                            most international medical schools in the world. Being a medical school with a long
+                            history, ensures that you get the best education and strong professional connections from
+                            the RCSI alumni family. Located in the heart of Dublin’s historic city centre, you can
+                            enjoy great convenience in your daily commute to campus and experience a city-campus
+                            student life. RCSI emphasises greatly on early patient contact there by giving you
+                            clinical experience from your very first week of school. If you are a student who prefers a
+                            city campus lifestyle, enjoys having hands on experience throughout your medical programme and
+                            wants world class education, RCSI is the place to be!</p>
+                        <p>大家好！我是 Royal College of Surgeons Ireland 的二年级医学生，你若有任何对于 RCSI 的疑问，欢迎透过这平台发问。</p>
+                        <p class="mb-5">
+                            <em> -by <strong>Chang, </strong>
+                                <a href="{% url 'administration:study_medicine_in_ireland' %}" class="afm-link">studying medicine in Ireland</a>,
+                                at Royal College of Surgeons in Dublin</em>
+                        </p>
+                    </article>
+                </div>
+                <div class="col-md-4 col-xl-4">
+                    <div class="afm-student-img d-flex justify-content-center">
+                        <img src="{% static 'website/img/content-img/chang-yu-qing.jpg' %}"
+                            class="img-fluid rounded-circle" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xl-4">
+                    <div class="afm-student-img d-flex justify-content-center">
+                        <img src="{% static 'website/img/content-img/shwe.jpg' %}" class="img-fluid rounded-circle"
+                            alt="">
+                    </div>
+                </div>
+                <div class="col-md-8 col-xl-8">
+                    <article>
+                        <p>
+                            <em> Hello everyone,</em>
+                        </p>
+                        <p>I am Shwe from Myanmar (formerly known as Burma). I am a final year medical student of the
+                            5-year undergraduate program at RCSI (Royal College of Surgeons in Ireland). Growing up in
+                            one of the third world countries, I did not have a similar education background or social
+                            environment that most of my peers had. Studying medicine abroad for me was not very
+                            straightforward. Cliché to say that I have had cultural shocks and challenges,faced
+                            communication/ language barriers, etc. But at the end of the day, everything you are
+                            encountering every day, whether good or bad, is a life experience for you to learn. Great
+                            appreciation to be surrounded by a well diverse community of mature, kind, supportive and
+                            professional friends and colleagues at RCSI, which has helped me shapeinto a better
+                            individual!</p>
+                        <p>အကြံ ဉာဏ် များ တောင်း လိုပါ က ဆက်သွယ် နိုင်ပါတယ် :) နောင်တ ကို နောင် မှ
+                            မရအောင်အကောင်ဆုံးရလဒ်အတွက် ကြိုးစားရမယ်!</p>
+                        <p class="mb-5">
+                            <em> -by <strong>Shwe</strong> current medical student at RCSI, Dublin</em>
+                        </p>
+                    </article>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-xl-8">
+                    <article>
+                        <p>My name is Ananya and I am from Hyderabad, India. I am currently a 4th year medical student at
+                            RCSI, and over the last many years, Dublin has become my second home. Beingat RCSI as an
+                            international student has been an incredibly enriching experience so far.With its location
+                            in the heart of Dublin city, I have experienced the warmth,friendliness, and beauty of Irish
+                            culture, alongside studying what I am most passionate about. RCSI also has an extremely
+                            diverse student body, which has allowed me to experience cultures from all corners of the
+                            world in one place.</p>
+                        <p>We are taught by some of the most incredible minds in medicine all of whom harbour alove for
+                            teaching! We are also prepared for our careers from day one with early patient contact. RCSI
+                            heavily advocates for a good work-life balance and therefore brings withit a vibrant student
+                            life. The environment created by the students and faculty is one that is extremely helpful
+                            and encourages both, personal and professional growth and is therefore a fantastic place to
+                            start your career in medicine!</p>
+                        <p class="mb-5">
+                            <em>यदि आपके कोई प्रश्न हैं, तो मुझे आपसे बात करके खुशी होगी!</em>
+                        </p>
+                        <p class="mb-5">
+                            <em> -by <strong>Ananya, </strong> currently studying medicine in Ireland at the RCSI</em>
+                        </p>
+                    </article>
+                </div>
+                <div class="col-md-4 col-xl-4">
+                    <div class="afm-student-img d-flex justify-content-center">
+                        <img src="{% static 'website/img/content-img/ananya-reddy.jpg' %}"
+                            class="img-fluid rounded-circle" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> global community of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

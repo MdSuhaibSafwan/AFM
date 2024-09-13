@@ -1,0 +1,203 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}Medical Course at Keele University School of Medicine in UK{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %} Keele University is a School of Medicine, Nursing, and Midwifery. If you are interested in any
+of the disciplines, this University is the best choice{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%} https://applyformedicine.com/uk-medical-schools/studying-medicine-at-keele-university/
+{% endblock %}{% endblock %}
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">Apply for Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:uk_medical_schools' %}">UK Medical Schools</a>
+                            <span> >
+                            </span>Keele University
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">Keele University</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in England</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="right-icon-img-area">
+                        <div>
+                            <p style="text-align: right; margin-bottom: 0px;">
+                                <span>*</span>
+                            </p>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>Fees (International/Non-EU students): </td>
+                                        <td>£35,000 pa</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Interview Style: </td>
+                                        <td>MMI</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Course Structure: </td>
+                                        <td>Integrated</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <h2>Study Medicine at Keele University</h2>
+                        <p>Keele offers a five-year integrated medical course with a spiral curriculum combining learning
+                            through lectures with clinical contextualization, problem-based learning, practicals and early
+                            clinical exposure and skills teaching, etc. The medical programmeis divided into three
+                            phases.</p>
+                        <p>In phase one, during the first two years, students are taught the principles of
+                            medical science in terms of biomedical, pathological, behavioural and social sciences.
+                            Thisphase also offers unique integrated modules such as ‘Brain and Mind’,
+                            ‘Lifecourse’,‘Inputs and Outputs’, ‘Breath of Life’, etc. Student-Selected Components (SSCs)
+                            are alsooffered during these years.Before phase two, students have the opportunity to
+                            undertake an intercalated degreeto allow further exploration into field of interest to the
+                            student.</p>
+                        <p>During phase two, clinical education is expanded further through numerous clinical placements
+                            in hospitals, GPs and other healthcare settings. Clinical knowledge is broadened through
+                            further integrated units across different specialities such as MentalHealth, Elderly Care,
+                            Paediatrics, Women’s health, etc. Again, Student-Selected Components (SSCs) are offered
+                            within this phase.Before phase three, students have the option to work towards a further
+                            intercalated master’sdegree.</p>
+                        <p>The final phase focuses on teaching students to further apply their medical knowledge and
+                            enhance clinical experience in preparation for the Foundation programme. This includes
+                            experience working on-call, out-of-hours and on weekends as well undertaking a series of
+                            assistantships.</p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Get mentored by medical students at Keele University</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-xl-8">
+                    <article>
+                        <p>
+                            <em> Hi, my name is Dhrisha and I'm currently a first year medical student at Keele
+                                University. My journey to becoming a medical student has been a tough one but if you
+                                work hard, persevere and commit to your goals you will achieve them! I have completed a
+                                degree in Biomedical Science and a placement year in industry before starting medicine.
+                                All of my previous experience just made me more prepared and adamant that medicine is
+                                the career for me. It's never too late to start studying! I still remember the moment I
+                                received my confirmed place. It was the most surreal and amazing feeling after the
+                                exhausting journey through applications. Keele, in particular, had multiple steps
+                                through their application process and receiving good news at the end of it all was just
+                                amazing, words can't describe the feeling. My hard work had paid off!</em>
+                        </p>
+                        <p class="mb-5">
+                            <em> -by <strong>Dhrisha </strong>
+                                <a href="{% url 'administration:uk_medical_schools' %}"
+                                    class="afm-link">studying medicine in the UK</a>, Keele University</em>
+                        </p>
+                    </article>
+                </div>
+                <div class="col-md-4 col-xl-4">
+                    <div class="afm-student-img d-flex justify-content-center">
+                        <img src="{% static 'website/img/content-img/dhrisha.jpg' %}" class="img-fluid rounded-circle"
+                            alt="dhrisha" title="dhrisha" width="290" height="290" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="mb-5">*Please confirm all relevant information on this page with your medical school
+                        application mentor</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> global community of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal" id="login" tabindex="-1" role="modal" aria-labelledby="modal-label-3" aria-hidden="true">
+        <div class="modal-dialog modal-center modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                        <idata-feather="x-circle">
+                            </i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 col-xl-12">
+                            <form method="POST" id="afm-form" action="index/">
+                                <h4>Register Your Interest</h4>
+                                <div class="form-group" required>
+                                    <select name="ima_roll" class="form-control" required>
+                                        <option value="">I m a..</option>
+                                        <option value="Student">Student</option>
+                                        <option value="Parent">Parent</option>
+                                        <option value="Agent">Agent</option>
+                                        <option value="Mentor">Mentor</option>
+                                        <option value="University">University</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <input type="text" name="email" class="form-control border-right-0"
+                                        placeholder="Provide Your Email" required>
+                                    <span class="input-group-append bg-white border-left-0">
+                                        <span class="input-group-text bg-transparent">
+                                            <i data-feather="mail">
+                                            </i>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="d-flex justify-content-center my-5">
+                                    <input class="theme-btn" type="submit" name="send_message_btn" value="Register" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

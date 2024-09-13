@@ -1,0 +1,91 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title2 %}{% block title1 %}Online Safety{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}This Online Safety Policy must be read by all Users with consideration and agreement in conjunction with The Apply Group..{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2 %}https://applyformedicine.com/online-safety/{% endblock %}{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<article class="py-5 container policies">
+    <div class="site-breadcrub">
+                  <p>
+                     <a href="/">Apply for University </a>
+                     <span class=""> &gt;
+                     </span>
+                     <span>Online Safety</span>
+                  </p>
+               </div>
+
+    <div class="header-inner-wrapper">
+            <h1 class="border-bottom">Online Safety</h1>
+    </div>
+            
+            <h2 class="pt-3">Last updated 11/10/22</h2>
+
+            <p>This Online Safety Policy must be read by all Users with consideration and agreement in conjunction with The Apply Group Ltd.’s other Policies and <a href="{% url 'administration:terms_and_conditions' %}">Terms & Conditions</a>, which will provide context and definitions.</p>
+
+            <p><b>Introduction</b></p>
+
+            <p>This Online Safety Policy applies to The Apply Group Ltd’s digital Website(s), as defined in the Company Terms & Conditions,  connecting existing university students (Mentors/Tutors) with potential applicants (Students/Applicants) and their representatives (inc. parents, legal guardians, schools) as well as potential employers. When we refer to, “we, us or our” in this Online Safety Policy  then we are referring to:</p>
+
+            <ul class="list-style">
+                <li><b>The Apply Group Ltd.</b> (‘TAG’) with CRN: 12938105 has its registered office at: Suite 209, Mayfair Point, 34 South Molton Street, London W1K 5RG, United Kingdom.</li>
+            </ul>
+
+            <p><b>Safety Foundations</b></p>
+
+            <ul class="list-style">
+                <li>All communications between Users (inc. virtual lessons, meetings, messages or any  discussions) via the platform/Website(s) only.</li>
+                <li>Do not share any personal information that has not already been disclosed to Us as we cannot protect it in the same way</li>
+                <li>Our Terms and Conditions do not allow any contact (inc. virtual lessons, meetings, messages or any  discussions) between Users outside of Our platform(s)/Website(s).</li>
+                <li>We give preference to Tutors/Mentors who declare their DBS/CRB status and this information is displayed on the platform along with each Mentor/Tutor record. We do not check CRB/DBS checks; however, parents are advised to ask the Mentor/Tutor to verify this during their initial “discovery call(s)” session with potential Students/Applicants.</li>
+            </ul>
+
+            <p>Feedback about our Students/Applicants is reflected in our rating system and we encourage parents and schools to take advantage of this information when choosing a Mentor/Tutor for their particular child(re</p>
+
+
+            <h2>Online Platform Safety</h2>
+
+            <ul class="list-style">
+                <li>Start all booked sessions on time using a unique meeting link sent to the Students/Applicants email address provided at registration.</li>
+                <li>Use the waiting room so that nobody can enter without permission of the Mentor/Tutor.</li>
+                <li>Advisable to use Our virtual background when delivering each session – this will be provided to all Tutors/Mentors.</li>
+                <li>Use only my first names on my profile where possible• During breaks, put all Students/Applicants back into the waiting room</li>
+                <li>Remove and report anybody who is not authorised to be in the classroom</li>
+                <li>Not record the lessons without written permission from Us and the parent/guardian if the applicant is under 18 years old</li>
+                <li>Dress appropriately for the lesson</li>
+                <li>Ensure that my teaching space is well-lit</li>
+                <li>Consent to all communication between Users to be monitored by Us at random and with restriction.</li>
+            </ul>
+
+            <h2>Session Preparation and Delivery Recommendations</h2>
+
+            <ul class="list-style">
+                <li>Be ready to teach/mentor with well-prepared lessons/sessions and activities</li>
+                <li>Make sessions fun, engaging and interactive as per your Clients needs</li>
+                <li>Ensure all sessions are appropriate for the student age, skill level and desired to learn outcomes</li>
+                <li>Give all Students/Applicants equal opportunities to speak and take part in the class/activity</li>
+                <li>Not discriminate for any reason of age, gender, race, religion, sexual orientation or disability</li>
+                <li>Support learning and give feedback on student performance</li>
+                <li>Not record the lessons without written permission from Us and the parent/guardian if the applicant is under 18 years old.</li>
+                <li>Constantly monitor my performance and adjust the lessons as necessary</li>
+                <li>Keep progression in mind when planning lessons</li>
+                <li>Only give links to websites etc that I have checked are safe for Students/Applicants to use</li>
+                <li>Monitor the session constantly and deal with disruptions and other misbehaviours appropriately and sensitively</li>
+                <li>Set out clear expectations for both for the lesson and for the course</li>
+            </ul>
+
+            <h2>Contact Guidelines</h2>
+
+            <ul class="list-style">
+                <li>Only use your academic or professional email address if any authorised communication with Students/Applicants</li>
+                <li>Not attempt to contact Students/Applicants by any other means, including through any social media and by phone</li>
+                <li>Not accept any requests from Students/Applicants to connect on social media, in person or any other means, other than via Us and our</li>
+            </ul>
+
+            <h2>Safeguarding Responsibilities</h2>
+
+            <p>Please also read and adhere to Our <a href="{% url 'administration:safeguarding_policy' %}">Safeguarding Policy</a> and report any concerns to the Senior Management team where you feel neccessary.</p>
+</article>
+
+{% endblock %}

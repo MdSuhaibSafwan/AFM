@@ -1,0 +1,72 @@
+[
+  {
+    "model": "personal_information.tutoringwith",
+    "pk": 1,
+    "fields": {
+      "tutoring_with": "UCAT"
+    }
+  },
+  {
+    "model": "personal_information.tutoringwith",
+    "pk": 2,
+    "fields": {
+      "tutoring_with": "BMAT"
+    }
+  },
+  {
+    "model": "personal_information.tutoringwith",
+    "pk": 3,
+    "fields": {
+      "tutoring_with": "GAMSAT"
+    }
+  },
+  {
+    "model": "personal_information.tutoringwith",
+    "pk": 4,
+    "fields": {
+      "tutoring_with": "HPAT"
+    }
+  },
+  {
+    "model": "personal_information.tutoringwith",
+    "pk": 5,
+    "fields": {
+      "tutoring_with": "IMAT"
+    }
+  },
+  {
+    "model": "personal_information.tutoringwith",
+    "pk": 6,
+    "fields": {
+      "tutoring_with": "Personal Statement"
+    }
+  },
+  {
+    "model": "personal_information.tutoringwith",
+    "pk": 7,
+    "fields": {
+      "tutoring_with": "MMI / Interviews"
+    }
+  },
+  {
+    "model": "personal_information.tutoringwith",
+    "pk": 8,
+    "fields": {
+      "tutoring_with": "STEP"
+    }
+  },
+  {
+    "model": "personal_information.tutoringwith",
+    "pk": 9,
+    "fields": {
+      "tutoring_with": "TSA Oxford"
+    }
+  },
+  {
+    "model": "personal_information.tutoringwith",
+    "pk": 10,
+    "fields": {
+      "tutoring_with": "Oxbridge Preparation"
+    }
+  }
+]

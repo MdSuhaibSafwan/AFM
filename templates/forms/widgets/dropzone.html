@@ -1,0 +1,32 @@
+{% load static %}
+<div class='{{widget.attrs.class}} dropzone'>
+  <div class="dz-preview text-center m-4">
+    <h6 id="help_line">Drag & Drop or <a type="button">Click here</a> to upload image</h6>
+    {% if widget.value %}
+    <img class="dz-image m-2 rounded-circle" id="preview_{{ widget.name }}" src="{{widget.value}}" alt="" width="auto"/>
+    {% else %}
+      <img class="d-none" id="preview_{{ widget.name }}" src="" alt="" height="" width="auto"/>
+    {% endif %}
+  </div>
+  <div class="fallback">
+    <input id="{{ widget.attrs.id }}" type="file" name="{{ widget.name }}" class="form-control" accept="image/*">
+  </div>
+</div>
+{{ options|json_script:widget.attrs.class}}
+<script>
+  document.getElementById('{{ widget.attrs.id }}').addEventListener('change', function(){
+    let fileReference = document.getElementById('{{ widget.attrs.id }}').files && document.getElementById('{{ widget.attrs.id }}').files[0];
+
+    if(fileReference){
+        var reader = new FileReader();
+      reader.onload = (event) => {
+        document.getElementById('preview_{{ widget.name }}').src = event.target.result;
+        document.getElementById('preview_{{ widget.name }}').classList.remove("d-none");
+        document.getElementById('preview_{{ widget.name }}').classList.add("dz-image");
+        var myobj = document.getElementById("help_line");
+<!--        myobj.hide();-->
+      }
+      reader.readAsDataURL(fileReference);
+    }
+   })
+</script>

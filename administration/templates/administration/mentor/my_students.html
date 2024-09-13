@@ -1,0 +1,152 @@
+{% extends 'base/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+{% load administration_extras %}
+{% load static %}
+
+
+<div class="az-content pd-y-20">
+    <div class="container">
+        <div class="az-content-body">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-style1">
+                    <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+                    {% if request.user.user_type == 4 %}
+                    <li class="breadcrumb-item">My Student</li>
+                    {% endif %}
+                    {% if request.user.user_type == 0 or request.user.user_type == 1 %}
+                    <li class="breadcrumb-item">Students of Alumni {{mentor.admin.first_name}}
+                        {{mentor.admin.last_name}}</li>
+                    {% endif %}
+                </ol>
+            </nav>
+            {% if students %}
+            {% for x in students %}
+            {% for y in personal_info_list %}
+            {% if x.admin.slug == y.admin.user_slug %}
+            <div class="row row-sm mg-b-20 ">
+                <div class="col-12 col-md-12 col-lg-12">
+                    <div class="card card-dashboard-twentysix mg-b-10">
+                        <div class="card-body pd-30">
+                            <div class="row d-flex align-items-md-center">
+                                <div class="col-md-6 col-lg-4 col-xl-4">
+                                    <div class="afm-mentor-student-details pd-b-15 pd-t-15">
+                                        <div class="afm-mentor-student-img">
+
+                                            {% if x.admin.profile_pic %}
+                                            <img src="{{x.admin.profile_pic.url}}" alt="{{y.admin.first_name}}">
+                                            {% else %}
+                                            <img src="{% static 'images/default_profile.png' %}" alt="">
+                                            {% endif %}
+
+                                        </div>
+                                        <div class="mentor-content d-flex align-items-md-center">
+                                            <div>
+                                                <div class="pd-b-10">
+                                                    <h4>{{y.admin.first_name}}</h4>
+                                                </div>
+                                                {% if is_blocked %}
+                                                <button class="btn btn-rounded btn-sm remove-button" type="button">User
+                                                    is not available</button>
+
+                                                {% else %}
+                                                <a href="#"> <button
+                                                        class="btn btn-rounded btn-sm btn-indigo">Send me a
+                                                        messege</button></a>
+                                                {% if x.admin.application.all.first.status == 0 or
+                                                x.admin.application.all.first.status == 1 or
+                                                x.admin.application.all.first.status == 2 %}
+                                                <a
+                                                    href="{% url 'application:view_application_mentor_twfl' x.admin.application.all.first.id %}">
+                                                    <button class="btn btn-rounded btn-sm btn-indigo"
+                                                        style="margin-top:5px;">View Application</button></a>
+                                                {% else %}
+                                                <br>
+                                                <strong style="display:block;">Form is not submitted yet !!</strong>
+                                                {% endif %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4 col-xl-4">
+                                    <div class="pd-b-15 pd-t-15 ">
+                                        <div>
+                                            <div class="pd-b-5 pd-t-5">
+                                                <span class="tx-medium">Current Country:</span> <span
+                                                    class="country-flags"> {{y.admin.country.name}} <img
+                                                        src="{{y.admin.country.flag}}" alt=""> </span>
+                                            </div>
+                                            <div class="pd-b-5 pd-t-5">
+                                                <span class="tx-medium">Nationality:</span> <span class="country-flags">
+                                                    {{y.admin.country.name}} <img src="{{y.admin.country.flag}}" alt="">
+                                                </span>
+                                            </div>
+                                            <div class="pd-b-5 pd-t-5">
+                                                <span class="tx-medium">Spoken Languages:</span> <span>{{
+                                                    y.admin.spoken_languages.all|print_languages }}</span>
+                                            </div>
+                                            <div class="pd-b-5 pd-t-5">
+                                                <span class="tx-medium"> Level Of
+                                                    English:</span>{{y.level_of_english|getenglish_level}}
+                                            </div>
+                                            <div class="pd-b-5 pd-t-5">
+                                                <span class="tx-medium"> Current School/College:</span>
+                                                {{y.current_school_college}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4 col-xl-4">
+                                    <div class="pd-b-15 pd-t-15 ">
+                                        <div>
+                                            <div class="pd-b-5 pd-t-5">
+                                                <span class="tx-medium">Intake year:</span>
+                                                {{x.admin.application.first.intake_month|getmonth}}-{{x.admin.application.first.intake_year}}
+                                            </div>
+                                            <div class="pd-b-5 pd-t-5">
+                                                <span class="tx-medium">Subject Interest:</span>
+                                                {{y.area_of_study|getsubject}}
+                                            </div>
+                                            <div class="pd-b-5 pd-t-5">
+                                                <span class="tx-medium">Programme Level:</span>
+                                                {{y.programme_level|getenglish_level}}
+                                            </div>
+                                            {% if are_you_graduated == 1 %}
+                                            <div class="pd-b-5 pd-t-5">
+                                                <span class="tx-medium"> Last
+                                                    Qualification:</span>{{y.last_qualification}}
+                                            </div>
+                                            {% else %}
+
+                                            <div class="pd-b-5 pd-t-5">
+                                                <span class="tx-medium"> Studying At:</span>{{y.where_did_you_study}}
+                                            </div>
+                                            {% endif %}
+                                            <div class="pd-b-5 pd-t-5">
+                                                <span class="tx-medium"> Destination Country:</span>
+                                                {{y.study_destination}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif%}
+            {% endfor %}
+            {% endfor %}
+            {% else %}
+            <div style="text-align:center;">
+                <p>No Students Available !!!!</p>
+            </div>
+            {% endif%}
+        </div>
+        <!-- afm-content-body -->
+    </div>
+</div>
+
+
+{% endblock %}

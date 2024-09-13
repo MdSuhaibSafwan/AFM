@@ -1,0 +1,448 @@
+{% load static %}
+<link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" />
+<link href="{% static 'assets/css/fontawesome.min.css' %}" rel="stylesheet" />
+<link href="{% static 'assets/css/animate.css' %}" rel="stylesheet" />
+<!--<link rel="stylesheet" href="{% static 'assets/css/line-icon.css' %}">-->
+<link rel="stylesheet" href="{% static 'assets/css/select-2.css' %}">
+<!--<link rel="stylesheet" href="{% static 'website/css/custom.css' %}">-->
+<link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+<style>
+
+/* Added By Areeb START */
+@media (max-width: 600px) {
+    .about-links li {
+    font-size: 12px;
+    }
+}
+
+/* Added By Areeb END */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        /* display: none; <- Crashes Chrome on hover */
+        -webkit-appearance: none;
+        margin: 0;
+        /* <-- Apparently some margin are still there even though it's hidden */
+    }
+        .sticky-header{
+        display: none;
+    }
+    .cookie-notify-text > * {
+        width: 95%;
+    }
+    #cookie-inner-wrapper button {
+        white-space: nowrap;
+    }
+    #lt-cookie-overlay{
+      position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1031;
+        background: rgba(0, 0, 0, 0.4);
+        -webkit-animation-name: fade-in;
+        animation-name: fade-in;
+        -webkit-animation-duration: 0.4s;
+        animation-duration: 0.4s;
+    }
+    .not-active {
+        cursor: not-allowed;
+        pointer-events: none;
+        opacity: 0.5;
+    }
+
+    .select2-container--default .select2-selection--single {
+        background-color: #fff;
+        border: 1px solid #d6dcef;
+        border-radius: 4px;
+        padding: 13px 20px;
+        box-shadow: none;
+        width: 100% !important;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        top: 17px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        font-size: 15px;
+    }
+
+    span.select2 {
+        width: 100% !important;
+    }
+
+    #error-email {
+        display: none;
+    }
+
+    .invalid-feedback {
+        color: #dc3545 !important;
+    }
+
+    /********************* PHONE NUMBER FIELD VALIDATION ************************/
+    .phone_field .invalid-feedback {
+        display: block;
+    }
+
+    .invalid-feedback strong {
+        color: red;
+    }
+
+    .phone_number {
+        display: inline;
+        width: 49%;
+    }
+
+    .phone_field select,
+    .phone_field span.select2 {
+        /*display:inline;*/
+        width: 50.33% !important;
+        margin-right: 2px;
+    }
+
+    /*NEW CONTENT CHANGES 30-11-2021 */
+    .afm-icons-content {
+        padding: 150px 0 50px;
+    }
+
+    .journey_wrapper a h2 {
+        margin-top: 25px;
+        display: inline-block;
+    }
+
+    .search_form .student-mentors {
+        margin-bottom: 15px;
+    }
+
+    .header-inner-wrapper .parent-txt {
+        margin-bottom: 15px;
+    }
+
+    .search_form .heading-subtitle {
+        margin-bottom: 20px;
+    }
+
+    .journey_wrapper a h3 {
+        margin-top: 10px;
+        display: inline-block;
+    }
+
+    .header-inner-wrapper .heading-subtitle {
+        margin-bottom: 20px;
+    }
+
+    .page_hero-talents:hover .slider_card-item.for-hero-talents-slider:nth-child(1) {
+        -webkit-transform: translate3d(25%, 0, -19px);
+        transform: translate3d(18%, 0, -19px);
+    }
+
+    .page_hero-talents {
+    height: 430px;
+    display: inline-flex;
+    justify-content: center;
+}
+
+    .slider_card-item.for-hero-talents-slider:nth-child(2) {
+        -webkit-transform: translate3d(20%, 0, -8px);
+        transform: translate3d(18%, 0, -8px);
+    }
+
+    @media (min-width: 992px) and (max-width: 1024px) {
+        .search_form h1 {
+            font-size: 32px;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .journey_wrapper {
+            text-align: left;
+        }
+
+        .afm-icons-content {
+            padding: 0px 0 50px;
+        }
+        .theme-btn {
+          display: block;
+          margin: 0 auto;
+      }
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+        .search_form .student-mentors {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .first-link-ul {
+            margin-bottom: 0rem !important;
+        }
+
+        .journey_wrapper a h2 {
+            margin-top: 25px;
+            display: inline-block;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .afm-icons-content {
+            padding: 0px 0 50px;
+        }
+
+        .theme-btn {
+            display: block;
+            margin: 0 auto;
+        }
+        #cookie-inner-wrapper button {
+            white-space: nowrap;
+        }
+    }
+
+    @media (min-width: 320px) and (max-width: 767px) {
+        .sticky-header{
+            display: block;
+        }
+        .sticky-header {
+            width: 100%;
+            height: auto;
+            background-color: #fff;
+            text-align: center;
+            position: relative;
+            position: fixed;
+            top: 0;
+            overflow: hidden;
+            -moz-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            -webkit-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+            z-index: 9999;
+            padding: 5px 0;
+            box-shadow: 0 1px 25px rgb(0 0 0 / 10%);
+            visibility: hidden;
+        }
+            .visible-title {
+            visibility: visible;
+        }
+        .sticky-header-containt {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding:20px;
+        }
+        .sticky-header-containt p{
+            margin-bottom: 0;
+            text-align: left;
+            line-height: normal;
+            font-size: 14px;
+        }
+        .sticky-header-containt .theme-btn{
+            font-size: 13px;
+            padding: 9px 11px;
+        }
+
+        .afm-icons-content {
+            padding: 0px 0 50px;
+        }
+
+        /* Added By Areeb */
+        .search_form .student-mentors {
+            text-align: center;
+            margin-top: 0;
+            /* font-size: 16px; */
+        }
+        /* Added By Areeb */
+        .search_form .student-mentors li {
+            font-size: 18px;
+            word-spacing: 7px;
+        }
+
+        .journey_wrapper a h2 {
+            margin: 0;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .search_form h1 {
+            font-size: 25px;
+            margin-bottom: 5.5rem;
+        }
+
+        .theme-btn {
+            display: block;
+            margin: 0 auto;
+        }
+
+        .afm-join-area {
+            padding: 30px 0;
+        }
+
+        .header-inner-wrapper .heading-subtitle {
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .header-inner-wrapper .parent-txt {
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .high-lighted-txt {
+            font-size: 24px;
+        }
+    }
+
+    /************** Additional css ******************/
+
+    .h2-home {
+        font-size: 2rem;
+        font-weight: 300;
+    }
+
+    .background-dark {
+        font-weight: 500;
+        background-color: #141e42;
+        padding: 5px 0;
+        color: #fff;
+    }
+
+    .h3-home {
+        line-height: 40px;
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .h4-home {
+        line-height: 40px;
+        font-size: 22px;
+        font-weight: 400;
+    }
+
+    .mentorbookingleads-shadow-none,
+    .input-group,
+    .modal .form-group,
+    .option-tab {
+        box-shadow: none;
+    }
+
+@media only screen and (min-width: 1024px){
+    .left-journey-wrapper {
+        margin-top: 4.5em;
+        padding-left: 20px;
+    }
+    /* Added by Areeb */
+    .cont-fluid { 
+        background-image: url("/static/img/logo/tag-map.png");
+        background-repeat: no-repeat;
+    }
+}
+
+@media (max-width: 1024px) {
+    .cont-fluid {
+        /* background-image: url(/static/assets/img/header/slider.png);
+        background-repeat: no-repeat; */
+        background-color: rgb(251, 253, 255)
+    }
+}
+@media (min-width: 768px) and (max-width: 991px){
+.search_form h1 {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 300;
+    margin-bottom: 5rem;
+}
+.hero-mentor-slide{
+margin-top:10px;
+}
+}
+.page_hero-talents_cta {
+    height: calc(100% - -49px);
+}
+<!--COOKIES SECTION-->
+#cookie-inner-wrapper {
+  background-color: #333 !important;
+}
+
+#cookie-main-wrapper #cookie-inner-wrapper{
+  -webkit-animation-duration: 0.4s;
+  animation-duration: 0.4s;
+}
+#cookie-main-wrapper #cookie-inner-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: auto;
+  min-height: 48px;
+  padding: 16px;
+  margin: 0;
+  border-radius: 0;
+  overflow: hidden;
+  z-index: 1032;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  -webkit-animation-name: slide-up;
+  animation-name: slide-up;
+  background-color: #ffffff;
+  box-shadow: -1px 1px 20px 6px rgb(20 30 66 / 8%);
+}
+.cookie-notify-text > * {
+    color: #141e42;
+    line-height: 24px;
+}
+.cookie-notify-text h4{
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+.cookie-inner-wrapper .btn-primary{
+    background-color: #141e42;
+    color: #fff;
+}
+#cookie-main-wrapper #cookie-inner-wrapper{
+  flex-direction: column;
+}
+#cookie-main-wrapper #cookie-inner-wrapper{
+  font-size: 13px;
+}
+@media (min-width: 1024px) {
+  #cookie-main-wrapper #cookie-inner-wrapper {
+    z-index: 1032;
+    padding: 16px 100px;
+  }
+
+}
+@media (min-width: 600px){
+#cookie-main-wrapper #cookie-inner-wrapper{
+  flex-direction: row;
+  align-items: center;
+ }
+}
+@media (min-width: 600px) {
+  #cookie-main-wrapper .cookie-inner-wrapper-buttons {
+    margin-top: 0;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}
+#cookie-inner-wrapper button{
+  font-size: 14px;
+  background-color: #141e42;
+  color: #ffffff;
+}
+.font-weight-500{
+    font-weight:500 !important;
+}
+.star-rating .checked{
+    color: orange;
+}
+@media (max-width: 1024px) {
+.mentor-profile-img img {
+    height: auto;
+  }
+
+.about-links li {
+    font-size: 13px !important; 
+  }
+}
+</style>

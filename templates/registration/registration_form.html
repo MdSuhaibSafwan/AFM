@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+{% block title%}Registration-Page{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item">{{ title }}</li>
+        <li class="breadcrumb-item"><a href="javascript:history.back()">Go Back</a></li>
+
+    </ol>
+</nav>
+<form role="form" method="post" action="" enctype="multipart/form-data" >
+    <div>
+        <div class="row row-sm mg-b-20">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        {% crispy form %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-outline-indigo btn-rounded">Sign Up</button>
+    </div>
+</form>
+
+
+{% endblock %}
+{% block js %}
+
+<script>
+    $('#id_countries_available').select2();
+
+</script>
+{% endblock %}

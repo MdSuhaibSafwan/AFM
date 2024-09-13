@@ -1,0 +1,141 @@
+
+{% extends 'base/base.html' %}
+{% block title%}Personal Statement-Page{% endblock %}
+{% load crispy_forms_tags %}
+{% load administration_extras %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb breadcrumb-style1">
+    <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="#">Application</a></li>
+  </ol>
+</nav>
+{% include 'application/breadcrumb.html' %}
+<div class="card">
+  <div class="row">
+      <div class="col-12">
+        <div class="pd-lg-l-40 d-flex flex-column">
+
+                    <div class="wizard">
+                        <div class="content clearfix">
+                            <form role="form" method="post" enctype="multipart/form-data">
+
+                            <div class="consent">
+                                <h5>7. Personal Statement</h5>
+                                <div class="line-2"></div>
+                                <p class="consent-p"></p>
+                                {% if ps_exists %}
+                                        {% csrf_token %}
+                                        {{ formset.management_form|crispy}}
+                                        {% for form in formset %}
+                                        <h6>Personal Statement: {{ form.id.value|getinstitute }}</h6>
+                                        {% crispy form %}
+                                        {% endfor %}
+                                {% else %}
+                                    <p>You haven't selected any of the institutes, Please select institute(s) first in the consent form.</p>
+                                {% endif %}
+
+
+                                <div class="row ">
+                                    <div class="col-12">
+                                        <div class="app-footer-line"></div>
+                                        <div class="step-btn three-btn mg-t-20">
+                                            <div>
+                                                <a type="button" class="btn btn-outline-indigo btn-rounded"
+                                                   href="{% url 'application:application_references_twfl' app.slug %}"
+                                                   role="menuitem"> Previous
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <a type="button" class="btn btn-outline-indigo btn-rounded"
+                                                   href="{% url 'application:application_visa_history_twfl' app.slug %}"
+                                                   role="menuitem"> Skip & Continue </a>
+                                                {% if ps_exists %}
+                                                <button class="btn btn-outline-indigo btn-rounded"> Save & Continue
+                                                    <span class="iconify"
+                                                          data-icon="bi:arrow-right" data-inline="false"></span>
+                                                </button>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                      </div>
+                                    </div>
+                                  </div>
+                                                                    </form>
+
+                            </div>
+                        </div>
+
+
+        </div>
+      </div>
+  </div><!-- az-content-body -->
+</div>
+{% endblock %}
+{% block js %}
+<script>
+
+<!--function get_char_count(id,field_id){-->
+<!--    $('#'+id+' label').append('<span id="'+ id +'_word_count"'+'></span>');-->
+<!--  $('#'+field_id).on('keyup', function() {-->
+<!--    var words = 0;-->
+<!--    if ((this.value.match(/\S+/g)) != null) {-->
+<!--      words = this.value.replace(/ /g,'').length;-->
+<!--    }-->
+
+<!--    if (words > 4000) {-->
+<!--      this.value = this.value.substring(0, 4000);-->
+<!--    }-->
+<!--    else {-->
+<!--      var word_count = 4000-words;-->
+<!--       $('#'+id +'_word_count').text("( Char Left : " + word_count + " )");-->
+<!--    }-->
+<!--  });-->
+<!--}-->
+
+<!--get_char_count('div_id_form-0-personal_statement','id_form-0-personal_statement');-->
+<!--get_char_count('div_id_form-1-personal_statement','id_form-1-personal_statement');-->
+<!--get_char_count('div_id_form-2-personal_statement','id_form-2-personal_statement');-->
+
+// Personal statement validation
+function word_count(id){
+  $("#div_"+ id +" label").append("<span id='"+ id +"_word_count'></span>");
+  $("#"+ id).on('keyup', function() {
+    var words = 0;
+    if ((this.value.match(/\S+/g)) != null) {
+      words = this.value.match(/\S+/g).length;
+    }
+    if (words < 75) {
+        $("#div_" + id +" textarea")[0].setCustomValidity("Please add at least 75 words.");
+    }
+    else {
+        $("#div_" + id +" textarea")[0].setCustomValidity("");
+    }
+    if (words > 250) {
+      // Split the string on first 200 words and rejoin on spaces
+      var trimmed = $(this).val().split(/\s+/, 200).join(" ");
+      // Add a space at the end to make sure more typing creates new words
+      $(this).val(trimmed + " ");
+    }
+    else {
+      var word_count = 250-words;
+      $("#" + id + "_word_count").text("( Word Left : " + word_count + " )");
+    }
+  });
+}
+word_count('id_form-0-question_1');
+word_count('id_form-0-question_2');
+word_count('id_form-0-question_3');
+
+word_count('id_form-1-question_1');
+word_count('id_form-1-question_2');
+word_count('id_form-1-question_3');
+
+word_count('id_form-2-question_1');
+word_count('id_form-2-question_2');
+word_count('id_form-2-question_3');
+</script>
+{% endblock %}

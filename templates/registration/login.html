@@ -1,0 +1,214 @@
+{% extends 'registration/reg_base.html' %}
+{% block title1 %}{% block title2 %}Login now to start your application study medicine{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}Login and Start your medical school application now. Apply for medical schools in the UK, US, Canada, Australia, Europe and Ireland{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}https://applyformedicine.com/accounts/login/{% endblock %}{% endblock %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% load socialaccount %}
+{% block content %}
+<section class="header_area log-area bg-1">
+    <div class="container">
+        <div class="row">
+<!--            <div class="col-md-12">-->
+<!--                <div class="site-breadcrub">-->
+<!--                    <p><a href="">Apply for Medicine</a><span class=""> > </span><span>Login</span></p>-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="col-xl-12 col-md-12">
+                <div class="header-inner-wrapper">
+                    <h1 data-animate="fadeInUp" data-animate-delay="5" class="login-heading">Students and
+                        Alumni Login here</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<form id="login-form-1" method="post">
+    {% csrf_token %}
+    <section class="header_area ">
+        <div class="container">
+            <div class="row login-detail">
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="">
+                        <div class="login-left-side">
+                            <img src="{% static 'assets/img/login/login-img.png' %}" class="img-fluid" alt="login" title="login" width="376" height="286" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 d-flex align-items-center">
+                    <div class="login-right-side" id="login-form">
+                        <div class='alert alert-danger' role='alert' id='error-password' style="display:none;">Incorrect Password</div>
+                        <div class="text-center mb-4">
+                            <a href="#" class="google" data-toggle="modal"
+                               data-target="#google-signup-modal">
+                             <img src="{% static 'images/google-icon.png' %}" class="img-fluid" alt="google-icon" title="google-icon" width="20" height="20" loading="lazy">
+                             Login or Sign-up via Google
+                            </a>
+                        </div>
+                        <div>
+                            <h2 class="text-center">OR</h2>
+                            <p>Login via:</p>
+                        </div>
+                        <div class="input-group">
+                            <input name="username" type="text" class="form-control border-right-0"
+                                   placeholder="Your email" required>
+                            <span class="input-group-append bg-white border-left-0">
+                               <span class="input-group-text bg-transparent">
+                                <i data-feather="user"></i>
+                               </span>
+                           </span>
+                        </div>
+                        <div class="input-group">
+                            <input name="password" type="password" class="form-control border-right-0"
+                                   placeholder="Password" required>
+                            <span class="input-group-append">
+                           <span class="input-group-text bg-transparent">
+                           <i data-feather="eye" class="eye-open toggle-password"></i>
+<!--                           <i data-feather="eye-off" class="eye-close"></i>-->
+                           </span>
+                           </span>
+                        </div>
+                                                <!-- {{form|crispy}} -->
+                        <div class="frgt-pass">
+                            <p class="">Forgotten password? <a href="{% url 'password_reset' %}">Click</a></p>
+                        </div>
+                        <div class="login-btn">
+                            <button id="form-button" type="button" value="Login" class="theme-btn">Login</button>
+                            <p>Not Signed-up yet? <span><a href="{% url 'administration:registration' %}"> Register</a></span></p>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+<!-- Modal -->
+<div class="modal fade" id="google-signup-modal" tabindex="-1" role="dialog"
+                          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">
+                  Confirm Google Signup or Login</h5>
+              <button type="button" class="close" data-dismiss="modal"
+                      aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+           <div class="modal-body">
+               <div class="form-group form-check">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck3" required>
+                  <label class="form-check-label" for="exampleCheck3">
+                     By registering here You agree to our
+                     <a href="{% url 'administration:terms_and_conditions' %}" class="font-weight-bold"
+                        target="_blank"> Terms & Conditions </a> and
+                     <a href="{% url 'administration:privacy_notice' %}" class="font-weight-bold"
+                        target="_blank">Privacy Policy</a> and you are over the
+                     age of 15.</label>
+               </div>
+           </div>
+           <div class="modal-footer">
+               <a href="{% provider_login_url 'google' %}" id="google_signup" class="theme-btn not-active">
+                   Confirm & Submit
+               </a>
+           </div>
+      </div>
+  </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+$(function() {
+    $(':submit').dblclick(false);
+});
+$("input").keypress(function(event) {
+    if (event.which == 13) {
+        event.preventDefault();
+        $("#form-button").click();
+    }
+});
+// Password field validation
+// Check if two password field are equal
+$("#form-button").click(function(){
+  if($('input[name="password"]').val() == '' || $('input[name="username"]').val() == ''){
+    $("#error-password").show(500);
+    $("#error-password").html('Please fill all the field');
+    return false;
+  }
+  $("#error-password").hide(500);
+  var password = $('input[name="password"]').val();
+  var email = $('input[name="username"]').val();
+  var is_valid = false;
+  $.ajax(
+  {
+      type:"GET",
+      url: "{% url 'administration:check-username-password' %}",
+      data:{
+        email: email,
+        password: password,
+      },
+      success: function(response, event)
+      {
+        var message = response["message"];
+
+        if(message){
+            $("#error-password").show(500);
+            $("#error-password").html(message);
+        }
+        else{
+           $("#error-password").hide(500);
+           $('#login-form-1').submit();
+        }
+
+      }
+  });
+});
+
+// Check if email already exists on afu
+   function check_email_exists_on_afu(form_id) {
+      $(form_id + " input[name='username']").on('input', function () {
+         var email = $(this).val();
+         $.ajax(
+            {
+               type: "GET",
+               url: "{% url 'administration:get-email-exists-on-afu' %}",
+               data: {
+                  email: email,
+               },
+               success: function (response) {
+                  var email_exists_on_afu = JSON.parse(response["email_exists_on_afu"]);
+                  var message = response["message"];
+                  if (email_exists_on_afu) {
+                     $("#error-password").show(500);
+                     $("#error-password").html(message);
+                  }
+                  else {
+                     $("#error-password").hide(500);
+                  }
+               }
+            })
+      });
+
+   }
+   check_email_exists_on_afu('#login-form');
+   check_email_exists_on_afu('#login-form');
+
+// Show password
+$("body").on('click', '.toggle-password', function() {
+  $(this).toggleClass("eye eye-off");
+  var input = $("input[name='password']");
+  if (input.attr("type") === "password") {
+    input.attr("type", "text");
+    $(this).attr("class", "feather feather-eye-off eye-close toggle-password");
+  } else {
+    input.attr("type", "password");
+    $(this).attr("class", "feather feather-eye eye-open toggle-password");
+  }
+});
+$("#exampleCheck3").change(function () {
+  $('#google_signup').toggleClass('not-active');
+});
+</script>
+{% endblock %}

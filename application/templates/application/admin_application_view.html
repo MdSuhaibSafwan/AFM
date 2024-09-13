@@ -1,0 +1,2196 @@
+{% extends 'base/base.html' %}
+{% block title%}Application{% endblock %}
+{% load crispy_forms_tags %}
+{% load administration_extras %}
+{% load static %}
+{% block css %}
+<style>
+    .table-responsive h5{
+    text-align:center;
+    }
+
+    .line-2 {
+    margin-bottom: 20px;
+    }
+    .list-of-document{
+    margin-top: 20px;
+    }
+    .rejected{
+    text-align:center;
+    }
+    .reference-no p{
+    display:inline;
+    }
+    .modal-body form{
+    text-align:left;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="#">Application </a></li>
+        <li class="breadcrumb-item"><a href="javascript:history.back()">Back</a></li>
+    </ol>
+</nav>
+<div class="container">
+    <div class="row mg-b-10 mg-t-10">
+        <div class="col-sm-12 col-lg-12">
+            <div class="reference-no">
+                <p>{{ app.admin.user_type|getuser}} Reference no. : <span class="text-uppercase font-weight-bold">{{app.admin.slug}}</span></p>
+                |
+                <p>Application Reference no.: <span class="text-uppercase font-weight-bold ">{{app.slug}}</span></p>
+                {% if app.mentor %}
+                |
+                <p>Alumni Reference no. : <span class="text-uppercase font-weight-bold">{{app.mentor.admin.slug}}</span>
+                </p>
+                {% endif %}
+            </div>
+<!--            <div style="position:absolute; right:0;">-->
+                {% if not app.fill_form_permission %}
+<!--                <a class="btn btn-indigo btn-rounded" data-toggle="modal" data-target="#activate-mentor">-->
+<!--                    <i data-feather="check-circle"></i> Give Access to fill form-->
+<!--                </a>-->
+                {% else %}
+<!--                <a class="btn btn-danger btn-rounded" data-toggle="modal" data-target="#activate-mentor">-->
+<!--                    <i data-feather="x-circle"></i> Revoke Access to fill form-->
+<!--                </a>-->
+                {% endif %}
+<!--            </div>-->
+            <!-- Confirmation Modal -->
+            <div class="modal fade text-left" id="activate-mentor" tabindex="-1"
+                             role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" >
+                                Confirm</h5>
+                            <button type="button" class="close" data-dismiss="modal"
+                                    aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form method="post"
+                              action="{% url 'application:fill_application_form_permission_twfl' app.slug %}">
+                          {% csrf_token %}
+                            <div class="modal-body">
+                                <h5>Are you sure you want to do this action?</h5>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-rounded btn-indigo reject"
+                                        data-dismiss="modal">Close
+                                </button>
+                                <button type="submit" class="btn btn-rounded btn-indigo">
+                                    Confirm
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if final_selected %}
+
+    <div class="final-selected">
+        <div class="row mg-b-10 mg-t-10">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body tab-content-detail text-center">
+                            <h3>Final Selected</h3>
+                            <p>You have selected - <span class=" font-weight-bold">{{final_selected.offer.institute.institute_name}}</span>
+                            </p>
+                        <!--                                 <h6><i data-feather="clock"></i> Feb 10,2021 - 10:00 AM</h6>-->
+                        <!--                                 <h6><i data-feather="clock"></i> </h6>-->
+
+
+
+                        <ul>
+                            <li><strong>Amount Paid:</strong></li>
+                            <li><strong>Payment reference:</strong></li>
+                            <li><strong>Proof Of Payment:</strong></li>
+                            <li><strong>Payment Date</strong></li>
+                        </ul>
+                        <ul>
+                            <li>{{final_selected.amount_paid}} GBP</li>
+                            <li>{{final_selected.payment_reference}}</li>
+                            <li>Proof of Payment
+                                {% if final_selected.proof_of_payment %}
+                                <a href="{{final_selected.proof_of_payment.url}}"
+                                   class="pass-view" target="_blank">View this Document</a>
+                                {% endif %}
+                            </li>
+                            <li>{{final_selected.payment_date|date:"d/m/Y" }}</li>
+                        </ul>
+                        <br>
+                        {% if final_selected.approve_status == False %}
+                        <strong style="color:red">Your Details Are Not Genuine</strong>
+                        <div class="final-select-btn">
+                            <a href="#" data-toggle="modal" data-target="#confirm_select_form_edit">
+                                <button type="button" class="btn btn-az-primary submit-btn not-active"
+                                        id="final-select-button"
+                                        style="margin-top:0px;">Edit
+                                </button>
+                            </a>
+                        </div>
+                        <div class="modal fade text-left" id="confirm_select_form_edit" tabindex="-1"
+                             role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">
+                                            Edit Details & Confirm Again</h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form role="form" method="post" enctype="multipart/form-data"
+                                              action="{% url 'application:final_section_institute_detail_edit_twfl' final_selected.id %}">
+
+                                    <div class="modal-body">
+                                        {% crispy offer_final_selection_edit_form %}
+
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="exampleCheck1"
+                                                       required>
+                                                <p class="form-check-label" for="exampleCheck1">
+                                                    I Accept The Terms & Conditions.
+
+                                                </p>
+                                            </div>
+                                            <div class="modal-btn">
+                                                <button type="button" class="btn btn-rounded btn-indigo reject"
+                                                        data-dismiss="modal">Close
+                                                </button>
+
+                                                <button type="submit" class="btn btn-rounded btn-indigo">
+                                                    Update
+                                                </button>
+                                            </div>
+
+                                    </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if final_selected.approve_status == True  %}
+                        <strong style="color:green">Your Details Are Verified</strong>
+
+                        {% endif %}
+                        <p></p>
+                        <p><i data-feather="clock"></i> {{final_selected.created_at|date:"d/m/Y" }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+    {% if final_selection_dropdown %}
+     <div class="row mg-b-10 mg-t-10">
+    <div class="col-sm-12 col-lg-12">
+        <div class="final-select card ">
+                                <div class="card-body ">
+
+            <!-- <div class="dropdown">
+               <span class="dropdown-toggle btn-az-primary btn" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               Institute Name</span>
+               <div class="dropdown-menu tx-13" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
+                  <a class="dropdown-item" href="#">Sunaderland University</a>
+                  <a class="dropdown-item" href="#">Queen University</a>
+               </div>
+            </div> -->
+            <form role="form" id="" method="post" enctype="multipart/form-data"
+                  action="{% url 'application:final_section_institute_twfl' %}">
+                {% csrf_token %}
+                <div class="form-group mg-t-15 text-center">
+                    <p>Please select the institute from the list below where the tution fees deposit has been paid as
+                        per your unconditional offer letter *.</p>
+
+                     <select name="final_select" id="final_select" class="form-control institute-name" required>
+                                      <option value="" selected>Select One</option>
+                                      {% for i in final_selection_dropdown %}
+
+                                     <option value="{{i.id}}">{{i.institute.institute_name}}</option>
+
+                                      {% endfor %}
+                                  </select>
+
+
+                </div>
+                <div class="final-select-btn text-center">
+                    <a href="#" data-toggle="modal" data-target="#confirm_select">
+                        <button type="button" class="btn btn-az-primary submit-btn not-active" id="final-select-button"
+                                style="margin-top:0px;">Final Select
+                        </button>
+                    </a>
+                </div>
+                <!--                                <a href="#" data-toggle="modal" data-target="#detail{{instance.id}}">-->
+                <!--                                    <button class="btn btn-rounded btn-block btn-md btn-indigo">Confirm</button>-->
+                <!--                                </a>-->
+                <!-- Modal -->
+
+                <div class="modal fade" id="confirm_select" tabindex="-1"
+                     role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">
+                                    Add Details & Confirm</h5>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {% crispy offer_final_selection_form %}
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+                                    <p class="form-check-label" for="exampleCheck1">
+                                        I Accept The Terms & Conditions.
+
+                                    </p>
+                                </div>
+                                <div class="modal-btn">
+                                    <button type="button" class="btn btn-rounded btn-indigo reject"
+                                            data-dismiss="modal">Close
+                                    </button>
+
+                                    <button type="submit" class="btn btn-rounded btn-indigo">
+                                        Confirm
+                                    </button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+            </div>
+        </div>
+    </div>
+     </div>
+    {% endif %}
+    {% endif %}
+</div>
+</div>
+
+{% if app.status == 1 %}
+<div class="rejected">
+    <div class="container">
+        <div class="row mg-b-20">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 style="color:red">Application is Rejected</h3>
+                        <p></p>
+                        <a href="{% url 'application:review_submit_twfl' app.slug %}"
+                           class="btn btn-outline-indigo btn-rounded">
+                            Edit Application
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+
+<!-- --------------------------------------------TABLES-------------------------------------------------------------------- -->
+
+<div class="institute-name ">
+    <div class="row mg-b-20 ">
+        <div class="col-sm-12 col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive ">
+                        {% if direct_applications %}
+                        <table class="table table-hover mg-b-0">
+                            <thead>
+                            <tr>
+                                <th>Institute Name</th>
+                                <th>Course Name</th>
+                                <th>Offer Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for x in direct_applications %}
+                            <tr>
+                                <td>{{forloop.counter}}. {{x.institute.institute_name}}</td>
+                                <td>{{x.course_name}}</td>
+                                <td>
+                                    {% if x.offer_status == 0 %}
+                                    <span class="badge badge-pill ">Pending</span>
+                                    {% elif x.offer_status == 1 %}
+                                    <span class="badge badge-pill ">
+                                        Conditional
+                                        </span>
+                                    {% elif x.offer_status == 2 %}
+                                    <span class="badge badge-pill ">
+                                        Unconditional
+                                        </span>
+                                    {% elif x.offer_status == 3 %}
+                                    <span class="badge badge-pill ">
+                                        Unsuccessful
+                                        </span>
+                                    {% else %}
+                                    <span class="badge badge-pill ">
+                                        Pending
+                                        </span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        {% else %}
+                        <div class="response_msg d-flex justify-content-center align-items-center">
+                            <h5>Haven't applied to any of institutes</h5>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <!-- table-responsive -->
+        </div>
+        <div class="col-sm-12 col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive ">
+                        {% if institutes_offer %}
+                        <table class="table table-hover mg-b-0">
+                            <thead>
+                            <tr>
+                                <th>Institute Name</th>
+                                <th>View Response</th>
+                                <th>Course Name</th>
+                                <th>Offer Status</th>
+                                <!--                                {% if final_selected is None %}-->
+                                <!--                                <th>Final Selection</th>-->
+                                <!--                                {% endif %}-->
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for instance in institutes_offer %}
+                            <tr>
+                                <td>{{forloop.counter}}. {{instance.institute.institute_name}}</td>
+                                <td>
+                                    <a href="#" data-toggle="modal" data-target="#detail{{instance.institute.id}}"><i
+                                            data-feather="eye"></i></a>
+
+                                    <!-- Modal -->
+
+                                    <div class="modal fade" id="detail{{instance.institute.id}}" tabindex="-1"
+                                         role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">
+                                                        Accept/Reject {{instance.institute.institute_name}} Institute's Response</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+<!--                                                    <strong>-->
+<!--                                                        {% if instance.app_status_by_institute == 1 %}-->
+<!--                                                        Make a formal application-->
+<!--                                                        {% elif instance.app_status_by_institute == 2 %}-->
+<!--                                                        Request documents-->
+<!--                                                        {% elif instance.app_status_by_institute == 3 %}-->
+<!--                                                        interview-->
+<!--                                                        {% else %}-->
+<!--                                                        &#45;&#45;-->
+<!--                                                        {% endif %}-->
+<!--                                                    </strong>-->
+                                                    {% if instance.feedback_comment_admin %}
+                                                    <div class="alert alert-primary" role="alert">
+                                                        {{instance.feedback_comment_admin}}
+                                                    </div>
+                                                    {% else %}
+                                                    <div class="alert alert-warning" role="alert">
+                                                        Institute's feedback will be available soon...
+                                                    </div>
+                                                    {% endif %}
+
+                                                    {% if instance.offer_select %}
+                                                    <div class="alert alert-success" role="alert">
+                                                        You have already applied.
+                                                    </div>
+                                                    <div class="modal-footer" style="margin-top:10px;">
+                                                        <p><i data-feather="clock"></i>
+                                                            {{instance.offer_select_date|date:"d/m/Y" }}</p>
+                                                    </div>
+                                                    {% elif instance.offer_reject_reason is not None %}
+                                                     <div class="alert alert-danger" role="alert">
+                                                         You have rejected this offer
+                                                     </div>
+                                                    <div class="modal-footer" style="margin-top:10px;">
+                                                        <p><i data-feather="clock"></i>
+                                                            {{instance.offer_select_date|date:"d/m/Y" }}</p>
+                                                    </div>
+                                                    {% else %}
+                                                    <hr>
+                                                    <form role="form" method="post" enctype="multipart/form-data"
+                                                          action="{% url 'application:apply_for_institute_twfl' instance.id %}">
+                                                        {% csrf_token %}
+
+                                                        {% crispy personal_statement_form %}
+                                                        <div class="modal-btn">
+                                                            <!--                                                      <button type="button" class="btn btn-rounded btn-indigo reject" data-dismiss="modal">Close</button>-->
+
+                                                            <button type="submit" class="btn btn-rounded btn-indigo">
+                                                                Accept
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                    <hr>
+                                                    <form role="form" method="post" enctype="multipart/form-data"
+                                                          action="{% url 'application:apply_for_institute_offer_reject_twfl' instance.id %}">
+                                                        {% csrf_token %}
+                                                        <div class="modal-btn">
+                                                            {% crispy app_institute_reject_form %}
+                                                            <button type="submit"
+                                                                    class="btn btn-rounded btn-indigo remove-button">
+                                                                Reject
+                                                            </button>
+                                                        </div>
+                                                    </form>
+
+                                                    {% endif %}
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    {% if instance.course_name %}
+                                    {{instance.course_name}}
+                                    {% else %}
+                                    --
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if instance.offer_status == 0 %}
+                                    <span class="badge badge-pill warning">
+                                        Pending
+                                        </span>
+                                    {% elif instance.offer_status == 1 %}
+                                    <span class="badge badge-pill ">
+                                        Conditional
+                                        </span>
+                                    {% elif instance.offer_status == 2 %}
+                                    <span class="badge badge-pill ">
+                                        Unconditional
+                                        </span>
+                                    {% elif instance.offer_status == 3 %}
+                                    <span class="badge badge-pill ">
+                                        Unsuccessful
+                                        </span>
+                                    {% else %}
+                                    <span class="badge badge-pill warning">
+                                        Pending
+                                        </span>
+                                    {% endif %}
+
+
+                                </td>
+                                <!--                                {% if final_selected is None %}-->
+                                <!--                                <td>-->
+                                <!--                                    {% if instance.offer_status == 2 %}-->
+                                <!--                                    <a href="#" data-toggle="modal" data-target="#detail{{instance.id}}"><button class="btn btn-rounded btn-block btn-md btn-indigo">Confirm</button></a>-->
+                                <!--                                    &lt;!&ndash; Modal &ndash;&gt;-->
+
+                                <!--                                    <div class="modal fade" id="detail{{instance.id}}" tabindex="-1"-->
+                                <!--                                         role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">-->
+                                <!--                                        <div class="modal-dialog modal-dialog-centered" role="document">-->
+                                <!--                                            <div class="modal-content">-->
+                                <!--                                                <div class="modal-header">-->
+                                <!--                                                    <h5 class="modal-title" id="exampleModalLongTitle">-->
+                                <!--                                                        Confirmation</h5>-->
+                                <!--                                                    <button type="button" class="close" data-dismiss="modal"-->
+                                <!--                                                            aria-label="Close">-->
+                                <!--                                                        <span aria-hidden="true">&times;</span>-->
+                                <!--                                                    </button>-->
+                                <!--                                                </div>-->
+                                <!--                                                <div class="modal-body">-->
+
+                                <!--                                                    <p>Do you want to select this offer as your final selection. You may not able to reject it latter.</p>-->
+
+                                <!--                                                   <form role="form" id="" method="post" enctype="multipart/form-data" action="">-->
+                                <!--                                                        {% csrf_token %}-->
+                                <!--                                                       <div class="form-group form-check">-->
+                                <!--                                                            <input type="checkbox" class="form-check-input" id="exampleCheck1" required>-->
+                                <!--                                                            <p class="form-check-label" for="exampleCheck1">-->
+                                <!--                                                            I Accept The Terms & Conditions.-->
+
+                                <!--                                                            </p>-->
+                                <!--                                                        </div>-->
+                                <!--                                                        <div class="modal-btn">-->
+                                <!--                                                            <button type="button" class="btn btn-rounded btn-indigo reject" data-dismiss="modal">Close</button>-->
+
+                                <!--                                                            <button type="submit" class="btn btn-rounded btn-indigo">-->
+                                <!--                                                                Confirm-->
+                                <!--                                                            </button>-->
+                                <!--                                                        </div>-->
+                                <!--                                                    </form>-->
+
+                                <!--                                                </div>-->
+
+                                <!--                                            </div>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <!--                                    {% else %}-->
+                                <!--                                    - -->
+                                <!--                                    {% endif %}-->
+                                <!--                                </td>-->
+
+                                <!--                                {% endif %}-->
+
+
+                            </tr>
+
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        {% else %}
+                        <div class="response_msg d-flex justify-content-center align-items-center">
+                            <h5>Waiting for response !!</h5>
+                        </div>
+
+                        {% endif %}
+                    </div>
+                    <!-- table-responsive -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--**************************************** DOCUMNET UPLOAD SECTION ************************************-->
+<div class="document-uplode">
+    <div class="container">
+        <div class="row mg-b-20">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Document Upload</h5>
+                        {% if list_documents %}
+                            {% else %}
+                            Please upload any additional documents which you would like to share with us in support of your
+                            application. We will notify you if any additional documents are requested by institutes which
+                            you can also upload here.
+                            {% endif %}
+                        <div class="line-2"></div>
+                        <form action="{% url 'application:application_additional_document_twfl' app.id %}" method="post"
+                              role="form" enctype="multipart/form-data">
+                            {% crispy app_additional_documents_form %}
+                            <button type="submit" class="btn btn-az-primary submit-btn" style="margin-top:0px;">Upload
+                            </button>
+                        </form>
+
+                        <hr>
+                        <div class="list-of-document">
+                            <h5>List of Documents</h5>
+
+                            <div class="line-2"></div>
+
+                            <div class="table-responsive">
+                                {% if list_documents %}
+                                <table class="table table-hover mg-b-0">
+                                    <thead>
+                                    <tr>
+                                        <th>Document Type</th>
+                                        <th>Name</th>
+                                        <th>Uploaded by</th>
+                                        <th>Uploaded File Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    {% for x in list_documents %}
+                                    <tr>
+
+                                        <td> 
+{% if x.type %} {{x.type|getdocumenttype}} {% else %} {{x.doc_type }} {% endif %}</td>
+                                        <td>{{x.name}}</td>
+                                        <td> 
+{% if x.admin.user_type == 8 %}{{ x.admin.first_name }}
+{% else %}Admin{% endif %}</td>
+                                        <td>{{x.upload|getfilename}}</td>
+                                        <td><p><a href="{{x.upload.url}}" target="_blank" class="pass-view">View this Document</a></p>
+                                        </td>
+                                    </tr>
+
+                                    {% endfor %}
+
+                                    </tbody>
+                                </table>
+                                {% else %}
+                                You are not yet required to upload any additional documents.
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--************************************** Application Details ************************************-->
+
+<div class="row mg-b-20">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+<!--        <div class="pro-detail">-->
+<!--            <ul class="nav nav-pills nav-tabs mb-3" id="pills-tab" role="tablist">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link active" id="pills-consent-tab" data-toggle="pill" href="#pills-consent"-->
+<!--                       role="tab" aria-controls="pills-consent" aria-selected="true">Start</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" id="pills-personal-tab" data-toggle="pill" href="#pills-personal" role="tab"-->
+<!--                       aria-controls="pills-personal" aria-selected="false">Personal Info</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" id="pills-education-tab" data-toggle="pill" href="#pills-education" role="tab"-->
+<!--                       aria-controls="pills-education" aria-selected="false">Education History</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" id="pills-professional-tab" data-toggle="pill" href="#pills-professional"-->
+<!--                       role="tab" aria-controls="pills-professional" aria-selected="false">Professional-->
+<!--                        Training/certificate</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" id="pills-english-tab" data-toggle="pill" href="#pills-english" role="tab"-->
+<!--                       aria-controls="pills-english" aria-selected="false">English Language</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" id="pills-work-tab" data-toggle="pill" href="#pills-work" role="tab"-->
+<!--                       aria-controls="pills-work" aria-selected="false">Work Exp</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" id="pills-reference-tab" data-toggle="pill" href="#pills-reference" role="tab"-->
+<!--                       aria-controls="pills-reference" aria-selected="false">Reference</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" id="pills-statement-tab" data-toggle="pill" href="#pills-statement" role="tab"-->
+<!--                       aria-controls="pills-statement" aria-selected="false">Personal Statement</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" id="pills-visa-tab" data-toggle="pill" href="#pills-visa" role="tab"-->
+<!--                       aria-controls="pills-visa" aria-selected="false">Visa History</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" id="pills-requirement-tab" data-toggle="pill" href="#pills-requirement"-->
+<!--                       role="tab" aria-controls="pills-requirement" aria-selected="false">Additional Information</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+        <div class="pro-detail">
+            <ul class="nav nav-pills nav-tabs mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-consent-tab" data-toggle="pill" href="#pills-consent"
+                       role="tab" aria-controls="pills-consent" aria-selected="true">Start</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-personal-tab" data-toggle="pill" href="#pills-personal" role="tab"
+                       aria-controls="pills-personal" aria-selected="false">Personal Information</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-education-tab" data-toggle="pill" href="#pills-education" role="tab"
+                       aria-controls="pills-education" aria-selected="false">Academic Information</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-professional-tab" data-toggle="pill" href="#pills-professional"
+                       role="tab" aria-controls="pills-professional" aria-selected="false">Professional
+                        Training</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-english-tab" data-toggle="pill" href="#pills-english" role="tab"
+                       aria-controls="pills-english" aria-selected="false">English Language</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-work-tab" data-toggle="pill" href="#pills-work" role="tab"
+                       aria-controls="pills-work" aria-selected="false">Work Exp.</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-reference-tab" data-toggle="pill" href="#pills-reference" role="tab"
+                       aria-controls="pills-reference" aria-selected="false">Reference</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-statement-tab" data-toggle="pill" href="#pills-statement" role="tab"
+                       aria-controls="pills-statement" aria-selected="false">Personal Statement</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-visa-tab" data-toggle="pill" href="#pills-visa" role="tab"
+                       aria-controls="pills-visa" aria-selected="false">Visa History</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-requirement-tab" data-toggle="pill" href="#pills-requirement"
+                       role="tab" aria-controls="pills-requirement" aria-selected="false">Additional Information</a>
+                </li>
+            </ul>
+        </div>
+
+
+               <div class="tab-content-detail">
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-consent" role="tabpanel"
+                     aria-labelledby="pills-consent-tab">
+                    <div class="card">
+                        <div class="card-body">
+                            <!--                            <ul>-->
+                            <!--                                <li><strong>Course/Subject Interest:</strong></li>-->
+                            <!--                                <li><strong>Programme/Course name:</strong></li>-->
+                            <!--                                <li><strong>Intake month/year:</strong></li>-->
+                            <!--                                 {% if consent_additional.about_me %}-->
+                            <!--                                <li><strong>About Applicant:</strong></li>-->
+                            <!--                                {% endif %}-->
+                            <!--                            </ul>-->
+                            <!--                            <ul>-->
+                            <!--                                <li>{{consent_additional.subject|getsubject}}</li>-->
+                            <!--                                <li>{{consent_additional.program_level|getpost}}</li>-->
+                            <!--                                <li>{{consent_additional.intake_month|getmonth}}/{{consent_additional.intake_year}}</li>-->
+                            <!--                                {% if consent_additional.about_me %}-->
+                            <!--                                <li>{{consent_additional.about_me}}</li>-->
+                            <!--                                {% endif %}-->
+
+                            <!--                            </ul>-->
+                            <h5>Start</h5>
+                            <div class="line-2"></div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <p class="p-tag"><strong>Subject Interest:</strong></p>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p><span>{{consent_additional.subject|getsubject}}</span></p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <p class="p-tag"><strong>Program Level:</strong></p>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p><span>{{consent_additional.program_level|getpost}}</span></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <p class="p-tag"> <strong>Desired Course:</strong></p>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p><span>{{consent_additional.desire_course|getifnone}}
+                                </span></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <p class="p-tag"><strong>Study Destination:</strong></p>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p><span>{{consent_additional.study_destination_country|print_study_destination}}</span></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <p class="p-tag"><strong>Desired Intake:</strong></p>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p><span>{{consent_additional.intake_month|getmonth}} {{consent_additional.intake_year|getifnone}}
+                                </span></p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <p class="p-tag"><strong>Fees Affordability of Applicant:</strong></p>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p><span>{{consent_additional.fees_affordability}} GBP
+                                </span></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <p class="p-tag"><strong>Would you like to be considered for a
+                                        scholarship?:</strong></p>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p><span>{{consent_additional.scholarship_option|getyesnostatus}}
+                                </span></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <p class="p-tag"><strong>What is your level of English?:</strong></p>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p><span>{{consent_additional.level_of_english|getenglish_level}}
+                                </span></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <p class="p-tag"><strong>Excluded Institute Name(s):</strong></p>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>
+                                        <span>
+                                            {% for i in app.exclude_institutes.all  %}
+                                            {{forloop.counter}}.{{i}}
+                                            {% if forloop.counter < app.exclude_institutes.all.count %}, <br>
+                                                {% endif %} {% empty %} -- {% endfor%}
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                            {% if consent_additional.about_me %}
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <p class="p-tag"><strong>About Applicant:</strong></p>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p><span>{{consent_additional.about_me}}
+                                   </span></p>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="tab-pane fade" id="pills-personal" role="tabpanel" aria-labelledby="pills-personal-tab">
+                    <div class="row mg-b-20">
+                        <div class="col-lg-12 col-sm-12 col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Applicant's Personal Information</h5>
+                                    <div class="line-2"></div>
+                                    <!--                                    <ul>-->
+                                    <!--                                        <li><strong>Title: </strong></li>-->
+                                    <!--                                        <li><strong> Full Name: </strong></li>-->
+                                    <!--                                        <li><strong> Date of Birth:</strong></li>-->
+                                    <!--                                        <li><strong> Email: </strong></li>-->
+                                    <!--                                        <li><strong> Mobile No: </strong></li>-->
+                                    <!--                                        <li><strong> Nationality: </strong></li>-->
+                                    <!--                                        <li><strong> Gender: </strong></li>-->
+                                    <!--                                        <li><strong> Native Language: </strong></li>-->
+                                    <!--                                        <li><strong> Marital Status: </strong></li>-->
+                                    <!--                                        <li><strong> Next Kin Name: </strong></li>-->
+                                    <!--                                        <li><strong> Kin Relation with Student: </strong></li>-->
+                                    <!--                                        <li><strong> Kin Email: </strong></li>-->
+                                    <!--                                        <li><strong> Kin Phone No: </strong></li>-->
+                                    <!--                                    </ul>-->
+                                    <!--                                    <ul>-->
+                                    <!--                                        <li class="text-capitalize">{{basic_info.title}}</li>-->
+                                    <!--                                        <li>{{basic_info.first_name}} {{basic_info.surname}}</li>-->
+                                    <!--                                        <li>{{basic_info.date_of_birth|date:"d/m/Y"}}</li>-->
+                                    <!--                                        <li>{{basic_info.email}}</li>-->
+                                    <!--                                        <li>{{basic_info.mobile}}</li>-->
+                                    <!--                                        <li>{{basic_info.nationality}}</li>-->
+                                    <!--                                        <li>{{basic_info.gender|getgender}}</li>-->
+                                    <!--                                        <li>{{basic_info.native_languages.all|print_languages}}-->
+                                    <!--                                        </li>-->
+                                    <!--                                        <li>{{basic_info.marital_status|getmarital}}</li>-->
+                                    <!--                                        <li>{{basic_info.next_of_kin_name}}</li>-->
+                                    <!--                                        <li>{{basic_info.relationship_to_student}}</li>-->
+                                    <!--                                        <li>{{basic_info.next_of_kin_email}}</li>-->
+                                    <!--                                        <li>{{basic_info.next_of_kin_phone}}</li>-->
+                                    <!--                                    </ul>-->
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Full Name:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span class="text text-capitalize">{{basic_info.title}} {{basic_info.first_name}}
+{% if basic_info.middle_name %} {{basic_info.middle_name}} {% endif %} {{basic_info.surname}}
+                                        </span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Date of birth:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span class="text">{{basic_info.date_of_birth|date:"d/m/Y"}}
+                                        </span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Email:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span class="text">{{basic_info.email}}
+                                        </span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Contact Number:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span class="text">{{basic_info.mobile_number}}
+                                        </span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Nationality:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{basic_info.nationality.name}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Currently living in:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{basic_info.currently_living_in.name}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Gender:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span class="text">{{basic_info.gender|getgender}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Native Language(s):</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{basic_info.native_languages.all|print_languages}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Marital Status</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{basic_info.marital_status|getmarital}}</span></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Name of Applicant's Next of Kin:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span class="text">{{basic_info.next_of_kin_name}}
+                                        </span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Relationship to student:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span class="text">{{basic_info.relationship_to_student}}
+                                        </span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Next of kin email:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span class="text">{{basic_info.next_of_kin_email}}
+                                        </span></p>
+                                        </div>
+                                    </div>
+                                    {% if basic_info.next_of_kin_phone %}
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Next of kin phone:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span class="text">{{basic_info.next_of_kin_phone}}
+                                        </span></p>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mg-b-20">
+                        <div class="col-lg-12 col-sm-12 col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Applicant's Address Information</h5>
+                                    <div class="line-2"></div>
+                                    <!--                                    <ul>-->
+                                    <!--                                        <li><strong>Address Line 1: </strong></li>-->
+                                    <!--                                        <li><strong> Address Line 2: </strong></li>-->
+                                    <!--                                        <li><strong> City:</strong></li>-->
+                                    <!--                                        <li><strong> State: </strong></li>-->
+                                    <!--                                        <li><strong> Postcode: </strong></li>-->
+                                    <!--                                        <li><strong> Country: </strong></li>-->
+                                    <!--                                    </ul>-->
+                                    <!--                                    <ul>-->
+                                    <!--                                        <li>{{address.address_line_1}}</li>-->
+                                    <!--                                        <li>{{address.address_line_2}}</li>-->
+                                    <!--                                        <li>{{address.city}}</li>-->
+                                    <!--                                        <li>{{address.state}}</li>-->
+                                    <!--                                        <li>{{address.postcode}}</li>-->
+                                    <!--                                        <li>{{address.country.name}}</li>-->
+                                    <!--                                    </ul>-->
+
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Address Line 1:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span class="text">{{address.address_line_1}}
+                                        </span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Address Line 2:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span class="text">{{address.address_line_2|getifnone}}
+                                        </span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>City:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{address.city}}
+                                        </span></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>State:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{address.state|getifnone}}
+                                        </span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Pincode/Zipcode/Postal Code:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span class="text">{{address.postcode|getifnone}}
+                                        </span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Country Applicant is currently living in:</strong>
+                                            </p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{address.country.name}}</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mg-b-20">
+                        <div class="col-lg-12 col-sm-12 col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Applicant's Passport Information</h5>
+                                    <div class="line-2"></div>
+                                    <!--                                    <ul>-->
+                                    <!--                                        <li><strong>Passport Number: </strong></li>-->
+                                    <!--                                        <li><strong> Issuing Date: </strong></li>-->
+                                    <!--                                        <li><strong> Issuing Authority:</strong></li>-->
+                                    <!--                                        <li><strong> Place of Birth: </strong></li>-->
+                                    <!--                                        <li><strong> Current Passport: </strong></li>-->
+                                    <!--                                    </ul>-->
+                                    <!--                                    <ul>-->
+                                    <!--                                        <li>{{passport.passport_number}}</li>-->
+                                    <!--                                        <li>{{passport.issue_date|date:"d/m/Y"}}</li>-->
+                                    <!--                                        <li>{{passport.issuing_authority}}</li>-->
+                                    <!--                                        <li>{{passport.place_of_birth}}</li>-->
+                                    <!--                                        <li>Passport.pdf-->
+                                    <!--                                            {% if passport.passport %}-->
+                                    <!--                                            <a href="{{passport.passport.url}}"-->
+                                    <!--                                               class="pass-view" target='_blank'>View</a>-->
+                                    <!--                                            {% else %}-->
+                                    <!--                                            &#45;&#45;-->
+                                    <!--                                            {% endif %}-->
+                                    <!--                                        </li>-->
+                                    <!--                                    </ul>-->
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Passport Number:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span class="text">{{passport.passport_number}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Issue Date:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span class="text">{{passport.issue_date|date:"d/m/Y"}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Expiry Date:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span class="text">{{passport.expiry_date|date:"d/m/Y"}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Issue Authority:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span class="text">{{passport.issuing_authority}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Place of Birth:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{passport.place_of_birth}}</span></p>
+                                        </div>
+                                    </div>
+                                    {% if passport.passport %}
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Current Passport:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span class="text"><a
+                                                    href="{{passport.passport.url}}"
+                                                    target='_blank' class="pass-view" >View this Document</a>
+                                        </span></p>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="tab-pane fade" id="pills-education" role="tabpanel" aria-labelledby="pills-education-tab">
+                    <div class="row mg-b-20">
+                        <div class="col-lg-12 col-sm-12 col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Basic Education</h5>
+                                    <div class="line-2"></div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Are you currently studying?:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{basic_info.currently_studying|getyesnostatus}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>What is your most recent qualification?:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{basic_info.last_qualification}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Last school name:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{basic_info.current_or_last_school_name}}</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% for education in educations %}
+                        <div class="row mg-b-20">
+                        <div class="col-lg-12 col-sm-12 col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Applicant's Education {{forloop.counter}}</h5>
+                                    <div class="line-2"></div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Country Studied:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{education.country.name|getifnone}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Institute Name:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{education.institute_name}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>
+                                                {% if education.is_currently_studying == 1 %}
+                                                    Currently Studying:
+                                                {% else %}
+                                                    Qualification Achieved:
+                                                {% endif %}</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{education.qualification_achieved}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>
+                                                {% if education.is_currently_studying == 1 %}
+                                                    Grades Predicted:
+                                                {% else %}
+                                                    Grades Achieved:
+                                                {% endif %}</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{education.grades_achieved}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Course Duration:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>
+
+                                            {{education.course_duration_from_month|getmonth}} {{education.course_duration_from_year|getifnone}}
+                                            to
+                                            {{education.course_duration_to_month|getmonth}} {{education.course_duration_to_year|getifnone}}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Institute Email:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{education.institute_email|getifnone}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Institute Website</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span><a href="{% if education.institute_website %}{{ education.institute_website }}
+{% else %}#{% endif %}" target="_blank">{{education.institute_website|getifnone}}</a></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Institute Address:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{education.institute_address|getifnone}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Certificate:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            {% if education.certificate_doc_url%}
+                                            <p><span class="text">
+                                                <a
+                                                        href="{{education.certificate_doc_url.url}}"
+                                                        class="pass-view" target='_blank'>View this Document</a></span></p>
+                                            {% else %}
+                                            --
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Transcript:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            {% if education.transcripts_doc_url %}
+                                            <p><span class="text">
+
+                                                <a href="{{education.transcripts_doc_url.url}}"
+                                                   class="pass-view" target='_blank'>View this Document</a></span></p>
+                                            {% else %}
+                                            --
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="tab-pane fade" id="pills-professional" role="tabpanel"
+                     aria-labelledby="pills-professional-tab">
+                    {% for training in professional_training %}
+
+                    <div class="row mg-b-20">
+                        <div class="col-lg-12 col-sm-12 col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Applicant's Professional Training {{forloop.counter}}</h5>
+                                    <div class="line-2"></div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Training Certificate Name:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{training.certificate_name|getifnone}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Training Company/Institute:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{training.company_institute|getifnone}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Training Certificate Date:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span> 
+{% if training.certificate_date %}{{training.certificate_date|date:"d/m/Y"}}
+{% else %}--{% endif%}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Training Certificate:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            {% if training.certificate_url %}
+
+                                            <p><span class="text">
+                                     <a href="{{training.certificate_url.url}}"
+                                        class="pass-view" target='_blank'>View this Document </a></span></p>
+                                            {% else %}
+                                            --
+                                            {% endif %}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% empty %}
+                    No Data Found
+                    {% endfor %}
+                </div>
+
+                <div class="tab-pane fade" id="pills-english" role="tabpanel" aria-labelledby="pills-english-tab">
+                    <div class="row mg-b-20">
+                        <div class="col-lg-12 col-sm-12 col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>English Language</h5>
+                                    <div class="line-2"></div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Do you have a valid English language test certificate in place?:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{english_lan.have_valid_certificate|getyesnostatus}}
+                                            </span></p>
+                                        </div>
+                                    </div>
+                                    {% if english_lan.have_valid_certificate == 0 %}
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <p class="p-tag"><strong>Do you have a test booking date in the future?:</strong></p>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <p><span>{{english_lan.have_test_booking_date|getyesnostatus}}
+                                                </span></p>
+                                            </div>
+                                        </div>
+                                        {% if english_lan.have_test_booking_date == 1 %}
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <p class="p-tag"><strong>Certificate Name:</strong></p>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <p><span>{{english_lan.certificate_name|getifnone}}
+                                                    </span></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <p class="p-tag"><strong>Certificate Date:</strong></p>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <p><span> 
+{% if english_lan.certificate_date %}{{english_lan.certificate_date|date:"d/m/Y"}}
+{% else %}--{% endif%}
+                                                    </span></p>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% else %}
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Certificate Name:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{english_lan.certificate_name|getifnone}}
+                                            </span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Certificate Date:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span> 
+{% if english_lan.certificate_date %}{{english_lan.certificate_date|date:"d/m/Y"}}
+{% else %}--{% endif%}
+                                 </span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Listening (Score/Band):</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{english_lan.listening|getifnone}}
+                                            </span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Reading (Score/Band):</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{english_lan.reading|getifnone}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Writing (Score/Band):</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{english_lan.writing|getifnone}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Speaking (Score/Band):</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{english_lan.speaking|getifnone}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Overall:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{english_lan.overall|getifnone}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>English Language Certificate:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            {% if english_lan.certificate %}
+                                            <p><span class="text"><a
+                                                    href="{{english_lan.certificate.url}}" class="pass-view" target='_blank'>View this Document</a>
+                                  </span></p>
+                                            {% else %}
+                                            --
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="tab-pane fade" id="pills-work" role="tabpanel" aria-labelledby="pills-work-tab">
+
+                    {% for exp in experience %}
+
+                    <div class="row mg-b-20">
+                        <div class="col-lg-12 col-sm-12 col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Applicant's Work Experience {{forloop.counter}} </h5>
+                                    <div class="line-2"></div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Company or Employer name:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{exp.company_employer_name|getifnone}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Position:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{exp.position|getifnone}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Duration:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{exp.duration_from_month|getmonth}} {{exp.duration_from_year|getifnone}} to {{exp.duration_to_month|getmonth}} {{exp.duration_to_year|getifnone}}</span>
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Company Email:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{exp.company_email|getifnone}}</span></p></a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Company Phone:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{exp.company_phone|getifnone}}</span></p>
+                                        </div>
+                                    </div>
+                                     <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Website:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span> <a
+                                                    href="{% if exp.company_website %}{{exp.company_website}}
+{% else %}#{% endif %}" target="_blank">{{exp.company_website|getifnone}}</a></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    {% if exp.brief_description %}
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Brief Description:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{exp.brief_description}}</span></p>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+
+
+                </div>
+
+                <div class="tab-pane fade" id="pills-reference" role="tabpanel" aria-labelledby="pills-reference-tab">
+                    {% for ref in reference %}
+                        <div class="row mg-b-20">
+                            <div class="col-lg-12 col-sm-12 col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5>Reference {{forloop.counter}}</h5>
+                                        <div class="line-2"></div>
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <p class="p-tag"><strong>Referee Name:</strong></p>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <p><span>{{ref.referee_name|getifnone}}</span></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <p class="p-tag"><strong>Company/School Name:</strong></p>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <p><span>{{ref.company_or_school|getifnone}}</span></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <p class="p-tag"><strong>Referee's Position :</strong></p>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <p><span>{{ref.position|getifnone}}</span></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <p class="p-tag"><strong>Duration: </strong></p>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <p><span>{{ref.duration_from_month|getmonth}} {{ref.duration_from_year|getifnone}}
+                                                                        to
+                                                                        {{ref.duration_to_month|getmonth}} {{ref.duration_to_year|getifnone}}</span></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <p class="p-tag"><strong>Email:</strong></p>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <p><span>{{ref.email|getifnone}}</span></p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <p class="p-tag"><strong>Phone:</strong></p>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <p><span>{{ref.phone|getifnone}}</span></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <p class="p-tag"><strong>Website:</strong></p>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <p><span> <a
+                                                        href="{% if ref.website %}{{ref.website}}
+{% else %}#{% endif %}" target="_blank">{{ref.website|getifnone}}</a></span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <p class="p-tag"><strong>Country:</strong></p>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <p><span>{{ref.country.name|getifnone}}</span></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <p class="p-tag"><strong>Reference Photocopy:</strong></p>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                {% if ref.reference_upload %}
+                                                <p><span class="text"><a
+                                                        href="{{ref.reference_upload.url}}" class="pass-view" target='_blank'>View this Document</a>
+                                                </span></p>
+                                                {% else %}
+                                                --
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="tab-pane fade" id="pills-statement" role="tabpanel" aria-labelledby="pills-statement-tab">
+                    {% for ps in personal_statement %}
+                    <div class="row mg-b-20">
+                        <div class="col-lg-12 col-sm-12 col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>{% if ps.id|getinstitute %}
+                                        Personal Statement for {{ps.id|getinstitute}}
+                                        {% else %}Personal Statement{% endif %}</h5>
+                                    <div class="line-2"></div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag">
+                                                <strong>This personal statement will be viewed by universities so they
+                                                    can discover more about you. Please be advised not to include any
+                                                    personal contact details or names of any specific universities:
+                                                </strong>
+                                            </p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{ps.question_1|getifnone}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Why have you interested in this particular course or subject?:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{ps.question_2|getifnone}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag">
+                                                <strong>Tell us more about your interests, hobbies, and other experiences and activities you’ve participated in, which you think will help you to succeed in your studies with us:
+                                                </strong>
+                                            </p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{ps.question_3|getifnone}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Other Information:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{ps.other_information|getifnone}}</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p>Not available</p>
+                    {% endfor %}
+                </div>
+
+                <div class="tab-pane fade" id="pills-visa" role="tabpanel" aria-labelledby="pills-visa-tab">
+                    {% for study_destination_visa in visa %}
+                    <div class="row mg-b-20">
+                        <div class="col-lg-12 col-sm-12 col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Visa History of {{study_destination_visa.study_destination_country.code|getifneedtheartical}}{{study_destination_visa.study_destination_country.name}}</h5>
+                                    <div class="line-2"></div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong> 
+{% if request.user.user_type == 3 %}Have you{% else %}Has the Applicant{% endif %} Studied in{{ study_destination_visa.study_destination_country|getifneedtheartical }}
+                                                                {{study_destination_visa.study_destination_country.name}} Before?</strong>
+                                            </p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{study_destination_visa.have_you_studied_in_the_uk_before|getyesnostatus}}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    {% if study_destination_visa.have_you_studied_in_the_uk_before == 1 %}
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Duration:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{study_destination_visa.visa_duration_from_month|getmonth}} {{study_destination_visa.visa_duration_from_year|getifnone}} to {{study_destination_visa.visa_duration_to_month|getmonth}} {{study_destination_visa.visa_duration_to_year|getifnone}}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong> 
+{% if request.user.user_type == 3 %}Have you{% else %}Has the Applicant{% endif %} ever been refused entry into {{ study_destination_visa.study_destination_country|getifneedtheartical }}
+                                                                {{study_destination_visa.study_destination_country.name}}?</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{study_destination_visa.have_you_ever_been_refuse_entry_in_to_the_uk|getyesnostatus}}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong> 
+{% if request.user.user_type == 3 %}Have you{% else %}Has the Applicant{% endif %} ever been deported from {{ study_destination_visa.country|getifneedtheartical }}
+                                                                {{study_destination_visa.study_destination_country.name}}?</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p>
+                                                <span>{{study_destination_visa.have_you_ever_been_deported_from_the_uk|getyesnostatus}}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    {% if study_destination_visa.have_you_ever_been_deported_from_the_uk == 1 %}
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Provided reason:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{study_destination_visa.reason|getifnone}}</span></p>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p>Not available</p>
+                    {% endfor %}
+                </div>
+
+
+                <div class="tab-pane fade" id="pills-requirement" role="tabpanel"
+                     aria-labelledby="pills-requirement-tab">
+                    <div class="row mg-b-20">
+                        <div class="col-lg-12 col-sm-12 col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>Additional Information</h5>
+                                    <div class="line-2"></div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Do you have any learning disabilities or
+                                                difficulties?:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{consent_additional.learning_disabilities_or_difficulties|getyesnostatus}}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                     {% if consent_additional.learning_disabilities_or_difficulties == 1 %}
+                                    <div class="row">
+                                       <div class="col-lg-3">
+                                          <p class="p-tag"> <strong>Details:</strong></p>
+                                       </div>
+                                       <div class="col-lg-9">
+                                         <p><span>{{consent_additional.disabilities_text|getifnone}}</span></p>
+                                      </div>
+                                    </div>
+                                    {% endif %}
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Do you have any health conditions?:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{consent_additional.health_conditions|gethealthstatus}}</span></p>
+                                        </div>
+                                    </div>
+                                    {% if consent_additional.health_conditions == '1' %}
+                                    <div class="row">
+                                       <div class="col-lg-3">
+                                          <p class="p-tag"> <strong>Details:</strong></p>
+                                       </div>
+                                       <div class="col-lg-9">
+                                         <p><span>{{consent_additional.health_conditions_text|getifnone}}</span></p>
+                                      </div>
+                                    </div>
+                                    {% endif %}
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Do you have any criminal records?:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{consent_additional.criminal_records|getyesnostatus}}</span></p>
+                                        </div>
+                                    </div>
+
+                                     {% if consent_additional.criminal_records == 1 %}
+                                    <div class="row">
+                                       <div class="col-lg-3">
+                                          <p class="p-tag"> <strong>Criminal Records:</strong></p>
+                                       </div>
+                                       <div class="col-lg-9">
+                                         <p><span>{{consent_additional.records|getifnone}}</span></p>
+                                      </div>
+                                    </div>
+                                    {% endif %}
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>Additional Notes:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span> 
+{% if consent_additional.others %}{{consent_additional.others}}
+{% else %}--{% endif %}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>What is your ethnic origin?:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{consent_additional.ethnic_origin|getifnone}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>What is your religion or belief?:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{consent_additional.religion_or_belief|getifnone}}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <p class="p-tag"><strong>What is your sexual orientation?:</strong></p>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <p><span>{{consent_additional.sexual_orientation|getifnone}}</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!--**************************************** COMMENT SECTION ************************************-->
+
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <h5>Comments </h5>
+                <div class="line-2"></div>
+                <div class="comments">
+                    <div class="user-comments">
+
+
+                        {% for comment in open_comments %}
+                        {% if not comment.parent %}
+
+                        <div class="row ">
+                            <div class="col-sm-5 col-lg-1">
+                                <div class="gsd-img">
+                                    <!-- <img src="{{comment.app_admin.profile_pic.url}}" alt="alex" class="img-fluid"> -->
+                                    <img src="{% static 'images/default_profile.png' %}" alt="alex" class="img-fluid">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-7 col-lg-11 ">
+
+                                <h5>
+                                    {% if comment.app_admin.user_type == 7 %}
+                                        Comment received from Admin
+                                    {% else %}
+                                    {{comment.app_admin.first_name}}
+                                    {{comment.app_admin.last_name}}~{{comment.app_admin.user_type|getuser}}
+                                    {% endif %}
+                                </h5>
+                                <h6><i data-feather="clock"></i> {{ comment.created_at|date:"d/m/Y"}}</h6>
+                                <p>{{ comment.comment }}</p>
+                            </div>
+
+                        </div>
+
+                        {% for reply in comment.replies.all %}
+
+                        <div class="row">
+                            <div class="col-lg-1"></div>
+                            <div class="col-sm-5 col-lg-1">
+                                <div class="gsd-img">
+                                    <img src="{% static 'images/default_profile.png' %}" alt="alex" class="img-fluid">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-7 col-lg-10 ">
+                                <h5>
+                                    {% if reply.app_admin.user_type == 7 %}
+                                        Reply received from Admin
+                                    {% else %}
+                                    {{reply.app_admin.first_name}}
+                                    {{reply.app_admin.last_name}}~{{reply.app_admin.user_type|getuser}}
+                                    {% endif %}
+                                </h5>
+                                <h6><i data-feather="clock"></i> {{ reply.created_at|date:"d/m/Y"}}</h6>
+                                <p>{{reply.comment}}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                        <div class="col-rg-5 col-lg-12 ">
+                            <form action="{% url 'application:comment_reply_twfl' comment.id %}" method="post"
+                                  role="form">
+                                {% csrf_token %}
+                                <textarea id="" name="comment" class="form-control" rows="2"
+                                          placeholder="reply comment!"></textarea>
+                                <button type="submit" class="btn btn-az-primary submit-btn">Post Reply</button>
+                            </form>
+                        </div>
+                        <hr>
+
+                        {% endif %}
+                        {% empty %}
+                        No comments found !!
+                        </br>
+                        {% endfor %}
+
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-12">
+                                <form role="form" method="post"
+                                      action="{% url 'application:application_comments_save_twfl' app.id %}">
+                                    {% csrf_token %}
+                                    {{comment_form|crispy}}
+                                    <button class="btn btn-az-primary submit-btn" type="submit">Post Comment</button>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+// Personal Statement
+  $(document).ready(function() {
+  $('#div_id_personal_statement label').append('<span id="word_count"></span>');
+  $("#id_personal_statement").on('keyup', function() {
+    var words = 0;
+
+    if ((this.value.match(/\S+/g)) != null) {
+      words = this.value.match(/\S+/g).length;
+    }
+
+    if (words > 200) {
+      // Split the string on first 200 words and rejoin on spaces
+      var trimmed = $(this).val().split(/\s+/, 200).join(" ");
+      // Add a space at the end to make sure more typing creates new words
+      $(this).val(trimmed + " ");
+    }
+    else {
+<!--      $('#display_count').text(words);-->
+      var word_count = 200-words
+      $('#word_count').text("( Word Left : " + word_count + " )");
+    }
+  });
+});
+
+
+</script>
+
+<script>
+// Final selection
+$('#final_select').select2();
+
+if ($("#final_select option:selected").val() !== ''){
+    $('#final-select-button').toggleClass('not-active');
+ }
+
+$('#final_select').on('change', function () {
+    $('#final-select-button').toggleClass('not-active');
+});
+
+// Document Upload
+$('#id_type').select2();
+
+var value = $('option:selected', '#id_type').text();
+        if(value == "Other"){
+             $('.doc_type').show();
+             $('#id_type').removeAttr('required');
+             $('#id_doc_type').attr('required', 'required');
+        }
+        else{
+             $('.doc_type').hide();
+             $('#id_doc_type').removeAttr('required');
+             $('#id_type').attr('required', 'required');
+        }
+
+$('#id_type').change(function(){
+        var value = $('option:selected', this).text();
+        if(value == "Other"){
+             $('.doc_type').show();
+             $('#id_type').removeAttr('required');
+             $('#id_doc_type').attr('required', 'required');
+        }
+        else{
+             $('.doc_type').hide();
+             $('#id_doc_type').removeAttr('required');
+             $('#id_type').attr('required', 'required');
+        }
+  });
+
+// Reject Offer
+
+$('.specify_offer_reject_reason_div').hide();
+
+$(document).on('change', ".offer_reject_reason", function () {
+    if($(this).val()==='Other'){
+        $(this).closest('.modal-btn').find('.specify_offer_reject_reason_div').show();
+        $(this).closest('.modal-btn').find('.specify_offer_reject_reason').attr('required', 'required');
+
+    }else{
+        $(this).closest('.modal-btn').find('.specify_offer_reject_reason_div').hide();
+        $(this).closest('.modal-btn').find('.specify_offer_reject_reason').val('');
+        $(this).closest('.modal-btn').find('.specify_offer_reject_reason').removeAttr('required');
+    }
+})
+
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,116 @@
+{% extends 'base/base.html' %}
+{% load duration_filter %}
+{% block title %}Services{% endblock %}
+{% load administration_extras %}
+{% load static %}
+{% load widget_tweaks %}
+{% block css %}
+<style>
+    form {
+        display: flex;
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="#">Total Services</a></li>
+    </ol>
+</nav>
+<div class="row mr-b-20">
+    <div class="col-12 col-sm-12">
+        
+        <div class="add-new-app">
+            {% if request.user.user_type == 4%}
+            <a href="{% url 'bookings:MentorAddService' %}" id="add-new-institute">
+                <button type="submit" class="btn" style="color: rgb(0, 0, 0); font: 1em poppins ;">
+                    <span>+</span> Add new Service
+                </button>
+                <i data-feather="clipboard"></i>
+            </a>
+            {% else %}
+            <a href="{% url 'bookings:AddService' %}" id="add-new-institute">
+                <button type="submit" class="btn" style="color: rgb(0, 0, 0); font: 1em poppins ;">
+                    <span>+</span> Add new Service
+                </button>
+                <i data-feather="clipboard"></i>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div class="row row-sm mg-b-20">
+    <div class="col-sm-12 col-lg-12">
+        <div class="card card-table-one">
+            <h6 class="card-title">List of Services</h6>
+            <hr>
+            <div class="table-responsive">
+                {% if supe_list %}
+                <table class="table table-hover mg-b-0">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Active</th>
+                        <th>Approved</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for x in supe_list %}
+                    <tr>
+                        <td><a href="{% url 'bookings:EditService' x.pk %}"> <strong>{{x.title}}</strong> </a></td>
+                        <td><strong>{{x.is_active}}</strong></td>
+                        <td>{{ x.approved }}</td>
+                    </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+                {% elif list %}
+                <table class="table table-hover mg-b-0">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Active</th>
+                        <th>Approved</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for x in list %}
+                    <tr>
+                        <td> <strong>{{x.service.title}}</strong> </a></td>
+                        <td><strong>{{x.service.is_active}}</strong></td>
+                        <td>{{ x.service.approved }}</td>
+                    </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+                {% else %}
+                <div style="text-align:center;"><p>No Services Available !!!!</p></div>
+                {% endif%}
+            </div><!-- table-responsive -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    $('#id_admin__spoken_languages').select2();
+    var id;
+
+    function change_is_active(id) {
+        if (confirm('Do you really want to do this action')) {
+            $('#' + id).submit();
+        } else {
+            location.reload();
+        }
+    }
+</script>
+{% endblock %}

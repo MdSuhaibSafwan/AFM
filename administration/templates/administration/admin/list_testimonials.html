@@ -1,0 +1,147 @@
+{% extends 'base/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% load administration_extras %}
+{% load static %}
+{% load widget_tweaks %}
+{% block css %}
+<style>
+  form {
+    display: contents;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb breadcrumb-style1">
+    <li class="breadcrumb-item">
+      <a href="{% url 'administration:dashboard' %}">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item">
+      <a href="#">Total Testimonials</a>
+    </li>
+  </ol>
+</nav>
+<div class="row row-sm mg-b-10">
+  <form>
+    <div class="col-12 col-md-6 col-lg-2">
+      <div class="select2-box mb-2">
+        {% render_field form.mentor placeholder=form.mentor.label class='form-control' %} </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="select2-box mb-2">
+        {% render_field form.admin placeholder=form.admin.label class='form-control' %} </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-1">
+      <button type="submit" class="btn btn-indigo btn-block btn-rounded">
+        <i data-feather="search">
+        </i>
+      </button>
+    </div>
+  </form>
+</div>
+<div class="row row-sm mg-b-20">
+  <div class="col-sm-12 col-lg-12">
+    <div class="card card-table-one">
+      <h6 class="card-title">List of Testimonials</h6>
+      <hr>
+      <div class="table-responsive">
+        {% if list %} <table class="table table-hover mg-b-0">
+          <thead>
+            <tr>
+              <th>Alumni</th>
+              <th>User</th>
+              <th>How was your communication with your alumni?</th>
+              <th>How was your overall experience with our platform?</th>
+              <th>Will you recommend this alumni to others?</th>
+              <th>Will you recommend this platform to others?</th>
+              <th>Feedback</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for x in list %} <tr>
+              <td>
+                <strong>
+                  {{x.mentor.admin.first_name}} </strong>
+              </td>
+              <td>
+                <strong>
+                  {{x.admin.first_name}} ({{ x.admin.user_type|getuser }})</strong>
+              </td>
+              <td>
+                {{x.q1|getfeedback}}</td>
+              <td>
+                {{x.q2|getfeedback}}</td>
+              <td>
+                {{x.q3|getyesnostatus}}</td>
+              <td>
+                {{x.q4|getyesnostatus}}</td>
+              <td>
+                {{x.feedback}} </td>
+              <td>
+                <form method="post" action="{% url 'administration:change_testimonials_status_is_active_twfl' x.id %}"
+                  id="form-{{x.admin.id}}" onsubmit="">
+                  {% csrf_token %} <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="button-{{x.id}}"
+                      onchange="change_is_active('form-{{x.admin.id}}')" {% if x.status %}checked{% endif %}>
+                    <label class="custom-control-label" for="button-{{x.id}}">
+                      {% if x.status %}
+                      Published
+                      {% else %}
+                      Pending
+                      {% endif %}
+                    </label>
+                  </div>
+                </form>
+              </td>
+            </tr>
+            {% endfor %} </tbody>
+        </table>
+        {% else %} <div style="text-align:center;">
+          <p>No Testimonials Available !!!!</p>
+        </div>
+        {% endif%} </div>
+    </div>
+  </div>
+</div>
+<div class="">
+  <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+  <div class="d-flex justify-content-center">
+    <ul class="pagination pagination-circled">
+      {% if page_obj.has_previous %} <li class="page-item">
+        <a class="page-link" href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}">
+          <i data-feather="arrow-left">
+          </i>
+        </a>
+      </li>
+      {% endif %}
+      {% if page_obj.has_next %} <li class="page-item">
+        <a class="page-link" href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}">
+          <i data-feather="arrow-right">
+          </i>
+        </a>
+      </li>
+      {% endif %} </ul>
+  </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+  $('#id_mentor').select2({
+    placeholder: 'Select Alumni',
+    searchInputPlaceholder: 'Search'
+  }); $('#id_admin').select2({
+    placeholder: 'Select Feedback Provider',
+    searchInputPlaceholder: 'Search'
+  });
+  var id;
+  function change_is_active(id) {
+    if (confirm('Do you really want to do this action')) {
+        $('#' + id).submit();
+        }
+    else{
+        location.reload();
+    }
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,58 @@
+[
+  {
+    "model": "personal_information.spokenlanguage",
+    "pk": 4,
+    "fields": {
+      "language": "Mandarin"
+    }
+  },
+  {
+    "model": "personal_information.spokenlanguage",
+    "pk": 5,
+    "fields": {
+      "language": "Arabic"
+    }
+  },
+  {
+    "model": "personal_information.spokenlanguage",
+    "pk": 6,
+    "fields": {
+      "language": "Gujarati"
+    }
+  },
+  {
+    "model": "personal_information.spokenlanguage",
+    "pk": 8,
+    "fields": {
+      "language": "French"
+    }
+  },
+  {
+    "model": "personal_information.spokenlanguage",
+    "pk": 9,
+    "fields": {
+      "language": "Spanish"
+    }
+  },
+  {
+    "model": "personal_information.spokenlanguage",
+    "pk": 10,
+    "fields": {
+      "language": "Russian"
+    }
+  },
+  {
+    "model": "personal_information.spokenlanguage",
+    "pk": 11,
+    "fields": {
+      "language": "Dutch"
+    }
+  },
+  {
+    "model": "personal_information.spokenlanguage",
+    "pk": 12,
+    "fields": {
+      "language": "Urdu"
+    }
+  }
+]

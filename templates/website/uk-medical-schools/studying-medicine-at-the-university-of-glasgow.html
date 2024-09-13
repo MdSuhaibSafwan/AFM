@@ -1,0 +1,122 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}The University of Glasgow School of Medicine in Scotland{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %} Flourish your career by studying at the University of Glasgow School of Medicine. One of the
+best University to pursue Veterinary Medicine in Scotland, UK.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/uk-medical-schools/studying-medicine-at-the-university-of-glasgow/
+{% endblock %}{% endblock %}
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">Apply for Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:uk_medical_schools' %}">UK Medical Schools</a>
+                            <span> >
+                            </span>University of Glasgow
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">University of Glasgow</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in Scotland</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="right-icon-img-area">
+                        <div>
+                            <p style="text-align: right; margin-bottom: 0px;">
+                                <span>*</span>
+                            </p>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>Fees (International/Non-EU students): </td>
+                                        <td>£49,950</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Interview Style: </td>
+                                        <td>Traditional</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Course Structure: </td>
+                                        <td>Integrated</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <h2>Study Medicine at The University of Glasgow</h2>
+                        <p>Glasgow offers a five-year medical course with a spiral curriculumthat incorporateslectures,
+                            problem-based learning and small-group teaching as well as clinical placementsacross West
+                            Scotland. The course is divided into four phases.</p>
+                        <p>Phase one,which takes place during the first half of first year,involves learning
+                            theprinciples of biomedical science, developing basic clinical skills and clinical
+                            learningthrough visits to the A&E and GPs.</p>
+                        <p>During Phase two,which lasts for the remainder of first year and entire secondyear,students
+                            cover modules in anatomy, physiology, biochemistry and pharmacology amongothers through a
+                            systems-based approach. Vocational and professional studies also takeplace during the first
+                            two phases as well as development of clinical and communicationskills.</p>
+                        <p>In Phase three, during the first half of third year, students explore the body systemsfrom a
+                            pathophysiological point of view through small-group case-based teaching sessionswith
+                            clinical tutors. Clinical skills are also expanded further to includevital procedural skills
+                            in preparation for Phase four.</p>
+                        <p>Phase four lasts from the second half of the third year until midway through fifth year.The
+                            majority of clinical education principally takes place during this phase throughplacements
+                            at hospitals, GPs and other clinical settings. Students expand theirclinical knowledge
+                            through a number of specialist placements in disciplines such asPaediatrics, Obstetrics and
+                            Gynaecology, Psychiatry, etc.</p>
+                        <p>The final stage of the medical course involves Preparation for Practice (PfP) in
+                            whichstudents undertake a Foundation doctor shadowing programme along with lectures as
+                            partof their final training for their future role as a junior doctor.</p>
+                        <p>Students will also have the chance to undertake Student-Selected Components (SSCs) toallows
+                            them to study in any field of interest. Uniquely, Glasgow also offers twoelective periods
+                            during the summer of the third and fourth years in any specialty ofinterest to the student.
+                        </p>
+                        <h3>Get mentored by medical students at University of Glasgow</h3>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <p> * Please confirm all relevant information on this page with your medical school application mentor </p>
+    </div>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> globalcommunity of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

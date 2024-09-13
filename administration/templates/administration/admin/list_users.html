@@ -1,0 +1,244 @@
+{% extends 'base/base.html' %}
+{% block title %}List Parents{% endblock %}
+{% load widget_tweaks %}
+{% load administration_extras %}
+{% load static %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item">{{title}}</li>
+    </ol>
+</nav>
+{% if recruiter_search_form %}
+<form>
+    <div class="row row-sm mg-b-10">
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="select2-box mb-2">
+            {% render_field recruiter_search_form.work_type placeholder=recruiter_search_form.work_type.label class='form-control' %}
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-3">
+          <div class="select2-box mb-2">
+            {% render_field recruiter_search_form.email placeholder=recruiter_search_form.email.label class='form-control' %}
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-1">
+          <button type="submit" class="btn btn-indigo btn-block btn-rounded">
+            <i data-feather="search">
+            </i>
+          </button>
+        </div>
+    </div>
+</form>
+{% endif %}
+{% if form %}
+<form>
+    <div class="row row-sm mg-b-10">
+        <div class="col-sm-12 col-md-6 col-lg-3">
+          <div class="select2-box mb-2">
+            {% render_field form.keyword placeholder=form.keyword.label class='form-control' %}
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-3">
+          <div class="select2-box mb-2">
+            {% render_field form.email placeholder=form.email.label class='form-control' %}
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-1">
+          <button type="submit" class="btn btn-indigo btn-block btn-rounded">
+            <i data-feather="search">
+            </i>
+          </button>
+        </div>
+    </div>
+</form>
+{% endif %}
+{% if queryset %}
+{% for instance in queryset %}
+<div class="row row-sm mg-b-20 ">
+    <div class="col-12 col-md-12 col-lg-12">
+        <div class="card card-dashboard-twentysix mg-b-10">
+            <div class="card-body">
+                <div class="row d-flex align-items-md-center">
+                    <div class="col-md-6 col-lg-4 col-xl-4">
+                        <div class="afm-mentor-student-details pd-b-15 pd-t-15">
+<!--                            <div class="afm-mentor-student-img">-->
+<!--                                {% if instance.admin.profile_pic %}-->
+<!--                                <img src="{{instance.admin.profile_pic.url}}" alt="{{instance.admin.first_name}}">-->
+<!--                                {% else %}-->
+<!--                                <img src="{% static 'images/default_profile.png' %}" alt="{{instance.admin.first_name}}">-->
+<!--                                {% endif %}-->
+<!--                            </div>-->
+                            <div class="mentor-content d-flex align-items-md-center">
+                                <div>
+                                    <div class="pd-b-10">
+                                        <h4>{{instance.admin.first_name|getifnone}} {{instance.admin.last_name|getifnone}}</h4>
+                                        <span class="tx-medium">Total Applications:</span>
+                                        <span>{{instance.admin.id|gettotalsubmittedapplication }}</span><br>
+                                        <span class="tx-medium">Total Requested Applications:</span>
+                                        <span>{{instance.admin.id|gettotalrequestedapplication }}</span>
+                                        <form class="pd-t-10" method="post" id="form-{{instance.admin.id}}" onsubmit="">
+                                            {% csrf_token %}
+                                          <div class="custom-control custom-switch">
+                                            <input type="hidden" name="admin_id" value="{{instance.admin.id}}">
+                                            <input type="checkbox" class="custom-control-input" id="button-{{instance.admin.id}}"
+                                              onchange="change_is_active('form-{{instance.admin.id}}')" {% if instance.admin.is_active %} checked{% endif %}>
+                                            <label class="custom-control-label" for="button-{{instance.admin.id}}">
+                                              {% if instance.admin.is_active %}
+                                              Active{% else %}
+                                              Not Active{% endif %} User
+                                            </label>
+                                          </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 col-xl-4">
+                        <div class="pd-b-15 pd-t-15 ">
+                            <div>
+                                <div class="pd-b-5 pd-t-5">
+                                    <span class="tx-medium">Email:</span>
+                                    <span>{{instance.admin.email}}</span>
+                                </div>
+                                <div class="pd-b-5 pd-t-5">
+                                    <span class="tx-medium">Phone:</span>
+                                    <span>{{instance.phone_no|getifnone}}</span>
+                                </div>
+                                <div class="pd-b-5 pd-t-5">
+                                    <span class="tx-medium">Address:</span>
+                                    <span>{{instance.address|getifnone}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 col-xl-4">
+                        <div class="pd-b-15 pd-t-15 ">
+                            <div>
+                                <div class="pd-b-5 pd-t-5">
+                                    <span class="tx-medium">City:</span>
+                                    {{instance.city|getifnone}}
+                                </div>
+                                <div class="pd-b-5 pd-t-5">
+                                    <span class="tx-medium">State:</span>
+                                    {{instance.state|getifnone}}
+                                </div>
+                                <div class="pd-b-5 pd-t-5">
+                                    <span class="tx-medium">Pincode/Zipcode/Postal Code:</span>
+                                    {{instance.postcode|getifnone}}
+                                </div>
+                                <div class="pd-b-5 pd-t-5">
+                                    <span class="tx-medium">Country:</span> <span
+                                            class="country-flags">{{instance.country.name}} <img
+                                                src="{{instance.country.flag}}" alt=""></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="line-3">
+                <div class="last-edited">
+                  <div class="row">
+                     <div class="col-md-6 col-lg-6 col-xl-6 col-sm-6 text-left pd-l-30">
+                         <p><i data-feather="user"></i>{{instance.admin.user_type|getuser}} ID :
+                             <strong class="text-uppercase">{{instance.admin.slug}}</strong></p>
+                     </div>
+                     <div class="col-md-6 col-lg-6 col-xl-6 col-sm-6 text-right pd-r-30">
+                        <a href="#" class="btn btn-danger btn-rounded" data-toggle="modal"
+                           data-target="#delete-user-{{instance.admin.slug}}">
+                           <i data-feather="trash"></i> Delete User</a>
+                        {% if instance.admin.id|gettotalsubmittedapplication > 0 %}
+                        <a class="btn btn-rounded btn-indigo" href="{% url 'administration:view_applications_of_user_twfl' instance.admin.slug %}">
+                        <i data-feather="clipboard"></i> View Applications</a>
+                        {% endif %}
+                     </div>
+                  </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="delete-user-{{instance.admin.slug}}" tabindex="-1" role="dialog"
+                          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">
+                  Confirm</h5>
+              <button type="button" class="close" data-dismiss="modal"
+                      aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <form method="post"
+                action="{% url 'administration:delete_user_twfl' instance.admin.slug %}">
+            {% csrf_token %}
+            <input type="hidden" name="redirect" value="{{request.path}}">
+              <div class="modal-body text-left">
+                  <h5>Are you sure you want to do delete this {{instance.admin.user_type|getuser}} {{instance.admin.first_name}}?</h5>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-rounded btn-indigo reject"
+                          data-dismiss="modal">Close
+                  </button>
+                  <button type="submit" class="btn btn-rounded btn-indigo">
+                      Confirm
+                  </button>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+{% endfor %}
+{% else %}
+<div style="text-align:center;">
+    <p>No {{instance.admin.user_type|getuser}} Available !!!!</p>
+</div>
+{% endif %}
+<div class="">
+  <p>Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}</p>
+  <div class="d-flex justify-content-center">
+    <ul class="pagination pagination-circled">
+      {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}">
+          <i data-feather="arrow-left">
+          </i>
+        </a>
+      </li>
+      {% endif %}
+      {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}">
+          <i data-feather="arrow-right">
+          </i>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+  $('#id_admin__spoken_languages').select2();
+  var id;
+  function change_is_active(id) {
+    if (confirm('Do you really want to do this action')) {
+      $('#' + id).submit();
+    }
+    else{
+        location.reload();
+    }
+  }
+  $(document).ready(function () {
+    $('#id_work_type').select2({
+      placeholder: 'Choose Recruiter Type', searchInputPlaceholder: 'Search'
+    });
+  });
+</script>
+{% endblock %}

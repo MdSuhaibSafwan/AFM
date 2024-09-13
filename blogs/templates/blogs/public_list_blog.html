@@ -1,0 +1,105 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% load administration_extras %}
+{% load crispy_forms_tags %}
+{% load social_share %}
+{% block title1 %}{% block title2 %}Top Medical School Admission Blogs{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}Interested in studying medicine abroad? Read blogs about the best medical schools around the world from their current medical students.{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2 %}https://applyformedicine.com/med-school-blogs/{% endblock %}{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="mentor-skill-wrapper">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="site-breadcrub">
+                    <p>
+                        <a href="/">Apply for Medicine</a>
+                        <span class=""> >
+                            </span>
+                        <span>Blogs</span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-12">
+                <div class="header-inner-wrapper">
+                    <h1 data-animate="fadeInUp" data-animate-delay="5" class="animated fadeInUp visible">Medical school
+                        admission blogs</h1>
+                    <p>Medical students are some of the most resourceful students at university. Here are some resources
+                        some of our medical admission Alumni have put together.
+                        They are based on view and opinions before applying to medical school and also how these may
+                        have
+                        changed while studying.</p>
+
+                    <p>You can reach out to them for personal advice and as so many of them are experienced tutors, they
+                        can help you get the grades you need too!</p>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-12">
+                <div class="right-icon-img-area parent-img">
+                    <img src="{% static 'assets/img/content-img/medical-admission-blogs.png' %}"
+                         class="img-fluid" alt="Medical Admission Blogs" title="Medical Admission Blogs" width="500" height="500" loading="lazy">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12 col-md-12">
+                <div class="header-inner-wrapper">
+                    <p>Please note that these blogs are from small number of our medical school application Alumni.
+                        Once
+                        you have joined the TAG community, you will have access to Alumni from medical schools around
+                        the
+                        world. They will be able to Alumni and guide you and share their personal experiences (that they
+                        might not have added onto a blog) to help you optimise your application to medical school.</p>
+
+                    <p>You may have already applied and need assistance with interviews or MMI's and even choose which
+                        medical school to accept once you have received multiple offers!</p>
+                </div>
+            </div>
+        </div>
+        {% if post_list %}
+        <hr>
+        <div class="row blog-list">
+            {% for post in post_list %}
+            <div class="col-md-6 col-lg-4">
+                <div class="post-item border">
+                    <div class="post-item-wrap">
+                        <div class="post-image">
+                            <a href="{% url 'blogs:PostDetail' post.slug %}" target="_blank">
+                                <img alt="{{post.title}}" title="{{post.title}}" src="{% if post.feature_image %}
+                                            {{post.feature_image.url}}
+                                            {% else %}
+                                            {% static 'images\default_profile.png' %}
+                                            {% endif %}" height="122" width="401" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="post-item-description">
+                            <!--                                    <span class="post-meta-date">-->
+                            <!--                                        <i class="fa fa-calendar-o">-->
+                            <!--                                        </i>-->
+                            <!--                                        {{post.created_on}}</span>-->
+                            <h2 class="mb-2">
+                                <a href="{% url 'blogs:PostDetail' post.slug %}" target="_blank">
+                                    {{post.title|safe|slice:":50"}}
+                                    {% if post.title|length > 50 %}...{% endif %}</a>
+                            </h2>
+                            <p>
+                                {{post.sub_title|getifnone|slice:":82"}}
+                                {% if post.sub_title|length > 82 %}...{% endif %}
+                            </p>
+                            <a class="item-link" href="{% url 'blogs:PostDetail' post.slug %}" target="_blank">Read More
+                                <i
+                                        class="icon-chevron-right">
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

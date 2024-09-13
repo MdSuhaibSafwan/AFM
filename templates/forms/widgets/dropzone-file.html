@@ -1,0 +1,36 @@
+<div class='dropzone' id="{{widget.attrs.class}}">
+      {% if widget.value %}
+      <div id="preview_{{ widget.name }}" class="peti">
+        <div>
+          <i class="mdi mdi-file-document-outline menu-icon"></i><br>
+          <p>{{ widget.value }}</p>
+        </div>
+      </div>
+      {% else %}
+      <div id="preview_{{ widget.name }}" class="peti">
+        <h6>Drag & Drop or Click here to upload file</h6>
+      </div>
+      {% endif %}
+      <div class="fallback">
+        <input id="{{ widget.attrs.id }}" type="file" name="{{ widget.name }}" class="form-control">
+      </div>
+    </div>
+    
+    
+    {{ options|json_script:'drop_script'}}
+    <div class="drop_script_class" id="{{ widget.attrs.id }}" data-widgetname="{{ widget.name }}">
+      <script class="" id="">
+        document.getElementById('{{ widget.attrs.id }}').addEventListener('change', function(){ 
+          let fileReference = document.getElementById('{{ widget.attrs.id }}').files && document.getElementById('{{ widget.attrs.id }}').files[0];
+          
+          if(fileReference){
+              var reader = new FileReader();
+            reader.onload = (event) => {
+              document.getElementById('preview_{{ widget.name }}').src = event.target.result;
+              document.getElementById('preview_{{ widget.name }}').innerHTML = '<div><i class="mdi mdi-file-document-outline menu-icon"></i><br><p>'+ fileReference.name +'</p></div>';
+            }
+            reader.readAsDataURL(fileReference); 
+          }
+         })
+      </script>
+    </div>

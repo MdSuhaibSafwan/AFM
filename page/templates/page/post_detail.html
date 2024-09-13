@@ -1,0 +1,23 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2 %}{{ object.title}}{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}{{ object.sub_title|getifnone}}{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}https://applyformedicine.com/page/{{object.slug}}/{% endblock %}{% endblock %}
+{% block content %}
+<section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> global community of
+                            students by searching for a Alumni now </p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

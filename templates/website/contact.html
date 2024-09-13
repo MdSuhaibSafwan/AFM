@@ -1,0 +1,95 @@
+{% extends 'registration/reg_base.html' %}
+{% block title1 %}{% block title2 %}Contact us to AFM | Medical Degree Courses Worldwide{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}Contact to Apply for Medicine: Our guide helps you throughout the process to choose a medical
+school, college, university, and medical degree courses.{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}https://applyformedicine.com/contact/{% endblock %}{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% load static %}
+<section class="header_area bg-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="site-breadcrub">
+                    <p>
+                        <a href="/">Apply for Medicine</a>
+                        <span class=""> >
+                        </span>
+                        <span>Contact</span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-6">
+                <div class="header-inner-wrapper">
+                    <h1 data-animate="fadeInUp" data-animate-delay="5">Get in Touch</h1>
+                    <p data-animate="fadeInUp" data-animate-delay="0"> Whether you are a student considering applying
+                        for medical school, intrigued parent, current medical student, recent graduate, a school,
+                        university - or anything else in between - we would love to hear from you. Please complete the
+                        form below and we will get back to you as soon as possible. </p>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-6">
+                <div class="right-icon-img-area">
+                    <img src="{% static 'assets/img/content-img/get-in-touch.png' %}" class="img-fluid"
+                        alt="contact Apply for Medicine" title="contact Apply for Medicine" width="463" height="377" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="afm-contactus-area ptb">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-xl-12">
+                <div class="site-title">
+                    <h4>Register your Interest</h4>
+                    <p class="site-title-para">If you would like to hear from Alumni at a particular medical school,
+                        please state that in the box below, so we can get you the advice needed as soon as possible.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xl-4">
+                <div class="card" data-animate="fadeInUp" data-animate-delay="0">
+                    <div class="contact-widgets">
+                        <h4>London Location</h4>
+                        <h4 class="mb-3">
+                            <img src="{% static 'website/img/content-img/Tag.png' %}" alt="Tag Logo" title="Tag Logo" width="59" height="41" loading="lazy"> | The Apply Group
+                        </h4>
+                        <P>Suite 209, Mayfair Point</P>
+                        <P>34 South Molton Street</P>
+                        <P>London W1K 5RG</P>
+                        <P>United Kingdom  <a href="https://wa.me/447361901027"
+                        target="blank"><i class="fab fa-whatsapp"></i></a></P>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-xl-8">
+                <div class="card" data-animate="fadeInUp" data-animate-delay="0">
+                    <div class="form-wrapper">
+                        <form id="afm-form" novalidate="" method="post"
+                            action="{% url 'administration:contact_us' %}">
+                            {% csrf_token %}
+                            {% crispy form %}
+                            <div class="form-row twfl-btn-top">
+                                <div class="col-md-6">
+                                    <button id="btn-submit-contact" class="theme-btn" type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block js %}
+<script>
+    $('#id_i_am_a').select2({
+    placeholder: 'Choose user type',
+    searchInputPlaceholder: 'Search'
+   });
+</script>
+{% endblock %}

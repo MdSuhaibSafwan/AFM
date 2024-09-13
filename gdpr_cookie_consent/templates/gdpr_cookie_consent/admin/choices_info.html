@@ -1,0 +1,8 @@
+{% load i18n %}
+{% for slug, section in sections.items %}
+<nobr>
+    <strong>{% trans section.title %}</strong>
+    {% if section.accepted %}{% trans "Accepted" %}{% else %}{% trans "Rejected" %}{% endif %}
+    {% if section.required %} / {% trans "Required" %}{% endif %}
+</nobr><br />
+{% endfor %}

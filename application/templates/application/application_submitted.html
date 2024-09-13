@@ -1,0 +1,29 @@
+{% extends 'base/base.html' %}
+{% load static%}
+{% block title%}Application Submitted{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb breadcrumb-style1">
+  <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+  <li class="breadcrumb-item"><a href="#">Application Submitted</a></li>
+</ol>
+</nav>
+<div class="card">
+<div class="row">
+  <div class="col-xl-12 col-md-12 col-sm-12">
+    <div class="text-center p-5">
+      <h3>Thank you for submitting the Application information. This will be reviewed by the Admin before
+        it is available to you to provide us with the remaining information. We will be in touch shortly.</h3>
+      <br>
+      <div class="go-dashboard d-block">
+        <a href="{% url 'application:view_application_twfl' app.slug %}" class="btn btn-indigo btn-rounded">View this Application (ID: <strong class="text-uppercase">{{app.slug}}</strong>)</a>
+      </div>
+      <br>
+      <p>Please keep this Application ID: <strong>{{app.slug}}</strong> for your future reference.</p>
+      <img src="{% static 'img/step/step10.png' %}" alt="steps" class="img-fluid">
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

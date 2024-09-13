@@ -1,0 +1,418 @@
+{% load static %}
+
+<!--<link href="{% static 'lib/fontawesome-free/css/all.min.css' %}" rel="stylesheet">-->
+<link href="{% static 'lib/typicons.font/typicons.css' %}" rel="stylesheet">
+<link href="{% static 'lib/lightslider/css/lightslider.min.css' %}" rel="stylesheet">
+<link href="{% static 'lib/cryptofont/css/cryptofont.min.css' %}" rel="stylesheet">
+<link href="{% static 'lib/flag-icon-css/css/flag-icon.min.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/line-icon.css' %}">
+<link href="{% static 'lib/select2/css/select2.min.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/cropper.min.css' %}">
+<!-- Custom CSS -->
+<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+<link rel="stylesheet" href="{% static 'css/custom-additional.css' %}">
+<link rel="stylesheet" href="{% static 'css/intlTelInput.css' %}">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        /* display: none; <- Crashes Chrome on hover */
+        -webkit-appearance: none;
+        margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    }
+
+    .institute-name .scroll-table {
+        overflow-y: scroll;
+        height: 215px;
+    }
+
+    .institute-name .scroll-table::-webkit-scrollbar {
+        width: 10px;
+        border-radius: 20px;
+    }
+
+    .institute-name .scroll-table::-webkit-scrollbar-track {
+        background: #D2D2D2;
+        border-radius: 10px;
+    }
+
+    .institute-name .scroll-table::-webkit-scrollbar-thumb {
+        background-color: #676666;
+        border-radius: 20px;
+        border: 3px solid #D2D2D2;
+    }
+
+    /************************* NOTIFICATION ******************************/
+
+    .toast.show {
+        z-index: 999;
+    }
+
+    .position-absolute {
+        z-index: 1;
+    }
+
+    .afm-header-notification .new span, .afm-header-menu .new span, .floating-menu .new span {
+        z-index: auto;
+        min-width: 20px;
+        height: 20px;
+        padding: 0 6px;
+        color: #fff;
+        font-weight: 400;
+        font-size: 10px;
+        line-height: 20px;
+        white-space: nowrap;
+        text-align: center;
+        background: #DC3545;
+        border-radius: 100px;
+        box-shadow: 0 0 0 1px #fff;
+        position: absolute;
+        top: -4px;
+        left: 12px;
+    }
+
+    .afm-header-notification .new-msg span, .afm-header-menu .new-msg span {
+        left: 45px !important;
+    }
+
+    /************************* REMOVE BUTTON ******************************/
+
+    .remove-button {
+        background: #FF5252;
+        color: #fff;
+    }
+
+    .remove-button:hover {
+        background: #F64444;
+        color: #fff;
+    }
+
+    .mentor-content a svg.feather.feather-eye {
+        margin-left: 10px;
+        width: 18px;
+        color: #141E42;
+    }
+
+/****************** APPLY POOL ********************/
+.apply-pool-btn{
+    background-color: #3366ff;
+}
+.floating-menu p {
+    font-size:10px;
+}
+/********************* EMAIL ************************/
+.link-sent {
+      padding: 25px;
+    background-color: #F5F8FF;
+    margin: 50px;
+    text-align: center;
+    width: 50%;
+    margin: 100px auto;
+}
+.link-sent h3{
+  margin: 20px 0px;
+  color: #141E42;
+}
+.link-sent p{
+  color: #777;
+}
+.ul-steps ul li .active, .ul-steps ul .active .step {
+  background: #141e42;
+  color: #ffffff;
+  border: 1px solid #141e42;
+  text-align: center;
+}
+.ul-steps ul .active .step svg.feather  {
+  color: #ffffff;
+}
+.not-active{
+        cursor: not-allowed;
+        pointer-events: none;
+        opacity: 0.5;
+    }
+
+    /********************* Ribbon ******************************************/
+    .ribbon {
+        position: absolute;
+        right: 0px;
+        top: -5px;
+        z-index: 1;
+        overflow: hidden;
+        width: 100px;
+        height: 94px;
+        text-align: right;
+    }
+
+    .ribbon span {
+        font-size: 10px;
+        font-weight: bold;
+        color: #FFF;
+        text-transform: uppercase;
+        text-align: center;
+        line-height: 20px;
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        width: 160px;
+        display: block;
+        background: #141E42;
+        background: linear-gradient(#141E42 0%, #141E42 100%);
+        /* box-shadow: 0 3px 10px -5px rgb(0 0 0); */
+        position: absolute;
+        top: 39px;
+        right: -37px;
+    }
+
+    .ribbon span::before {
+        content: "";
+        position: absolute;
+        left: 0px;
+        top: 100%;
+        z-index: -1;
+        border-left: 3px solid #141E42;
+        border-right: 3px solid transparent;
+        border-bottom: 3px solid transparent;
+        border-top: 3px solid #141E42;
+    }
+
+    .ribbon span::after {
+        content: "";
+        position: absolute;
+        right: 0px;
+        top: 100%;
+        z-index: -1;
+        border-left: 3px solid transparent;
+        border-right: 3px solid #141E42;
+        border-bottom: 3px solid transparent;
+        border-top: 3px solid #141E42;
+    }
+
+    @media (max-width: 1024px) {
+        .ribbon span {
+            top: 25px;
+            right: -56px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .ribbon {
+            position: absolute;
+            left: auto;
+            top: 0px;
+            z-index: 1;
+            overflow: hidden;
+            width: 53px;
+            height: 100%;
+            text-align: right;
+        }
+
+        .ribbon span {
+            font-size: 10px;
+            font-weight: bold;
+            color: #FFF;
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 20px;
+            /* transform: rotate(-55deg); */
+            width: 112px;
+            display: block;
+            background: #141E42;
+            background: linear-gradient(#141E42 0%, #141E42 100%);
+            /* box-shadow: 0 3px 10px -5px rgb(0 0 0); */
+            position: absolute;
+            top: 10px;
+            right: -36px;
+            padding: 0px 10px;
+        }
+    }
+
+    /*************** Hide Mentor search batch box on mobile ***************************/
+    @media (max-width: 768px) {
+        .search-filter-box {
+            display: none;
+        }
+
+        .afm-mentor-student-img {
+            border: unset;
+        }
+    }
+
+    @media (max-width: 416px) {
+        .text-left {
+            text-align: center !important;
+            margin-bottom: 0px;
+        }
+
+        .btn, .sp-container button {
+            font-size: 0.8rem;
+        }
+
+        .select2-container {
+            margin-right: 10px;
+        }
+    }
+
+    .ul-steps a {
+        color: #a4a4a4;
+    }
+
+    .ul-steps .active a {
+        color: #2d3038;
+    }
+
+    .ul-steps ul li .step {
+        background: #f4f5f8;
+        color: #a4a4a4;
+    }
+
+    /****** Image Upload Pop up ****/
+    .dropzone .dz-preview {
+        position: relative;
+        display: flex !important;
+        vertical-align: top;
+        margin: 16px;
+        min-height: 100px;
+        flex-direction: column;
+        /* justify-content: center; */
+        align-items: center;
+    }
+
+    .dropzone .dz-preview .dz-image {
+        z-index: unset !important;
+    }
+
+    /************* Messages ********************/
+    .list-messages .flex-dir {
+        width: auto;
+    }
+
+    @media (min-width: 992px) {
+        .az-content-left-chat {
+            width: 420px;
+            min-height: 100%;
+        }
+    }
+
+    .media-body svg {
+        width: 16px
+    }
+
+    @media (max-width: 500px) {
+        .az-chat-footer {
+            padding-left: 12px;
+            padding: 0 8px;
+        }
+
+        .az-chat-footer .form-control {
+            margin-right: 0;
+        }
+
+        .list-messages .flex-dir {
+            width: 100%;
+            margin: unset !important;
+        }
+
+        .az-content-left-chat {
+            width: 100%;
+            height: 535px;
+        }
+
+        .az-content-left h3 {
+            font-size: 0.85rem;
+        }
+
+        .az-chat-footer {
+            bottom: 65px;
+            height: 65px;
+            width: 100%;
+        }
+
+        .az-chat-body {
+            height: calc(100% - 75px);
+        }
+
+        .az-content-app {
+            height: calc(100vh - 153px);
+        }
+
+        .az-content-app.list-messages {
+            height: calc(100vh - 409px);
+        }
+
+        .az-chat-body .content-inner {
+            padding: 10px 0;
+        }
+
+        .flex-dir {
+            padding: 10px 0;
+        }
+
+        .az-chat-body .media + .media {
+            margin-top: 10px;
+        }
+
+        .media-body svg {
+            width: 15px
+        }
+    }
+
+    /* Chat modal */
+    /* .chat-btn-model .modal-dialog {
+        max-width: 900px;
+        margin: 1.75rem auto;
+    } */
+    .chat-btn-model .modal-footer {
+        justify-content: center;
+    }
+
+    /* @media (max-width:768px){
+    .chat-btn-model .modal-dialog {
+        max-width: 704px;
+        margin: 1.75rem auto;
+        text-align: left;
+    }
+    } */
+    @media (max-width: 992px) {
+        .afm-mentor-student-details {
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 425px) {
+
+        .chat-btn-model .modal-dialog {
+            max-width: 300px;
+            margin: 1.75rem auto;
+            text-align: left;
+        }
+    }
+
+    /* Floating menu notification badge */
+    .floating-menu .new {
+        display: block;
+        font-size: 18px;
+        color: #1c273c;
+        position: relative;
+        line-height: 2.2;
+        outline: none;
+    }
+
+    .floating-menu .new span {
+        z-index: auto;
+        width: 20px;
+        height: 20px;
+        padding: 0 6px;
+        color: #fff;
+        font-weight: 400;
+        font-size: 10px;
+        line-height: 20px;
+        white-space: nowrap;
+        text-align: center;
+        background: #dc3545;
+        border-radius: 100px;
+        box-shadow: 0 0 0 1px #fff;
+        position: absolute;
+        top: -7px;
+        left: 26px;
+    }
+</style>
+{{form.media.css}}

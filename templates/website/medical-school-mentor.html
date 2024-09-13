@@ -1,0 +1,943 @@
+{% extends 'registration/reg_base.html' %}
+{% block title1 %}{% block title2%}Studying medicine | Medical School Alumni in the UK{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}Study Medicine Courses at a UK medical school.
+Expert Alumni to support and advise international students who want to study in the UK.{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}https://applyformedicine.com/medical-school-mentor/{% endblock %}
+{% endblock %}
+{% block content %}
+{% load static %}
+<main>
+   <section class="header_area bg-1">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-12">
+               <div class="site-breadcrub">
+                  <p>
+                     <a href="/">Apply for Medicine </a>
+                     <span class=""> >
+                     </span>
+                     <span>Medical school Alumni</span>
+                  </p>
+               </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12">
+               <div class="header-inner-wrapper">
+                  <h1 data-animate="fadeInUp" data-animate-delay="5">Become a medical school application Alumni
+                  </h1>
+                  <div class="d-lg-none d-xl-none">
+                     <div class="hero-mentor-slide">
+                        <div class="page_hero-talents">
+                           <a class="page_hero-talents_cta">Meet Alumni from <br> around the world.</a>
+                           <div class="page_hero-talents_items2">
+                              <!-- *13* -->
+                              <div class="slider_card-item for-talent for-hero-talents-slider">
+                                 <div class="slider_card-item_photo">
+                                    <img alt="" src="{% static 'assets/img/student-slider/29.webp' %}" />
+                                 </div>
+                                 <img class="slider_card-item_photo_logo"
+                                    src="{% static 'assets/img/student-slider/uni.png' %}" />
+                                 <div class="slider_card-item_content">
+                                    <div class="slider_card-item_title">Joshua</div>
+                                    <div class="slider_card-item_country"> from the UK <img
+                                          src="{% static 'assets/img/student-slider/uk.png' %}" alt="" />
+                                    </div>
+                                    <div class="slider_card-item_field"> Studying Medicine at <br> Anglia Ruskin Medical
+                                       School <div class="slider_card-item_in_country"> in England <img
+                                             src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- *14* -->
+                              <div class="slider_card-item for-talent for-hero-talents-slider">
+                                 <div class="slider_card-item_photo">
+                                    <img alt="" src="{% static 'assets/img/student-slider/victoria.webp' %}" />
+                                 </div>
+                                 <img class="slider_card-item_photo_logo"
+                                    src="{% static 'assets/img/student-slider/uni.png' %}" />
+                                 <div class="slider_card-item_content">
+                                    <div class="slider_card-item_title">Victoria</div>
+                                    <div class="slider_card-item_country"> from the UK <img
+                                          src="{% static 'assets/img/student-slider/uk.png' %}" alt="" />
+                                    </div>
+                                    <div class="slider_card-item_field"> Studying Medicine at <br>The University of
+                                       Buckingham <div class="slider_card-item_in_country"> in England <img
+                                             src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- 1 -->
+                              <div class="slider_card-item for-talent for-hero-talents-slider">
+                                 <div class="slider_card-item_photo">
+                                    <img alt="" src="{% static 'assets/img/student-slider/11.webp' %}" />
+                                 </div>
+                                 <img class="slider_card-item_photo_logo"
+                                    src="{% static 'assets/img/student-slider/uni.png' %}" />
+                                 <div class="slider_card-item_content">
+                                    <div class="slider_card-item_title">Hania</div>
+                                    <div class="slider_card-item_country"> from the UAE <img
+                                          src="{% static 'assets/img/student-slider/uae.png' %}" alt="" />
+                                    </div>
+                                    <div class="slider_card-item_field"> Studying Medicine at <br> University of
+                                       Buckingham <div class="slider_card-item_in_country"> in England <img
+                                             src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- *2* -->
+                              <div class="slider_card-item for-talent for-hero-talents-slider">
+                                 <div class="slider_card-item_photo">
+                                    <img alt="" src="{% static 'assets/img/student-slider/5.webp' %}" />
+                                 </div>
+                                 <img class="slider_card-item_photo_logo"
+                                    src="{% static 'assets/img/student-slider/uni.png' %}" />
+                                 <div class="slider_card-item_content">
+                                    <div class="slider_card-item_title">Heather</div>
+                                    <div class="slider_card-item_country"> from the UK <img
+                                          src="{% static 'assets/img/student-slider/uk.png' %}" alt="" />
+                                    </div>
+                                    <div class="slider_card-item_field"> Studying Medicine at <br> The University of
+                                       Nottingham <div class="slider_card-item_in_country"> in England <img
+                                             src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- *3* -->
+                              <div class="slider_card-item for-talent for-hero-talents-slider">
+                                 <div class="slider_card-item_photo">
+                                    <img alt="" src="{% static 'assets/img/student-slider/26.webp' %}" />
+                                 </div>
+                                 <img class="slider_card-item_photo_logo"
+                                    src="{% static 'assets/img/student-slider/uni.png' %}" />
+                                 <div class="slider_card-item_content">
+                                    <div class="slider_card-item_title">Shwe</div>
+                                    <div class="slider_card-item_country"> from Myanmar <img
+                                          src="{% static 'assets/img/student-slider/myanmar.png' %}" alt="" />
+                                    </div>
+                                    <div class="slider_card-item_field"> Studying Medicine at <br>The Royal College of
+                                       Surgeons <div class="slider_card-item_in_country"> in Ireland <img
+                                             src="{% static 'assets/img/student-slider/ireland.png' %}" alt="" />
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- *4* -->
+                              <div class="slider_card-item for-talent for-hero-talents-slider">
+                                 <div class="slider_card-item_photo">
+                                    <img alt="" src="{% static 'assets/img/student-slider/haya.webp' %}" />
+                                 </div>
+                                 <img class="slider_card-item_photo_logo"
+                                    src="{% static 'assets/img/student-slider/uni.png' %}" />
+                                 <div class="slider_card-item_content">
+                                    <div class="slider_card-item_title">Haya</div>
+                                    <div class="slider_card-item_country"> from Lebanon <img
+                                          src="{% static 'assets/img/student-slider/lebanon.png' %}" alt="" />
+                                    </div>
+                                    <div class="slider_card-item_field"> Studying Medicine at <br> University of Central
+                                       Lancashire <div class="slider_card-item_in_country"> in England <img
+                                             src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- *5* -->
+                              <div class="slider_card-item for-talent for-hero-talents-slider">
+                                 <div class="slider_card-item_photo">
+                                    <img alt="" src="{% static 'assets/img/student-slider/10.webp' %}" />
+                                 </div>
+                                 <img class="slider_card-item_photo_logo"
+                                    src="{% static 'assets/img/student-slider/uni.png' %}" />
+                                 <div class="slider_card-item_content">
+                                    <div class="slider_card-item_title">Chang</div>
+                                    <div class="slider_card-item_country"> from Singapore <img
+                                          src="{% static 'assets/img/student-slider/singapore.png' %}" alt="" />
+                                    </div>
+                                    <div class="slider_card-item_field"> Studying Medicine at <br>The Royal College of
+                                       Surgeons <div class="slider_card-item_in_country"> in Ireland <img
+                                             src="{% static 'assets/img/student-slider/ireland.png' %}" alt="" />
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- *6* -->
+                              <div class="slider_card-item for-talent for-hero-talents-slider">
+                                 <div class="slider_card-item_photo">
+                                    <img alt="" src="{% static 'assets/img/student-slider/abdallah.webp' %}" />
+                                 </div>
+                                 <img class="slider_card-item_photo_logo"
+                                    src="{% static 'assets/img/student-slider/uni.png' %}" />
+                                 <div class="slider_card-item_content">
+                                    <div class="slider_card-item_title">Abdallah</div>
+                                    <div class="slider_card-item_country"> from Kenya <img
+                                          src="{% static 'assets/img/student-slider/kenya.png' %}" alt="" />
+                                    </div>
+                                    <div class="slider_card-item_field"> Studying Medicine at <br> University of Central
+                                       Lancashire <div class="slider_card-item_in_country"> in England <img
+                                             src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- *7* -->
+                              <div class="slider_card-item for-talent for-hero-talents-slider">
+                                 <div class="slider_card-item_photo">
+                                    <img alt="" src="{% static 'assets/img/student-slider/28.webp' %}" />
+                                 </div>
+                                 <img class="slider_card-item_photo_logo"
+                                    src="{% static 'assets/img/student-slider/uni.png' %}" />
+                                 <div class="slider_card-item_content">
+                                    <div class="slider_card-item_title">Ananya</div>
+                                    <div class="slider_card-item_country"> from India <img
+                                          src="{% static 'assets/img/student-slider/india.png' %}" alt="" />
+                                    </div>
+                                    <div class="slider_card-item_field"> Studying Medicine at <br>The Royal College of
+                                       Surgeons <div class="slider_card-item_in_country"> in Ireland <img
+                                             src="{% static 'assets/img/student-slider/ireland.png' %}" alt="" />
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- *8* -->
+                              <div class="slider_card-item for-talent for-hero-talents-slider">
+                                 <div class="slider_card-item_photo">
+                                    <img alt="" src="{% static 'assets/img/student-slider/13.webp' %}" />
+                                 </div>
+                                 <img class="slider_card-item_photo_logo"
+                                    src="{% static 'assets/img/student-slider/uni.png' %}" />
+                                 <div class="slider_card-item_content">
+                                    <div class="slider_card-item_title">Edward</div>
+                                    <div class="slider_card-item_country"> from Malaysia <img
+                                          src="{% static 'assets/img/student-slider/malaysia.png' %}" alt="" />
+                                    </div>
+                                    <div class="slider_card-item_field"> Studying Medicine at <br> The University of
+                                       Edinburgh <div class="slider_card-item_in_country"> in Scotland <img
+                                             src="{% static 'assets/img/student-slider/scotland.png' %}" alt="" />
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- *9* -->
+                              <div class="slider_card-item for-talent for-hero-talents-slider">
+                                 <div class="slider_card-item_photo">
+                                    <img alt="" src="{% static 'assets/img/student-slider/24.webp' %}" />
+                                 </div>
+                                 <img class="slider_card-item_photo_logo"
+                                    src="{% static 'assets/img/student-slider/uni.png' %}" />
+                                 <div class="slider_card-item_content">
+                                    <div class="slider_card-item_title">Faraaz</div>
+                                    <div class="slider_card-item_country"> from the UK <img
+                                          src="{% static 'assets/img/student-slider/uk.png' %}" alt="" />
+                                    </div>
+                                    <div class="slider_card-item_field"> Studying Medicine at <br> The University of
+                                       Silesia <div class="slider_card-item_in_country"> in Poland <img
+                                             src="{% static 'assets/img/student-slider/poland.png' %}" alt="" />
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- *10* -->
+                              <div class="slider_card-item for-talent for-hero-talents-slider">
+                                 <div class="slider_card-item_photo">
+                                    <img alt="" src="{% static 'assets/img/student-slider/27.webp' %}" />
+                                 </div>
+                                 <img class="slider_card-item_photo_logo"
+                                    src="{% static 'assets/img/student-slider/uni.png' %}" />
+                                 <div class="slider_card-item_content">
+                                    <div class="slider_card-item_title">Tharushi</div>
+                                    <div class="slider_card-item_country"> from the UK <img
+                                          src="{% static 'assets/img/student-slider/uk.png' %}" alt="" />
+                                    </div>
+                                    <div class="slider_card-item_field"> Studying Medicine at <br> The University of
+                                       Cambridge <div class="slider_card-item_in_country"> in England <img
+                                             src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- *11* -->
+                              <div class="slider_card-item for-talent for-hero-talents-slider">
+                                 <div class="slider_card-item_photo">
+                                    <img alt="" src="{% static 'assets/img/student-slider/14.webp' %}" />
+                                 </div>
+                                 <img class="slider_card-item_photo_logo"
+                                    src="{% static 'assets/img/student-slider/uni.png' %}" />
+                                 <div class="slider_card-item_content">
+                                    <div class="slider_card-item_title">Iffat</div>
+                                    <div class="slider_card-item_country"> from Ireland <img
+                                          src="{% static 'assets/img/student-slider/ireland.png' %}" alt="" />
+                                    </div>
+                                    <div class="slider_card-item_field"> Studying Medicine at <br> Trinity College
+                                       Dublin <div class="slider_card-item_in_country"> in Ireland <img
+                                             src="{% static 'assets/img/student-slider/ireland.png' %}" alt="" />
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- *12* -->
+                              <div class="slider_card-item for-talent for-hero-talents-slider">
+                                 <div class="slider_card-item_photo">
+                                    <img alt="" src="{% static 'assets/img/student-slider/15.webp' %}" />
+                                 </div>
+                                 <img class="slider_card-item_photo_logo"
+                                    src="{% static 'assets/img/student-slider/uni.png' %}" />
+                                 <div class="slider_card-item_content">
+                                    <div class="slider_card-item_title">Rasha</div>
+                                    <div class="slider_card-item_country"> from the UK <img
+                                          src="{% static 'assets/img/student-slider/uk.png' %}" alt="" />
+                                    </div>
+                                    <div class="slider_card-item_field"> Studying Medicine at <br> Imperial College
+                                       London <div class="slider_card-item_in_country"> in England <img
+                                             src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- 13 -->
+                              <div class="slider_card-item for-talent for-hero-talents-slider">
+                                 <div class="slider_card-item_photo">
+                                    <img alt="" src="{% static 'assets/img/student-slider/azzra.webp' %}" />
+                                 </div>
+                                 <img class="slider_card-item_photo_logo"
+                                    src="{% static 'assets/img/student-slider/uni.png' %}" />
+                                 <div class="slider_card-item_content">
+                                    <div class="slider_card-item_title">Azzra</div>
+                                    <div class="slider_card-item_country"> from the UK <img
+                                          src="{% static 'assets/img/student-slider/uk.png' %}" alt="" />
+                                    </div>
+                                    <div class="slider_card-item_field"> Studying Medicine at <br> King’s College London
+                                       <div class="slider_card-item_in_country"> in England <img
+                                             src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <p data-animate="fadeInUp" data-animate-delay="0" class="heading-subtitle">Join a revolutionary
+                     peer-to-peer marketplace connecting you directly with prospective applicants from around the world.
+                  </p>
+                  <ul class="list-icon list-icon-check pl-3">
+                     <li>Choose your availability and pricing</li>
+                     <li>Promote your ‘personal brand’</li>
+                     <li>Improve your future job prospects </li>
+                     <li>Expand your professional network </li>
+                     <li>Make new friends along the way</li>
+                  </ul>
+                  <div class="journey_wrapper mt-5">
+                     <a href="{% url 'administration:registration' %}" class="theme-btn">
+                        Apply to become a medical Alumni now
+                     </a>
+                  </div>
+               </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12">
+               <div class="d-none d-md-none d-lg-block pt-5">
+                  <div class="right-icon-img-area">
+                     <div class="page_hero-talents">
+                        <a class="page_hero-talents_cta">Connect with medical students<br /> from around the world.</a>
+                        <div class="page_hero-talents_items">
+                           <!-- *13* -->
+                           <div class="slider_card-item for-talent for-hero-talents-slider">
+                              <div class="slider_card-item_photo">
+                                 <img alt="" src="{% static 'assets/img/student-slider/29.webp' %}" />
+                              </div>
+                              <img class="slider_card-item_photo_logo"
+                                 src="{% static 'assets/img/student-slider/uni.png' %}" />
+                              <div class="slider_card-item_content">
+                                 <div class="slider_card-item_title">Joshua</div>
+                                 <div class="slider_card-item_country"> from the UK <img
+                                       src="{% static 'assets/img/student-slider/uk.png' %}" alt="" />
+                                 </div>
+                                 <div class="slider_card-item_field"> Studying Medicine at <br> Anglia Ruskin Medical
+                                    School <div class="slider_card-item_in_country"> in England <img
+                                          src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- *14* -->
+                           <div class="slider_card-item for-talent for-hero-talents-slider">
+                              <div class="slider_card-item_photo">
+                                 <img alt="" src="{% static 'assets/img/student-slider/victoria.webp' %}" />
+                              </div>
+                              <img class="slider_card-item_photo_logo"
+                                 src="{% static 'assets/img/student-slider/uni.png' %}" />
+                              <div class="slider_card-item_content">
+                                 <div class="slider_card-item_title">Victoria</div>
+                                 <div class="slider_card-item_country"> from the UK <img
+                                       src="{% static 'assets/img/student-slider/uk.png' %}" alt="" />
+                                 </div>
+                                 <div class="slider_card-item_field"> Studying Medicine at <br>The University of
+                                    Buckingham <div class="slider_card-item_in_country"> in England <img
+                                          src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- 1 -->
+                           <div class="slider_card-item for-talent for-hero-talents-slider">
+                              <div class="slider_card-item_photo">
+                                 <img alt="" src="{% static 'assets/img/student-slider/11.webp' %}" />
+                              </div>
+                              <img class="slider_card-item_photo_logo"
+                                 src="{% static 'assets/img/student-slider/uni.png' %}" />
+                              <div class="slider_card-item_content">
+                                 <div class="slider_card-item_title">Hania</div>
+                                 <div class="slider_card-item_country"> from the UAE <img
+                                       src="{% static 'assets/img/student-slider/uae.png' %}" alt="" />
+                                 </div>
+                                 <div class="slider_card-item_field"> Studying Medicine at <br> University of Buckingham
+                                    <!-- Medical student at <br> The University of Buckingham -->
+                                    <!-- Studying Medicine at <br> University of Central Lancashire -->
+                                    <div class="slider_card-item_in_country"> in England <img
+                                          src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- *2* -->
+                           <div class="slider_card-item for-talent for-hero-talents-slider">
+                              <div class="slider_card-item_photo">
+                                 <img alt="" src="{% static 'assets/img/student-slider/5.webp' %}" />
+                              </div>
+                              <img class="slider_card-item_photo_logo"
+                                 src="{% static 'assets/img/student-slider/uni.png' %}" />
+                              <div class="slider_card-item_content">
+                                 <div class="slider_card-item_title">Heather</div>
+                                 <div class="slider_card-item_country"> from the UK <img
+                                       src="{% static 'assets/img/student-slider/uk.png' %}" alt="" />
+                                 </div>
+                                 <div class="slider_card-item_field"> Studying Medicine at <br> The University of
+                                    Nottingham <div class="slider_card-item_in_country"> in England <img
+                                          src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- *3* -->
+                           <div class="slider_card-item for-talent for-hero-talents-slider">
+                              <div class="slider_card-item_photo">
+                                 <img alt="" src="{% static 'assets/img/student-slider/26.webp' %}" />
+                              </div>
+                              <img class="slider_card-item_photo_logo"
+                                 src="{% static 'assets/img/student-slider/uni.png' %}" />
+                              <div class="slider_card-item_content">
+                                 <div class="slider_card-item_title">Shwe</div>
+                                 <div class="slider_card-item_country"> from Myanmar <img
+                                       src="{% static 'assets/img/student-slider/myanmar.png' %}" alt="" />
+                                 </div>
+                                 <div class="slider_card-item_field"> Studying Medicine at <br>The Royal College of
+                                    Surgeons <div class="slider_card-item_in_country"> in Ireland <img
+                                          src="{% static 'assets/img/student-slider/ireland.png' %}" alt="" />
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- *4* -->
+                           <div class="slider_card-item for-talent for-hero-talents-slider">
+                              <div class="slider_card-item_photo">
+                                 <img alt="" src="{% static 'assets/img/student-slider/haya.webp' %}" />
+                              </div>
+                              <img class="slider_card-item_photo_logo"
+                                 src="{% static 'assets/img/student-slider/uni.png' %}" />
+                              <div class="slider_card-item_content">
+                                 <div class="slider_card-item_title">Haya</div>
+                                 <div class="slider_card-item_country"> from Lebanon <img
+                                       src="{% static 'assets/img/student-slider/lebanon.png' %}" alt="" />
+                                 </div>
+                                 <div class="slider_card-item_field"> Studying Medicine at <br> University of Central
+                                    Lancashire <div class="slider_card-item_in_country"> in England <img
+                                          src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- *5* -->
+                           <div class="slider_card-item for-talent for-hero-talents-slider">
+                              <div class="slider_card-item_photo">
+                                 <img alt="" src="{% static 'assets/img/student-slider/10.webp' %}" />
+                              </div>
+                              <img class="slider_card-item_photo_logo"
+                                 src="{% static 'assets/img/student-slider/uni.png' %}" />
+                              <div class="slider_card-item_content">
+                                 <div class="slider_card-item_title">Chang</div>
+                                 <div class="slider_card-item_country"> from Singapore <img
+                                       src="{% static 'assets/img/student-slider/singapore.png' %}" alt="" />
+                                 </div>
+                                 <div class="slider_card-item_field"> Studying Medicine at <br>The Royal College of
+                                    Surgeons <div class="slider_card-item_in_country"> in Ireland <img
+                                          src="{% static 'assets/img/student-slider/ireland.png' %}" alt="" />
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- *6* -->
+                           <div class="slider_card-item for-talent for-hero-talents-slider">
+                              <div class="slider_card-item_photo">
+                                 <img alt="" src="{% static 'assets/img/student-slider/abdallah.webp' %}" />
+                              </div>
+                              <img class="slider_card-item_photo_logo"
+                                 src="{% static 'assets/img/student-slider/uni.png' %}" />
+                              <div class="slider_card-item_content">
+                                 <div class="slider_card-item_title">Abdallah</div>
+                                 <div class="slider_card-item_country"> from Kenya <img
+                                       src="{% static 'assets/img/student-slider/kenya.png' %}" alt="" />
+                                 </div>
+                                 <div class="slider_card-item_field"> Studying Medicine at <br> University of Central
+                                    Lancashire <div class="slider_card-item_in_country"> in England <img
+                                          src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- *7* -->
+                           <div class="slider_card-item for-talent for-hero-talents-slider">
+                              <div class="slider_card-item_photo">
+                                 <img alt="" src="{% static 'assets/img/student-slider/28.webp' %}" />
+                              </div>
+                              <img class="slider_card-item_photo_logo"
+                                 src="{% static 'assets/img/student-slider/uni.png' %}" />
+                              <div class="slider_card-item_content">
+                                 <div class="slider_card-item_title">Ananya</div>
+                                 <div class="slider_card-item_country"> from India <img
+                                       src="{% static 'assets/img/student-slider/india.png' %}" alt="" />
+                                 </div>
+                                 <div class="slider_card-item_field"> Studying Medicine at <br>The Royal College of
+                                    Surgeons <div class="slider_card-item_in_country"> in Ireland <img
+                                          src="{% static 'assets/img/student-slider/ireland.png' %}" alt="" />
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- *8* -->
+                           <div class="slider_card-item for-talent for-hero-talents-slider">
+                              <div class="slider_card-item_photo">
+                                 <img alt="" src="{% static 'assets/img/student-slider/13.webp' %}" />
+                              </div>
+                              <img class="slider_card-item_photo_logo"
+                                 src="{% static 'assets/img/student-slider/uni.png' %}" />
+                              <div class="slider_card-item_content">
+                                 <div class="slider_card-item_title">Edward</div>
+                                 <div class="slider_card-item_country"> from Malaysia <img
+                                       src="{% static 'assets/img/student-slider/malaysia.png' %}" alt="" />
+                                 </div>
+                                 <div class="slider_card-item_field"> Studying Medicine at <br> The University of
+                                    Edinburgh <div class="slider_card-item_in_country"> in Scotland <img
+                                          src="{% static 'assets/img/student-slider/scotland.png' %}" alt="" />
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- *9* -->
+                           <div class="slider_card-item for-talent for-hero-talents-slider">
+                              <div class="slider_card-item_photo">
+                                 <img alt="" src="{% static 'assets/img/student-slider/24.webp' %}" />
+                              </div>
+                              <img class="slider_card-item_photo_logo"
+                                 src="{% static 'assets/img/student-slider/uni.png' %}" />
+                              <div class="slider_card-item_content">
+                                 <div class="slider_card-item_title">Faraaz</div>
+                                 <div class="slider_card-item_country"> from the UK <img
+                                       src="{% static 'assets/img/student-slider/uk.png' %}" alt="" />
+                                 </div>
+                                 <div class="slider_card-item_field"> Studying Medicine at <br> The University of
+                                    Silesia <div class="slider_card-item_in_country"> in Poland <img
+                                          src="{% static 'assets/img/student-slider/poland.png' %}" alt="" />
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- *10* -->
+                           <div class="slider_card-item for-talent for-hero-talents-slider">
+                              <div class="slider_card-item_photo">
+                                 <img alt="" src="{% static 'assets/img/student-slider/27.webp' %}" />
+                              </div>
+                              <img class="slider_card-item_photo_logo"
+                                 src="{% static 'assets/img/student-slider/uni.png' %}" />
+                              <div class="slider_card-item_content">
+                                 <div class="slider_card-item_title">Tharushi</div>
+                                 <div class="slider_card-item_country"> from the UK <img
+                                       src="{% static 'assets/img/student-slider/uk.png' %}" alt="" />
+                                 </div>
+                                 <div class="slider_card-item_field"> Studying Medicine at <br> The University of
+                                    Cambridge <div class="slider_card-item_in_country"> in England <img
+                                          src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- *11* -->
+                           <div class="slider_card-item for-talent for-hero-talents-slider">
+                              <div class="slider_card-item_photo">
+                                 <img alt="" src="{% static 'assets/img/student-slider/14.webp' %}" />
+                              </div>
+                              <img class="slider_card-item_photo_logo"
+                                 src="{% static 'assets/img/student-slider/uni.png' %}" />
+                              <div class="slider_card-item_content">
+                                 <div class="slider_card-item_title">Iffat</div>
+                                 <div class="slider_card-item_country"> from Ireland <img
+                                       src="{% static 'assets/img/student-slider/ireland.png' %}" alt="" />
+                                 </div>
+                                 <div class="slider_card-item_field"> Studying Medicine at <br> Trinity College Dublin
+                                    <div class="slider_card-item_in_country"> in Ireland <img
+                                          src="{% static 'assets/img/student-slider/ireland.png' %}" alt="" />
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- *12* -->
+                           <div class="slider_card-item for-talent for-hero-talents-slider">
+                              <div class="slider_card-item_photo">
+                                 <img alt="" src="{% static 'assets/img/student-slider/15.webp' %}" />
+                              </div>
+                              <img class="slider_card-item_photo_logo"
+                                 src="{% static 'assets/img/student-slider/uni.png' %}" />
+                              <div class="slider_card-item_content">
+                                 <div class="slider_card-item_title">Rasha</div>
+                                 <div class="slider_card-item_country"> from the UK <img
+                                       src="{% static 'assets/img/student-slider/uk.png' %}" alt="" />
+                                 </div>
+                                 <div class="slider_card-item_field"> Studying Medicine at <br> Imperial College London
+                                    <div class="slider_card-item_in_country"> in England <img
+                                          src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- 13 -->
+                           <div class="slider_card-item for-talent for-hero-talents-slider">
+                              <div class="slider_card-item_photo">
+                                 <img alt="" src="{% static 'assets/img/student-slider/azzra.webp' %}" />
+                              </div>
+                              <img class="slider_card-item_photo_logo"
+                                 src="{% static 'assets/img/student-slider/uni.png' %}" />
+                              <div class="slider_card-item_content">
+                                 <div class="slider_card-item_title">Azzra</div>
+                                 <div class="slider_card-item_country"> from the UK <img
+                                       src="{% static 'assets/img/student-slider/uk.png' %}" alt="" />
+                                 </div>
+                                 <div class="slider_card-item_field"> Studying Medicine at <br> King’s College London
+                                    <div class="slider_card-item_in_country"> in England <img
+                                          src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <section class="afm-content-area pt-5">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-12 col-xl-12">
+               <div class="site-title">
+                  <h2 class="h2-home">Why become a medical school Alumni?</h2>
+               </div>
+            </div>
+            <div class="col-md-12 col-xl-12">
+               <div>
+                  <article>
+                     <p>As illustrated below, there are a number of advantages to mentoring.
+                        However, as a medical student mentoring can also serve as a great boost to your reflective
+                        portfolio as evidence of mentoring/teaching experience to help give you a competitive edge
+                        when applying for medical speciality training places in the future.</p>
+                  </article>
+               </div>
+            </div>
+            <!--            <div class="col-md-6 col-xl-3">-->
+            <!--               <div class="card card-medium" data-animate="fadeInUp" data-animate-delay="0">-->
+            <!--                  <div class="img-wrapper">-->
+            <!--                     <img src="{% static 'website/img/header/Develop-leadership-&coaching-skills.png' %}"-->
+            <!--                        class="img-fluid" alt="Develop leadership & coaching skills">-->
+            <!--                     <p>Develop leadership & coaching skills</p>-->
+            <!--                  </div>-->
+            <!--               </div>-->
+            <!--            </div>-->
+            <!--            <div class="col-md-6 col-xl-3">-->
+            <!--               <div class="card card-medium" data-animate="fadeInUp" data-animate-delay="0">-->
+            <!--                  <div class="img-wrapper">-->
+            <!--                     <img src="{% static 'website/img/header/Enhance-your-communication-and-networking-skills.png' %}"-->
+            <!--                        class="img-fluid" alt="Enhance your communication and networking skills">-->
+            <!--                     <p>Enhance your communication and networking skills </p>-->
+            <!--                  </div>-->
+            <!--               </div>-->
+            <!--            </div>-->
+            <!--            <div class="col-md-6 col-xl-3">-->
+            <!--               <div class="card card-medium" data-animate="fadeInUp" data-animate-delay="0">-->
+            <!--                  <div class="img-wrapper">-->
+            <!--                     <img src="{% static 'website/img/header/Gain-new-perspectives-and-fresh-ideas.png' %}"-->
+            <!--                        class="img-fluid" alt="Gain new perspectives and fresh ideas">-->
+            <!--                     <p>Gain new perspectives & fresh ideas </p>-->
+            <!--                  </div>-->
+            <!--               </div>-->
+            <!--            </div>-->
+            <!--            <div class="col-md-6 col-xl-3">-->
+            <!--               <div class="card card-medium" data-animate="fadeInUp" data-animate-delay="0">-->
+            <!--                  <div class="img-wrapper">-->
+            <!--                     <img src="{% static 'website/img/header/Improve-your-future-job-prospects.png' %}"-->
+            <!--                        class="img-fluid" alt="Improve-your-future-job-prospects">-->
+            <!--                     <p>Improve future job prospects </p>-->
+            <!--                  </div>-->
+            <!--               </div>-->
+            <!--            </div>-->
+         </div>
+         <div class="row">
+            <div class="col-md-12 col-xl-12">
+               <div>
+                  <article>
+                     <p>Depending on your pricing and availability,
+                        <strong><em>you could earn up to £1,500 per month.</em></strong>
+                        However, there are many more advantages to mentoring than the additional income you’ll receive.
+                     </p>
+                     <!--                     <p>As medical students, it can boost your reflective portfolio by providing evidence of mentoring/teaching-->
+                     <!--                        experience. This will give you a competitive edge when applying for medical specialty training,-->
+                     <!--                        enhance your job applications and give you a talking point during interviews.-->
+                     <!--                     </p>-->
+                     <p>Start making valuable connections and building your professional network today.</p>
+                  </article>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <!--    <section class="ptb">-->
+   <!--        <div class="container">-->
+   <!--            <div class="row">-->
+   <!--                <div class="col-md-12 col-xl-12">-->
+   <!--                    <p>Mentoring programs have become mainstream, about 70% of Fortune 500 companies have one.</p>-->
+   <!--                    <div class="p-progress-bar-container title-up">-->
+   <!--                        <div class="p-progress-bar" data-percent="70" data-delay="200" data-type="%">-->
+   <!--                        </div>-->
+   <!--                    </div>-->
+   <!--                    <div class="card card-medium" data-animate="fadeInUp" data-animate-delay="0">-->
+   <!--                        <p>Depending on your pricing and availability, you could earn up to £1,500 per month. However,-->
+   <!--                            there are many more advantages to mentoring than the additional income you’ll receive..</p>-->
+   <!--                    </div>-->
+   <!--                    <p class="ptb">As medical students, it can boost your reflective portfolio by providing evidence of mentoring/teaching-->
+   <!--experience. This will give you a competitive edge when applying for medical specialty training,-->
+   <!--enhance your job applications and give you a talking point during interviews.</p>-->
+   <!--                    <p>Start making valuable connections and building your professional network today</p>-->
+   <!--                </div>-->
+   <!--            </div>-->
+   <!--        </div>-->
+   <!--    </section>-->
+   <section class="afm-content-area pt-5 pb-2">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-12 col-xl-12">
+               <div class="text-center">
+                  <h3 class="background-dark">We are student marketplace not a tutoring
+                     agency
+                  </h3>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-md-12 col-xl-12">
+               <div>
+                  <article class="mb-3">
+                     <p>This means you’re in control - we don’t set prices – you do! Alumni connect with students and
+                        parents directly to agree on scope of work, timescale and fees, etc. A great experience for you
+                        before
+                        you leave university and prepare for full-time employment.
+                     </p>
+                     <p>No spare time as you have assignments due or exams? No problem, you can update your
+                        availability as often as you need. You are always in control.
+                     </p>
+                  </article>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <section class="pb-5">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-12 col-xl-12">
+               <div class="site-title">
+                  <h4 class="h4-home">FAQs</h4>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-md-12 col-xl-12">
+               <div id="accordion" class="accordion">
+                  <div class="card shadow-none">
+                     <div class="card-header collapse-bg">
+                        <a class="card-link" data-toggle="collapse" href="#collapseOne" data-parent="#accordion">Why is
+                           this platform better than working with a traditional tutoring
+                           company?
+                           <i class="fa fa-plus"></i>
+                        </a>
+                     </div>
+                     <div id="collapseOne" class="collapse show">
+                        <div class="card-body">
+                           <p>This is a unique platform where you, the Alumni/tutor, are in control. Therefore, you set
+                              your availability and price, and we don’t take a cut – the prices you set for your
+                              services are what you receive. Therefore, you should make more money.</p>
+
+                           <p>You build your own brand with your clients – they get to know and trust you and you simply
+                              build your network through us. This is an excellent way to boost your CV and profile in
+                              preparation for when you leave university and set off into the real world.</p>
+
+                           <p>As if you need yet another reason, while you do all of the above, your CV and profile is
+                              also being enhanced and helps you stand out from the crowd. In fact, we even invite
+                              potential employers with internships to make contact with you if you wish.</p>
+
+                           <p>Can it get much better than this?</p>
+
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="card shadow-none">
+                     <div class="card-header collapse-bg">
+                        <a class="card-link" data-toggle="collapse" href="#collapseTwo" data-parent="#accordion">Does it
+                           matter if I already tutor for another company?
+                           <i class="fa fa-plus"></i>
+                        </a>
+                     </div>
+                     <div id="collapseTwo" class="collapse">
+                        <div class="card-body">
+                           <p>Not at all, in fact, we prefer it! You will not be tutoring for us anyway; you will be
+                              offering your mentoring and/or tutoring services on behalf of yourself. This means you
+                              build your own personal brand rather than work for someone else's and earn 100% of what
+                              you charge, because we don't take a cut of your prices.
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="card shadow-none">
+                     <div class="card-header collapse-bg">
+                        <a class="card-link" data-toggle="collapse" href="#collapseThree-I" data-parent="#accordion">
+                           Great platform, but what if I currently don't have any time to commit towards this?
+                           <i class="fa fa-plus"></i>
+                        </a>
+                     </div>
+                     <div id="collapseThree-I" class="collapse">
+                        <div class="card-body">
+                           <p>Setting up a profile does not mean you are necessarily committing to giving up any time
+                              right away. It just means your profile can be found (and ranked by Google and social
+                              media) so you can pick and choose when you can assist if you become available in the future.
+                              If you are unable to help an applicant immediately, then you can simply refer them to
+                              another Alumni (that is available) internally.
+                           </p>
+                           <p>So it's a good reason to get your profile up just so applicants can approach you when you
+                              do become available.
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="card shadow-none">
+                     <div class="card-header collapse-bg">
+                        <a class="card-link" data-toggle="collapse" href="#collapseThree" data-parent="#accordion">How
+                           much time will I be expected to commit per month?
+                           <i class="fa fa-plus"></i>
+                        </a>
+                     </div>
+                     <div id="collapseThree" class="collapse">
+                        <div class="card-body">
+                           <p>Like with your fees, that's up to you too. However, we prefer our Alumni not to spend too
+                              much time as their primary focus should be on their own studies and success - what makes
+                              them a successful Alumni in the first place!
+                           </p>
+                           <p>
+                              As we are committed to promoting the opportunities we offer, we offer a
+                              <a href="/uk-medical-schools/widening-access/"
+                                 target="_blank">Widening
+                                 Access to Medicine Scheme</a> so we require all qualified Alumni to commit to at least
+                              one hour per month at no cost to support qualified applicants that may not be able to
+                              afford paying any fees to our Alumni.
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="card shadow-none">
+                     <div class="card-header collapse-bg">
+                        <a class="card-link" data-toggle="collapse" href="#collapseFour" data-parent="#accordion">Can a
+                           Alumni also be a mentee?
+                           <i class="fa fa-plus"></i>
+                        </a>
+                     </div>
+                     <div id="collapseFour" class="collapse">
+                        <div class="card-body">
+                           <p>Yes - we are a student marketplace and therefore any university student, who may be
+                              mentoring other applicants, can also get mentored by other university students. After all,
+                              our mission is to enhance the application journey from school, to university and all the
+                              way to employment.
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="card shadow-none">
+                     <div class="card-header collapse-bg">
+                        <a class="card-link" data-toggle="collapse" href="#collapseFive" data-parent="#accordion">Who
+                           can become a Mentor/Tutor?
+                           <i class="fa fa-plus"></i>
+                        </a>
+                     </div>
+                     <div id="collapseFive" class="collapse">
+                        <div class="card-body">
+                           <p>Join our fast-growing student marketplace by applying now. We will consider all
+                              applications and support you with necessary feedback.<br>
+                              We do not insist that mentors have extensive experience in mentoring or tutoring as we let
+                              the applicants make this judgement themselves during their discovery call.
+                           </p>
+                           <p>
+                              However, we ask that all mentors and/or tutors are:
+                           </p>
+                           <ul class="list-icon list-icon-check text-left">
+                              <li>hard working medical students (with valid student card)</li>
+                              <li>passionate to support and grow their peer network</li>
+                              <li>eligible to work (employment/self-employment/freelance basis) in the country they are
+                                 studying in</li>
+                           </ul>
+                           <p>Most mentors/tutors that we accept usually commit up to 5 hours per week of their time,
+                              leaving enough time to focus on their university course!
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <section class="afm-join-area bg-2">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+               <div class="get-start-content">
+                  <h4>Additional income is just a few clicks away</h4>
+                  <p>Join a growing community of medical school mentors
+                     and earn additional income today.
+                  </p>
+                  <div class="mt-5">
+                     <a href="{% url 'administration:registration' %}" class="theme-btn">Apply now to start earning</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</main>
+{% endblock %}
+{% block js %}
+<script> $(document).ready(function () { $(".london-uni").hide(); $("#londonuniversity").click(function () { $(".london-uni").toggle(); }); $(".collapse.show").each(function () { $(this).prev(".card-header").find(".fa").addClass("fa-minus").removeClass("fa-plus"); }); $(".collapse").on('show.bs.collapse', function () { $(this).prev(".card-header").find(".fa").removeClass("fa-plus").addClass("fa-minus"); }).on('hide.bs.collapse', function () { $(this).prev(".card-header").find(".fa").removeClass("fa-minus").addClass("fa-plus"); }); }); feather.replace()</script>
+
+<script rel="preload" as="script" defer src="{% static 'assets/js/index.js' %}">
+</script>
+<script rel="preload" as="script" defer src="{% static 'assets/js/timeline.js' %}">
+</script>
+<script> $(document).ready(function () { $(".london-uni").hide(); $("#londonuniversity").click(function () { $(".london-uni").toggle(); }); $(".collapse.show").each(function () { $(this).prev(".card-header").find(".fa").addClass("fa-minus").removeClass("fa-plus"); }); $(".collapse").on('show.bs.collapse', function () { $(this).prev(".card-header").find(".fa").removeClass("fa-plus").addClass("fa-minus"); }).on('hide.bs.collapse', function () { $(this).prev(".card-header").find(".fa").removeClass("fa-minus").addClass("fa-plus"); }); }); feather.replace()</script>
+{% endblock %}

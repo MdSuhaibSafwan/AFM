@@ -1,0 +1,165 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}Study Medicine at University of Lincoln{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %} The University of Lincoln medical School is one of the newest medical degree courses to be
+launched in the UK.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/uk-medical-schools/studying-medicine-at-the-university-of-lincoln/
+{% endblock %}{% endblock %}
+
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">Apply for Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:uk_medical_schools' %}">UK Medical Schools</a>
+                            <span> >
+                            </span>University of Lincoln
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">University of Lincoln</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in England</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="right-icon-img-area">
+                        <div>
+                            <p style="text-align: right; margin-bottom: 0px;">
+                                <span>*</span>
+                            </p>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>Fees (International/Non-EU students): </td>
+                                        <td>£24,990</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Interview Style: </td>
+                                        <td>MMI</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Course Structure: </td>
+                                        <td>Integrated</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <h2>Study Medicine at The University of Lincoln</h2>
+                        <p>In collaboration with the University of Nottingham, the University of Lincoln offers
+                            afive-year medical course after which students are awarded their medical degree by
+                            theUniversity of Nottingham.</p>
+                        <p>In the first year, students are taught the scientific fundamentals of Medicine as wellas
+                            certain skills in professionalism and other clinical skills. The themes of learningfocus on
+                            clinical problems such asrespiratory medicine, cardiovascular medicine,musculoskeletal
+                            system and cancer. This learning is integrated with hospital and GPattachments. The clinical
+                            problem-centred learning continues into the second year toinclude GI diseases,
+                            endocrinology, the nervous systemand the reproductive system. Optional modules are also
+                            taken throughout these two years.</p>
+                        <p>In the third year, students work towards obtaining a BMedSci degree which involvesundertaking
+                            a supervised research project, a Research Methods module and optionalmodules in advance
+                            medical science.</p>
+                        <p>In the fourth and fifth years, clinical education is massively expanded throughextensive
+                            placements in hospitals and community-settingsacross Lincolnshire.Student-Selected Modules
+                            are also undertaken by students (abroad or in the UK). Thefinal yearprimarily focuses on
+                            preparation for becoming a Foundation programmewhich includes anassistantship to shadow a
+                            current junior doctor.</p>
+                    </article>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-xl-8">
+                    <article>
+                        <h3>Get mentored by medical students at The University of Lincoln</h3>
+                        <p>
+                            <em> “Hi, my name is Angelica and I am a second-year medical student. Being a medical
+                                student at the new Lincoln Medical School has countless benefits. I can confidently say
+                                that this was the right medical school for me.</em>
+                        </p>
+                        <p>
+                            <em> The small cohort size helps build great relationships between the students, academic
+                                staff, and lecturers. Everyone gets to know each other well, making it a friendly and
+                                welcoming environment. There was never a time where I felt out of place or lonely. The
+                                Lincoln Medical School truly has a supportive and dedicated environment as despite the
+                                current circumstances, the school has adapted exceptionally well to enable the
+                                continuation of our in-person Anatomy and Clinical Skills teaching sessions, which have
+                                greatly enriched my student experience.</em>
+                        </p>
+                        <p>
+                            <em> As the pioneers, we have a tremendous role in impacting the future of the medical
+                                school. This includes being invited to exciting events such as a welcome party with the
+                                BMA, being interviewed for a local news station and many others! There is still a great
+                                deal of excitement about the medical school in the local area, which has had a positive
+                                effect on placements as many doctors have been very keen and willing to get
+                                involved!</em>
+                        </p>
+                        <p>
+                            <em> Being associated with the University of Nottingham, we get the best of both worlds! We
+                                are privilege to have access to both university's libraries and Student Unions,
+                                including Nottingham’s MedSoc events and societies. For example, we have been invited to
+                                MedSoc balls and socials, the Nottingham SCRUBS society talk, and many more!</em>
+                        </p>
+                        <p>
+                            <em> Overall, the Lincoln Medical School has surpassed all expectations I had at the
+                                beginning and is continuously providing the best university experience to all of its
+                                students! If you are considering the Lincoln Medical School, go for it!”</em>
+                        </p>
+                        <p class="mb-5">
+                            <em> -by <strong>Angelica, </strong>
+                                <a href="{% url 'administration:uk_medical_schools' %}"
+                                    class="afm-link">medical student inthe UK</a> at Lincoln Medical School</em>
+                        </p>
+                    </article>
+                </div>
+                <div class="col-md-4 col-xl-4">
+                    <div class="afm-student-img d-flex justify-content-center">
+                        <img src="{% static 'website/img/content-img/angelica-dahil.jpg' %}"
+                            class="img-fluid rounded-circle" alt="angelica-dahil" title="angelica-dahil" width="290" height="290" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <p> * Please confirm all relevant information on this page with your medical school application mentor </p>
+    </div>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> globalcommunity of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,174 @@
+{% extends 'base/base.html' %}
+{% block title %}Training Certificate Form-Page{% endblock %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block css %}
+<style>
+    #empty-row{
+        display:none;
+        }
+
+</style>
+{% endblock %}
+{% block content%}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="#">Application</a></li>
+    </ol>
+</nav>
+{% include 'application/breadcrumb.html' %}
+<form id="msform" role="form" method="post" enctype="multipart/form-data">
+    <div class="card ">
+        <div class="row">
+            <div class="col-12">
+                <div class="pd-lg-l-40 d-flex flex-column">
+                    <!-- <form id="msform1" role="form" method="post" enctype="multipart/form-data"> -->
+                    <div class="wizard">
+                        <div class="content clearfix">
+                            <div class="consent">
+                                <h5> 
+                                {% if request.user.user_type == 3 %}
+                                {% else %}Applicant's {% endif %}Professional
+                                                                    Training Certificate (if any)</h5>
+                                <div class="line-2"></div>
+                                <p class="consent-p"></p>
+                                {% csrf_token %}
+                                {{ formset_training.management_form|crispy}}
+                                {% for form in formset_training %}
+                                <h6>Training Certificate-{{forloop.counter}}</h6>
+                                {% crispy form %}
+                                {% endfor %}
+                                <div id='empty-row' class='new-form-row'>
+                                    <hr>
+                                    <h6 id='form-head' class=""></h6>
+                                    {% crispy formset_training.empty_form %}
+                                </div>
+                                <div class="align-right">
+                                    <button type="button" class="btn btn-outline-indigo btn-rounded add-new-form">Add
+                                        Training Certificate
+                                    </button>
+                                    <a href="{% url 'application:application_training_twfl' app.slug %}" id="reset"
+                                       class="btn btn-outline-indigo btn-rounded">Reset</a>
+                                </div>
+
+                                <div class="row ">
+                                    <div class="col-12">
+                                        <div class="app-footer-line"></div>
+                                        <div class="step-btn three-btn mg-t-20">
+                                            <div>
+                                                <a type="button" class="btn btn-outline-indigo btn-rounded"
+                                                   href="{% url 'application:application_education_twfl' app.slug %}"
+                                                   role="menuitem"> Previous
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <a type="button" class="btn btn-outline-indigo btn-rounded"
+                                                   href="{% url 'application:application_english_language_twfl' app.slug %}"
+                                                   role="menuitem"> Skip & Continue </a>
+                                                <button class="btn btn-outline-indigo btn-rounded"> Save & Continue
+                                                    <span class="iconify"
+                                                          data-icon="bi:arrow-right" data-inline="false"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- </form> -->
+            </div>
+        </div>
+    </div><!-- az-content-body -->
+
+</form>
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+$('#education-link').addClass('active');
+
+// add date-field
+var formId = "id_form-TOTAL_FORMS";
+var totalForms = parseInt($('#' + formId).val());
+for( i=0; i < totalForms; i++){
+    $( "#id_form-" + i + "-certificate_date").datepicker({
+      changeYear: true,
+      dateFormat: "dd/mm/yy",
+    }).attr("placeholder", "dd/mm/yyyy");
+}
+$(document).ready(function() {
+    function updateEmptyFormIDs(element,totalForms){
+    var thisInput = element
+    //get current form input name
+    var currentName = element.attr('name')
+
+    // replace prefix with actual number
+    var newName = currentName.replace(/__prefix__/g, totalForms)
+    thisInput.attr('name', newName)
+    thisInput.attr('id', "id_" + newName)
+
+    // creat new form  row id
+    var newFormRow = element.closest(".new-form-row");
+    var newRowID = "row_id_" + newName;
+    newFormRow.attr("id", newRowID);
+
+    // add clas fopr newbasic animations
+    newFormRow.addClass("new-parent-row");
+
+    // update form group id
+    var parentDiv = element.parent();
+    parentDiv.attr("id", "parent_id_" + newName)
+
+    // update label id
+    var inputLabel  = parentDiv.find("label")
+    inputLabel.attr("for", "id_"  + newName)
+
+    return newFormRow
+
+    };
+
+    $('.add-new-form').click(function(e) {
+    e.preventDefault()
+
+    var formId = "id_form-TOTAL_FORMS";
+    var totalForms = parseInt($('#' + formId).val());
+    $('#form-head').html('Training Certificate-' + (totalForms + 1));
+
+    var emptyRow = $("#empty-row").clone();
+
+    //remove id from new form
+    emptyRow.attr("id", null)
+
+    if (totalForms<=2){
+        var newFormRow;
+        emptyRow.find("input, select, textarea").each(function() {
+            newFormRow = updateEmptyFormIDs($(this), totalForms)
+        })
+        emptyRow.html(emptyRow.html().replace(/__prefix__/g,totalForms));
+
+        $(".new-form-row:last").after(newFormRow);
+
+        $('#' + 'id_form-TOTAL_FORMS').val(totalForms + 1);
+        }else{
+            $('.add-new-form').addClass('disabled')
+        }
+        $( "#id_form-" + totalForms + "-certificate_date").datepicker({
+          changeYear: true,
+          dateFormat: "dd/mm/yy",
+        }).attr("placeholder", "dd/mm/yyyy");
+
+    })
+})
+</script>
+<script>
+    if($('form').length > 1) {
+      $('#reset').hide();
+    }
+    $('.add-new-form').click(function() {
+        $('#reset').show();
+    });
+
+</script>
+{% endblock %}

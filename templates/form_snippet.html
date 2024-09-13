@@ -1,0 +1,88 @@
+<!--<div class="row">-->
+<!--    <div class="col-xl-12 col-lg-12">-->
+<!--    <form role="form" method="post" enctype="multipart/form-data" >-->
+<!--          {% csrf_token %}-->
+<!--                    <tbody>-->
+<!--    {% for field in form %}-->
+<!--    <div class="">-->
+
+
+<!--        <div class="card">-->
+<!--            <div class="card-header">-->
+<!--                <h4 class="card-title">{{label}}-{{forloop.counter}}</h4>-->
+<!--            </div>-->
+<!--            <div class="card-body">-->
+<!--                <div class="basic-form">-->
+
+
+<!--&lt;!&ndash;                    {% for data in field %}&ndash;&gt;-->
+<!--                            <tr class="div_{{ field.html_name }}">-->
+<!--&lt;!&ndash;                             <div class="form-group row div_{{ field.html_name }}">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <label class="col-sm-3 col-form-label">{{ data.label_tag }}</label>&ndash;&gt;-->
+
+
+<!--                                <th>-->
+<!--                                    {{ data.label_tag }}-->
+<!--                                </th>-->
+<!--                                <td>-->
+<!--&lt;!&ndash;                                    <div class="col-sm-4 ">&ndash;&gt;-->
+<!--                                    {% if data.errors %}-->
+<!--&lt;!&ndash;                                    <div class="alert alert-danger" role="alert">&ndash;&gt;-->
+<!--                                        {{ data.errors }}-->
+<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--                                    {% endif %}-->
+<!--                                    {{ data }}-->
+<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--                                </td>-->
+<!--                                 {% if formset.can_delete %}-->
+<!--                                    {{ form.DELETE }}-->
+<!--                                {% endif %}-->
+<!--                            </tr>-->
+<!--&lt;!&ndash;                             </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    {% endfor %}&ndash;&gt;-->
+
+
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--    </div>-->
+
+
+<!--{% endfor %}-->
+<!--                    <button type="submit" class="btn btn-primary">Update</button>-->
+<!--                        </tbody>-->
+
+
+<!--        </form>-->
+<!--</div>-->
+<!--</div>-->
+
+
+<table>
+    <tbody>
+    {% for field in form %}
+
+    <tr class="div_{{ field.html_name }}">
+
+
+        <th>
+            <h2>{{label}}-{{forloop.counter}}</h2>
+            {{ field.label_tag }}
+        </th>
+        <td>
+            {% if field.errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ field.errors }}
+            </div>
+            {% endif %}
+            {{ field }}
+        </td>
+        {% if formset.can_delete %}
+        <td>{{ form.DELETE }}</td>
+        {% endif %}
+    </tr>
+
+    {% endfor %}
+    </tbody>
+</table>
+<br>

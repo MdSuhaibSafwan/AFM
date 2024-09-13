@@ -1,0 +1,113 @@
+{% extends 'base/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% load administration_extras %}
+{% load static %}
+{% load widget_tweaks %}
+{% block css %}
+<style>
+  form {
+    display: contents;
+  }
+</style>
+{% endblock %}
+{% block content %}
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb breadcrumb-style1">
+    <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="#">Total System Alumni</a></li>
+  </ol>
+</nav>
+<div class="row mr-b-20">
+  <div class="col-12 col-sm-12">
+    <div class="add-new-app">
+
+      <a href="{% url 'administration:system_mentor_registration_twfl' %}" id="add-new-institute">
+        <button type="submit" class="btn" style="color: rgb(0, 0, 0); font: 1em poppins ;">
+          <span>+</span> Register New System Alumni
+        </button>
+        <i data-feather="clipboard"></i></a>
+      <!-- <a href="#">+ Add New Application <i data-feather="clipboard"></i></a> -->
+    </div>
+  </div>
+</div>
+
+<div class="row row-sm mg-b-20">
+  <div class="col-sm-12 col-lg-12">
+    <div class="card card-table-one">
+      <h6 class="card-title">List of System Alumni</h6>
+      <hr>
+      <div class="table-responsive">
+        {% if mentors %}
+        <table class="table table-hover mg-b-0">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {% for x in mentors %}
+            <tr>
+              <td>{{x.first_name}}</td>
+              <td>{{x.last_name}}</td>
+              <td>{{x.email}}</td>
+              <td>
+                <form method="post" id="form-{{x.id}}" onsubmit="">
+                  {% csrf_token %}
+                  <div class="custom-control custom-switch">
+                    <input type="hidden" name="admin_id" value="{{x.id}}">
+                    <input type="checkbox" class="custom-control-input" id="button-{{x.id}}"
+                      onchange="change_is_active('form-{{x.id}}')" {% if x.is_active %}checked{% endif %}>
+                    <label class="custom-control-label" for="button-{{x.id}}"> 
+{% if x.is_active %}
+                      Active
+                      {% else %}
+                      Not Active
+                      {% endif %}
+                    </label>
+                  </div>
+                </form>
+              </td>
+
+
+
+            </tr>
+
+            {% endfor %}
+
+          </tbody>
+        </table>
+        {% else %}
+        <div style="text-align:center;">
+          <p>No System Alumni Available !!!!</p>
+        </div>
+        {% endif%}
+      </div><!-- table-responsive -->
+
+
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+  var id;
+  function change_is_active(id) {
+    if (confirm('Do you really want to do this action')) {
+      $('#' + id).submit();
+    }
+    else{
+        location.reload();
+    }
+  }
+</script>
+
+
+{% endblock %}

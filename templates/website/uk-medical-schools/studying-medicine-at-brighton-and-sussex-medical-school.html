@@ -1,0 +1,164 @@
+{% extends 'registration/reg_base.html' %}
+{% block title1 %}{% block title2%}Apply to Study in Brighton & Sussex Medical School, UK{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}Disciplines like Cardiology, Diabetes, Nephrology, Trauma & Orthopedics are a few of the best
+fields offered by Brighton & Sussex Medical School.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/uk-medical-schools/studying-medicine-at-brighton-and-sussex-medical-school/
+{% endblock %}{% endblock %}
+{% block content %}
+{% load static %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">Apply for Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:uk_medical_schools' %}">UK Medical Schools</a>
+                            <span> >
+                            </span>Brighton and Sussex Medical School
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">Brighton and Sussex Medical School (BSMS)
+                        </h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in England</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="right-icon-img-area">
+                        <div>
+                            <p style="text-align: right; margin-bottom: 0px;">
+                                <span>*</span>
+                            </p>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>Fees (International/Non-EU students): </td>
+                                        <td>£35,517 per year</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Interview Style: </td>
+                                        <td>MMI</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Course Structure: </td>
+                                        <td>Integrated</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <h2>Study Medicine at Brighton and Sussex Medical School (BSMS)</h2>
+                        <p>Medicine at BSMS is a five-year course that aims to educate students into intelligent,
+                            well-equipped doctors who will go on to deliver high-standard care to future patients in a
+                            professional and compassionate manner. The medical school offers advance facilities for
+                            teaching anatomy, modern clinical skills labs and simulation rooms to provide a high quality
+                            education from the very beginning.</p>
+                        <p>The first two years involve a systems-based approach to learning where each module integrates
+                            an understand of each system in health and illness and delves into aspects of both
+                            biomedical science and psychosocial science. Anatomy teaching is delivered through cadaveric
+                            dissections, prosections, clinical imaging, etc. Students also learn basic clinical skills
+                            in patient examination and history-taking as well as communication and diagnostic reasoning
+                            through classroomlearning and placements in a range of healthcare settings.</p>
+                        <p>In the third year, clinical attachments take place across different specialties in the
+                            medical and surgical field and involves teaching in social science, public health and
+                            ethics. In the fourth year, you explore further specialised areas in clinical medicine with a
+                            focus on integrated patient care in different healthcare settings. Students also take part
+                            in Time for Autism and undertake an research project throughout the year.</p>
+                        <p>The final year focuses on further increasing clinical experience in medical students and
+                            preparation for the Foundation programme. Teaching will involve collaborating within a
+                            clinical team to work on a wide range of cases. Throughout this year, skillsin patient
+                            investigation, diagnosis and treatment are further developed in different areas of
+                            medicine.BSMS also offer an optional year to undertake an intercalated degree between the
+                            third and fourth year to allow students the chance to study further into a field of interest
+                            to them but this offer is limited to 40% of their medical students.</p>
+                        <h3>Get mentored by medical students at Brighton and Sussex Medical School (BSMS)</h3>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <p> * Please confirm all relevant information on this page with your medical school application mentor </p>
+    </div>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> global community of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal" id="login" tabindex="-1" role="modal" aria-labelledby="modal-label-3" aria-hidden="true">
+        <div class="modal-dialog modal-center modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                        <i data-feather="x-circle">
+                        </i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 col-xl-12">
+                            <form method="POST" id="afm-form" action="index/">
+                                <h4>Register Your Interest</h4>
+                                <div class="form-group" required>
+                                    <select name="ima_roll" class="form-control" required>
+                                        <option value="">I m a..</option>
+                                        <option value="Student">Student</option>
+                                        <option value="Parent">Parent</option>
+                                        <option value="Agent">Agent</option>
+                                        <option value="Mentor">Mentor</option>
+                                        <option value="University">University</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <input type="text" name="email" class="form-control border-right-0"
+                                        placeholder="Provide Your Email" required>
+                                    <span class="input-group-append bg-white border-left-0">
+                                        <span class="input-group-text bg-transparent">
+                                            <i data-feather="mail">
+                                            </i>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="d-flex justify-content-center my-5">
+                                    <input class="theme-btn" type="submit" name="send_message_btn" value="Register" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

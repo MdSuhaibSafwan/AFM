@@ -1,0 +1,47 @@
+{% extends 'registration/reg_base.html' %}
+{% block title1 %}{% block title2%}Graduate Entry to UK medical schools{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}Study medicine at UK medical schools via graduate entry medicine.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}https://applyformedicine.com/graduate-entry-to-medicine/{% endblock %}{% endblock %}
+{% block content %}
+{% load static %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">Apply for Medicine</a>
+                            <span class=""> >
+                            </span>Graduate Entry to Medicine
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">Graduate Entry to Medicine in the UK </h1>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> global community of
+                            students by searching for a mentor now </p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

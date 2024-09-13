@@ -1,0 +1,5 @@
+{% if user.is_authenticated %}
+{% include '404/404-system.html' %}
+{% else %}
+{% include '404/404-website.html' %}
+{% endif %}

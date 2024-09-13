@@ -1,0 +1,114 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load administration_extras %}
+{% block title%}Demand & Supply{% endblock %}
+{% block css %}
+<style>
+  form {
+    display: contents;
+  }
+  div.btn,.filter {
+    margin-right: 5px;
+}
+</style>
+{% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb breadcrumb-style1">
+    <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item">Demand & Supply</li>
+  </ol>
+</nav>
+<div class="row row-sm mg-b-10">
+  <form id="search-mentor-form">
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="select2-box mb-2">
+<!--        <label>{{filter.form.spoken_language.label}}</label>-->
+              {% render_field filter.form.spoken_language class='form-control spoken_language' placeholder=filter.form.spoken_language.label %}
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="select2-box mb-2">
+<!--        <label>{{filter.form.country.label}}</label>-->
+              {% render_field filter.form.country class='form-control country' placeholder=filter.form.country.label %}
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="select2-box mb-2">
+<!--        <label>{{filter.form.subject.label}}</label>-->
+              {% render_field filter.form.subject class='form-control subject' placeholder=filter.form.subject.label %}
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-3">
+        <button type="submit" class='btn btn-outline-indigo btn-rounded'>Search</button>
+        <a href="{{request.path}}"><button type="button" class='btn btn-outline-indigo btn-rounded'>Clear</button></a>
+    </div>
+  </form>
+</div>
+<div class="card">
+  <div class="card-body table-responsive">
+    <table class="table table-hover mg-b-0">
+      <thead>
+        <tr>
+          <th>spoken Language</th>
+          <th>Country</th>
+          <th>Subject</th>
+          <th>Total Demand</th>
+          <th>Total Supply</th>
+
+        </tr>
+      </thead>
+      <tbody id="T1">
+        {% if page_obj %}
+        {% for i in page_obj %}
+        <tr>
+          <td>{{i.spoken_language}}</td>
+          <td>{{i.country.name}}</td>
+          <td>{{i.subject|getsubject}}</td>
+          <td>{{i.demand}}</td>
+          <td>{{i.supply}}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+          <td>No Record found</td>
+        </tr>
+        {% endif %}
+      </tbody>
+
+    </table>
+  </div>
+</div>
+
+<div class="row row-sm">
+  <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+  <div class="d-flex justify-content-center wd-100v">
+    <ul class="pagination pagination-circled">
+      {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link"
+          href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}"><i
+            data-feather="arrow-left"></i></a></li>
+      {% endif %}
+      {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link"
+          href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}"><i
+            data-feather="arrow-right"></i></a></li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+  $('#id_spoken_language').select2({
+    placeholder: 'Select Language',
+  });
+  $('#id_country').select2({
+    placeholder: 'Select Country',
+  });
+  $('#id_subject').select2({
+    placeholder: 'Select Subject',
+  });
+</script>
+{% endblock %}

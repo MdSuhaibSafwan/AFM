@@ -1,0 +1,209 @@
+{% extends 'base/base.html' %}
+{% block title%}Edit Profile{% endblock %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block css%}
+<link rel="stylesheet" href="{% static 'css/dropzone.css' %}">
+<style>
+
+{% if not mentor_pi.consent4 %}
+
+    .afm-header-menu ul {
+        display: none;
+    }
+
+    .afm-header-right {
+        display: none;
+    }
+
+    .signout ul {
+        display: block;
+    }
+
+{% endif %}
+
+    .select2 {
+        width: 100% !important;
+    }
+    .preview_div img{
+        height: 200px;
+        width: 200px;
+        object-fit: contain;
+    }
+
+    .preview_profile_pic {
+      overflow: hidden;
+      width: 200px !important;
+      height: auto;
+      margin: 0 auto;
+    }
+    .saved_preview{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+</style>
+{% endblock%}
+{% block content %}
+<form method="POST" id="update-profile-form" enctype="multipart/form-data">
+    {% csrf_token %}
+    <nav aria-label="breadcrumb" class="sample-profile">
+        <ol class="breadcrumb breadcrumb-style1">
+            <li class="breadcrumb-item">
+                <a href="{% url 'administration:dashboard' %}" >Dashboard</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="#">Update Profile</a>
+            </li>
+        </ol>
+    </nav>
+    <div class="alert alert-warning text-center mb-2">
+        <p class="mb-0">
+            As a final touch, please add a photo of yourself before you submit your profile for review.<br>
+            If you face any issues loading your photo, feel free to e-mail it in to:
+            <a href="mailto:signup@theapplygroup.com">signup@theapplygroup.com</a>, stating your name and we can upload
+            it for you.
+        </p>
+    </div>
+    <div class="row row-sm mg-b-20">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card card-table-one">
+                <h6 class="card-title">
+                    <i data-feather="info">
+                    </i> Upload Profile Photo
+                </h6>
+                <hr>
+<!--                <div class="preview_div" id="preview-clone-profile_pic" style="border: 3px dotted gray; border-radius:8px;">-->
+<!--                    <div class="preview_profile_pic">-->
+<!--                        {% if mentor_pi.admin.profile_pic %}-->
+<!--                        <img src="{{mentor_pi.admin.profile_pic.url}}" class="saved_preview">-->
+<!--                        {% endif %}-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div class="col-xl-3 drop_area m-auto">
+                    <div class="drop_area">
+                        <div class="form-group">
+                            <div class="">
+                                <div class="dropzone">
+                                    <div class="dz-preview text-center m-4">
+                                        <h6 id="help_line"><a type="button">Click here</a> to upload
+                                            image</h6>
+                                        <div class="preview_div" id="preview-clone-profile_pic">
+                                            <div class="preview_profile_pic dz-image m-2 rounded-circle ">
+                                                {% if mentor_pi.admin.profile_pic %}
+                                                <img class="saved_preview"
+                                                     src="{{mentor_pi.admin.profile_pic.url}}" width="auto">
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-center">Please upload image in one of these formats: ' jpg | jpeg | png | gif '.<br>
+                        Keep the filesize under 5 MB.
+                        </p>
+                    </div>
+                    <div class="d-none">
+                        {{form.x}}
+                        {{form.y}}
+                        {{form.width}}
+                        {{form.height}}
+                        {{form.rotation}}
+                        {{form.profile_pic|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-sm ">
+        <div class="col-md-12 col-xl-12">
+            {{consent_form.consent1|as_crispy_field}}
+        </div>
+        <div class="col-md-12 col-xl-12">
+            {{consent_form.consent2|as_crispy_field}}
+        </div>
+        <div class="col-md-12 col-xl-12">
+            {{consent_form.consent3|as_crispy_field}}
+        </div>
+        <div class="col-md-12 col-xl-12">
+            {{consent_form.consent4|as_crispy_field}}
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-12">
+            <div class="app-footer-line"></div>
+            <div class="step-btn three-btn mg-t-20">
+                <div>
+                    <a type="button" class="btn btn-outline-indigo btn-rounded"
+                       href="{% url 'administration:upload_private_information_twfl' %}"
+                       role="menuitem"> <span class="iconify"
+                       data-icon="bi:arrow-left" data-inline="false"></span> Previous
+                    </a>
+                </div>
+                <div>
+                    <button class="btn btn-outline-indigo btn-rounded" id="Button"> Save & Continue
+                        <span class="iconify"
+                              data-icon="bi:arrow-right" data-inline="false"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="modal fade" id="feature_image_modal_crop" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Crop the photo
+                </h5>
+<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                    <span aria-hidden="true">&times;</span>-->
+<!--                </button>-->
+            </div>
+            <div class="modal-body">
+                <img src="" id="profile_pic" style="max-width: 100%;">
+            </div>
+            <div class="modal-footer">
+<!--                <div class="btn-group pull-left" role="group">-->
+<!--                    <button type="button" class="btn btn-outline-indigo btn-rounded rotateL">-->
+<!--                        <i data-feather="rotate-ccw"></i>-->
+<!--                        Rotate -->
+<!--                    </button>-->
+                    <button type="button" class="btn btn-outline-indigo btn-rounded js-zoom-in-one">
+<!--                        <i data-feather="zoom-in"></i>-->Zoom-In
+                    </button>
+                    <button type="button" class="btn btn-outline-indigo btn-rounded js-zoom-out-one">
+<!--                        <i data-feather="zoom-out"></i>-->Zoom-Out
+                    </button>
+<!--                </div>-->
+
+                <button type="button" class="btn btn-outline-indigo btn-rounded js-crop-and-upload-one">
+                    Crop
+                </button>
+                <button type="button" class="btn btn-outline-indigo btn-rounded cancel_btn" data-dismiss="modal">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="{% static 'administration/js/new_mentor_update_profile.js' %}"></script>
+<script>
+$(document).on("click", ":submit", function (e) {
+  if (!$('.preview_profile_pic img').length) {
+      e.preventDefault();
+      alert('Please upload profile picture!');
+      return false;
+  }
+});
+</script>
+{% if not mentor_pi.consent4 %}
+<script>
+    $("<div class='afm-header-menu signout'><ul class='nav'><li class='nav-item'><a href='{% url 'logout' %}'><svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-log-out'><path d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'></path><polyline points='16 17 21 12 16 7'></polyline><line x1='21' y1='12' x2='9' y2='12'></line></svg></a><a href='{% url 'logout' %}' class='nav-link'> Sign Out</a></li></ul></div>").insertAfter(".afm-header-right");
+</script>
+{% endif %}
+{% endblock %}

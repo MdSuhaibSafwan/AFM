@@ -1,0 +1,729 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}My Applications-Page{% endblock %}
+
+{% block css %}
+<style>
+form{
+    display: contents;
+}
+.all-app-list .nav-link{
+    padding-left:5px !important;
+    padding-right:5px !important;
+}
+div.btn,.filter {
+    margin-right: 5px;
+}
+.applicant-name{
+    border-top:unset;
+    border-bottom: 1px solid #B9CCE0;
+}
+strong{
+    font-weight:500;
+}
+</style>
+{% endblock %}
+{% block content %}
+{% load administration_extras %}
+{% load widget_tweaks %}
+<nav aria-label="breadcrumb">
+      <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="#">List Application</a></li>
+      </ol>
+</nav>
+<div class="application-list">
+    <div class="row mr-b-20">
+        <div class="col-12 col-sm-12">
+            <div class="add-new-app">
+                <form role="form" method="post" action="{% url 'application:my_applications_twfl' %}"
+                      enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <a href="#" id="add-new-institute">
+                        <button type="submit" class="btn" style="color: rgb(0, 0, 0); font: 1em poppins ;">
+                            <span>+</span> Add New Application
+                        </button>
+                        <i data-feather="clipboard"></i>
+                    </a>
+                    <!-- <a href="#">+ Add New Application <i data-feather="clipboard"></i></a> -->
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row row-sm mg-b-10 search-filter-box">
+        <div class="col-12 col-lg-12">
+            <div class="card card-dashboard-twentysix mg-b-10">
+                <div class="card-body">
+                    <div class="d-flex justify-content-lg-between align-items-lg-center table-responsive">
+                        <div class="filter-div d-flex justify-content-lg-between align-items-lg-center">
+                            <button class="btn btn-rounded  btn-md btn-indigo filter"><i data-feather="filter"></i>
+                                Filters
+                            </button>
+                            <div id="mySelect0"></div>
+                            <div id="mySelect1"></div>
+                            <div id="mySelect2"></div>
+                            <div id="mySelect3"></div>
+                        </div>
+                        <div class="reset-txt-area">
+                            <a href="{% url 'application:my_applications_twfl' %}">Resets Filters</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-sm mg-b-10">
+        <form>
+            <div class="col-12 col-md-4 col-lg-3">
+                <div class="select2-box mb-2">
+                    {% render_field form.subject placeholder=form.subject.label class='form-control subject' %}
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4 col-lg-3">
+                <div class="select2-box mb-2">
+                    {% render_field form.study_destination_country placeholder=form.study_destination_country.label class='form-control study_destination_country' %}
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4 col-lg-3">
+                <div class="select2-box mb-2">
+                    {% render_field form.program_level placeholder=form.program_level.label class='form-control program_level' %}
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4 col-lg-2">
+                <div class="select2-box mb-2">
+                    {% render_field form.intake_year placeholder=form.intake_year.label class='form-control intake_year' %}
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-1">
+                <button type="submit" class="btn btn-indigo btn-block btn-rounded"><i data-feather="search"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="row mr-b-20 mg-t-20">
+        <div class="col-12 col-sm-12">
+            <div class="all-app-list pro-detail">
+                <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'application:submitted_applications_twfl' %}"
+                        >Submitted Applications ({{submitted_app}})</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'application:incomplete_applications_twfl' %}"
+                        >Requested Applications ({{incomplete_app}})</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'application:my_applications_twfl' %}"
+                        >All Applications ({{total_app}})</a>
+                    </li>
+                </ul>
+                <hr>
+                <div class="">
+                    {% if list_applications %}
+                    <div>
+                        {% for x in list_applications %}
+                        <div class="panding-app">
+                            <p>{{x.status|getstatus}} Application</p>
+                        </div>
+                        <div class="row row-sm mg-b-20">
+                            <div class="col-12 col-md-12 col-lg-12">
+                                <div class="card card-dashboard-twentysix mg-b-10">
+                                    <div class="line-3 applicant-name text-left">
+                                         <p class="text-capitalize"><strong>Applicant Name: </strong>{{x.id|getfullname}}</p>
+                                    </div>
+                                    <div class="card-body pd-30 app-status">
+                                        <div class="mantees">
+                                            <div class="row d-flex ">
+                                              <div class="col-lg-3 col-xl-3 col-md-6 mg-t-20 border-right">
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <p class="p-tag"><strong>Nationality:</strong></p>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <p><span>{{x.id|getcountry}} <img src={{x.id|getcountryflag}} alt="flag"></span></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <p class="p-tag"><strong>Subject Interest:</strong></p>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <p><span>{{x.subject|getsubject}}</span></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <p class="p-tag"><strong>Program Level:</strong></p>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <p><span>{{x.program_level|getpost}}</span></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <p class="p-tag"><strong>Desired Course:</strong></p>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <p><span>{{x.desire_course|getifnone}}</span></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <p class="p-tag"><strong>Desired Intake:</strong></p>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <p><span>{{x.intake_month|getmonth}}-{{x.intake_year}}</span></p>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                              <div class="col-lg-3 col-xl-3 col-md-6 mg-t-20 border-right">
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <p class="p-tag"><strong>English Test:</strong></p>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <p><span> 
+                                                        {% getenglishlanguagescore x.id 'certificate_name' %}</span></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <p class="p-tag"><strong>Reading Score:</strong></p>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <p><span> 
+                                                        {% getenglishlanguagescore x.id 'reading' %}</span></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <p class="p-tag"><strong>Listening Score:</strong></p>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <p><span> 
+                                                        {% getenglishlanguagescore x.id 'listening' %}</span></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <p class="p-tag"><strong>Speaking Score:</strong></p>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <p><span> 
+                                                        {% getenglishlanguagescore x.id 'speaking' %}</span></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <p class="p-tag"><strong>Writing Score:</strong></p>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <p><span> 
+                                                        {% getenglishlanguagescore x.id 'writing' %}</span></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <p class="p-tag"><strong>Overall Score:</strong></p>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <p><span> 
+                                                        {% getenglishlanguagescore x.id 'overall' %}</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                              <div class="col-lg-6 col-xl-6 col-md-6 mg-t-20">
+                                                <div class="row">
+                                                    {% getlatestqualification x.id 'qualification' %}
+                                                </div>
+                                                <div class="row">
+                                                    {% getlatestqualification x.id 'grade' %}
+                                                </div>
+                                                <div class="row">
+                                                    {% getlatestqualification x.id 'country' %}
+                                                </div>
+                                                <div class="row border-top pt-3">
+                                                    <div class="col-lg-4">
+                                                        <p class="p-tag"><strong>Fees affordability per year:</strong></p>
+                                                    </div>
+                                                    <div class="col-lg-8">
+                                                        <p><span>{{x.fees_affordability}} GBP</span></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <p class="p-tag"><strong>Interested in Scholarship?:</strong></p>
+                                                    </div>
+                                                    <div class="col-lg-8">
+                                                        <p><span>{{x.scholarship_option|getyesnostatus}}</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+<!--                                    <div class="line-3">-->
+<!--                                        <div class="last-edited">-->
+<!--                                            <div class="row">-->
+<!--                                                <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12">-->
+<!--                                                    <p><i data-feather="clipboard"></i>Application ID: <strong-->
+<!--                                                            class="text-uppercase">{{x.slug}}</strong></p>-->
+<!--                                                </div>-->
+
+<!--                                                <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12">-->
+<!--                                                    <p><i data-feather="clock"></i>Created on:-->
+<!--                                                        {{x.created_at|date:"d/m/Y"}} </p>-->
+<!--                                                </div>-->
+
+<!--                                                <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12">-->
+<!--                                                    <p><i data-feather="send"></i> Submitted on:-->
+<!--                                                        {{x.submitted_at|date:"d/m/Y"}} </p>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+                                    <div class="line-3">
+                                        <div class="last-edited">
+                                              <div class="row">
+                                                 <div class="col-md-12 col-lg-3 col-xl-3 col-sm-12">
+                                                     <p><i data-feather="clipboard"></i>Application Id : <strong class="text-uppercase">{{x.slug}}</strong></p>
+                                                 </div>
+
+                                                 <div class="col-md-12 col-lg-3 col-xl-3 col-sm-12">
+                                                    <p> <i data-feather="clock"></i>Created on: {{x.created_at|date:"d/m/Y"}} </p>
+                                                 </div>
+                                                 <div class="col-md-12 col-lg-3 col-xl-3 col-sm-12">
+                                                     {% if x.status == 0 or x.status == 2 %}
+                                                        <p> <i data-feather="send"></i> Submitted on: {{x.submitted_at|date:"d/m/Y"}}</p>
+                                                     {% else %}
+                                                        <p> <i data-feather="clock"></i> Last Edited on: {{x.updated_at|date:"d/m/Y"}}</p>
+                                                     {% endif %}
+                                                 </div>
+                                                 <div class="col-md-12 col-lg-3 col-xl-3 col-sm-12">
+                                                    <a href="{% url 'application:view_application_twfl' x.slug %}">
+                                                        <button class="btn btn-rounded btn-md btn-outline-indigo">View
+                                                            Details
+                                                        </button>
+                                                    </a>
+                                                 </div>
+                                              </div>
+                                           </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                    {% else %}
+                    <div style="text-align:center; margin:10px auto;">
+                        no record found
+                    </div>
+                    {% endif %}
+                    <!--                    {% if submitted_applications %}-->
+                    <!--                    <div>-->
+
+                    <!--                           {% for x in submitted_applications %}-->
+
+                    <!--                                 <div class="panding-app">-->
+                    <!--                                     <p>{{x.status|getstatus}} Application</p>-->
+                    <!--                                 </div>-->
+
+                    <!--                                 <div class="row row-sm mg-b-20">-->
+                    <!--                                     <div class="col-12 col-md-12 col-lg-12">-->
+                    <!--                                         <div class="card card-dashboard-twentysix mg-b-10">-->
+                    <!--                                             <div class="card-body pd-30 app-status">-->
+                    <!--                                                 <div class="mantees">-->
+                    <!--                                                     <div class="row d-flex align-items-md-center">-->
+                    <!--                                                         <div class="col-lg-2 col-xl-2 col-md-6">-->
+                    <!--                                                             <div class="mentees-number ">-->
+                    <!--                                                                 <h3>{{forloop.counter}}</h3>-->
+                    <!--                                                             </div>-->
+                    <!--                                                         </div>-->
+
+                    <!--                                                         <div class="col-lg-2 col-xl-2 col-md-6 mg-t-20">-->
+                    <!--                                                             <h3>Course Name</h3>-->
+                    <!--                                                             <p>{{x.subject|getsubject}}</p>-->
+                    <!--                                                         </div>-->
+
+                    <!--                                                         <div class="col-lg-2 col-xl-2 col-md-6 mg-t-20 ">-->
+                    <!--                                                             <h3>Intake Month/year</h3>-->
+                    <!--                                                             <p>{{x.intake_month|getmonth}}-{{x.intake_year}}</p>-->
+                    <!--                                                         </div>-->
+
+                    <!--                                                         <div class="col-lg-2 col-xl-2 col-md-6 mg-t-20">-->
+                    <!--                                                             <h3>Programme Level</h3>-->
+                    <!--                                                             <p>{{x.program_level|getpost}}</p>-->
+                    <!--                                                         </div>-->
+
+                    <!--                                                         <div class="col-lg-2 col-xl-2 col-md-6 mg-t-20">-->
+                    <!--                                                             <h3>Country From</h3>-->
+                    <!--                                                             <p>{{x.id|getcountry}}</p>-->
+                    <!--                                                         </div>-->
+
+                    <!--                                                         <div class="col-lg-2 col-xl-2 col-md-6">-->
+                    <!--                                                             <a href="{% url 'application:view_application_twfl' x.slug %}">-->
+                    <!--                                                                 <button class="btn btn-rounded btn-md btn-indigo">View-->
+                    <!--                                                                     Application-->
+                    <!--                                                                 </button>-->
+                    <!--                                                             </a>-->
+                    <!--                                                         </div>-->
+                    <!--                                                     </div>-->
+                    <!--                                                 </div>-->
+                    <!--                                             </div>-->
+
+                    <!--                                             <div class="line-3">-->
+                    <!--                                                 <div class="last-edited">-->
+                    <!--                                                     <div class="row">-->
+                    <!--                                                         <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12">-->
+                    <!--                                                             <p><span></span></p>-->
+                    <!--                                                         </div>-->
+
+                    <!--                                                         <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12">-->
+                    <!--                                                             <p><i data-feather="clock"></i>Created on {{x.created_at}} </p>-->
+                    <!--                                                         </div>-->
+
+                    <!--                                                         <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12">-->
+                    <!--                                                             <p><i data-feather="clock"></i> Last Edited: {{x.updated_at|date:"d/m/Y"}} </p>-->
+                    <!--                                                         </div>-->
+                    <!--                                                     </div>-->
+                    <!--                                                 </div>-->
+                    <!--                                             </div>-->
+
+                    <!--                                         </div>-->
+                    <!--                                     </div>-->
+                    <!--                                 </div>-->
+                    <!--                            {% empty %}-->
+                    <!--                        no record found-->
+                    <!--                           {% endfor %}-->
+
+
+                    <!--                    </div>-->
+
+                    <!--                    {% endif %}-->
+                    <!--                    {% if incomplete_applications %}-->
+                    <!--                    <div class="" >-->
+
+                    <!--                           {% for x in incomplete_applications %}-->
+                    <!--                                    <div class="panding-app">-->
+                    <!--                                        <p>{{x.status|getstatus}} Application</p>-->
+                    <!--                                    </div>-->
+
+                    <!--                                    <div class="row row-sm mg-b-20">-->
+                    <!--                                        <div class="col-12 col-md-12 col-lg-12">-->
+                    <!--                                            <div class="card card-dashboard-twentysix mg-b-10">-->
+                    <!--                                                <div class="card-body pd-30 app-status">-->
+                    <!--                                                    <div class="mantees">-->
+                    <!--                                                        <div class="row d-flex align-items-md-center">-->
+                    <!--                                                            <div class="col-lg-2 col-xl-2 col-md-6">-->
+                    <!--                                                                <div class="mentees-number ">-->
+                    <!--                                                                    <h3>{{forloop.counter}}</h3>-->
+                    <!--                                                                </div>-->
+                    <!--                                                            </div>-->
+
+                    <!--                                                            <div class="col-lg-2 col-xl-2 col-md-6 mg-t-20">-->
+                    <!--                                                                <h3>Course Name</h3>-->
+                    <!--                                                                <p>{{x.subject|getsubject}}</p>-->
+                    <!--                                                            </div>-->
+
+                    <!--                                                            <div class="col-lg-2 col-xl-2 col-md-6 mg-t-20 ">-->
+                    <!--                                                                <h3>Intake Month/year</h3>-->
+                    <!--                                                                <p>{{x.intake_month|getmonth}}-{{x.intake_year}}</p>-->
+                    <!--                                                            </div>-->
+
+                    <!--                                                            <div class="col-lg-2 col-xl-2 col-md-6 mg-t-20">-->
+                    <!--                                                                <h3>Programme Level</h3>-->
+                    <!--                                                                <p>{{x.program_level|getpost}}</p>-->
+                    <!--                                                            </div>-->
+
+                    <!--                                                            <div class="col-lg-2 col-xl-2 col-md-6 mg-t-20">-->
+                    <!--                                                                <h3>Country From</h3>-->
+                    <!--                                                                <p>{{x.id|getcountry}}</p>-->
+                    <!--                                                            </div>-->
+
+                    <!--                                                            <div class="col-lg-2 col-xl-2 col-md-6">-->
+                    <!--                                                                <a href="{% url 'application:view_application_twfl' x.slug %}">-->
+                    <!--                                                                    <button class="btn btn-rounded btn-md btn-indigo">View-->
+                    <!--                                                                        Application-->
+                    <!--                                                                    </button>-->
+                    <!--                                                                </a>-->
+                    <!--                                                            </div>-->
+                    <!--                                                        </div>-->
+                    <!--                                                    </div>-->
+                    <!--                                                </div>-->
+                    <!--                                                <div class="line-3">-->
+                    <!--                                                    <div class="last-edited">-->
+                    <!--                                                        <div class="row">-->
+                    <!--                                                            <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12">-->
+                    <!--                                                                <p><span></span></p>-->
+                    <!--                                                            </div>-->
+                    <!--                                                            <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12">-->
+                    <!--                                                                <p><i data-feather="clock"></i>Created on Feb 25, 2021 </p>-->
+                    <!--                                                            </div>-->
+                    <!--                                                            <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12">-->
+                    <!--                                                                <p><i data-feather="clock"></i> Last Edited: Feb 10, 2021 | 10:00 AM-->
+                    <!--                                                                </p>-->
+                    <!--                                                            </div>-->
+                    <!--                                                        </div>-->
+                    <!--                                                    </div>-->
+                    <!--                                                </div>-->
+                    <!--                                            </div>-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+
+                    <!--                            {% empty %}-->
+                    <!--                        no record found-->
+                    <!--                           {% endfor %}-->
+
+
+                    <!--                    </div>-->
+
+                    <!--                    {% endif %}-->
+                    <!--                    {% if rejected_applications %}-->
+                    <!--                    <div>-->
+                    <!--                           {% for x in rejected_applications %}-->
+                    <!--                                    <div class="panding-app">-->
+                    <!--                                        <p>{{x.status|getstatus}} Application</p>-->
+                    <!--                                    </div>-->
+
+                    <!--                                    <div class="row row-sm mg-b-20">-->
+                    <!--                                        <div class="col-12 col-md-12 col-lg-12">-->
+                    <!--                                            <div class="card card-dashboard-twentysix mg-b-10">-->
+                    <!--                                                <div class="card-body pd-30 app-status">-->
+                    <!--                                                    <div class="mantees">-->
+                    <!--                                                        <div class="row d-flex align-items-md-center">-->
+                    <!--                                                            <div class="col-lg-2 col-xl-2 col-md-6">-->
+                    <!--                                                                <div class="mentees-number ">-->
+                    <!--                                                                    <h3>{{forloop.counter}}</h3>-->
+                    <!--                                                                </div>-->
+                    <!--                                                            </div>-->
+
+                    <!--                                                            <div class="col-lg-2 col-xl-2 col-md-6 mg-t-20">-->
+                    <!--                                                                <h3>Course Name</h3>-->
+                    <!--                                                                <p>{{x.subject|getsubject}}</p>-->
+                    <!--                                                            </div>-->
+
+                    <!--                                                            <div class="col-lg-2 col-xl-2 col-md-6 mg-t-20 ">-->
+                    <!--                                                                <h3>Intake Month/year</h3>-->
+                    <!--                                                                <p>{{x.intake_month|getmonth}}-{{x.intake_year}}</p>-->
+                    <!--                                                            </div>-->
+
+                    <!--                                                            <div class="col-lg-2 col-xl-2 col-md-6 mg-t-20">-->
+                    <!--                                                                <h3>Programme Level</h3>-->
+                    <!--                                                                <p>{{x.program_level|getpost}}</p>-->
+                    <!--                                                            </div>-->
+
+                    <!--                                                            <div class="col-lg-2 col-xl-2 col-md-6 mg-t-20">-->
+                    <!--                                                                <h3>Country From</h3>-->
+                    <!--                                                                <p>{{x.id|getcountry}}</p>-->
+                    <!--                                                            </div>-->
+
+                    <!--                                                            <div class="col-lg-2 col-xl-2 col-md-6">-->
+                    <!--                                                                <a href="{% url 'application:view_application_twfl' x.slug %}">-->
+                    <!--                                                                    <button class="btn btn-rounded btn-md btn-indigo">View-->
+                    <!--                                                                        Application-->
+                    <!--                                                                    </button>-->
+                    <!--                                                                </a>-->
+                    <!--                                                            </div>-->
+                    <!--                                                        </div>-->
+                    <!--                                                    </div>-->
+                    <!--                                                </div>-->
+                    <!--                                                <div class="line-3">-->
+                    <!--                                                    <div class="last-edited">-->
+                    <!--                                                        <div class="row">-->
+                    <!--                                                            <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12">-->
+                    <!--                                                                <p><span></span></p>-->
+                    <!--                                                            </div>-->
+                    <!--                                                            <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12">-->
+                    <!--                                                                <p><i data-feather="clock"></i>Created on Feb 25, 2021 </p>-->
+                    <!--                                                            </div>-->
+                    <!--                                                            <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12">-->
+                    <!--                                                                <p><i data-feather="clock"></i> Last Edited: Feb 10, 2021 | 10:00 AM-->
+                    <!--                                                                </p>-->
+                    <!--                                                            </div>-->
+                    <!--                                                        </div>-->
+                    <!--                                                    </div>-->
+                    <!--                                                </div>-->
+                    <!--                                            </div>-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+                    <!--                            {% empty %}-->
+                    <!--                        no record found-->
+                    <!--                           {% endfor %}-->
+                    <!--                    </div>-->
+
+                    <!--                    {% endif %}-->
+                    <!--                </div>-->
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="">
+    <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+    <div class="d-flex justify-content-center">
+        <ul class="pagination pagination-circled">
+            {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link"
+                                     href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}"><i
+                    data-feather="arrow-left"></i></a></li>
+            {% endif %}
+            <!--              <li class="page-item active"><a class="page-link" href="#">1</a></li>-->
+            <!--              <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+            <!--              <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+
+            {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link"
+                                     href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}"><i
+                    data-feather="arrow-right"></i></a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+ $('#id_subject').select2({
+    placeholder: 'Select Subject Interest',
+    searchInputPlaceholder: 'Search'
+  });
+  $('#id_study_destination_country').select2({
+    placeholder: 'Select Study Destination',
+    searchInputPlaceholder: 'Search'
+  });
+  $('#id_program_level').select2({
+    placeholder: 'Select Programme Level',
+    searchInputPlaceholder: 'Search'
+  });
+  $('#id_intake_year').select2({
+    placeholder: 'Select Intake Year',
+    minimumResultsForSearch: -1
+  });
+
+    $(function(){
+    var current = location.pathname;
+    $('.nav-item a').each(function(){
+        var $this = $(this);
+        // if the current path is like this link, make it active
+        if($this.attr('href').indexOf(current) !== -1){
+            $this.addClass('active');
+        }
+    })
+})
+
+</script>
+<script>
+  // single value
+  var test0 = $('.subject');
+  test0.on("select2:select", function (event) {
+    var value = $(event.currentTarget).find("option:selected").text();
+
+    $('#mySelect0').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removesubject"> x</span>');
+    $('.removesubject').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".subject").select2('val', 'All');
+    });
+
+    //$('#mySelect').text( "<label class='btn btn-rounded btn-lg btn-indigo'>" + value +"</label>");
+    console.log(value);
+  });
+  if ($('#id_subject').val() != '') {
+    var value = $('#id_subject').find("option:selected").text();
+    var element = $('#id_subject').find("option:selected");
+    $('#mySelect0').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removesubject"> x</span>');
+    $('.removesubject').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".subject").select2('val', 'All');
+    });
+  }
+
+
+  var test1 = $('.study_destination_country');
+  test1.on("select2:select", function (event) {
+    var value = $(event.currentTarget).find("option:selected").text();
+
+    $('#mySelect1').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removecntry"> x</span>');
+    $('.removecntry').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".study_destination_country").select2('val', 'All');
+
+    });
+    //$('#mySelect').text( "<label class='btn btn-rounded btn-lg btn-indigo'>" + value +"</label>");
+    console.log(value);
+  });
+  if ($('#id_study_destination_country').val() != '') {
+    var value = $('#id_study_destination_country').find("option:selected").text();
+    var element = $('#id_study_destination_country').find("option:selected");
+    $('#mySelect1').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removecntry"> x</span>');
+    $('.removecntry').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".study_destination_country").select2('val', 'All');
+    });
+  }
+
+
+  var test2 = $('.program_level');
+  test2.on("select2:select", function (event) {
+    var value = $(event.currentTarget).find("option:selected").text();
+
+    $('#mySelect2').text(value + ' ').addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removeprogram"> x</span>');
+    $('.removeprogram').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".program_level").select2('val', 'All');
+    });
+    //$('#mySelect').text( "<label class='btn btn-rounded btn-lg btn-indigo'>" + value +"</label>");
+    console.log(value);
+  });
+  if ($('#id_program_level').val() != '') {
+    var value = $('#id_program_level').find("option:selected").text();
+    var element = $('#id_program_level').find("option:selected");
+    $('#mySelect2').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removeprogram"> x</span>');
+    $('.removeprogram').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".program_level").select2('val', 'All');
+    });
+  }
+
+  var test3 = $('.intake_year');
+  test3.on("select2:select", function (event) {
+    var value = $(event.currentTarget).find("option:selected").text();
+
+    $('#mySelect3').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removeintakeyear"> x</span>');
+    $('.removeintakeyear').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".intake_year").select2('val', 'All');
+    });
+    //$('#mySelect').text( "<label class='btn btn-rounded btn-lg btn-indigo'>" + value +"</label>");
+    console.log(value);
+  });
+
+  if ($('#id_intake_year').val() != '') {
+    var value = $('#id_intake_year').find("option:selected").text();
+    var element = $('#id_intake_year').find("option:selected");
+    $('#mySelect3').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removeintakeyear"> x</span>');
+    $('.removeintakeyear').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".intake_year").select2('val', 'All');
+    });
+  }
+
+</script>
+{% endblock %}

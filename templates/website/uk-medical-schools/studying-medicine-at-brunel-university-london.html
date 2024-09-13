@@ -1,0 +1,187 @@
+{% extends 'registration/reg_base.html' %}
+{% block title1 %}{% block title2%}Apply for Medicine in Brunel Medical School, England{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}Enhance your medical knowledge with Brunel Medical School in England. It offers a vast rand of
+courses related to medicine and health science.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/uk-medical-schools/studying-medicine-at-brunel-university-london/
+{% endblock %}{% endblock %}
+{% block content %}
+{% load static %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">Apply for Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:uk_medical_schools' %}">UK Medical Schools</a>
+                            <span> >
+                            </span>Brunel University London
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">Brunel University London</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in England</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div>
+                        <div>
+                            <p style="text-align: right; margin-bottom: 0px;">
+                                <span>*</span>
+                            </p>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td>Fees (International/Non-EU students): </td>
+                                    <td>£40,000pa </td>
+                                </tr>
+                                <tr>
+                                    <td>Interview Style: </td>
+                                    <td>MMI</td>
+                                </tr>
+                                <tr>
+                                    <td>Course Structure: </td>
+                                    <td>TBL</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-xl-8 col-sm-12">
+                    <h2>Study Medicine at Brunel University in London</h2>
+                    <p>This is one of the newest medical schools in the UK with their first intake in Sept 2022. Itis an
+                        excellent choice for international students that want to study medicine in the London- one of
+                        the world's most vibrant cities. It also offers one of the most generous international medical
+                        student scholarships totalling up to £300,000 GBP in it's first intake.</p>
+                </div>
+                <div class="col-md-4 col-xl-4 col-sm-12">
+                    <div class="brunel-logo">
+                        <img src="{% static 'website/img/content-img/brunel-university.png' %}" class="img-fluid"
+                            alt="Brunel University in London logo" title="Brunel University in London logo" width="403" height="191" loading="lazy">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <h3>Get mentored by medical students at Brunel University London</h3>
+                        <p>
+                            <em>Brunel’s new five-year MBBS degree offers clinical exposure from the early on in
+                                the course through placements across South East England and Greater London. The
+                                course establishes a team-based learning approach through small-group work
+                                and communication skills are developed from the very beginning due to the importance of
+                                this skill in becoming a compassionate doctor. The course is divided into three
+                                phases.</em>
+                        </p>
+                        <p>
+                            <em>
+                                <b>Phase 1 (first and second year)</b> involves learning the fundamental
+                                biomedical science underlying medical practice through a systems-based approach. Basic
+                                clinical skills are also developed and students explore ethics, professionalism and law
+                                early on.Students can also undertake special study topics which can include an opportunity
+                                to take part in a research project or explore a field of interest within medicine
+                                more.</em>
+                        </p>
+                        <p>
+                            <em>
+                                <b>In Phase 2 (third and fourth year),</b> clinical education expands
+                                through numerous clinical placements across different primary and secondary care settings.
+                                In the third year in particular, students explore different medical and surgical
+                                specialties. In the fourth year, students are taught holistic patient management and
+                                enhance their clinical experience and understanding.</em>
+                        </p>
+                        <p>
+                            <em>
+                                <b>Phase 3 (final year)</b> focuses on preparing for the foundation programme
+                                and becoming a junior doctor through apprenticeships as well as elective
+                                period to explore medicine in different settings. Students also further develop and
+                                consolidate their clinical skills and their interpersonal and multidisciplinary teamwork
+                                skills.</em>
+                        </p>
+                        <h3>Get mentored by medical students and apply for Brunel Medical School for January 2022 start
+                            now.</h3>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <p> * Please confirm all relevant information on this page with your medical school application mentor </p>
+    </div>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> global community of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal" id="login" tabindex="-1" role="modal" aria-labelledby="modal-label-3" aria-hidden="true">
+        <div class="modal-dialog modal-center modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                        <i data-feather="x-circle">
+                        </i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 col-xl-12">
+                            <form method="POST" id="afm-form" action="index/">
+                                <h4>Register Your Interest</h4>
+                                <div class="form-group" required>
+                                    <select name="ima_roll" class="form-control" required>
+                                        <option value="">I m a..</option>
+                                        <option value="Student">Student</option>
+                                        <option value="Parent">Parent</option>
+                                        <option value="Agent">Agent</option>
+                                        <option value="Mentor">Mentor</option>
+                                        <option value="University">University</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <input type="text" name="email" class="form-control border-right-0"
+                                        placeholder="Provide Your Email" required>
+                                    <span class="input-group-append bg-white border-left-0">
+                                        <span class="input-group-text bg-transparent">
+                                            <i data-feather="mail">
+                                            </i>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="d-flex justify-content-center my-5">
+                                    <input class="theme-btn" type="submit" name="send_message_btn" value="Register" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

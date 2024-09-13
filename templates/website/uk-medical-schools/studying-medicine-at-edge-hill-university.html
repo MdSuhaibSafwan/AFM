@@ -1,0 +1,158 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}Apply for Medicine at Edge Hill University Medical School {% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %} Excel in Biological Sciences, Medicine, Dentistry and Pharmacy with Edge Hill University
+Medical School in England {% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%} https://applyformedicine.com/uk-medical-schools/studying-medicine-at-edge-hill-university/
+{% endblock %}{% endblock %}
+
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">Apply for Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:uk_medical_schools' %}">UK Medical Schools</a>
+                            <span> >
+                            </span>Edge Hill University
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">Edge Hill University</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in England</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="right-icon-img-area">
+                        <div>
+                            <p style="text-align: right; margin-bottom: 0px;">
+                                <span>*</span>
+                            </p>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>Fees (International/Non-EU students): </td>
+                                        <td>UK only</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Interview Style: </td>
+                                        <td>MMI</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Course Structure: </td>
+                                        <td>Integrated</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <h2>Study Medicine at Edge Hill University</h2>
+                        <p>Edge hill has newly started offering Medicine at their university which began in September
+                            2020 and their new medical course aims to have a strong community-centred focus. The
+                            integrated programme lasts five years and offers early clinical exposure andhas strong
+                            emphasis on themes of professionalism, teamwork and safety in the clinical environment.</p>
+                        <p>The first year focuses on fundamentals of life sciences and the body in health. There is a
+                            systems-based approach to learning and students also learn about some social science and
+                            public health principles. The second year focuses on patients which involves understanding
+                            illness and its social contexts for patients. Students will have more placements in
+                            different clinical settings and will also take part in a community-based project.</p>
+                        <p>In the third year, clinical exposure expands and students learn about care for specific
+                            groups of patients, enhance clinical skills which includes communication and
+                            professionalism, etc. From the fourth year, students get to explore the multitude of
+                            different specialties within medicine and surgery and students will gain an understanding of
+                            how primary and secondary care interact and integrate with each other when caring for a
+                            patient.</p>
+                        <p>The fifth and final year, referred to as an ‘apprentice year’, focuses on preparing to become
+                            a junior doctor through student assistantships and specialist placements. Students will work
+                            on expanding, applying and consolidating the clinical knowledge acquired from throughout the
+                            course.</p>
+                        <h3>Get mentored by medical students at Edge Hill University</h3>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <p> * Please confirm all relevant information on this page with your medical school application mentor </p>
+    </div>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> global community of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal" id="login" tabindex="-1" role="modal" aria-labelledby="modal-label-3" aria-hidden="true">
+        <div class="modal-dialog modal-center modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                        <i data-feather="x-circle">
+                        </i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 col-xl-12">
+                            <form method="POST" id="afm-form" action="index/">
+                                <h4>Register Your Interest</h4>
+                                <div class="form-group" required>
+                                    <select name="ima_roll" class="form-control" required>
+                                        <option value="">I m a..</option>
+                                        <option value="Student">Student</option>
+                                        <option value="Parent">Parent</option>
+                                        <option value="Agent">Agent</option>
+                                        <option value="Mentor">Mentor</option>
+                                        <option value="University">University</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <input type="text" name="email" class="form-control border-right-0"
+                                        placeholder="Provide Your Email" required>
+                                    <span class="input-group-append bg-white border-left-0">
+                                        <span class="input-group-text bg-transparent">
+                                            <i data-feather="mail">
+                                            </i>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="d-flex justify-content-center my-5">
+                                    <input class="theme-btn" type="submit" name="send_message_btn" value="Register" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

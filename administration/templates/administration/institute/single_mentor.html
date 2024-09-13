@@ -1,0 +1,349 @@
+{% extends 'base/base.html' %}
+{% block title %}My Mentors-Page{% endblock %}
+{% block content %}
+{% load static %}
+{% load administration_extras %}
+<div class="az-content pd-y-20">
+    <div class="container">
+        <div class="az-content-body">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-style1">
+                    <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+                    <li class="breadcrumb-item text-capitalize	">{{mentor.admin.first_name}}
+                        {{mentor.admin.last_name}}
+                    </li>
+                </ol>
+            </nav>
+            <div class="row row-sm mg-b-20">
+                <div class="col-12 col-md-12 col-lg-12">
+                    <div class="card card-dashboard-twentysix mg-b-10">
+                        <div class="card-body pd-15 profile-bg">
+                            <div class="row d-flex align-items-md-center">
+                                <div class="col-md-6 col-lg-5 col-xl-5">
+                                    <div class="afm-mentor-student-details pd-b-15 pd-t-15">
+                                        <div class="afm-mentor-student-img">
+                                            <img src="{% static 'images/default_profile.png' %}" alt="">
+                                        </div>
+                                        <div class="mentor-content d-flex align-items-md-center">
+                                            <div class="pro-name">
+                                                <div class="pd-b-10">
+                                                    <h3>{{mentor.admin.first_name}} {{mentor.admin.last_name}}</h3>
+                                                    <span>Student of {{user_mentor_pi.currently_studying|getsubject}}</span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-3 col-xl-3">
+                                    <div class="pd-b-15 pd-t-15 d-none d-sm-block d-md-block">
+
+                                        <div class="pd-b-5 pd-t-5">
+                                            <span class="tx-medium">Country from:</span> <span class="country-flags">
+                                            {{user_mentor_pi.admin.country.name}}
+                                            <img src="{{user_mentor_pi.admin.country.flag}}" alt=""> </span>
+                                        </div>
+                                        <div class="pd-b-5 pd-t-5">
+                                            <span class="tx-medium">Spoken Language:</span>
+                                            <span>
+                                            {% if user_mentor_pi.admin.spoken_languages.all %}
+                                            {% for i in user_mentor_pi.admin.spoken_languages.all %}
+                                                                    {{i}} |
+                                            {% endfor %}
+                                            {% else %}
+                                             --
+                                            {% endif %}
+                                            </span>
+                                        </div>
+                                        <div class="pd-b-5 pd-t-5">
+                                            <span class="tx-medium"> Level Of English:</span> <span
+                                                class="country-flags">Moderate </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-2 col-xl-2">
+                                    <div class="uni-logo pd-b-15 pd-t-15">
+                                        <div class="text-center">
+                                            <img src="{% static 'img/university/uni-3.png' %}" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-2 col-xl-2 justify-content-center align-items-md-center d-flex">
+                                    <div class="pd-b-10">
+                                        <a href="{% url 'administration:my_mentees_insttitute_twfl' mentor.admin.id %}">
+                                            <button class="btn btn-rounded btn-block btn-md btn-indigo">View Mentees
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-sm mg-b-20">
+                <div class="col-12 col-md-12 col-lg-12">
+                    <div class="card card-dashboard-twentysix mg-b-10">
+                        <div class="mentor-info">
+                            <h5><span><i data-feather="book-open"></i></span>Education Details</h5>
+                        </div>
+                        <div class="card-body pd-30">
+                            <div class="row">
+                                <div class="col-md-6 col-xl-6 col-lg-6 col-sm-12">
+                                    <div class="pd-b-5 pd-t-5">
+                                        <span class="tx-medium">Are you recent graduate?:</span>
+                                        {% if user_mentor_pi.are_you_graduated == 0 %}
+                                        <span>No</span>
+                                        {% else %}
+                                        <span>Yes</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="pd-b-5 pd-t-5">
+                                        <span class="tx-medium">Studying At:</span> <span>CEG</span>
+                                    </div>
+                                    <div class="pd-b-5 pd-t-5">
+                                        <span class="tx-medium">Current University:</span>
+                                        <span>{{mentor.institute}}</span>
+                                    </div>
+                                    <div class="pd-b-5 pd-t-5">
+                                        <span class="tx-medium">Programme level:</span> <span>{{user_mentor_pi.programme_level|getprogramme_level}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-xl-6 col-lg-6 col-sm-12">
+                                    <!--                    <p>Did you study the Foundation Course in the UK?</p>-->
+                                    <!--                    <div class="row ">-->
+                                    <!--                        <label class="rdiobox">-->
+                                    <!--                            {% if user_mentor_pi.did_you_study_the_foundation_course_in_uk == 0  %}-->
+                                    <!--                                <span>No</span>-->
+                                    <!--                            {% else %}-->
+                                    <!--                             <span>Yes</span>-->
+                                    <!--                            {% endif %}-->
+                                    <!--                        </label>-->
+                                    <!--                        <label class="rdiobox">-->
+                                    <!--                          {% if user_mentor_pi.did_you_study_the_foundation_course_in_uk == 1  %}-->
+                                    <!--                           <input type="radio"  name="did_you_study_the_foundation_course_in_uk"  checked="">-->
+                                    <!--                           {% else %}-->
+                                    <!--                            <input type="radio"  name="did_you_study_the_foundation_course_in_uk">-->
+                                    <!--                          {% endif %}-->
+                                    <!--                          <span>No</span>-->
+                                    <!--                        </label>-->
+                                    <!--                    </div>-->
+
+                                    <div class="pd-b-5 pd-t-5">
+                                        <span class="tx-medium">Did you study the Foundation Course in the UK?:</span>
+                                        {% if user_mentor_pi.did_you_study_the_foundation_course_in_uk == 0 %}
+                                        <span>No</span>
+                                        {% else %}
+                                        <span>Yes</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="pd-b-5 pd-t-5">
+                                        <span class="tx-medium">Subject:</span> <span>{{user_mentor_pi.currently_studying|getsubject}}</span>
+                                    </div>
+                                    {% if user_mentor_pi.are_you_graduated == 0 %}
+                                    <div class="pd-b-5 pd-t-5">
+                                        <span class="tx-medium">Study Year:</span>
+                                        <span>{{user_mentor_pi.study_year}}</span>
+                                    </div>
+                                    {% else %}
+                                    <div class="pd-b-5 pd-t-5">
+                                        <span class="tx-medium">Year Graduated:</span> <span>{{user_mentor_pi.year_graduated}}</span>
+                                    </div>
+                                    {% endif %}
+                                    <div class="pd-b-5 pd-t-5">
+                                        <span class="tx-medium">Student ID:</span> <span>Stu-id.pdf</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if user_mentor_pi.unibuddy %}
+            <div class="row row-sm mg-b-20">
+                <div class="col-12 col-md-12 col-lg-12">
+                    <div class="card card-dashboard-twentysix mg-b-10">
+                        <div class="mentor-info">
+                            <h5><span><i data-feather="briefcase"></i></span>Advisory Experience</h5>
+                        </div>
+                        <div class="card-body pd-30">
+                            <div class="row">
+                                <div class="col-md-6 col-xl-6 col-lg-6 col-sm-12">
+                                    <div class="pd-b-5 pd-t-5">
+                                        <span class="tx-medium">Ambassador Of:</span>
+                                        <span>{{user_mentor_pi.unibuddy}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <div class="row row-sm mg-b-20">
+            <div class="col-12 col-md-12 col-lg-12">
+                <div class="card card-dashboard-twentysix mg-b-10">
+                    <div class="mentor-info">
+                        <h5><span><i data-feather="user-check"></i></span>Tutoring experience</h5>
+                    </div>
+                    <div class="card-body pd-30">
+                        <div class="row">
+                            <div class="col-md-6 col-xl-6 col-lg-6 col-sm-12">
+                                <div class="pd-b-5 pd-t-5">
+                                    <span class="tx-medium">Are you currently a tutor?:</span>
+                                    {% if user_mentor_pi.are_you_currently_a_tutor == 0 %}
+                                    <span>No</span>
+                                    {% else %}
+                                    <span>Yes</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-6 col-lg-6 col-sm-12">
+                                <div class="pd-b-5 pd-t-5">
+                                    <span class="tx-medium">Do you tutor privately or with any online platform?:</span>
+
+                                    {% if user_mentor_pi.do_you_tutor_privately_or_online == 0 %}
+                                    <span>No</span>
+                                    {% else %}
+                                    <span>Yes</span>
+                                    {% endif %}
+                                </div>
+                                <!--                    <p>Do you tutor privately or with any online platform?</p>-->
+                                <!--                    <div class="row ">-->
+                                <!--                        <label class="rdiobox">-->
+                                <!--                            {% if user_mentor_pi.do_you_tutor_privately_or_online == 0  %}-->
+                                <!--                            <input type="radio"  name="do_you_tutor_privately_or_online"  checked="">-->
+                                <!--                            {% else %}-->
+                                <!--                            <input type="radio"  name="do_you_tutor_privately_or_online">-->
+                                <!--                            {% endif %}-->
+                                <!--                          <span>Privately</span>-->
+                                <!--                        </label>-->
+                                <!--                        <label class="rdiobox">-->
+                                <!--                          {% if user_mentor_pi.do_you_tutor_privately_or_online == 1  %}-->
+                                <!--                           <input type="radio"  name="do_you_tutor_privately_or_online"  checked="">-->
+                                <!--                           {% else %}-->
+                                <!--                            <input type="radio"  name="do_you_tutor_privately_or_online">-->
+                                <!--                          {% endif %}-->
+                                <!--                          <span>Online platform</span>-->
+                                <!--                        </label>-->
+                                <!--                    </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if user_mentor_pi.write_something_about_you %}
+        <div class="row row-sm mg-b-20">
+            <div class="col-12 col-md-12 col-lg-12">
+                <div class="card card-dashboard-twentysix mg-b-10">
+                    <div class="mentor-info">
+                        <h5><span><i data-feather="volume-2"></i></span>About Me</h5>
+                    </div>
+                    <div class="card-body pd-30">
+                        <div class="row">
+                            <div class="col-md-8 col-xl-8 col-lg-8 col-sm-12">
+                                <p>{{user_mentor_pi.write_something_about_you}}</p>
+                            </div>
+                            <div class="col-md-4 col-xl-4 col-lg-4 col-sm-12">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if user_mentor_pi.linkedin_profile_url %}
+        <div class="row row-sm mg-b-20">
+            <div class="col-12 col-md-12 col-lg-12">
+                <div class="card card-dashboard-twentysix mg-b-10">
+                    <div class="mentor-info">
+                        <h5><span><i data-feather="linkedin"></i></span>Linkedin</h5>
+                    </div>
+                    <div class="card-body pd-30">
+                        <div class="row">
+                            <div class="col-md-6 col-xl-6 col-lg-6 col-sm-12">
+                                <div class="pd-b-15 pd-t-15 ">
+                                    <div>
+                                        <div class="pd-b-5 pd-t-5">
+                                            <span class="tx-medium">Linkedin Profile:</span> <span>{{user_mentor_pi.linkedin_profile_url}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if user_mentor_pi.societies %}
+        <div class="row row-sm mg-b-20">
+            <div class="col-12 col-md-12 col-lg-12">
+                <div class="card card-dashboard-twentysix mg-b-10">
+                    <div class="mentor-info">
+                        <h5><span><i data-feather="star"></i></span>Clubs & Societies</h5>
+                    </div>
+                    <div class="card-body pd-30">
+                        <div class="row">
+                            <div class="col-md-6 col-xl-6 col-lg-6 col-sm-12">
+                                <div class="pd-b-15 pd-t-15 ">
+                                    <div>
+                                        <div class="pd-b-5 pd-t-5">
+                          <span class="tx-medium">{{user_mentor_pi.societies}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if user_mentor_pi.my_skills %}
+        <div class="row row-sm mg-b-20">
+            <div class="col-12 col-md-12 col-lg-12">
+                <div class="card card-dashboard-twentysix mg-b-10">
+                    <div class="mentor-info">
+                        <h5><span><i data-feather="bookmark"></i></span>My Skill</h5>
+                    </div>
+                    <div class="card-body pd-30">
+                        <div class="row">
+                            <div class="col-md-8 col-xl-8 col-lg-8 col-sm-12">
+                                <p>{{user_mentor_pi.my_skills}}</p>
+                            </div>
+                            <div class="col-md-4 col-xl-4 col-lg-4 col-sm-12">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if user_mentor_pi.hobbies_and_interest %}
+        <div class="row row-sm mg-b-20">
+            <div class="col-12 col-md-12 col-lg-12">
+                <div class="card card-dashboard-twentysix mg-b-10">
+                    <div class="mentor-info">
+                        <h5><span><i data-feather="bookmark"></i></span>Hobbies & Interest</h5>
+                    </div>
+                    <div class="card-body pd-30">
+                        <div class="row">
+                            <div class="col-md-8 col-xl-8 col-lg-8 col-sm-12">
+                                <p>{{user_mentor_pi.hobbies_and_interest}}</p>
+                            </div>
+                            <div class="col-md-4 col-xl-4 col-lg-4 col-sm-12">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div><!-- afm-content-body -->
+</div>
+{% endblock %}

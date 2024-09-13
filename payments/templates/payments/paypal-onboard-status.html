@@ -1,0 +1,43 @@
+{% extends 'base/base.html' %}
+{% load duration_filter %}
+{% block title %}Services{% endblock %}
+{% load administration_extras %}
+{% load static %}
+{% load widget_tweaks %}
+{% block css %}
+<style>
+    
+</style>
+{% endblock %}
+{% block content %}
+
+<div class="row mr-b-20">
+    <div class="col-12 col-sm-12">
+
+        {% if merchant_id != None and email_confirmed != None and permission_granted != None and consentStatus != None and account_status != None %}
+        <h4 class="text-center">
+            Thankyou for Onboarding your PayPal account on TAG - Apply For Internship. You'll recieve an email from us within 24 hours once we verify your PayPal account onboarding. <br> Thankyou
+        </h4> 
+
+        {% elif not email_confirmed %}
+        <h4 class="text-center">
+            Your PayPal account email is not confirmed. Please confirm your email before onboarding
+        </h4>
+        {% elif not permission_granted %}
+        <h4 class="text-center">
+            You've failed to grant us permission to transact through your PayPal account. Please Onboard again.
+        </h4>
+        {% elif not permission_granted %}
+        <h4 class="text-center">
+            You've failed to grant us consent to transact through your PayPal account. Please Onboard again.
+        </h4>
+        {% else %}
+        <h4 class="text-center">Details Incomplete!! Onboarding Failed. Please onbaord again.</h4> 
+        {% endif %}
+        
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %} {% endblock %}

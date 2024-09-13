@@ -1,0 +1,151 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load administration_extras %}
+{% block title %}FAQs{% endblock %}
+{% block css %}
+<style>
+  form {
+    display: contents;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"> <a href= "#">List FAQs</a></li>
+    </ol>
+  </nav>
+<div class="page-header">
+ <h3 class="faq-title"> <i data-feather="message-square"></i> Frequently Asked Questions</h3>
+</div>
+<div class="row mr-b-20">
+    <div class="col-12 col-sm-12">
+        <div class="add-new-app">
+         <a href="{% url 'faqs:faq-create' %}" id="add-new-institute"><button class="btn" style="color: rgb(0, 0, 0); font: 1em poppins ;">
+             <span>+</span> Add New FAQ</button><i data-feather="clipboard"></i></a>
+        </div>
+    </div>
+</div>
+<div class="row row-sm mg-b-10">
+  <form id="select-user-form">
+    <div class="col-sm-12 col-md-3 col-lg-3">
+      <div class="select2-box mb-2">
+        {% render_field form.user_type placeholder=form.user_type.label class='form-control' %} </div>
+    </div>
+    <div class="col-sm-12 col-md-2 col-lg-1">
+      <button type="submit" class="btn btn-indigo btn-block btn-rounded">
+        <i data-feather="search">
+        </i>
+      </button>
+    </div>
+  </form>
+</div>
+{% if list %}
+<div class="row row-sm mg-b-20">
+  <div class="col-sm-12 col-lg-12">
+    <div class="card card-table-one">
+      <div class="table-responsive table-faq">
+        <table class="table table-hover mg-b-0">
+          <thead>
+            <tr>
+              <td></td>
+              <th>For User</th>
+              <th>Title</th>
+<!--              <th>Description</th>-->
+              <th>Rank</th>
+              <th>Status</th>
+              <th>Created On</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in list %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td><strong>{% if i.user_type %}{{i.user_type|getuser}}{% else %}All User{% endif %}</strong></td>
+                <td class="table-width"><a href="{{i.get_update_url}}">{{i.title}}</a></td>
+<!--                <td>{{i.description}}</td>-->
+                <td>{{i.rank|getifnone}}</td>
+                <td class="text-capitalize">{{i.status}}</td>
+                <td>{{ i.created|date:"d/m/Y" }}</td>
+                <td>
+                    <div class="card-body" align='left'>
+<!--                         <a href="{{i.get_absolute_url}}">View</a> /-->
+                         <a href="{{i.get_update_url}}">View & Edit</a> /
+                         <a href='#' data-toggle="modal" data-target="#exampleModal_{{i.id}}">Delete</a>
+                    </div>
+                    <div class="modal fade" id="exampleModal_{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <form action="{% url 'faqs:faq-delete' i.id %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Confirm </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="text" id="" value='{{i.id}}' hidden>
+                                        Are you sure you want to do delete Alumni "{{i.title}}"?
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-rounded btn-indigo reject"
+                                      data-dismiss="modal">Close
+                                      </button>
+                                      <button type="submit" class="btn btn-rounded btn-indigo">
+                                          Confirm
+                                      </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                      </div>
+                </td>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <!-- table-responsive -->
+    </div>
+  </div>
+</div>
+<div class="">
+  <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+  <div class="d-flex justify-content-center">
+    <ul class="pagination pagination-circled">
+      {% if page_obj.has_previous %} <li class="page-item">
+        <a class="page-link" href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}">
+          <i data-feather="arrow-left">
+          </i>
+        </a>
+      </li>
+      {% endif %}
+      {% if page_obj.has_next %} <li class="page-item">
+        <a class="page-link" href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}">
+          <i data-feather="arrow-right">
+          </i>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+{% else %}
+   <div class="text-center">No Record found</div>
+{% endif %}
+{% endblock %}
+{% block js %}
+<script>
+  $('#id_user_type').select2({
+    placeholder: 'Select User Type',
+    searchInputPlaceholder: 'Search',
+    allowClear: true,
+  });
+  $('form select').change(function(){
+    $('#select-user-form').submit();
+});
+</script>
+{% endblock %}

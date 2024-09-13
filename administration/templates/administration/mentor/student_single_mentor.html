@@ -1,0 +1,394 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% load administration_extras %}
+{% load crispy_forms_tags %}
+{% load social_share %}
+{% block title1 %}{% block title2 %}Study {{user_mentor_pi.currently_studying|getsubject}} in {{user_mentor_pi.studying_in.name}}: {{user_mentor_pi.admin.first_name}}{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}{{user_mentor_pi.admin.about_me|slice:":150"}}..{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}{{ mentor.admin.slug|getmentorprofileurl }}{% endblock %}{% endblock %}
+{% block css %}
+<style>
+    #alert-text {
+        margin-bottom: 1rem;
+    }
+
+    .fb_iframe_widget span,
+    .IN-widget {
+        vertical-align: unset !important;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="change-pasword">
+    <div class="modal fade" id="mentor_booking_popup" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" id="password-modal" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Please send your message here.<span class='text-danger small d-block'>All fields are required.</span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form role="form" method="post" enctype="multipart/form-data"
+                    action="{% url 'administration:mentor_booking_leads' mentor.admin.slug  %}">
+                    {% csrf_token %}
+                    <div class="modal-body mentorbookingleads-shadow-none">
+                        {% crispy mentorbookingleads_form %}
+                    </div>
+                    <input type="hidden" name='return_path' value='{{request.path}}'>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn theme-btn">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="header_area bg-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="site-breadcrub mb-4">
+                    <p>
+                        <a href="/">Apply for Medicine</a>
+                        <span> >
+                        </span>
+                        {{user_mentor_pi.studying_in|getschoolurl}}
+                        <span> >
+                        </span>
+                        <a href="#">
+                            {% if mentor.institute %}
+                            {{mentor.institute.institute_name}}
+                            {% else %}
+                            {{mentor.institute_name}}
+                            {% endif %}
+                        </a>
+                        <span> >
+                        </span>
+                        <span class="text-capitalize">
+                            {{user_mentor_pi.admin.first_name}}:</span>
+                        <span>Studying
+                            {{user_mentor_pi.currently_studying|getsubject}} in
+                            {{user_mentor_pi.studying_in|getifneedtheartical}}
+                            {% if user_mentor_pi.studying_in == 'US' %}
+                            USA
+                            {% else %}
+                            {{user_mentor_pi.studying_in.name}}
+                            {% endif %}</span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-xl-8 col-md-8">
+                <div class="header-inner-wrapper mentor-title">
+                    <div>
+                        <h1 data-animate="fadeInUp" data-animate-delay="5" class="">
+                            <span class="text-capitalize">
+                                {{user_mentor_pi.admin.first_name}}:</span>
+                            Study
+                            {{user_mentor_pi.currently_studying|getsubject}}
+                            in
+                            {{user_mentor_pi.studying_in|getifneedtheartical}}
+                            {% if user_mentor_pi.studying_in == 'US' %} USA {% else %}
+                            {{user_mentor_pi.studying_in.name}}
+                            {% endif %}
+                        </h1>
+                        <h2 data-animate="fadeInUp" data-animate-delay="0">
+                            Study
+                            {{user_mentor_pi.currently_studying|getsubject}} at
+                            {% if mentor.institute %}
+                            {{mentor.institute.institute_name}}
+                            {% else %}
+                            {{mentor.institute_name}}
+                            {% endif %}
+                        </h2>
+                        {% if user_mentor_pi.youtube_shots %}
+                        <a class="h1" href="{{user_mentor_pi.youtube_shots}}"
+                        target="blank"><i class="fab fa-youtube text-danger"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-4">
+                <div class="afm-mentor-profile-wrapper">
+                    <div class="mentor-profile-img">
+                        <img src="{% if user_mentor_pi.admin.profile_pic %}
+                            {{user_mentor_pi.admin.profile_pic.url}}
+                            {% else %}
+                            {% static 'images\default_profile.png' %}
+                            {% endif %}" class="img-fluid rounded-circle" alt="{{user_mentor_pi.currently_studying|getsubject}}-at-
+                            {% if mentor.institute %}
+                            {{mentor.institute.institute_name}}
+                            {% else %}
+                            {{mentor.institute_name}}
+                            {% endif %}">
+                    </div>
+                    <!-- <a href="{% if user_mentor_pi.late_point %}
+{{user_mentor_pi.late_point}}
+{% endif %}" target="_blank">
+<button class="btn theme-btn" {% if not user_mentor_pi.late_point %}disabled{% endif %}>Book an Appointment</button>
+</a>-->
+                    <!-- <a id="message-button" href="https://booking.theapplygroup.com/?mentor-id={{mentor.admin.slug}}"
+                        class="btn theme-btn" target="_blank"> Book an Appointment with me</a> -->
+<!--                    <a href="#" class="btn theme-btn" data-toggle="modal" data-target="#mentor_booking_popup"></i>Send-->
+<!--                        me a message </a>-->
+                    {% if user.slug == mentor.admin.slug %}
+                    {% else %}
+                    {% if user.user_type == 5 or user.user_type == 3 or user.user_type == 0 or user.user_type == 1 %}
+                    <a href="{% url 'messaging:comment_mentor_public_profile_twfl' mentor.admin.slug %}"
+                       class="btn theme-btn" target="_blank">Send me a message </a>
+                    {% else %}
+<!--                    <a href="{% url 'administration:registration' mentor.admin.slug %}"-->
+<!--                       class="btn theme-btn" target="_blank">Send me a message </a>-->
+                    <a href="https://wa.me/447361901027?text=Hi%2C%20I%20discovered%20you%20via:%0A{{ mentor.admin.slug|getmentorprofileurl }}%0AI%20would%20like%20support%20with:"
+                       class="btn theme-btn"
+                       target="_blank"><i class="fab fa-whatsapp"></i> Send me a message </a>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="mentor-pro-area-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-xl-8">
+                <article>
+                    <h3>About Me</h3>
+                    <hr>
+                    <p>
+                        {{user_mentor_pi.admin.about_me|getifnone}}
+                    </p>
+                </article>
+            </div>
+            <div class="col-md-4 col-xl-4">
+                <div class="mentor-key-information-wrapper">
+                    <p>
+                        <strong>Spoken Language(s):</strong>
+                        <span>
+                            {{user_mentor_pi.admin.spoken_languages.all|print_languages}}</span>
+                    </p>
+                    <p>
+                        <strong>From:</strong>
+                        <span>
+                            {{user_mentor_pi.admin.country.name}}</span>
+                        <img src="{{user_mentor_pi.admin.country.flag}}" alt="{{user_mentor_pi.admin.country.name}}">
+                    </p>
+                    <p>
+                        <strong>Currently Living In:</strong>
+                        <span>
+                            {{user_mentor_pi.admin.currently_living_in.name}}</span>
+                        <img src="{{user_mentor_pi.admin.currently_living_in.flag}}"
+                            alt="{{user_mentor_pi.admin.currently_living_in.name}}">
+                    </p>
+                    <p>
+                        <strong>Studying In:</strong>
+                        <span>
+                            {{user_mentor_pi.studying_in.name}}</span>
+                        <img src="{{user_mentor_pi.studying_in.flag}}" alt="{{user_mentor_pi.studying_in.flag}}">
+                    </p>
+                    <p>
+                        <strong>Currently Studying:</strong>
+                        <span>
+                            {{user_mentor_pi.currently_studying|getsubject}}</span>
+                    </p>
+                    <p class="inline-pro-block">
+                        <strong>Profile Share Via:</strong>
+                    </p>
+                    <ul class="pro-share-social">
+                        <li class="social-fb">
+                            {% post_to_facebook "" "<i class='fab fa-facebook-f'></i>" %}
+                        </li>
+                        <!-- <li class="social-insta">
+                                <a href="#">
+                                <i class="fab fa-instagram">
+                                </i>
+                                </a>
+                             </li>-->
+                        <li class="social-tweet">
+                            {% post_to_twitter "Check out this university application mentor on TAG " "" "<i class='fab fa-twitter'></i>" %}
+                        </li>
+                        <!-- <li class="social-linkedin">
+<a href="#">
+<i class="fab fa-linkedin-in">
+</i>
+</a>
+</li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% if user_mentor_pi.are_you_currently_a_tutor %}
+        <div class="row">
+            {% if user_mentor_pi.tutoring_with_list.all %}
+            <div class="col-md-6 col-xl-6">
+                <div class="mentor-skill-wrapper">
+                    <h3>I can help you with</h3>
+                    <hr>
+                    <div class="row list-icon list-icon-check">
+                        {% for help_with in user_mentor_pi.tutoring_with_list.all %}
+                        <div class="col-md-6 column-icon">
+                            {{help_with}}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if user_mentor_pi.tutoring_subject_list.all %}
+            <div class="col-md-6 col-xl-6">
+                <div class="mentor-skill-wrapper">
+                    <h3>I can tutor you with</h3>
+                    <hr>
+                    <div class="row list-icon list-icon-check">
+                        {% for tutoring_subject in user_mentor_pi.tutoring_subject_list.all %}
+                        <div class="col-md-6 column-icon">
+                            {{tutoring_subject}}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if user_mentor_pi.tutoring_in_level_list.all %}
+            <div class="col-md-6 col-xl-6">
+                <div class="mentor-skill-wrapper">
+                    <h3>I can tutor at stages</h3>
+                    <hr>
+                    <div class="row list-icon list-icon-check">
+                        {% for level in user_mentor_pi.tutoring_in_level_list.all %}
+                        <div class="col-md-6 column-icon">
+                            {{level}}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if user_mentor_pi.languages_i_can_teach.all %}
+            <div class="col-md-6 col-xl-6">
+                <div class="mentor-skill-wrapper">
+                    <h3>Language(s) I can teach</h3>
+                    <hr>
+                    <div class="row list-icon list-icon-check">
+                        {% for language in user_mentor_pi.languages_i_can_teach.all %}
+                        <div class="col-md-6 column-icon">
+                            {{language}}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+        {% if mentor_posts %}
+        <div class="row">
+            <div class="col-md-12 col-xl-12">
+                <div class="mentor-skill-wrapper">
+                    <h3>My Blogs</h3>
+                    <hr>
+                    <div class="carousel" data-items="3">
+                        {% for post in mentor_posts %}
+                        <div class="post-item border">
+                            <div class="post-item-wrap">
+                                <div class="post-image">
+                                    <a href="{% url 'blogs:PostDetail' post.slug %}" target="_blank">
+                                        <img alt="" src="{% if post.feature_image %}
+                                            {{post.feature_image.url}}
+                                            {% else %}
+                                            {% static 'images\default_profile.png' %}
+                                            {% endif %}">
+                                    </a>
+                                </div>
+                                <div class="post-item-description">
+<!--                                    <span class="post-meta-date">-->
+<!--                                        <i class="fa fa-calendar-o">-->
+<!--                                        </i>-->
+<!--                                        {{post.created_on}}</span>-->
+                                    <h2 class="mb-2">
+                                        <a href="{% url 'blogs:PostDetail' post.slug %}" target="_blank">
+                                            {{post.title|safe|slice:":50"}}
+                                            {% if post.title|length > 50 %}...{% endif %}</a>
+                                    </h2>
+                                    <p>
+                                        {{post.sub_title|getifnone|slice:":82"}}
+                                        {% if post.sub_title|length > 82 %}...{% endif %}
+                                    </p>
+                                    <a class="item-link" href="{% url 'blogs:PostDetail' post.slug %}" target="_blank">Read More <i
+                                            class="icon-chevron-right">
+                                        </i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if testimonials %}
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Testimonials</h3>
+                <hr>
+                <div class="carousel testimonial testimonial-border" data-items="3"
+                    data-equalize-item=".testimonial-item">
+                    {% for i in testimonials %}
+                    <div class="testimonial-item">
+                        <img src="/assets/img/content-img/medical-student-at-the-university-of-edinburgh.png" alt="">
+                        <p>
+                            {{ i.feedback }}</p>
+                        <span>
+                            {{ i.admin.first_name}}
+                            {{ i.admin.last_name}}</span>
+                        <!-- <span>CEO, Square Software.</span>-->
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% if not user.is_authenticated %}
+<section class="afm-join-area bg-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-xl-12 align-items-center
+                justify-content-center d-flex">
+                <div class="get-start-content">
+                    <h4>Get Started now!</h4>
+                    <p>Start your application journey to university and join a
+                        fast-growing<br> global community of
+                        students by searching for a mentor now </p>
+                    <div class="mt-5">
+                        <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
+{% block js %}
+ <script>
+    $('label[for="id_first_name"]').text('Name(s)');
+    $('label[for="id_email"]').text('Your email');
+    $('label[for="id_i_am"]').text('I am');
+    $('label[for="id_age_of_applicant"]').text('Age of the applicant');
+    $('label[for="id_country"]').text('Where are you located?');
+    $('label[for="id_reasone_for_an_appointment"]').text('Primary reason for this message');
+    $('label[for="id_message"]').text('Your message');
+
+    $('select').select2();
+    $("#message-button").click(function () {
+        $('html, body').animate({ scrollTop: $("#message-mentor").offset().top }, 2000);
+    });
+</script>
+{% endblock %}

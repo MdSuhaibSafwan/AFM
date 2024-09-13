@@ -1,0 +1,124 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% block title %}Edit Page{% endblock %}
+{% block css %}
+<style>
+.django-ckeditor-widget,#cke_id_content, #cke_id_sub_title{
+  width: 100% !important;
+}
+</style>
+{% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'page:PostListAdmin' %}">All Pages</a></li>
+        {% if title %}
+        <li class="breadcrumb-item"><a href="#">{{ title }}</a></li>
+        {% endif %}
+    </ol>
+</nav>
+<div class="row row-sm mg-b-20">
+    <div class="col-sm-12 col-lg-12">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="card card-table-one">
+                <div class="row row-sm">
+                <div class="col-xl-12">
+                    <div class="row row-sm">
+                        <div class="col-md-12 col-xl-12">
+                            <div class="form-group mg-b-20">
+                                {{form.title|as_crispy_field}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-sm">
+                        <div class="col-md-12 col-xl-12">
+                            <div class="form-group mg-b-20">
+                                {{form.sub_title|as_crispy_field}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-sm">
+                        <div class="col-md-12 col-xl-12">
+                            <div class="form-group mg-b-20">
+                                {{form.content|as_crispy_field}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-sm">
+                        <div class="col-md-12 col-xl-12">
+                            <div class="form-group mg-b-20">
+                                {{form2.x}}
+                                {{form2.y}}
+                                {{form2.width}}
+                                {{form2.height}}
+                                {{form2.feature_image|as_crispy_field}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-sm">
+                        <div class="col-md-6 col-xl-6">
+                            <div class="form-group mg-b-20">
+                                {{form.parent|as_crispy_field}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-sm">
+                        <div class="col-md-12 col-xl-12">
+                            <div class="form-group mg-b-20">
+                                {{form.post_status|as_crispy_field}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <button class="btn btn-outline-indigo btn-rounded btn-indigo mg-t-20" id="save-btn" type="submit">
+                Submit
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="feature_image_modal_crop" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Crop the photo
+                </h5>
+            </div>
+            <div class="modal-body">
+                <img src="" id="feature_image" style="max-width: 100%;">
+            </div>
+            <div class="modal-footer">
+<!--                <div class="btn-group pull-left" role="group">-->
+<!--                    <button type="button" class="btn btn-outline-indigo btn-rounded rotateL">-->
+<!--                        <i data-feather="rotate-ccw"></i>Rotate -->
+<!--                    </button>-->
+                    <button type="button" class="btn btn-outline-indigo btn-rounded js-zoom-in-one">
+<!--                        <i data-feather="zoom-in"></i>-->Zoom-In
+                    </button>
+                    <button type="button" class="btn btn-outline-indigo btn-rounded js-zoom-out-one">
+<!--                        <i data-feather="zoom-out"></i>-->Zoom-Out
+                    </button>
+<!--                </div>-->
+
+                <button type="button" class="btn btn-outline-indigo btn-rounded js-crop-and-upload-one">
+                    Crop
+                </button>
+                <button type="button" class="btn btn-outline-indigo btn-rounded cancel_btn" data-dismiss="modal">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block js %}
+<script src="{% static 'page/js/page.js' %}"></script>
+{% endblock %}

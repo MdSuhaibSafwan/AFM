@@ -1,0 +1,39 @@
+ <div class="card mg-b-20">
+    <div class="row">
+      <div class="col-12">
+        <div class="ul-steps">
+          <ul>
+            {% if app.status == 1 %}
+            {% else %}
+            <li><div class="step">1</div><a href="{% url 'application:application_consent_twfl' app.slug %}"><p>Start</p></a></li>
+            <li><div class="step">2</div><a href="{% url 'application:application_personal_information_twfl' app.slug %}"><p>Personal Info</p></a></li>
+            <li id="education-link"><div class="step">3</div><a href="{% url 'application:application_education_twfl' app.slug %}"><p>Academic Info</p></a></li>
+            {% endif %}
+            {% if user.application.all.first.academic_qualifications.all.first.country %}
+            <li><div class="step">4</div><a href="{% url 'application:application_english_language_twfl' app.slug %}"><p>English Language</p></a></li>
+            <li><div class="step">5</div><a href="{% url 'application:application_work_experience_twfl' app.slug %}"><p>Work Exp/Emp</p></a></li>
+            <li><div class="step">6</div><a href="{% url 'application:application_references_twfl' app.slug %}"><p>Reference</p></a></li>
+            <li><div class="step">7</div><a href="{% url 'application:application_personal_statement_twfl' app.slug %}"><p>Personal Statement</p></a></li>
+            <li><div class="step">8</div><a href="{% url 'application:application_visa_history_twfl' app.slug %}"><p>Visa History</p></a></li>
+            <li><div class="step">9</div><a href="{% url 'application:application_additional_information_twfl' app.slug %}"><p>Additional Info</p></a></li>
+            <li><div class="step border-none"><i data-feather="check-circle"></i></div><a href="{% url 'application:review_submit_twfl' app.slug %}"><p>Review & Submit</p></a></li>
+            {% else %}
+            <li><div class="step border-none"><i data-feather="users"></i></div><a href="#"><p>Activate Chat Option</p></a></li>
+            {% endif %}
+          </ul>
+       </div>
+      </div>
+    </div>
+ </div>
+ {% if user.user_type == 3 %}
+ {% if user.application.all.first.academic_qualifications.all.first.country %}
+ <div class="alert alert-success text-center mb-2" role="alert">
+    <i data-feather="check-circle"></i> See your CV's current status <a href="{% url 'application:cv_pdf' app.slug 'preview' %}" target="_blank"> <i data-feather="external-link"></i> Preview CV</a>
+  </div>
+ {% else %}
+ <div class="alert alert-warning text-center mb-2" role="alert">
+    <i data-feather="info"></i> Please complete steps 1, 2 and 3 to download your FREE CV!
+   <a href="#"> <i data-feather="external-link"></i> Preview CV</a>
+  </div>
+ {% endif %}
+ {% endif %}

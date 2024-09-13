@@ -1,0 +1,253 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} User Profile {% endblock %}
+{% load administration_extras %}
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-2">
+    <ol class="breadcrumb breadcrumb-style1 d-inline-block">
+        <li class="breadcrumb-item d-inline-block"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        {% if request.user.user_type == 3 %}
+        <li class="breadcrumb-item d-inline-block">My Profile</li>
+        {% else %}
+        <li class="breadcrumb-item d-inline-block"><a href="{% url 'administration:list_students_twfl' %}">Back</a></li>
+        {% endif %}
+    </ol>
+    {% if request.user.user_type == 3 %}
+    <div class="float-right gs-edit">
+        <a href="{% url 'administration:update_profile_twfl' %}" class="btn btn-outline-indigo btn-rounded">Edit</a>
+    </div>
+    {% endif %}
+</nav>
+<div class="gs-profile">
+    <div class="row row-sm mg-b-20">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card card-table-one mg-b-10">
+                <h6 class="card-title"><i data-feather="info"></i> Basic Information</h6>
+                <hr>
+                <div class="card-body">
+                    <div class="basic-detail">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="border-right">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Name:</b></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p class="text-capitalize">{{student_personal_info.admin.first_name}}
+                                                {{student_personal_info.admin.last_name}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Currently living in:</b></p>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <span class="country-flags">{{student_personal_info.admin.currently_living_in.name}} ~ <img
+                                                    src="{{student_personal_info.admin.currently_living_in.flag}}"
+                                                    alt=""></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Country you hold a passport:</b></p>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <span class="country-flags">{{student_personal_info.admin.country.name}} ~ <img
+                                                    src="{{student_personal_info.admin.country.flag}}"
+                                                    alt=""></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Your Student Id:</b></p>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <p class="text-uppercase">{{student_info.admin.slug}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Email:</b></p>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <p class='text-nowrap'>{{student_info.admin.email}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>Date of Birth:</b></p>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{student_personal_info.admin.date_of_birth|date:"d/m/Y"}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>Gender:</b></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{student_personal_info.admin.gender|getgender}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>Your Phone Number:</b></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{student_personal_info.admin.phone|getifnone}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>Spoken Languages:</b></p>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>
+                                            {{ student_personal_info.admin.spoken_languages.all|print_languages }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>What is your level of English?:</b></p>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{student_personal_info.level_of_english|getenglish_level}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>How did you hear about us?:</b></p>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{student_info.admin.how_did_you_hear_about_us|getifnone}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-sm mg-b-20">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card card-table-one mg-b-10">
+                <h6 class="card-title"><i data-feather="book"></i> Education Information</h6>
+                <hr>
+                <div class="card-body">
+                    <div class="basic-detail">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="border-right">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Are you currently studying?:</b></p>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <p>{{student_personal_info.currently_studying|getstudystatus}}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Desired Study Destination(s):</b></p>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <p>{{ student_personal_info.study_destination|print_study_destination }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Subject Interest:</b></p>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <p class='text-nowrap'>
+                                                {{student_personal_info.area_of_study|getsubject}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Desired Programme level:</b></p>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <p class='text-nowrap'>
+                                                {{student_personal_info.programme_level|getprogramme_level}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>
+                                            <b>
+                                                {% if student_personal_info.currently_studying == 1 %}
+                                                Current school name:
+                                                {% else %}
+                                                Last school name:
+                                                {% endif %}
+                                            </b>
+                                        </p>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{student_personal_info.current_or_last_school_name|getifnone}}</p>
+                                    </div>
+                                </div>
+                                {% if student_personal_info.currently_studying == 1 %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>At what level are you currently studying?:</b></p>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{student_personal_info.what_are_you_studying|getifnone}}</p>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>What is your most recent qualification?:</b></p>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{student_personal_info.last_qualification|getifnone}}</p>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>Which year would you like to start?:</b></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{student_personal_info.intake_year}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

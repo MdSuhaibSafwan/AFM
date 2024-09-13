@@ -1,0 +1,107 @@
+[
+  {
+    "model": "personal_information.tutoringsubject",
+    "pk": 1,
+    "fields": {
+      "tutoring_subject": "Maths"
+    }
+  },
+  {
+    "model": "personal_information.tutoringsubject",
+    "pk": 2,
+    "fields": {
+      "tutoring_subject": "Physics"
+    }
+  },
+  {
+    "model": "personal_information.tutoringsubject",
+    "pk": 3,
+    "fields": {
+      "tutoring_subject": "Chemistry"
+    }
+  },
+  {
+    "model": "personal_information.tutoringsubject",
+    "pk": 4,
+    "fields": {
+      "tutoring_subject": "English"
+    }
+  },
+  {
+    "model": "personal_information.tutoringsubject",
+    "pk": 5,
+    "fields": {
+      "tutoring_subject": "Economics"
+    }
+  },
+  {
+    "model": "personal_information.tutoringsubject",
+    "pk": 6,
+    "fields": {
+      "tutoring_subject": "ICT"
+    }
+  },
+  {
+    "model": "personal_information.tutoringsubject",
+    "pk": 7,
+    "fields": {
+      "tutoring_subject": "History"
+    }
+  },
+  {
+    "model": "personal_information.tutoringsubject",
+    "pk": 8,
+    "fields": {
+      "tutoring_subject": "Geography"
+    }
+  },
+  {
+    "model": "personal_information.tutoringsubject",
+    "pk": 9,
+    "fields": {
+      "tutoring_subject": "Personal Statement"
+    }
+  },
+  {
+    "model": "personal_information.tutoringsubject",
+    "pk": 10,
+    "fields": {
+      "tutoring_subject": "Interviews"
+    }
+  },
+  {
+    "model": "personal_information.tutoringsubject",
+    "pk": 11,
+    "fields": {
+      "tutoring_subject": "Biology"
+    }
+  },
+  {
+    "model": "personal_information.tutoringsubject",
+    "pk": 12,
+    "fields": {
+      "tutoring_subject": "MBBS/MBChB"
+    }
+  },
+  {
+    "model": "personal_information.tutoringsubject",
+    "pk": 13,
+    "fields": {
+      "tutoring_subject": "Human Biology"
+    }
+  },
+  {
+    "model": "personal_information.tutoringsubject",
+    "pk": 14,
+    "fields": {
+      "tutoring_subject": "Computing"
+    }
+  },
+  {
+    "model": "personal_information.tutoringsubject",
+    "pk": 15,
+    "fields": {
+      "tutoring_subject": "Psychology"
+    }
+  }
+]

@@ -1,0 +1,136 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}Apply to Study Medicine in the Caribbean | Apply for Medicine{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}Medical schools in the Caribbean, also known as Off-Shore medical schools, have mentors to
+assist with applications to medical schools.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/study-medicine-in-the-caribbean/
+{% endblock %}{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">Apply for Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>Study medicine in the Caribbean
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">Study medicine in the Caribbean </h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Offshore medical schools in the Caribbean </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12">
+                    <div class="right-icon-img-area parent-img">
+                        <img src="{% static 'assets/img/flag-img/caribbean-flag.png' %}"
+                           class="img-fluid" alt="Medical Admission Blogs" title="Medical Admission Blogs" width="400" height="250" loading="lazy">
+                     </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <section class="ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <!-- <h2>Offshore medical in the Caribbean:</h2> -->
+                        <h2>Medicine can be studied at over 60 different medical schools in the Caribbean</h2>
+                        <p> There are both regional and offshore Caribbean medical schools: </p>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <ul class="grade-li medicine-in-aus">
+                                    <li>Regional schools - provide medical training for practice within the
+                                        country/region.</li>
+                                    <li>Offshore schools - focus on training students who later apply for residency
+                                        programs within USA or Canada. </li>
+                                </ul>
+                                <p>Off-shore schools are usually for profit enterprises which vary in size, with their
+                                    head office (ownership) operating from a mainland US based administrative office.
+                                </p>
+                                <p>There is quite a range in size: the smaller (newer) schools will sometimes call
+                                    themselves ‘boutique’ medical schools, while the larger ones can have their parent
+                                    companies being listed on the stock market. </p>
+                                <p> For this reason, competition between them is strife and each will have you believe
+                                    they are the best on the planet. </p>
+                                <p> As the list of medical schools is quite long, we are unable to include all of them
+                                    here. Please complete the form on this page and we will be in touch to discuss the
+                                    best options for you, specially for the Caribbean. </p>
+                                <p> For successful applicants from outside the USA/Canada, we are also able to look into
+                                    enhancing your application, as around a third of international applicants have been
+                                    awarded large scholarships too. </p>
+                                <p> Offshore medical schools usually offer a 4-year MD course. The first 2-years if
+                                    study are usually in the Caribbean island and the final 2 clinical years are usually
+                                    taught at various clinical sites based on mainland US. </p>
+                            </div>
+                        </div>
+                        <p>These are usually graduate entry - so Pre-Med courses are required which can be completed on
+                            the Caribbean island, extending their 4-year course to 5, 6 or even 7 years in duration
+                            depending on your academic background. </p>
+                        <p> Some also have sites in the UK too, attracting students that are from Europe and wish to
+                            practice medicine in Great Britain. </p>
+                        <p> For admission the Caribbean medical schools, Pre-Med courses can also be completed in the UK
+                            and in countries local to you, which are also accepted my UK medical schools too. Please
+                            contact us to discuss your specific requirements. </p>
+                        <p> Prior to applying, it is crucial to check that the Off-shore medical school in the Caribbean
+                            has appropriate reputation, facility and accreditation. </p>
+                        <p> This includes accreditation by the Liaison Committee on Medical Education (LCME) since this
+                            body determines eligibility to sit the USMLE. </p>
+                        <p> The medical school should also have appropriate accreditation by an accrediting agency which
+                            is recognised by the World Federation for Medical Education (WFME), approved by the National
+                            Committee on Foreign Medical Education and Accreditation (NCFMEA), or approved by the New
+                            York State Department of Education, or approved by the Medical Board of California, etc.
+                        </p>
+                        <p> Applying to a Caribbean medical school is less competitive and the average GPA required for
+                            admission is also lower than the average for most US/UK medical schools. </p>
+                        <p> It is important to consider that although the medical courses may be easier to be accepted
+                            into, the residency programs that you will be eligible to apply for may be more limited. In
+                            addition to this, getting a residency program within the more competitive specialties may be
+                            especially difficult for graduates from Caribbean medical schools. The tuition fees for
+                            Caribbean medical courses are high so this is also an important factor to consider,
+                            especially since only a small number of Caribbean medical schools have approval for its
+                            students to be eligible for federal student loans for US/Canadian citizens. </p>
+                        <p> Please complete the form above and we can help you decide on whether studying medicine in
+                            the Caribbean is an option for you and if so which medical schools you should consider and
+                            how to maximise your chances of admission and scholarship. </p>
+                        <p> Applying to a Caribbean medical school is less competitive and the average GPA required for
+                            admission is also lower than the average for most US/UK medical schools. </p>
+                        <p> Another feature of Off-shore medical schools in the Caribbean is that they usually have
+                            three intakes per calendar year in January, April and August each year. This allows
+                            flexibility to students ready to start their medical degree without having to wait till
+                            September of each typical academic year. </p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> global community of
+                            students by searching for a mentor now </p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,545 @@
+{% extends 'base/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% load administration_extras %}
+{% load static %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% block css %}
+<style>
+  form {
+    display: contents;
+  }
+  div.btn,.filter {
+    margin-right: 5px;
+}
+</style>
+{% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb breadcrumb-style1">
+    <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="#">Total Alumni</a></li>
+  </ol>
+</nav>
+<div class="row row-sm mg-b-10">
+  <div class="col-12 col-lg-12">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="filter-div d-flex justify-content-lg-between align-items-lg-center">
+            <button class="btn btn-rounded  btn-md btn-indigo filter"><i data-feather="filter"></i> Filters</button>
+            <!--            <div id="mySelect_spoken_languages"></div>-->
+            <div id="mySelect_studying_in"></div>
+<!--            <div id="mySelect_country_studying"></div>-->
+<!--            <div id="mySelect_level"></div>-->
+            <div id="mySelect_subject"></div>
+          </div>
+          <div class="reset-txt-area">
+            <a class="btn btn-rounded btn-md btn-outline-indigo"
+               href="{% url 'administration:list_mentors_twfl' %}">Resets Filters</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row row-sm mg-b-10">
+  <div class="col-md-12 mb-4">
+        <strong>Search Alumni using the following filters</strong>
+  </div>
+  </div>
+  <form id="search-mentor-form">
+    <div class="row row-sm mg-b-10">
+        <div class="select2-box col-md-4 col-lg-3 mt-3 mt-md-0">
+          {% render_field form.mentor_profile_status class='form-control' %}
+        </div>
+        <div class="select2-box col-md-4 col-lg-3 mt-3 mt-md-0">
+          {% render_field form.keyword placeholder="Search by Alumni name" class='form-control keyword' %}
+        </div>
+        <div class="select2-box col-md-4 col-lg-3 mt-3 mt-md-0">
+          {% render_field form.email placeholder="Search by email" class='form-control' %}
+        </div>
+        <div class="col-md-4 col-lg-1 mt-3 mt-lg-0">
+            <button type="submit" class="btn btn-indigo btn-block btn-rounded"><i data-feather="search"></i></button>
+        </div>
+        <div class="col-md-4 col-lg-2 mt-3 mt-lg-0">
+        <input type="hidden" id="text-to-copy" value="{{list_user_emails|print_values }}">
+          <button type="button" id="btnCopyToClipboard" class="btn btn-outline-indigo btn-block btn-rounded">
+            Copy emails</button>
+      </div>
+    </div>
+    <div class="row row-sm mg-b-10">
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="select2-box mb-2">
+        <label>{{form.admin__spoken_languages.label}}</label>
+        {% render_field form.admin__spoken_languages placeholder=form.spoken_languages.label class='form-control language' %}
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="select2-box mb-2">
+        <label>{{form.admin__country.label}}</label>
+        {% render_field form.admin__country class='form-control country' %}
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="select2-box mb-2">
+        <label>{{form.studying_in_countries.label}}</label>
+        {% render_field form.studying_in_countries placeholder=form.studying_in_countries.label class='form-control country_studying' %}
+      </div>
+    </div>
+<!--    <div class="col-sm-12 col-md-6 col-lg-3">-->
+<!--      <div class="select2-box mb-2">-->
+<!--        {% render_field form.programme_level placeholder=form.programme_level.label class='form-control levels' %}-->
+<!--      </div>-->
+<!--    </div>-->
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="select2-box mb-2">
+        <label>{{form.currently_studying.label}}</label>
+        {% render_field form.currently_studying placeholder=form.currently_studying.label class='form-control course' %}
+      </div>
+    </div>
+<!--        <div class="col-12 col-md-6 col-lg-1">-->
+<!--          <div class="select2-box mb-2">-->
+<!--            {% render_field form.are_you_graduated placeholder=form.username.label class='form-control are_you_graduated' %}-->
+<!--          </div>-->
+<!--        </div>-->
+<!--    <div class="col-sm-12 col-md-12 col-lg-1">-->
+<!--      <button type="submit" class="btn btn-indigo btn-block btn-rounded"><i data-feather="search"></i></button>-->
+<!--    </div>-->
+  </div>
+  </form>
+<!--  <div class="col-md-12">-->
+<!--        <small>ie. As {% if request.user.user_type == 3 %}student{% else %}an Applicant{% endif %}, s/he wants to search university students who speak their language, are from the same country and studying at their selected study destination, at the same programme level and subject field.</small>-->
+<!--  </div>-->
+
+<div class="row row-sm mg-b-20">
+  <div class="col-sm-12 col-lg-12">
+    <div class="card card-table-one parent-table">
+      <h6 class="card-title">List of Alumni</h6>
+      <hr>
+      <div class="table-responsive">
+        {% if personal_info_list %}
+        <table class="table table-hover mg-b-0">
+          <thead>
+            <tr>
+              <th class="sticky first-col mob-sticky">Photo</th>
+              <th class="sticky second-col">Name</th>
+              <th>Subject</th>
+              <th>Originally From</th>
+              <th>Studying In</th>
+              <th>Profile Status</th>
+              <th>BBB Link</th>
+              <th>Approve Status</th>
+              <th>Subscribers</th>
+              <th>Profile</th>
+              <th>Action</th>
+              <th>Created On</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for y in personal_info_list %}
+            <div class="d-none">{{y.admin.user_slug}} {{y.id}}</div>
+            {% for x in mentors %}
+            {% if x.admin.slug == y.admin.user_slug %}
+            <tr>
+              <td class="sticky first-col mob-sticky">
+                <div class="az-img-user">
+                  {% if y.admin.profile_pic %}
+                  <img src="{{y.admin.profile_pic.url}}" alt="{{y.admin.first_name}}">
+                  {% else %}
+                  <img src="{% static 'images/default_profile.png' %}" alt="{{y.admin.first_name}}">
+                  {% endif %}
+                </div>
+              </td>
+              <td class="sticky second-col">
+                <strong>
+                  <a href="{% url 'administration:mentor_profile' x.admin.slug %}">{{y.admin.first_name}}</a>
+                  <small class="d-block">{{x.admin.email}}</small>
+                </strong>
+              </td>
+              <td>{{ y.currently_studying|getsubject }}</td>
+              <td>{{y.admin.country.name}} <img src="{{y.admin.country.flag}}" alt="{{y.admin.country.name}}">
+              </td>
+              <td>{{y.studying_in.name}} <img src="{{y.studying_in.flag}}" alt="{{y.studying_in.name}}">
+              </td>
+              <td class="font-weight-bold">
+                {% if y.consent4 %}
+                <span class="text-success">Completed</span>
+                {% else %}
+                <span class="text-danger">Incomplete</span>
+                {% endif %}
+              </td>
+              <td>
+                {% if y.late_point %}
+                <a href="#" class="latepoint_link" data-toggle="modal" data-target="#latepoint-link-{{y.id}}"
+                  data-link="{{ y.late_point }}"><i data-feather="edit"></i> Edit BBB Link</a>
+                {% else %}
+                <a href="#" class="latepoint_link" data-toggle="modal" data-target="#latepoint-link-{{y.id}}"
+                  data-link=""><i data-feather="user-plus"></i> Add BBB Link</a>
+                {% endif %}
+                <!-- Modal -->
+                <div class="modal fade" id="latepoint-link-{{y.id}}" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <form role="form" method="post" action="{% url 'administration:mentor_latepoint_link' y.id %}"
+                      enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">
+                            Add BBB Link for Alumni <strong>{{y.admin.first_name}}
+                              {{y.admin.last_name}}</strong> </h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          {% csrf_token %}
+                          {% crispy latepoint_form %}
+                          <div class="modal-btn">
+                            <button type="submit" class="btn btn-rounded btn-indigo">
+                              Submit
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <form method="post" action="{% url 'administration:approve_mentor_twfl' x.admin.slug %}"
+                  id="approve-mentor-form-{{x.admin.id}}" onsubmit="">
+                  {% csrf_token %}
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="approve-mentor-button-{{x.admin.id}}"
+                      onchange="change_approve_mentor('approve-mentor-form-{{x.admin.id}}')" {% if x.profile_status %}checked{% endif %}>
+                    <label class="custom-control-label" for="approve-mentor-button-{{x.admin.id}}">
+                    {% if x.profile_status %}Approved{% else %}Pending{% endif %}</label>
+                  </div>
+                </form>
+              </td>
+              <td>
+                <a class="badge bg-light text-dark" href="#" data-toggle="modal" data-target="#subscribers-{{ y.admin.user_slug }}">
+                  View Subscribers({{ y.admin.user_slug|getsubscriberscount }})
+                </a>
+                <div class="modal fade text-left" id="subscribers-{{ y.admin.user_slug }}" tabindex="-1"
+                       role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="">List of Subscribers</h5>
+                                  <button type="button" class="close" data-dismiss="modal"
+                                          aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <div class="modal-body">
+                                  <ul class="list-group">
+                                  {% for subscriber in y.admin.user_slug|getsubscribers %}
+                                    <li class="list-group-item">{{ subscriber.email }}</li>
+                                  {% empty %}
+                                    <p>No Subscribers</p>
+                                  {% endfor %}
+                                  </ul>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                <a class="badge bg-light text-dark" href="{% url 'administration:mentor_profile' x.admin.slug %}">
+                  View Profile
+                </a>
+              </td>
+              <td>
+                <a href="#" class="btn btn-danger btn-rounded d-inline" data-toggle="modal" data-target="#delete-user-{{x.admin.slug}}">
+                   Delete User</a>
+                {% if y.consent4 %}
+                <a href="{% url 'messaging:comment_mentor_public_profile_twfl' x.admin.slug %}"
+                   class="btn btn-indigo btn-block btn-rounded d-inline">
+                   Send Message</a>
+                <a href="{% url 'bookings:admin_appointment' x.admin.slug %}" class="btn btn-info btn-rounded d-inline">
+                   Book Appointment</a>
+                {% endif %}
+
+              </td>
+              <td>{{y.created_at|date:"d/m/Y"}}</td>
+
+            </tr>
+            <!-- Delete User Modal -->
+            <div class="modal fade" id="delete-user-{{x.admin.slug}}" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h5 class="modal-title">
+                                  Confirm</h5>
+                              <button type="button" class="close" data-dismiss="modal"
+                                      aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+                          <form method="post"
+                                action="{% url 'administration:delete_user_twfl' x.admin.slug %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="redirect" value="{{request.path}}">
+                              <div class="modal-body">
+                                  <h5>Are you sure you want to do delete alumni {{y.admin.first_name}}?</h5>
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-rounded btn-indigo reject"
+                                          data-dismiss="modal">Close
+                                  </button>
+                                  <button type="submit" class="btn btn-rounded btn-indigo">
+                                      Confirm
+                                  </button>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <div style="text-align:center;">
+          <p>No Alumni Available !!!!</p>
+        </div>
+        {% endif%}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="">
+  <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+  <div class="d-flex justify-content-center">
+    <ul class="pagination pagination-circled">
+      {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link"
+          href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}"><i
+            data-feather="arrow-left"></i></a></li>
+      {% endif %}
+      {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link"
+          href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}"><i
+            data-feather="arrow-right"></i></a></li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+  $('#id_admin__spoken_languages').select2({
+    placeholder: 'Language Spoken',
+    searchInputPlaceholder: 'Search'
+  });
+  $('#id_admin__country').select2({
+    placeholder: 'Country From',
+    searchInputPlaceholder: 'Search'
+  });
+  $('#id_studying_in').select2({
+    placeholder: 'Currently Studying in',
+    searchInputPlaceholder: 'Search'
+  });
+  $('#id_currently_studying').select2({
+    placeholder: 'Subject Interest',
+    searchInputPlaceholder: 'Search'
+  });
+  $('#id_mentor_profile_status').select2({
+    placeholder: 'Select Profile Status',
+    searchInputPlaceholder: 'Search'
+  });
+  $('#id_programme_level').select2({
+    placeholder: 'Programme Level',
+    minimumResultsForSearch: -1
+  });
+  $('#id_are_you_graduated').select2({
+    placeholder: 'Select Mentor',
+    minimumResultsForSearch: -1
+  });
+  $('#id_studying_in_countries').select2({ placeholder: "Currently Studying in", });
+</script>
+<script>
+  var id;
+  function change_is_active(id) {
+    if (confirm('Do you really want to do this action')) {
+      $('#' + id).submit();
+    }
+    else{
+        location.reload();
+    }
+  }
+
+  function change_approve_mentor(id) {
+    if (confirm('Do you really want to do this action')) {
+      $('#' + id).submit();
+    }
+    else{
+        location.reload(true);
+    }
+  }
+// Late point link
+  $('.latepoint_link').click(function () {
+    $($(this).data('target') + ' input').val($(this).data('link'));
+  });
+
+// Search Filter
+  var test0 = $('.language');
+  test0.on("select2:select", function (event) {
+    var value = $(event.currentTarget).find("option:selected").text();
+
+    $('#mySelect_spoken_languages').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removelnge"> x</span>');
+    $('.removelnge').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".language").select2('val', 'All');
+    });
+
+    //$('#mySelect').text( "<label class='btn btn-rounded btn-lg btn-indigo'>" + value +"</label>");
+  });
+
+  if ($('#id_spoken_languages').val() != '') {
+    var value = $('#id_spoken_languages').find("option:selected").text();
+    var element = $('#id_spoken_languages').find("option:selected");
+    $('#mySelect_spoken_languages').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removelnge"> x</span>');
+    $('.removelnge').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".language").select2('val', 'All');
+    });
+  }
+
+  var test1 = $('.country');
+  test1.on("select2:select", function (event) {
+    var value = $(event.currentTarget).find("option:selected").text();
+
+    $('#mySelect_studying_in').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removecountry"> x</span>');
+    $('.removecountry').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".country").select2('val', 'All');
+
+    });
+    //$('#mySelect').text( "<label class='btn btn-rounded btn-lg btn-indigo'>" + value +"</label>");
+    console.log(value);
+  });
+  if ($('#id_admin__country').val() != '') {
+    var value = $('#id_admin__country').find("option:selected").text();
+    var element = $('#id_admin__country').find("option:selected");
+    $('#mySelect_studying_in').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removecountry"> x</span>');
+    $('.removecountry').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".country").select2('val', 'All');
+    });
+  }
+
+  var test2 = $('.course');
+  test2.on("select2:select", function (event) {
+    var value = $(event.currentTarget).find("option:selected").text();
+
+    $('#mySelect_subject').text(value + ' ').addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removecrse"> x</span>');
+    $('.removecrse').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".course").select2('val', 'All');
+    });
+    //$('#mySelect').text( "<label class='btn btn-rounded btn-lg btn-indigo'>" + value +"</label>");
+    console.log(value);
+  });
+  if ($('#id_currently_studying').val() != '') {
+    var value = $('#id_currently_studying').find("option:selected").text();
+    var element = $('#id_currently_studying').find("option:selected");
+    $('#mySelect_subject').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removecrse"> x</span>');
+    $('.removecrse').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".course").select2('val', 'All');
+    });
+  }
+
+  var test2 = $('.levels');
+  test2.on("select2:select", function (event) {
+    var value = $(event.currentTarget).find("option:selected").text();
+
+    $('#mySelect_level').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removelevel"> x</span>');
+    $('.removelevel').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".levels").select2('val', 'All');
+    });
+    //$('#mySelect').text( "<label class='btn btn-rounded btn-lg btn-indigo'>" + value +"</label>");
+    console.log(value);
+  });
+
+  if ($('#id_programme_level').val() != '') {
+    var value = $('#id_programme_level').find("option:selected").text();
+    var element = $('#id_programme_level').find("option:selected");
+    $('#mySelect_level').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removelevel"> x</span>');
+    $('.removelevel').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".levels").select2('val', 'All');
+    });
+  }
+
+  var test2 = $('.country_studying');
+  test2.on("select2:select", function (event) {
+    var value = $(event.currentTarget).find("option:selected").text();
+
+    $('#mySelect_country_studying').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="remove_country_studying"> x</span>');
+    $('.remove_country_studying').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".country_studying").select2('val', 'All');
+    });
+    //$('#mySelect').text( "<label class='btn btn-rounded btn-lg btn-indigo'>" + value +"</label>");
+    console.log(value);
+  });
+
+  if ($('#id_studying_in').val() != '') {
+    var value = $('#id_studying_in').find("option:selected").text();
+    var element = $('#id_studying_in').find("option:selected");
+    $('#mySelect_country_studying').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="remove_country_studying"> x</span>');
+    $('.remove_country_studying').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".country_studying").select2('val', 'All');
+    });
+  }
+
+  var test2 = $('.are_you_graduated');
+  test2.on("select2:select", function (event) {
+    var value = $(event.currentTarget).find("option:selected").text();
+
+    $('#mySelect4').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="remove_are_you_graduated"> x</span>');
+    $('.remove_are_you_graduated').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".are_you_graduated").select2('val', 'All');
+    });
+    //$('#mySelect').text( "<label class='btn btn-rounded btn-lg btn-indigo'>" + value +"</label>");
+    console.log(value);
+  });
+
+  if ($('#id_are_you_graduated').val() != '') {
+    var value = $('#id_are_you_graduated').find("option:selected").text();
+    var element = $('#id_are_you_graduated').find("option:selected");
+    $('#mySelect4').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="remove_are_you_graduated"> x</span>');
+    $('.remove_are_you_graduated').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".are_you_graduated").select2('val', 'All');
+    });
+  }
+
+$('#search-mentor-form select').change(function(){
+    $('#search-mentor-form').submit();
+});
+</script>
+
+{% endblock %}

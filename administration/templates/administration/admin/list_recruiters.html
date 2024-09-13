@@ -1,0 +1,177 @@
+{% extends 'base/base.html' %}
+{% block title %}List Recruiter{% endblock %}
+{% load administration_extras %}
+{% load static %}
+{% load widget_tweaks %}
+{% block css %}
+<style>
+  form {
+    display: contents;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb breadcrumb-style1">
+    <li class="breadcrumb-item">
+      <a href="{% url 'administration:dashboard' %}">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item">
+      <a href="#">Total Recruiters</a>
+    </li>
+  </ol>
+</nav>
+<div class="row row-sm mg-b-10">
+  <form>
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="select2-box mb-2"> 
+        {% render_field form.work_type placeholder=form.work_type.label class='form-control' %}
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-1">
+      <button type="submit" class="btn btn-indigo btn-block btn-rounded">
+        <i data-feather="search">
+        </i>
+      </button>
+    </div>
+  </form>
+</div>
+<div class="row row-sm mg-b-20">
+  <div class="col-sm-12 col-lg-12">
+    <div class="card card-table-one">
+      <h6 class="card-title">List of Recruiters</h6>
+      <hr>
+      <div class="table-responsive"> 
+{% if list %}
+        <table class="table table-hover mg-b-0">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last name</th>
+              <th>Email</th>
+              <th>Recruiter Type</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody> 
+{% for x in list %}
+            <tr>
+              <td>
+                <strong>
+                  {{x.admin.first_name}}</strong>
+              </td>
+              <td>
+                <strong>
+                  {{x.admin.last_name}}</strong>
+              </td>
+              <td>
+                {{x.admin.email}}
+              <td>
+                {% if x.work_type == '1' %}
+                Company {% elif x.work_type == '3' %}
+                School{% else %}
+                Individual{% endif %}
+              </td>
+              <td>
+                <form method="post" id="form-{{x.admin.id}}" onsubmit=""> 
+                    {% csrf_token %}
+                  <div class="custom-control custom-switch">
+                    <input type="hidden" name="admin_id" value="{{x.admin.id}}">
+                    <input type="checkbox" class="custom-control-input" id="button-{{x.admin.id}}"
+                      onchange="change_is_active('form-{{x.admin.id}}')" {% if x.admin.is_active %} checked{% endif %}>
+                    <label class="custom-control-label" for="button-{{x.admin.id}}">
+                      {% if x.admin.is_active %}
+                      Active{% else %}
+                      Not Active{% endif %}
+                    </label>
+                  </div>
+                </form>
+              </td>
+              <td>
+                  <a href="#" class="btn btn-danger btn-rounded" data-toggle="modal"
+                    data-target="#delete{{x.id}}"><i data-feather="trash"></i>Delete</a>
+              </td>
+            </tr>
+            <div class="modal fade" id="delete{{x.id}}" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Delete Institute</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <form method="post"
+                                action="{% url 'administration:delete_user_twfl' x.admin.slug %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="redirect" value="{{request.path}}">
+                        <div class="modal-body">
+                          are you sure, do you want do delete ?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-indigo btn-rounded"
+                            data-dismiss="modal">cancel</button>
+                          <button type="submit" class="btn btn-outline-indigo btn-rounded">Confirm</button>
+                        </div>
+                      </form>
+                    </div>
+                </div>
+            </div>
+{% endfor %}
+          </tbody>
+        </table> 
+{% else %} <div style="text-align:center;">
+          <p>No Recruiters Available !!!!</p>
+        </div> 
+{% endif%}
+      </div>
+      <!-- table-responsive -->
+    </div>
+  </div>
+</div>
+<div class="">
+  <p>Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}</p>
+  <div class="d-flex justify-content-center">
+    <ul class="pagination pagination-circled">
+      {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}">
+          <i data-feather="arrow-left">
+          </i>
+        </a>
+      </li>
+      {% endif %}
+      {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}">
+          <i data-feather="arrow-right">
+          </i>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+  $('#id_admin__spoken_languages').select2();
+  var id;
+  function change_is_active(id) {
+    if (confirm('Do you really want to do this action')) {
+      $('#' + id).submit();
+    }
+    else{
+        location.reload();
+    }
+  }
+  $(document).ready(function () {
+    $('#id_work_type').select2({
+      placeholder: 'Choose Recruiter Type', searchInputPlaceholder: 'Search'
+    });
+  });
+</script>
+{% endblock %}

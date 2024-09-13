@@ -1,0 +1,58 @@
+{% extends 'base/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% load administration_extras %}
+{% load static %}
+{% load widget_tweaks %}
+{% block css %}
+{% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb breadcrumb-style1">
+  <li class="breadcrumb-item">
+    <a href="{% url 'administration:dashboard' %}">Dashboard</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="#">Total Blocked Users</a>
+  </li>
+</ol>
+</nav>
+<div class="row row-sm mg-b-20">
+        <div class="col-sm-12 col-lg-12">
+          <div class="card card-table-one">
+            <h6 class="card-title">List of Blocked Users</h6>
+            <hr>
+            <div class="table-responsive"> 
+              {% if list %} 
+              <table class="table table-hover mg-b-0">
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Blocked by</th>
+                    <th>Message</th>
+                    <th>Is Removed</th>
+                  </tr>
+                </thead>
+                <tbody> 
+{% for i in list %} <tr>
+                    <td>
+                      <strong>{{i.reported_user.first_name}}
+                        {{i.reported_user.last_name}}</strong> ( {{i.reported_user.user_type|getuser}} )
+                    </td>
+                    <td>
+                      <strong>{{i.report_by_user.first_name}}
+                        {{i.report_by_user.last_name}}</strong> ( {{i.report_by_user.user_type|getuser}} )
+                    </td>
+                    <td>{{i.message|getifnone}}</td>
+                    <td class="text-danger"> 
+{% if i.is_removed %}Removed{% else %}--{% endif %}</td>
+                  </tr> 
+{% endfor %} </tbody>
+              </table> 
+{% else %} <div style="text-align:center;">
+                <p>No Alumni Available !!!!</p>
+              </div> 
+{% endif%} </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}

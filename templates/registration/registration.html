@@ -1,0 +1,180 @@
+{% extends 'registration/reg_base.html' %}
+{% block title1 %}{% block title2 %}Register now and start your application for medical school{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}Start your medical school application now. Apply for medical schools
+in the UK, US, Canada, Australia, Europe and Ireland{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}https://applyformedicine.com/peer-medical-school-application-community/{% endblock %}
+{% endblock %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% load socialaccount %}
+{% block content %}
+<head>
+   {{ form.media.css }}
+</head>
+<section class="header_area log-area bg-1">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="site-breadcrub">
+<!--               <p> <a href="#"></a><span class=""></span><span>Register</span></p>-->
+            </div>
+         </div>
+         <div class="col-xl-12 col-md-12">
+            <div class="header-inner-wrapper">
+               <h1 data-animate="fadeInUp" data-animate-delay="5" class="login-heading">Connect with our Alumni
+                  now</h1>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<section class="header_area ">
+   <div class="container">
+      <div class="row login-detail">
+         <div class="col-md-12">
+<!--            <p class="register-para">Join a growing online community of university peer mentors and students - -->
+<!--               changing the way search & applications are made to universities around the world.</p>-->
+            <div class="register-tabs">
+               <ul class="nav nav-pills mb-3 d-flex justify-content-center sm-tabs" id="pills-tab" role="tablist">
+                  <li class="nav-item {% if not is_mentor %}active{% endif %}">
+                     <a class="nav-link {% if not is_mentor %}active{% endif %}" id="pills-applicant-tab" data-toggle="pill"
+                        href="#pills-Student" role="tab" aria-controls="pills-Student" aria-selected="true">Student Sign-up</a>
+                  </li>
+                  <li class="nav-item {% if is_mentor %}active{% endif %}">
+                     <a class="nav-link {% if is_mentor %}active{% endif %}" id="pills-mentor-tab" data-toggle="pill"
+                        href="#pills-Mentor" role="tab" aria-controls="pills-profile" aria-selected="false">Alumni Sign-up</a>
+                  </li>
+               </ul>
+               <div class="tab-content" id="pills-tabContent">
+                  <div class="tab-pane fade {% if not is_mentor %}show active{% endif %}" id="pills-Student"
+                     role="tabpanel" aria-labelledby="pills-applicant-tab">
+                     <div class="form-wrapper tab-form" id="applicant-form-tab">
+                        <p class="register-para2">
+<!--                           Register as an Applicant if you are considering applying for a-->
+<!--                           medical school course or require support from Mentors/Tutors with your studies/exams.<br>-->
+<!--                           If you are considering university courses other then medicine, please-->
+<!--                           <a href="https://applyforuniversity.com/" target="_blank">Click Here</a><br><br>-->
+                           <a href="#" class="m-auto google" data-toggle="modal"
+                           data-target="#google-signup-modal">
+                             <img src="{% static 'images/google-icon.png' %}" class="img-fluid" alt="google-icon" title="google-icon" width="20" height="20" loading="lazy">
+                             Login or Sign-up via Google
+                           </a>
+                           <br>
+                        </p>
+                        <form action="{% url 'administration:registration'%}" method="POST">
+                           {% csrf_token %}
+                           <input type="hidden" value="" name="link" id="link">
+                           <input type="hidden" name="mentor_slug" value="{{mentor_slug}}">
+                           {% crispy form %}
+                           <div class="form-group form-check">
+                              <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+                              <label class="form-check-label" for="exampleCheck1">
+                                 By registering here You agree to our
+                                 <a href="{% url 'administration:terms_and_conditions' %}" class="font-weight-bold"
+                                    target="_blank"> Terms & Conditions </a> and
+                                 <a href="{% url 'administration:privacy_notice' %}" class="font-weight-bold"
+                                    target="_blank">Privacy Policy</a> and you are over the
+                                 age of 15.</label>
+                           </div>
+                           <div class="login-btn">
+                              <button type="submit" id="register_student" value=""
+                                 class="theme-btn not-active">Register</button>
+                              <p>Already have an account? <span><a href="{% url 'login' %}"> Login</a></span></p>
+                           </div>
+                        </form>
+                     </div>
+                  </div>
+                  <div class="tab-pane fade {% if is_mentor %}show active{% endif %}" id="pills-Mentor" role="tabpanel"
+                     aria-labelledby="pills-mentor-tab">
+                     <div class="form-wrapper tab-form" id="mentor-form-tab">
+<!--                        <p class="register-para2">Apply to become a Mentor/Tutor if you would like to mentor or-->
+<!--                           tutor aspiring medical school applicants. (You must be full-time medical student or recent-->
+<!--                           graduate of a medical school)-->
+
+<!--                        </p>-->
+<!--                        <h5 class="register-para2">Earn 100% of what you charge your Mentees or Tutees!</br>-->
+<!--                        Your availability, your duration and even your prices!</h5>-->
+                        <p class="register-para2">
+                           <a href="#" class="m-auto google" data-toggle="modal"
+                              data-target="#google-signup-modal">
+                                <img src="{% static 'images/google-icon.png' %}" class="img-fluid" alt="google-icon" title="google-icon" width="20" height="20" loading="lazy">
+                                Login or Signup with Google
+                           </a>
+                        </p>
+                        <form action="{% url 'administration:mentor_registration'%}"  method="POST">
+                           {% csrf_token %}
+                           <input type="hidden" value="" name="link" id="link2">
+                           <input type="hidden" name="mentor_slug" value="{{mentor_slug}}">
+                           {% crispy mentor_form %}
+                           <div class="form-group form-check">
+                              <input type="checkbox" class="form-check-input" id="exampleCheck2" required>
+                              <label class="form-check-label" for="exampleCheck2">
+                                 By registering here You agree to our
+                                 <a href="{% url 'administration:terms_and_conditions' %}" class="font-weight-bold"
+                                    target="_blank"> Terms & Conditions </a> and
+                                 <a href="{% url 'administration:privacy_notice' %}" class="font-weight-bold"
+                                    target="_blank">Privacy Policy.</a>
+                              </label>
+                           </div>
+                           {% if mentor_form.errors %}
+                           {{mentor_form.errors}}
+                           {% endif %}
+                           <div class="login-btn">
+                              <button type="submit" id="register_mentor" value=""
+                                 class="theme-btn not-active">Register</button>
+                              <p>Already have an account? <span><a href="{% url 'login' %}"> Login</a></span></p>
+                           </div>
+                        </form>
+                     </div>
+                  </div>
+                  <p class="text-center">
+                      <i>*If you experience any issues for this page, please try using the
+                        <a href="https://www.google.com/intl/en_uk/chrome/" class="m-auto" target="_blank">
+                        Google Chrome browser
+                           <img src="{% static 'images/chrome-icon.png' %}" class="img-fluid" alt="chrome-icon" title="chrome-icon" width="20" height="20" loading="lazy">.</a></i>
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<!-- Modal -->
+<div class="modal fade" id="google-signup-modal" tabindex="-1" role="dialog"
+                          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">
+                  Confirm Google Signup</h5>
+              <button type="button" class="close" data-dismiss="modal"
+                      aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+           <div class="modal-body">
+               <div class="form-group form-check">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck3" required>
+                  <label class="form-check-label" for="exampleCheck3">
+                     By registering here You agree to our
+                     <a href="{% url 'administration:terms_and_conditions' %}" class="font-weight-bold"
+                        target="_blank"> Terms & Conditions </a> and
+                     <a href="{% url 'administration:privacy_notice' %}" class="font-weight-bold"
+                        target="_blank">Privacy Policy</a> and you are over the
+                     age of 15.</label>
+               </div>
+           </div>
+           <div class="modal-footer">
+               <a href="{% provider_login_url 'google' %}" id="google_signup" class="theme-btn not-active">
+                   Confirm & Submit
+               </a>
+           </div>
+      </div>
+  </div>
+</div>
+{% endblock %}
+{% block js %}
+{{ form.media.js }}
+<script src="{% static 'administration/js/registration.js' %}"></script>
+{% endblock %}

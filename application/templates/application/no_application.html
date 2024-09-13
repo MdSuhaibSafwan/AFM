@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+{% load static%}
+{% block title%}Application Submited{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!-- <div class="az-content pd-y-20"> -->
+  <div class="container">
+     <div class="az-content-body">
+        <nav aria-label="breadcrumb">
+           <ol class="breadcrumb breadcrumb-style1">
+              <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+              <li class="breadcrumb-item"><a href="#">Lists of Application(s)</a></li>
+           </ol>
+        </nav>
+        <!-------- NAV END-------->
+        <div class="no-application">
+           <div class="row">
+              <div class="col-12 col-sm-12">
+                 <h3>Start your child's university application journey today!</h3>
+                 <img src="{% static 'img/avatar/add-new-app.png' %}" alt="add-new-app-img" class="img-fluid">
+
+                 <form role="form" method="post" enctype="multipart/form-data" action="{% url 'application:my_applications_twfl' %}">
+                     {% csrf_token %}
+                     <button type="submit" class="add-institute" style="color: rgb(0, 0, 0); font: 1em poppins ;"><span>+</span> Add New Application</button>
+                    
+                     <!-- <a href="#">+ Add New Application <i data-feather="clipboard"></i></a> -->
+               </form>
+              </div>
+           </div>
+        </div>
+     
+     </div>
+  </div><!-- az-content-body -->
+<!-- </div>az-content -->
+{% endblock %}
+{% block js %}
+{% load static %}
+{% endblock %}

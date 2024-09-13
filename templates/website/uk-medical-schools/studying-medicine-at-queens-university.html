@@ -1,0 +1,116 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}Medical Course in Queen's University, Belfast, Northern Ireland{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %} Apply for a course in Biological Sciences, Medicine, Dentistry, Nursing and many other medical
+courses with Queen's University in Belfast, North Ireland.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%} https://applyformedicine.com/uk-medical-schools/studying-medicine-at-queens-university/
+{% endblock %}{% endblock %}
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">Apply for Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:uk_medical_schools' %}">UK Medical Schools</a>
+                            <span> >
+                            </span>Queen’s University, Belfast<span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">Queen’s University, Belfast</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in Northern Ireland</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="right-icon-img-area">
+                        <div>
+                            <p style="text-align: right; margin-bottom: 0px;">
+                                <span>*</span>
+                            </p>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>Fees (International/Non-EU students): </td>
+                                        <td>£41,850</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Interview Style: </td>
+                                        <td>Traditional</td>
+                                    </tr>
+                                    <tr>
+                                        <td>MMI </td>
+                                        <td>Integrated</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <h2>Study Medicine at Queen’s University, Belfast</h2>
+                        <p>Queen’s University is the only university in Northern Ireland that offers Medicine. The course
+                            is an integrated course lasting five years. This means that you have exposure tothe clinical
+                            environment from the very beginning alongside lectures, practicalsand tutorials.</p>
+                        <p>In the first two years you are taught the scientific background underlying medicine which
+                            includes an understanding of the physiological systems of the body, anatomy (viacadaveric
+                            dissections), pathology, microbiology, therapeutics, genetics, etc. Thisis combined with
+                            learning the foundations of clinical practice through patient interactions and clinical
+                            simulations.
+                        <p>From your third year, clinical placements take place in GPs and hospitals across Northern
+                            Ireland. You receive clinical teaching in all of the medical and surgical specialities and
+                            the shift to increase the focus on clinical medicine begins. You can take an optional
+                            intercalation after your second or third year which would qualify you for aBA or MA.</p>
+                        <p>In the fourth and fifth years, teaching of clinical medicine expands further to includemental
+                            health, women’s health, children’s health, cancer, etc. You also further develop your
+                            clinical skills in communication, medical ethics, patient investigation and diagnostics,
+                            professionalism, etc.</p>
+                        <p>Queen’s offer students plenty of research opportunities during their degree through summer
+                            studentships. You can take a nine week assistantship in your final year where you will have
+                            the opportunity to learn and practice some of the roles of a junior doctor.Student also have
+                            the chance to travel abroad during an elective module in their fifth year.</p>
+                        <h3>Get mentored by medical students at Queen’s University, Belfast</h3>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <p> * Please confirm all relevant information on this page with your medical school application mentor </p>
+    </div>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> global community of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

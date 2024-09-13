@@ -1,0 +1,100 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} Feedback {% endblock %}
+{% block css %}
+      <link href="{% static 'lib/typicons.font/typicons.css' %}" rel="stylesheet">
+      <!-- Custom CSS -->
+      <link rel="stylesheet" href="{% static 'css/emoji.css' %}">
+{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+   <ol class="breadcrumb breadcrumb-style1">
+      <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+<!--      <li class="breadcrumb-item"><a href= "{% url 'feedback:feedback-create' %}">Submit your Feedback</a></li>-->
+   </ol>
+</nav>
+{% if user.user_type == 0 %}
+{% else %}
+<div class="page-header">
+   <h3 class="faq-title"> <i data-feather="heart"></i> Thanks For Your Feedback</h3>
+</div>
+{% endif %}
+{% if feedback_list %}
+{% for i in feedback_list %}
+<div class="card">
+   <div class="row">
+      <div class="col-xl-12 col-md-12 col-sm-12">
+         <div class="faq-content">
+            <div class="card">
+               <div class="card-body">
+                  <h3>{{i.user.first_name}} {{i.user.last_name}}</h3>
+                  <div class="faq-section">
+                     <div id="accordion-1" class="accordion mt-4">
+                        <div class="card">
+
+                           <div class="card-header" id="headingTwo">
+                              <h5 class="mb-0">
+                                 <a data-toggle="collapse" data-target="#collapse_{{i.id}}" aria-expanded="false" aria-controls="collapseTwo"> 
+                                 {{i.feedback_category}}
+                                    {% if i.rate == 1 %}
+                                    <i class="em em-angry"></i>
+
+                                    {% elif i.rate == 2 %}
+                                    <i class="em em-disappointed"></i>
+
+                                    {% elif i.rate == 3 %}
+                                    <i class="em em-expressionless"></i>
+
+                                    {% elif i.rate == 4 %}
+                                    <i class="em em-grinning"></i>
+
+                                    {% elif i.rate == 5 %}
+                                    <i class="em em-star-struck"></i>
+
+                                    {% endif %}
+                                 </a>
+                              </h5>
+                           </div>
+
+                           <div id="collapse_{{i.id}}" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-1">
+                              <div class="card-body">{{i.description}}</div>
+                           </div>
+
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<br>
+{% endfor %}
+{% else %}
+<div class="card">
+   <div class="row">
+      <div class="col-xl-12 col-md-12 col-sm-12">
+         <div class="faq-content">
+            <div class="card">
+               <div class="card-body">
+
+                  <div class="faq-section">
+                     <div id="accordion-1" class="accordion mt-4">
+                        <div class="card">
+                           No Record found
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+

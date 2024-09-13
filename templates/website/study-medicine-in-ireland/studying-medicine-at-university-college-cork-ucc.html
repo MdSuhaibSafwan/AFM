@@ -1,0 +1,92 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}Apply for Medicine in University College Cork, England{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}Flourish your career by studying at the University College Cork (UCC), Scotland, UK. One of the
+best University to pursue Medicine in England.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/study-medicine-in-ireland/studying-medicine-at-university-college-cork-ucc/
+{% endblock %}{% endblock %}
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">Apply for Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine_in_ireland' %}">Medical schools in
+                                Ireland</a>
+                            <span> >
+                            </span>University College Cork (UCC)
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">University College Cork (UCC)</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in Ireland</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <div class="row">
+                        <div class="col-md-12 col-xl-12">
+                            <article>
+                                <h2>Study Medicine at The University College Cork (UCC)</h2>
+                                <p>UCC offers a five-year integrated medical course that provides its students
+                                    withengaging small-group teaching as well as early clinical exposure as part oftheir
+                                    unique medical programme.</p>
+                                <p>Each year offers both core modules and elective modules that explore biomedicaland
+                                    clinical sciences, psycho-social sciences, public health, ethics, law andmore. The
+                                    integration of these different types of modules allows students todevelop an
+                                    all-encompassingunderstanding of Medicine and clinical practice and allows them to
+                                    shape intointelligent and compassionate doctors.</p>
+                                <p>Students are taught basic clinical skills early on, such as communication,examination
+                                    and history-taking, in a patient-focused manner. In the third yearfrom the second
+                                    semester onwards, students will begin undertaking extensiveclinical placements
+                                    inhospitals and GPs in Cork and wider Munster. During this timeclinical
+                                    educationgreatly expands and advanced clinical skills will be developed and honed.
+                                </p>
+                                <p>UCC place a strong emphasis on research and provide many opportunities forstudents to
+                                    engage in projects and gain valuable research skills. The medicalcourse also offers
+                                    student-selected modules and humanities workshops to givestudents a chance toexplore
+                                    deeper into areas of interest to them both within the medical field andbeyond.</p>
+                                <h3>Get mentored by medical students at The University College Cork (UCC)</h3>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> global community of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

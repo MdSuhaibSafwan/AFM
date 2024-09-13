@@ -1,0 +1,141 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}Medical Course at University of Dundee School of Medicine{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %} Apply for the medical course from the University of Dundee, Scotland, UK. One of the top-ranked
+Scottish Medical Schools, attracting international students{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/uk-medical-schools/studying-medicine-at-the-university-of-dundee/{% endblock %}{% endblock %}
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">Apply for Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:uk_medical_schools' %}">UK Medical Schools</a>
+                            <span> >
+                            </span>University of Dundee
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">University of Dundee</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in Scotland</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="right-icon-img-area">
+                        <div>
+                            <p style="text-align: right; margin-bottom: 0px;">
+                                <span>*</span>
+                            </p>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>Fees (International/Non-EU students): </td>
+                                        <td>£34,650 per year plus £10,000 per year of study.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Interview Style: </td>
+                                        <td>MMI</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Course Structure: </td>
+                                        <td>Integrated</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <div class="row">
+                        <div class="col-md-12 col-xl-12">
+                            <article>
+                                <h2>Study Medicine at The University of Dundee</h2>
+                                <p>Dundee offer a five-year medical programme that follows a spiral curriculum inwhich
+                                    each year revisits and builds upon the knowledge learnt in the previousyears to
+                                    gradually consolidate and expand level of understanding. Teachinginvolves a
+                                    combinationof traditional lectures, problem-based learning, case-based learning
+                                    andsmall-group work/teaching. </p>
+                                <p>Learning in the first three years takes place through a system-based approachthat
+                                    looks into the body in both health and disease states. The basics ofmedical science
+                                    are taught with a focus on bringing clinical contexts into thelearning process
+                                    anddeveloping clinical thinking abilities early on in medical students.Studentsalso
+                                    get the chance to learn essential anatomy knowledge though cadavericdissection which
+                                    offers a unique understanding like no other. </p>
+                                <p>After the first three pre-clinical years, student can intercalate in a field
+                                    ofinterest and obtain a BMSc degree. During fourth and fifth year, focus ismassively
+                                    shifted to clinical education and training across the medicalspecialties primarily
+                                    throughplacements in hospitals, GPs and other healthcare settings. Clinical
+                                    educationsinvolves ward-based learning, simulation-based learning as well as the
+                                    DundeeLongitudinal Integrated Clerkship. </p>
+                                <h3>Get mentored by medical students at University of Dundee</h3>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 col-xl-8">
+                            <article>
+                                <p>
+                                    <em>‘My name is Soumya and I am a 2nd year medical student at the University
+                                        ofDundee. I have come to where I am after taking a gap year, working in
+                                        thehealthcare system. I’m originally born in India, but been brought up
+                                        inScotland. I am trilingual in Hindi, Telugu and English, which I feelprivileged
+                                        about. I am happy to help with interview preparation and anyquestions regarding
+                                        application process.’</em>
+                                </p>
+                                <p class="mb-5">
+                                    <em> -by <strong>Soumya,</strong> currently <a
+                                            href="{% url 'administration:uk_medical_schools' %}"
+                                            class="afm-link">studying medicine in Scotland</a>, at the University
+                                        ofDundee</em>
+                                </p>
+                            </article>
+                        </div>
+                        <div class="col-md-4 col-xl-4">
+                            <div class="afm-student-img d-flex justify-content-center">
+                                <img src="{% static 'website/img/content-img/soumya--sangirala.jpg' %}"
+                                    class="img-fluid rounded-circle" alt="soumya--sangirala" title="soumya--sangirala" width="290" height="290" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <p> * Please confirm all relevant information on this page with your medical school application mentor </p>
+    </div>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> globalcommunity of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

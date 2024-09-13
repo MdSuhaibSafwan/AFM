@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} Select User Type {% endblock %}
+{% load administration_extras %}
+{% block css%}
+<style>
+    .afm-header-menu ul{
+        display: none;
+    }
+    .afm-header-right {
+        display: none;
+    }
+    .signout ul{
+        display:block;
+    }
+</style>
+{% endblock%}
+{% block content %}
+<div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-5">
+                <div class="select-user card p-3">
+                    <div class="">
+                        <h3>Register as:</h3>
+<!--                        <div class="mb-2 mt-3">-->
+<!--                            <p class="mb-0">-->
+<!--                                 Please confirm whether you are registering as an Applicant in full-time education-->
+<!--                                ("Applicant") or as a parent/legal guardian of a Applicant ("Parent").-->
+<!--                            </p>-->
+<!--                        </div>-->
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="">
+                                    <label class="radio d-block">
+                                        <input type="radio" name="user_type" value=3 checked required>
+                                        <span class="checkmark"><span><i data-feather="user"></i></span>
+                                            <div class="ml-3">An Applicant<small class="d-block">You will be applying for a university course in the future</small></div></span>
+                                    </label>
+                                    <label class="radio d-block">
+                                        <input type="radio" name="user_type" value=4 >
+                                        <span class="checkmark"><span><i data-feather="user"></i></span>
+                                            <div class="ml-3">Mentor<small class="d-block">Current full-time university student</small></div></span>
+                                    </label>
+                                    <label class="radio d-block">
+                                        <input type="radio" name="user_type" value=5 >
+                                        <span class="checkmark"><span><i data-feather="users"></i></span>
+                                         <div class="ml-3">Parent<small class="d-block">Parent of an Applicant</small></div></span>
+                                    </label>
+                            </div>
+                            <div class="text-center py-3">
+                                <button type="submit" class="btn btn-rounded btn-indigo">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    $("<div class='afm-header-menu signout'><ul class='nav'><li class='nav-item'><a href='{% url 'logout' %}'><svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-log-out'><path d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'></path><polyline points='16 17 21 12 16 7'></polyline><line x1='21' y1='12' x2='9' y2='12'></line></svg></a><a href='{% url 'logout' %}' class='nav-link'> Sign Out</a></li></ul></div>").insertAfter(".afm-header-right");
+</script>
+{% endblock %}

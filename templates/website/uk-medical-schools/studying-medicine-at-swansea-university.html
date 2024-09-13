@@ -1,0 +1,127 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}Medical Course at Swansea University, Wales{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %} Consider an undergraduate 5-year course in Medicine, Genetics and Pharmacology or a
+post-graduate course in medical from Swansea University in Wales, UK.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%} https://applyformedicine.com/uk-medical-schools/studying-medicine-at-swansea-university/
+{% endblock %}{% endblock %}
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">Apply for Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:uk_medical_schools' %}">UK Medical Schools</a>
+                            <span> >
+                            </span>Swansea University
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">Swansea University</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in Wales</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="right-icon-img-area">
+                        <div>
+                            <p style="text-align: right; margin-bottom: 0px;">
+                                <span>*</span>
+                            </p>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>Fees (International/Non-EU students): </td>
+                                        <td>£36,750 pa</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Interview Style: </td>
+                                        <td>MMI</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Course Structure: </td>
+                                        <td>Integrated</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <div class="row">
+                        <div class="col-md-12 col-xl-12">
+                            <article>
+                                <h2>Study Medicine at Swansea University</h2>
+                                <p>Swansea University offers a four-year medicine course for postgraduate studentsonly.
+                                    The graduate medicine course has an integrated format with a spiralcurriculum in
+                                    which each year revisits and builds upon the knowledge learnt inthe previous yearsto
+                                    enhance and consolidate depth of understanding gradually. Students are alsoexposed
+                                    to the clinical environment from the beginning of the course so thatthey learn the
+                                    scientific foundations of medicine alongsidegaining clinical experience. </p>
+                                <p>Education is delivered in the form of lectures, seminars, practicals and
+                                    clinical placements, etc. The special case-based learning at Swansea is a unique
+                                    approachto medical education that focuses on the important clinicalcontexts of the
+                                    medical content in the curriculum.</p>
+                                <h5 class="mb-2">The course is divided into two phases: </h5>
+                                <p>
+                                    <span class="font-weight-600">Phase 1: </span> During the first phase (first
+                                    andsecond year), students are taught in a case-based manner combined with
+                                    anIntegrated Clinical Method as well as community-based learning,learning in both
+                                    clinical and research settings and early apprenticeships. Thecontent of the learning
+                                    in this first phase includes biomedical science,pathology, public health, medical
+                                    ethics and psychosocial studies.
+                                </p>
+                                <p>
+                                    <span class="font-weight-600">Phase 2: </span> During the second phase (thirdand
+                                    fourth year), students continue their case-based learning style incorporatedwith
+                                    clinical apprenticeships, assistantships and placementrotations in different medical
+                                    and surgical specialties (e.g. Paediatrics,Obstetrics and Gynaecology, Mental
+                                    health, Acute Surgery, etc.). Final studentsalso undertake an elective either abroad
+                                    or in the UK aswell as a shadowing assistantship close to the end of the course in
+                                    preparationfor the roles and responsibilities of a Foundation Doctor.
+                                </p>
+                                <h3>Get mentored by medical students at Swansea University</h3>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <p> * Please confirm all relevant information on this page with your medical school application mentor </p>
+    </div>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> globalcommunity of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

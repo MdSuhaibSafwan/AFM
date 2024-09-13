@@ -1,0 +1,158 @@
+{% extends 'base/base.html' %}
+{% block title %}List Students{% endblock %}
+{% block content %}
+{% load administration_extras %}
+{% load widget_tweaks %}
+{% load static %}
+{% block css %}
+<style>
+    .sticky {
+        left: 0;
+    }
+</style>
+{% endblock %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item">Students</li>
+    </ol>
+</nav>
+<form>
+    <div class="row row-sm mg-b-10">
+        <div class="col-sm-12 col-md-6 col-lg-3">
+            <div class="select2-box mb-2">
+                {% render_field form.keyword placeholder=form.keyword.label class='form-control' %}
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-3">
+            <div class="select2-box mb-2">
+                {% render_field form.email placeholder=form.email.label class='form-control' %}
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-1">
+            <button type="submit" class="btn btn-indigo btn-block btn-rounded"><i data-feather="search"></i></button>
+        </div>
+    </div>
+</form>
+<div class="row row-sm mg-b-20">
+    <div class="col-sm-12 col-lg-12">
+        <div class="card card-table-one parent-table">
+            <h6 class="card-title">List of Students</h6>
+            <hr>
+            <div class="table-responsive">
+                {% if personal_info_list %}
+                <table class="table table-hover mg-b-0">
+                    <thead>
+                    <tr>
+                        <th class="mob-sticky sticky">ID</th>
+                        <th class="sticky">Name</th>
+                        <th>Application</th>
+                        <th>Currently Living In</th>
+                        <th>Intake year</th>
+                        <th>Subject Interest</th>
+                        <th>Programme Level</th>
+                        <th>Destination Country</th>
+                        <th>Created On</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for y in personal_info_list %}
+                    {% for x in students %}
+                    {% if x.admin.slug == y.admin.user_slug %}
+                    <tr>
+                        <td class="mob-sticky sticky text-uppercase font-weight-bold">{{x.admin.slug}}</td>
+                        <td class="sticky">
+                            <strong>
+                                <a href="{% url 'administration:my_profile' x.admin.slug %}">{{y.admin.first_name}}</a>
+                                <small class="d-block">{{x.admin.email}}</small>
+                            </strong>
+                        </td>
+                        <td>
+                            {% if x.admin.application.all.first.status %}
+                            <a class="btn btn-outline-indigo btn-rounded mb-2"
+                               href="{% url 'application:view_application_twfl' x.admin.application.all.first.slug %}">
+                                View Application</a>
+                            {% else %}
+                            <small>Form is not submitted yet !!</small>
+                            {% endif %}
+                        </td>
+                        <td><span class="country-flags"> {{y.admin.currently_living_in.name|getifnone}}
+                  <img src="{{y.admin.currently_living_in.flag}}" alt=""> </span>
+                        </td>
+                        <td>{{x.admin.application.first.intake_year|getifnone}}</td>
+                        <td>{{y.area_of_study|getsubject|getifnone}}</td>
+                        <td>{{y.programme_level|getenglish_level|getifnone}}</td>
+                        <td>{{y.study_destination|print_study_destination}}</td>
+                        <td>{{y.created_at|date:"d/m/Y"}}</td>
+                        <td>
+                            <a href="#" class="btn btn-danger btn-rounded" data-toggle="modal"
+                               data-target="#delete-user-{{x.admin.slug}}">
+                                <i data-feather="trash"></i> Delete User</a>
+                        </td>
+                    </tr>
+                    <!-- Delete User Modal -->
+                    <div class="modal fade" id="delete-user-{{x.admin.slug}}" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">
+                                        Confirm</h5>
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form method="post"
+                                      action="{% url 'administration:delete_user_twfl' x.admin.slug %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="redirect" value="{{request.path}}">
+                                    <div class="modal-body text-left">
+                                        <h5>Are you sure you want to do delete student {{y.admin.first_name}}?</h5>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-rounded btn-indigo reject"
+                                                data-dismiss="modal">Close
+                                        </button>
+                                        <button type="submit" class="btn btn-rounded btn-indigo">
+                                            Confirm
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <div style="text-align:center;">
+                    <p>No Students Available !!!!</p>
+                </div>
+                {% endif%}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Pagination -->
+<div class="">
+    <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+    <div class="d-flex justify-content-center">
+        <ul class="pagination pagination-circled">
+            {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link"
+                                     href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}"><i
+                    data-feather="arrow-left"></i></a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link"
+                                     href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}"><i
+                    data-feather="arrow-right"></i></a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

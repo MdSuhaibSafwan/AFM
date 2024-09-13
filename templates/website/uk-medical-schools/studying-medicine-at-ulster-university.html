@@ -1,0 +1,122 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}Study medicine at Northern Ireland’s newest medical school.
+{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %} Apply to the University of Ulster medical school, one of the newest medical schools in the UK.
+Opening doors to its first cohort of medical schools in 2021.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%} https://applyformedicine.com/uk-medical-schools/studying-medicine-at-ulster-university/
+{% endblock %}{% endblock %}
+
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">Apply for Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:uk_medical_schools' %}">UK Medical Schools</a>
+                            <span> >
+                            </span>Ulster University<span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">Ulster University</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in Northern Ireland</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="right-icon-img-area">
+                        <div>
+                            <p style="text-align: right; margin-bottom: 0px;">
+                                <span>*</span>
+                            </p>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>Fees (International/Non-EU students): </td>
+                                        <td> £37,000pa</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Interview Style: </td>
+                                        <td>MMI</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Course Structure: </td>
+                                        <td>PBL/Integrated</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <h2>Ulster University Medical School</h2>
+                        <p>Ulster University have newly instituted a medical school in Northern Ireland. Theuniversity,
+                            with its already well-established foundation in Health Sciences, hopes torespond to the
+                            growing demand for medical professionals that has resulted from theCOVID-19 pandemic. The
+                            new course is presently only accepting postgraduate students onlywith a 2.1 and is due to
+                            begin for the 2021/22 academic year.</p>
+                        <p>The medical course is a four-year integrated programme with clinical exposure takingplace
+                            throughout the course which includes altogether 83 weeks of placements in GPs,hospitals and
+                            other healthcare institutions across Northern Ireland.</p>
+                        <p>Entry requires applicants to have at least a 2:1 Honours Degree or a Mastersqualification (in
+                            any subject). Applicants must also sit the Graduate Medical SchoolAdmissions Test (GAMSAT)
+                            and score above the cut-off mark.</p>
+                        <p>The tuition fee is £4,530 for NI/ROI students, £9,250 for GB students and £37,000
+                            forinternational students. The university also offers Medical Education Scholarships
+                            foreligible students.</p>
+                        <p>Ulster university is partnered with St George’s, University of London medical school,who have
+                            decades of experience in medical education, and the two universities areworking side-by-side
+                            to bring the level of education delivered at Ulster to the higheststandard.</p>
+                        <p>The programme aims to take a problem-based learning (PBL) approach to teaching with afocus on
+                            the importance of multidisciplinary teamwork and integrated healthcare. Thecourse offers
+                            students experience in a multitude of specialities including paediatrics,obstetrics and
+                            gynaecology, palliative care, surgery, psychiatry and much more. Theprogramme also offers
+                            students the opportunity to undertake Student-Selected Components(SSCs) to expand their
+                            learning into wider areas of Medicine.</p>
+                        <h3>Get mentored by medical students at Queen’s University, Belfast</h3>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- <div class="container">
+<p> * Please confirm all relevant information on this page with your medical school application mentor </p>
+</div> -->
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> globalcommunity of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+{% endblock %}

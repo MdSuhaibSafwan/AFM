@@ -1,0 +1,122 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}Study Medicine at University of Liverpool School of Medicine{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %} If you have cultivated an interest in the field of Dentistry, Veterinary or Medicine then the
+University of Liverpool School of Medicine is best.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/uk-medical-schools/studying-medicine-at-the-university-of-liverpool/
+{% endblock %}{% endblock %}
+
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">Apply for Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:uk_medical_schools' %}">UK Medical Schools</a>
+                            <span> >
+                            </span>University of Liverpool
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">University of Liverpool</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in England</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="right-icon-img-area">
+                        <div>
+                            <p style="text-align: right; margin-bottom: 0px;">
+                                <span>*</span>
+                            </p>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>Fees (International/Non-EU students): </td>
+                                        <td>£34,550 pa</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Interview Style: </td>
+                                        <td>MMI</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Course Structure: </td>
+                                        <td>Integrated</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <h2>Study Medicine at The University of Liverpool</h2>
+                        <p>The five-yearmedical course offered by Liverpool utilises a spiral-style curriculum inwhich
+                            each year revisits and builds upon the knowledge learnt in the previous years togradually
+                            consolidate and expand level of understanding.</p>
+                        <p>The first two years involves students being taught the fundamentals of medical sciencewhich
+                            is delivered through a systems-based approach that integrates physiology, anatomy,genetics,
+                            biochemistry, pathology, microbiology as well the basic clinicalcontexts in which this
+                            knowledge is relevant. The first year focuses on the systems inhealth whereas, in the second
+                            year, focus is shifted to ‘abnormality and illness’. Thislearning is delivered through
+                            lectures, seminars,small-group teaching, practicals, etc.</p>
+                        <p>In the third year, students gain experience in the fundamentals of medicine and surgeryand
+                            ‘core clinical practice’. This involves placements in hospitals, GP and otherhealthcare
+                            settings. These placements go hand-in-hand with a week of academic teachingto facilitate the
+                            clinical education through lectures, clinical skills prep and clinicalsimulations. Students
+                            also have the opportunity to undertake research projects andscholarship projects.</p>
+                        <p>The structure of the fourth year is similar to that of the previous year but the focusis on
+                            ‘specialist and challenging clinical practice’. This involves broadening clinicalknowledge
+                            and experience through placements across the different medical andsurgical specialties. This
+                            includes paediatrics, women’s health, palliative care,neurology, etc.</p>
+                        <p>Between the fourth and fifth year, students have an elective period, during which theycan
+                            study abroad or in the UK, in any clinical speciality of interest to them.</p>
+                        <p>The final year predominantly focuses on extensive preparation for the students’ futurerole as
+                            a junior doctor. This involves placements in Emergency and Acute ClinicalMedicine,
+                            Psychiatry, etc. During this year, students also have a shadowing opportunitywith a current
+                            foundation doctor as well as the chance to undertake a research projectin a medical
+                            speciality, a community-based project or a Quality Improvement project.</p>
+                        <h3>Get mentored by medical students at University of Liverpool</h3>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <p> * Please confirm all relevant information on this page with your medical school application mentor </p>
+    </div>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> globalcommunity of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

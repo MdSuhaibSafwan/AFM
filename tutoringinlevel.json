@@ -1,0 +1,93 @@
+[
+  {
+    "model": "personal_information.tutoringinlevel",
+    "pk": 1,
+    "fields": {
+      "tutoring_in_level": "Highschool"
+    }
+  },
+  {
+    "model": "personal_information.tutoringinlevel",
+    "pk": 2,
+    "fields": {
+      "tutoring_in_level": "College / University"
+    }
+  },
+  {
+    "model": "personal_information.tutoringinlevel",
+    "pk": 3,
+    "fields": {
+      "tutoring_in_level": "English Language"
+    }
+  },
+  {
+    "model": "personal_information.tutoringinlevel",
+    "pk": 4,
+    "fields": {
+      "tutoring_in_level": "11 Plus"
+    }
+  },
+  {
+    "model": "personal_information.tutoringinlevel",
+    "pk": 5,
+    "fields": {
+      "tutoring_in_level": "13 Plus"
+    }
+  },
+  {
+    "model": "personal_information.tutoringinlevel",
+    "pk": 6,
+    "fields": {
+      "tutoring_in_level": "A Level"
+    }
+  },
+  {
+    "model": "personal_information.tutoringinlevel",
+    "pk": 7,
+    "fields": {
+      "tutoring_in_level": "GCSE"
+    }
+  },
+  {
+    "model": "personal_information.tutoringinlevel",
+    "pk": 8,
+    "fields": {
+      "tutoring_in_level": "IB"
+    }
+  },
+  {
+    "model": "personal_information.tutoringinlevel",
+    "pk": 9,
+    "fields": {
+      "tutoring_in_level": "KS2"
+    }
+  },
+  {
+    "model": "personal_information.tutoringinlevel",
+    "pk": 10,
+    "fields": {
+      "tutoring_in_level": "KS3"
+    }
+  },
+  {
+    "model": "personal_information.tutoringinlevel",
+    "pk": 13,
+    "fields": {
+      "tutoring_in_level": "Mentoring"
+    }
+  },
+  {
+    "model": "personal_information.tutoringinlevel",
+    "pk": 14,
+    "fields": {
+      "tutoring_in_level": "National 4 and 5"
+    }
+  },
+  {
+    "model": "personal_information.tutoringinlevel",
+    "pk": 15,
+    "fields": {
+      "tutoring_in_level": "Scottish Highers"
+    }
+  }
+]

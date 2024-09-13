@@ -1,0 +1,198 @@
+{% extends 'registration/reg_base.html' %}
+{% load administration_extras %}
+{% load social_share %}
+{% load static %}
+{% block title1 %}{% block title2 %}{{ object.title}}{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}{{ object.sub_title|getifnone}}{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}https://applyformedicine.com/med-school-blogs/medical-school-application/{{object.slug}}/{% endblock %}{% endblock %}
+{% block content %}
+<div class="az-content pd-y-20">
+  <div class="container">
+    <div class="az-content-body">
+      <div class="site-breadcrub pt-5">
+          <p>
+              {% if request.user.user_type == 0 or request.user.user_type == 1 %}
+              <a href="{% url 'blogs:PostListAdmin' %}">All Blogs</a><span> &gt;
+              </span>
+              {% elif request.user.user_type == 4 %}
+              <a href="{% url 'blogs:blogs_list' %}">My Blogs</a><span> &gt;
+              </span>
+              {% else %}
+              <a href="{% url 'blogs:public_blog_list' %}">Blogs</a><span> &gt;
+              </span>
+              {% endif %}
+              {% if request.user == user_mentor.admin or request.user.user_type == 0 or request.user.user_type == 1 %}
+              <a href="{% url 'blogs:post_detail_edit' object.id object.author.admin.slug %}" >Edit</a>
+              {% endif %}
+
+          </p>
+      </div>
+      <div class="blog-content">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                  <div class="d-none d-md-block">
+                    <div class="blog-detail row mt-2">
+                      <div class="col-md-8 col-9 mt-3 mt-xl-0">
+                          <h1 class="h2 m-0">{{ object.title }}</h1>
+                          <div class="mt-3">
+                                    <h5 class="m-0">By
+                                        <a href="{{ user_mentor_pi.admin.user_slug|getmentorprofileurl }}">
+                                            {{user_mentor_pi.admin.first_name}}
+                                        </a>
+                                    </h5>
+                                    <small class="m-0 d-block">
+                                        <a href="{% url 'administration:study_medicine' %}">Studying medicine in the UK</a>
+                                    </small>
+                                    <small class="m-0">{{ object.created_on|date}}</small>
+                                </div>
+                          </div>
+                      <div class="col-md-4 col-3 mt-3 mt-xl-0">
+                          <div class="d-flex align-items-center justify-content-end">
+
+                               <img src="{% if user_mentor_pi.admin.profile_pic %}
+                                {{user_mentor_pi.admin.profile_pic.url}}
+                                {% else %}
+                                {% static 'images\default_profile.png' %}
+                                {% endif %}" class="img-fluid" alt="{{user_mentor_pi.currently_studying|getsubject}}-at-
+                                {% if user_mentor.institute %}
+                                {{user_mentor.institute.institute_name}}
+                                {% else %}
+                                {{user_mentor.institute_name}}
+                                {% endif %}"
+                                title="{{user_mentor_pi.currently_studying|getsubject}}-at-
+                                {% if user_mentor.institute %}
+                                {{user_mentor.institute.institute_name}}
+                                {% else %}
+                                {{user_mentor.institute_name}}
+                                {% endif %}" height="80" width="80" loading="lazy" >
+                            </div>
+                            <ul class="footer-social" style="justify-content: end;">
+                              <li class="social-fb">
+                                  {% post_to_facebook "" "<i class='fab fa-facebook-f'></i>" %}
+                              </li>
+                              <li class="social-tweet">
+                                  {% post_to_twitter "Check out this university application Alumni on TAG " "" "<i class='fab fa-twitter'></i>" %}
+                              </li>
+                              <li><a href="https://wa.me/447361901027" target="blank"><i class="fab fa-whatsapp"></i></a></li>
+                            </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-block d-md-none">
+                      <div class="blog-detail row mt-2 ">
+                              <div class="col-md-12 mt-3 mt-xl-0">
+                                  <h1 class="h2 m-0">{{ object.title}}</h1>
+                            </div>
+                      </div>
+                      <div class="blog-detail row mt-2">
+                      <div class="col-8 mt-3 mt-xl-0">
+                          <div class="">
+                            <h5 class="m-0">By
+                                <a href="{{ user_mentor_pi.admin.user_slug|getmentorprofileurl }}">
+                                    {{user_mentor_pi.admin.first_name}}
+                                </a>
+                            </h5>
+                            <small class="m-0 d-block">
+                                <a href="{% url 'administration:study_medicine' %}">Studying medicine in the UK</a>
+                            </small>
+                            <small class="m-0">{{ object.created_on|date}}</small>
+                          </div>
+                      </div>
+                      <div class="col-4 mt-3 mt-xl-0">
+                          <div class="d-flex align-items-center justify-content-end">
+
+                               <img src="{% if user_mentor_pi.admin.profile_pic %}
+                                {{user_mentor_pi.admin.profile_pic.url}}
+                                {% else %}
+                                {% static 'images\default_profile.png' %}
+                                {% endif %}" class="img-fluid" alt="{{user_mentor_pi.currently_studying|getsubject}}-at-
+                                {% if user_mentor.institute %}
+                                {{user_mentor.institute.institute_name}}
+                                {% else %}
+                                {{user_mentor.institute_name}}
+                                {% endif %}" title="{{user_mentor_pi.currently_studying|getsubject}}-at-
+                                {% if user_mentor.institute %}
+                                {{user_mentor.institute.institute_name}}
+                                {% else %}
+                                {{user_mentor.institute_name}}
+                                {% endif %}" height="80" width="80" loading="lazy">
+                            </div>
+                            <ul class="footer-social" style="justify-content: end;">
+                              <li class="social-fb">
+                                  {% post_to_facebook "" "<i class='fab fa-facebook-f'></i>" %}
+                              </li>
+                              <li class="social-tweet">
+                                  {% post_to_twitter "Check out this university application Alumni on TAG " "" "<i class='fab fa-twitter'></i>" %}
+                              </li>
+                                <li><a href="https://wa.me/447361901027" target="blank"><i class="fab fa-whatsapp"></i></a></li>
+                            </ul>
+                      </div>
+
+                    </div>
+                  </div>
+                <hr>
+                <h5>{{ object.sub_title|getifnone}}</h5>
+                <span style="text-align:left">
+                </span>
+                {% if object.feature_image%}
+                <div class="blog-image">
+                  <img src="{{object.feature_image.url}}" class="img-fluid" style="max-height:400px;"
+                  alt="{{ object.title}}" title="{{ object.title}}" height="273" width="1228" loading="lazy">
+                </div>
+                <hr>
+                {% endif %}
+                <p>{{ object.content | safe }}</p>
+                <h7><i>Written by:
+                    <a href="{{ user_mentor_pi.admin.user_slug|getmentorprofileurl }}" target="_blank">
+                        {{user_mentor_pi.admin.first_name}} {{user_mentor_pi.admin.last_name}} Studying
+                        {{user_mentor_pi.currently_studying|getsubject}} in {{user_mentor_pi.studying_in.name}}</a>
+                    on {{ object.created_on|date:"d/m/Y" }}</i>
+                </h7>
+                <ul class="pro-share-social d-block mt-2 ml-0">
+                        <li class="social-fb">
+                            {% post_to_facebook "" "<i class='fab fa-facebook-f'></i>" %}
+                        </li>
+                        <!-- <li class="social-insta">
+                                <a href="#">
+                                <i class="fab fa-instagram">
+                                </i>
+                                </a>
+                             </li>-->
+                        <li class="social-tweet">
+                            {% post_to_twitter "Check out this university application Alumni on TAG " "" "<i class='fab fa-twitter'></i>" %}
+                        </li>
+                        <li><a href="https://wa.me/447361901027" target="blank"><i class="fab fa-whatsapp"></i></a></li>
+                        <!-- <li class="social-linkedin">
+                                <a href="#">
+                                <i class="fab fa-linkedin-in">
+                                </i>
+                                </a>
+                             </li>-->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> global community of
+                            students by searching for a Alumni now </p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

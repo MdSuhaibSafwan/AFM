@@ -1,0 +1,32 @@
+{% extends 'base/base.html' %}
+{% load static%}
+{% block title%}How It Works{% endblock %}
+{% block content %}
+
+        
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb breadcrumb-style1">
+            <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+            <li class="breadcrumb-item">How It Work</li>
+          </ol>
+        </nav>
+
+        <!----- NAV END-------->
+
+        <div class="card">
+          <div class="row">
+            <div class="col-xl-12 col-md-12 col-sm-12">
+              <div class="work-content">
+                <h3>How it works</h3>
+                <div class="underline"></div>
+                <p>Apply for University is the world’s first student-lead, applicant-focussed peer mentoringplatform. </p>
+                <img src="{% static 'img/step/steps.png' %}" alt="steps" class="img-fluid">
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+{% endblock %}
+{% block js %}
+{% endblock %}

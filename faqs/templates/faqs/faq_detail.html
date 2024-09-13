@@ -1,0 +1,125 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+FAQs - Details 
+{% endblock %}
+
+{% block content %}
+<br><br>
+<h3>FAQs</h3>
+
+<hr>
+<table>
+  
+    <tbody>
+ 
+       
+<tr>  <th> Category </th> <td> {{object.category}}</td> </tr>
+<tr>  <th>Title</th><td>{{object.title}}</td> </tr>
+<tr>  <th>Description</th><td>{{object.description}}</td> </tr>
+<tr><th>Status</th><td>{{object.status}}</td> </tr>
+<tr> <th>Created on</th><td>{{object.created|date:"d/m/yy"}}</td> </tr>
+            
+     
+    </tbody>
+</table>
+<br><br>
+<!-- 
+<div class="az-content pd-y-20">
+    <div class="container">
+       <div class="az-content-body">
+          <nav aria-label="breadcrumb">
+             <ol class="breadcrumb breadcrumb-style1">
+                <a href= "{% url 'faqs:faq-list' %}">  Frequently Asked Questions </a>
+               </ol>
+          </nav>
+
+          <div class="card">
+             <div class="row">
+                <div class="col-xl-12 col-md-12 col-sm-12">
+                   <div class="feedback-content">
+                      <div class="card">
+                         <div class="card-body">
+                            <div class="give-rating">
+                             <div class="row">
+                               <div class="col-xl-12 col-md-12 col-sm-12">
+                               <div class="feedback-category">
+                              <h5>Please select your FAQ category below</h5>
+                              <ul class="choose-categories">
+                                 <li>
+                                   <input type="radio" id="a25" name="amount"/>
+                                   <label for="a25">Bug</label>
+                                 </li>
+                               </ul>
+                            </div>
+                           </div>
+                             </div>
+                           </div> 
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+
+ <div class="page-header">
+    <h3 class="faq-title"> <i data-feather="message-square"></i> Frequently Asked Questions </h3>
+  </div>
+  <div class="card">
+    <div class="row">
+      <div class="col-xl-12 col-md-12 col-sm-12">
+        <div class="faq-content">
+        <div class="card">
+        <div class="card-body">
+          <h3>General Inquires</h3>
+          <p>Your sub heading will goes here</p>
+          <div class="faq-section">
+            <div id="accordion-1" class="accordion mt-4">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-0">
+                    <a data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> 1. How mentor will help us? </a>
+                  </h5>
+                </div>
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion-1">
+                  <div class="card-body">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text,  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingTwo">
+                  <h5 class="mb-0">
+                    <a data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> 2. Can mentor give us university video? </a>
+                  </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-1">
+                  <div class="card-body"> It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text,  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <h5 class="mb-0">
+                    <a data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> 3. How to contact with Afu for university registration?</a>
+                  </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion-1">
+                  <div class="card-body"> It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text,   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     </div>
+    </div>
+  </div>
+</div> -->
+
+{% endblock %}
+
+
+      
+
+     

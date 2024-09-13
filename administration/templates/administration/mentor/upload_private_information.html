@@ -1,0 +1,407 @@
+{% extends 'base/base.html' %}
+{% block title%}Edit Profile{% endblock %}
+{% load crispy_forms_tags %}
+{% load administration_extras %}
+{% load static %}
+{% block css%}
+<link rel="stylesheet" href="{% static 'css/dropzone.css' %}">
+<style>
+    .sample-profile {
+        display: flex;
+        justify-content: space-between;
+    }
+
+{% if not mentor_pi.consent4 %}
+
+    .afm-header-menu ul {
+        display: none;
+    }
+
+    .afm-header-right {
+        display: none;
+    }
+
+    .signout ul {
+        display: block;
+    }
+
+{% endif %}
+
+    .select2 {
+        width: 100% !important;
+    }
+
+    input#file-upload-button {
+        background: #141F42 !important;
+        color: #fff !important;
+    }
+</style>
+{% endblock%}
+{% block content %}
+<form method="POST" id="update-profile-form" enctype="multipart/form-data">
+    {% csrf_token %}
+    <nav aria-label="breadcrumb" class="sample-profile">
+        <ol class="breadcrumb breadcrumb-style1">
+            <li class="breadcrumb-item">
+                <a href="{% url 'administration:dashboard' %}" >Dashboard</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="#">Update Profile</a>
+            </li>
+        </ol>
+    </nav>
+    <div class="alert alert-warning text-center mb-2">
+        <p class="mb-0">
+            The following information (marked as † Kept  Private) will be used for internal administrative purpose.
+        </p>
+    </div>
+    <div class="row row-sm mg-b-20">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card card-table-one">
+                <h6 class="card-title">
+                    <i data-feather="book-open">
+                    </i> Your Education Details
+                </h6>
+                <hr>
+                <div class="row row-sm details">
+                    <div class="col-xl-12">
+                        <div class="form-group">
+                            {{form.are_you_graduated|as_crispy_field}}
+                        </div>
+                        <div class="row row-sm">
+                            <div class="col-md-6 col-xl-6 div_where_did_you_study">
+                                <div class="form-group mg-b-20">
+                                    <div class="select2-box mb-2">
+                                        {{form3.institute|as_crispy_field}}
+                                        <input id="selected_studying_in_country" type="hidden" value="{{ mentor_pi.studying_in }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-6 div_where_did_you_study div_institute_name">
+                                <div class="form-group mg-b-20">
+                                    <div class="select2-box mb-2">
+                                        {{form3.institute_name|as_crispy_field}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-sm">
+                            <div class="col-md-6 col-xl-6 div_study_year">
+                                <div class="form-group mg-b-20">
+                                    <div class="select2-box mb-2">
+                                        {{form.study_year|as_crispy_field}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-6 div_year">
+                                <div class="form-group mg-b-20">
+                                    {{form.year_graduated|as_crispy_field}}
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-6">
+                                <div class="form-group mg-b-20">
+                                    {{form.did_you_study_the_foundation_course_in_uk|as_crispy_field}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="foundation_course_uk">
+                            <div class="row row-sm">
+                                <div class="col-md-6 col-xl-6 div_where_did_you_study">
+                                    <div class="form-group mg-b-20">
+                                        <div class="select2-box mb-2">
+                                            {{form.where_did_you_study|as_crispy_field}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-xl-6 div_subject">
+                                    <div class="form-group mg-b-20">
+                                        {{form.foundation_provider|as_crispy_field}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row row-sm">
+                            <div class="col-md-6 col-xl-6">
+                                <div class="form-group mg-b-20">
+                                    {{form.name_of_school|as_crispy_field}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-sm mg-b-20">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card card-table-one">
+                <h6 class="card-title">
+                    <i data-feather="flag">
+                    </i>Other Qualifications <span class="text-danger">(† Kept private)</span>
+                </h6>
+                <hr>
+                <div class="row row-sm mg-b-10">
+                    <div class="col-xl-6 col-sm-12">
+                        {{form.previous_qualification|as_crispy_field}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-sm mg-b-20">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card card-table-one">
+                <h6 class="card-title">
+                    <i data-feather="briefcase">
+                    </i> Advisory Experience <span class="text-danger">(† Kept private)</span>
+                </h6>
+                <hr>
+                <div class="row row-sm mg-b-10">
+                    <div class="col-xl-12">
+                        <div class="form-group">
+                            {{form.are_you_registered_as_an_ambassador|as_crispy_field}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-sm mg-b-20">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card card-table-one">
+                <h6 class="card-title">
+                    <i data-feather="thumbs-up">
+                    </i> Follow us on social media <span class="text-danger">(† Kept private)</span>
+                </h6>
+                <hr>
+                <p>We use the power of social media to promote your profile to potential applicants/tutees
+                    around the world! Please add your username/id/page here, So we can engage with you directly
+                    (At least one is required)*:</p>
+                <div class="row row-sm mg-b-10" id="social_media_section">
+                    <div class="col-xl-6 col-sm-12">
+                        {{form.facebook_profile_url|as_crispy_field}}
+                    </div>
+                    <div class="col-xl-6 col-sm-12">
+                        {{form.instagram_profile_url|as_crispy_field}}
+                    </div>
+                    <div class="col-xl-6 col-sm-12">
+                        {{form.tiktok_profile_url|as_crispy_field}}
+                    </div>
+                    <div class="col-xl-6 col-sm-12">
+                        {{form.twitter_profile_url|as_crispy_field}}
+                    </div>
+                    <div class="col-xl-6 col-sm-12">
+                        {{form.linkedin_profile_url|as_crispy_field}}
+                    </div>
+                </div>
+                <p>Please select the social media on which you follow us, So we can follow you back:</p>
+                <div class="row row-sm mg-b-10">
+                    <div class="col-md-2 col-sm-12">
+                        {{form.follow_us_on_facebook|as_crispy_field}}
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        {{form.follow_us_on_instagram|as_crispy_field}}
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        {{form.follow_us_on_tiktok|as_crispy_field}}
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        {{form.follow_us_on_twitter|as_crispy_field}}
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        {{form.follow_us_on_linkedin|as_crispy_field}}
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        {{form.follow_us_on_youtube|as_crispy_field}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-sm mg-b-20">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card card-table-one">
+                <h6 class="card-title">
+                    <i data-feather="flag">
+                    </i>Content Creation <span class="text-danger">(† Kept private)</span>
+                </h6>
+                <hr>
+                <div class="row row-sm mg-b-10">
+                    <div class="col-xl-6 col-sm-12">
+                        <!-- <input type="text" name="linkedin" class="form-control" placeholder="Hobies & Interest"> -->
+                        {{form.experience_in_content_creation|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="row row-sm div_about_content_creation">
+                    <div class="col-xl-6 col-sm-12">
+                        <!-- <input type="text" name="linkedin" class="form-control" placeholder="Hobies & Interest"> -->
+                        {{form.about_content_creation|as_crispy_field}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-sm mg-b-20">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card card-table-one">
+                <h6 class="card-title">
+                    <i data-feather="flag">
+                    </i> Your DBS information <span class="text-danger">(† Kept private)</span>
+                </h6>
+                <hr>
+                <div class="row row-sm mg-b-10">
+                    <div class="col-xl-6 col-sm-12">
+                        <!-- <input type="text" name="linkedin" class="form-control" placeholder="Hobies & Interest"> -->
+                        {{form.dbs_check|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="dbs_check">
+                    <div class="row row-sm mg-b-10">
+                        <div class="col-xl-6 col-sm-12">
+                            <!-- <input type="text" name="linkedin" class="form-control" placeholder="Hobies & Interest"> -->
+                            {{form.dbs_Reference_no|as_crispy_field}}
+                        </div>
+                        <div class="col-xl-6 col-sm-12">
+                            <!-- <input type="text" name="linkedin" class="form-control" placeholder="Hobies & Interest"> -->
+                            {{form.dbs_date|as_crispy_field}}
+                        </div>
+                    </div>
+                    <div class="row row-sm mg-b-10">
+                        <div class="col-xl-6 col-sm-12">
+                            <!-- <input type="text" name="linkedin" class="form-control" placeholder="Hobies & Interest"> -->
+                            {{form.dbs_certificate_no|as_crispy_field}}
+                        </div>
+                        <div class="col-xl-6 col-sm-12">
+                            {{form.dbs_declaration|as_crispy_field}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-sm mg-b-20">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card card-table-one">
+                <h6 class="card-title">
+                    <i data-feather="briefcase">
+                    </i>Maximise your Employability! <span class="text-danger">(† Kept private)</span>
+                </h6>
+                <hr>
+                <div class="row row-sm mg-b-10">
+                    <div class="col-xl-12 col-sm-12">
+                        {{form.profile_made_visible_to_employers|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="row row-sm div_about_yourself">
+                    <div class="col-xl-6 col-sm-12">
+                        {{form.preferred_career_field|as_crispy_field}}
+                    </div>
+                    <div class="col-xl-6 col-sm-12">
+                        {{form.preferred_location|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="row row-sm div_about_yourself">
+                    <div class="col-xl-6 col-sm-12">
+                        {{form.skills_to_develop|as_crispy_field}}
+                    </div>
+                    <div class="col-xl-6 col-sm-12">
+                        {{form.where_will_you_be_during_the_completion_of_your_internship|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="row row-sm div_about_yourself">
+                    <div class="col-xl-6 col-sm-12">
+                        {{form.duration_of_internship|as_crispy_field}}
+                    </div>
+                    <div class="col-xl-6 col-sm-12">
+                        {{form.weekly_working_hours|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="row row-sm div_about_yourself">
+                    <div class="col-xl-6 col-sm-12">
+                        {{form.about_yourself|as_crispy_field}}
+                    </div>
+                    <div class="col-xl-6 col-sm-12">
+                        {{form.cv|as_crispy_field}}
+                        {{form.would_you_like_us_to_generate_a_CV|as_crispy_field}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-sm mg-b-20">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card card-table-one">
+                <h6 class="card-title">
+                    <i data-feather="briefcase"></i>Eligibility to work <span class="text-danger">(† Kept private)</span>
+                </h6>
+                <input type="hidden" id="id_studying_in_value" value="{{ mentor_pi.admin.currently_living_in}}">
+                <input type="hidden" id="id_currently_living_in_value" value="{{mentor_pi.studying_in}}">
+                <hr>
+                <div class="row row-sm mg-b-10 if_not_living_and_studying_uk_national">
+                    <div class="col-xl-12 col-sm-12">
+                        {{form.eligible_to_work_in_country_living_in|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="if_living_and_studying_uk_national">
+                    <div class="row row-sm mg-b-10">
+                        <div class="col-xl-6 col-sm-12">
+                            {{form.are_you_a_uk_national|as_crispy_field}}
+                        </div>
+                    </div>
+                    <div class="row row-sm class_question_2">
+                        <div class="col-xl-6 col-sm-12">
+                            {{form.tier_4_visa_allow_you_to_work_in_uk|as_crispy_field}}
+                        </div>
+                    </div>
+                    <div id="question_2_options">
+                        <div class="row row-sm mg-b-10">
+                            <div class="col-xl-6 col-sm-12">
+                                {{form.visa_start_date|as_crispy_field}}
+                            </div>
+                            <div class="col-xl-6 col-sm-12">
+                                {{form.visa_end_date|as_crispy_field}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if not mentor_pi.admin.user_slug|get_if_user_from_EU_countries %}
+                <div class="row row-sm mg-b-10">
+                    <div class="col-xl-6 col-sm-12">
+                        {{form.brp_card|as_crispy_field}}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-12">
+            <div class="app-footer-line"></div>
+            <div class="step-btn three-btn mg-t-20">
+                <div>
+                    <a type="button" class="btn btn-outline-indigo btn-rounded"
+                       href="{% url 'administration:upload_public_information_twfl' %}"
+                       role="menuitem"><span class="iconify"
+                       data-icon="bi:arrow-left" data-inline="false"></span> Previous
+                    </a>
+                </div>
+                <div>
+                    <button class="btn btn-outline-indigo btn-rounded" > Save & Continue
+                        <span class="iconify"
+                              data-icon="bi:arrow-right" data-inline="false"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+{% block js %}
+<script src="{% static 'administration/js/new_mentor_update_profile.js' %}"></script>
+{% if not mentor_pi.consent4 %}
+<script>
+    $("<div class='afm-header-menu signout'><ul class='nav'><li class='nav-item'><a href='{% url 'logout' %}'><svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-log-out'><path d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'></path><polyline points='16 17 21 12 16 7'></polyline><line x1='21' y1='12' x2='9' y2='12'></line></svg></a><a href='{% url 'logout' %}' class='nav-link'> Sign Out</a></li></ul></div>").insertAfter(".afm-header-right");
+</script>
+{% endif %}
+{% endblock %}

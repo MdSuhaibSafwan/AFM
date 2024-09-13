@@ -1,0 +1,134 @@
+{% extends 'base/base.html' %}
+{% block title%}Additional Information-Page{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<nav aria-label="breadcrumb">
+     <ol class="breadcrumb breadcrumb-style1">
+          <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="#">Application</a></li>
+     </ol>
+</nav>
+{% include 'application/breadcrumb.html' %}
+<div class="card">
+     <div class="row">
+          <div class="col-12">
+               <div class="pd-lg-l-40 d-flex flex-column">
+                    <form role="form" method="post" enctype="multipart/form-data">
+                         <div class="wizard">
+                              <div class="content clearfix">
+                                   <div class="consent">
+                                        <h5>9. Additional Information{% if request.user.user_type == 3 %}
+                                        {% else %} about this Applicant{% endif %}</h5>
+                                        <div class="line-2"></div>
+                                        <p class="consent-p"></p>
+                                        {% crispy additional_info_form %}
+                                        <h5>Next of Kin Information</h5>
+                                        <div class="line-2"></div>
+                                        {% crispy next_of_kin_form %}
+                                        <div class="row ">
+                                             <div class="col-12">
+                                                  <div class="app-footer-line"></div>
+                                               <div class="step-btn three-btn mg-t-20">
+                                                 <div>
+                                                   <a type="button" class="btn btn-outline-indigo btn-rounded"
+                                                   href="{% url 'application:application_visa_history_twfl' app.slug %}" role="menuitem">Previous
+                                                   </a>
+                                                 </div>
+                                                 <div>
+                                                   <a type="button" class="btn btn-outline-indigo btn-rounded"
+                                                   href="{% url 'application:review_submit_twfl' app.slug %}" role="menuitem">Skip & Continue </a>
+                                                   <button class="btn btn-outline-indigo btn-rounded"> Save & Continue <span class="iconify"
+                                                       data-icon="bi:arrow-right" data-inline="false"></span></button>
+                                                 </div>
+                                               </div>
+                                             </div>
+                                           </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </form>
+               </div>
+          </div>
+     </div><!-- az-content-body -->
+</div>
+{% endblock %}
+{% block js %}
+<script>
+// DOB
+ $( '#id_date_of_birth').datepicker({
+      changeYear: true,
+      dateFormat: "dd/mm/yy",
+      maxDate: '-18yr'
+ });
+ $("select").select2();
+ $('#div_id_portfolio').hide();
+ {% if app.subject == 3 %}
+ $('#div_id_portfolio').show();
+ {% endif %}
+
+
+
+ // Disabilities
+
+ if ($('#id_learning_disabilities_or_difficulties_2').is(':checked')) {
+      $('#div_id_disabilities_text').show();
+ }
+ else {
+      $('#div_id_disabilities_text').hide();
+ }
+
+ if ($('#id_criminal_records_2').is(':checked')) {
+      $('#div_id_records').show();
+ }
+ else {
+      $('#div_id_records').hide();
+ }
+
+ if ($('#id_health_conditions_2').is(':checked')) {
+      $('#div_id_health_conditions_text').show();
+ }
+ else {
+      $('#div_id_health_conditions_text').hide();
+ }
+
+ $(document).ready(function () {
+      $('input[name="learning_disabilities_or_difficulties"]').click(function () {
+           if ($(this).attr('id') == 'id_learning_disabilities_or_difficulties_1') {
+                $('#div_id_disabilities_text').hide();
+                $('#id_disabilities_text').val('');
+
+
+           }
+           else {
+                $('#div_id_disabilities_text').show();
+
+           }
+      });
+
+      $('input[name="criminal_records"]').click(function () {
+           if ($(this).attr('id') == 'id_criminal_records_1') {
+                $('#div_id_records').hide();
+                $('#id_records').val('');
+
+           }
+           else {
+                $('#div_id_records').show();
+                $('#id_records').val('');
+
+           }
+      });
+
+      $('input[name="health_conditions"]').click(function () {
+           if ($(this).attr('id') == 'id_health_conditions_1') {
+                $('#div_id_health_conditions_text').hide();
+                $('#id_health_conditions_text').val('');
+
+           }
+           else {
+                $('#div_id_health_conditions_text').show();
+
+           }
+      });
+ });
+</script>
+{% endblock %}

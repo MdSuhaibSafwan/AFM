@@ -1,0 +1,130 @@
+{% extends 'base/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% load administration_extras %}
+{% load static %}
+{% load widget_tweaks %}
+{% block css %}
+<style>
+  form {
+    display: contents;
+  }
+</style>
+{% endblock %}
+{% block content %}
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb breadcrumb-style1">
+    <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="#">Total System Recruiter</a></li>
+  </ol>
+</nav>
+<div class="row mr-b-20">
+  <div class="col-12 col-sm-12">
+    <div class="add-new-app">
+
+      <a href="{% url 'administration:system_recruiter_registration_twfl' %}" id="add-new-institute">
+        <button type="submit" class="btn" style="color: rgb(0, 0, 0); font: 1em poppins ;">
+          <span>+</span> Register New System Recruiter
+        </button>
+        <i data-feather="clipboard"></i></a>
+      <!-- <a href="#">+ Add New Application <i data-feather="clipboard"></i></a> -->
+    </div>
+  </div>
+</div>
+
+<div class="row row-sm mg-b-20">
+  <div class="col-sm-12 col-lg-12">
+    <div class="card card-table-one">
+      <h6 class="card-title">List of System Recruiters</h6>
+      <hr>
+      <div class="table-responsive">
+        {% if recruiters %}
+        <table class="table table-hover mg-b-0">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {% for x in recruiters %}
+            <tr>
+              <td>{{x.first_name}}</td>
+              <td>{{x.last_name}}</td>
+              <td>{{x.email}}</td>
+              <td>
+                <form method="post" id="form-{{x.id}}" onsubmit="">
+                  {% csrf_token %}
+                  <div class="custom-control custom-switch">
+                    <input type="hidden" name="admin_id" value="{{x.id}}">
+                    <input type="checkbox" class="custom-control-input" id="button-{{x.id}}"
+                      onchange="change_is_active('form-{{x.id}}')" {% if x.is_active %}checked{% endif %}>
+                    <label class="custom-control-label" for="button-{{x.id}}"> 
+{% if x.is_active %}Active{% else %}Not
+                      Active{% endif %}</label>
+                  </div>
+                </form>
+              </td>
+              <td>
+                  <a href="#" class="btn btn-danger btn-rounded" data-toggle="modal"
+                    data-target="#delete{{x.id}}"><i data-feather="trash"></i>Delete</a>
+              </td>
+            </tr>
+            <div class="modal fade" id="delete{{x.id}}" tabindex="-1" role="dialog"
+                                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Delete Institute</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <form method="post"
+                                    action="{% url 'administration:delete_user_twfl' x.slug %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="redirect" value="{{request.path}}">
+                            <div class="modal-body">
+                              are you sure, do you want do delete ?
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-outline-indigo btn-rounded"
+                                data-dismiss="modal">cancel</button>
+                              <button type="submit" class="btn btn-outline-indigo btn-rounded">Confirm</button>
+                            </div>
+                          </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <div style="text-align:center;">
+          <p>No System Recruiter Available !!!!</p>
+        </div>
+        {% endif%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+  $('#id_admin__spoken_languages').select2();
+  var id;
+  function change_is_active(id) {
+    if (confirm('Do you really want to do this action')) {
+      $('#' + id).submit();
+    }
+  }
+</script>
+
+
+{% endblock %}

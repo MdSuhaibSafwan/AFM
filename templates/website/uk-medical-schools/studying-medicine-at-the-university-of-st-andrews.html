@@ -1,0 +1,125 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}University of St. Andrews School of Medicine in Scotland, UK{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %} Study medicine at one of the most reputable universities in Scotland, St. Andrews in the UK. It
+is one of the highest-ranking medical schools in the UK.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/uk-medical-schools/studying-medicine-at-the-university-of-st-andrews/
+{% endblock %}{% endblock %}
+
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">Apply for Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:uk_medical_schools' %}">UK Medical Schools</a>
+                            <span> >
+                            </span>University of St Andrews
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">University of St Andrews</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in Scotland</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="right-icon-img-area">
+                        <div>
+                            <p style="text-align: right; margin-bottom: 0px;">
+                                <span>*</span>
+                            </p>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>Fees (International/Non-EU students): </td>
+                                        <td>£31,950 pa</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Interview Style: </td>
+                                        <td>MMI</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Course Structure: </td>
+                                        <td>Integrated</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <h2>Study Medicine at The University of St Andrews</h2>
+                        <p>St Andrews offers a six-year integrated medicine course. You first three years are spent at St
+                            Andrews after which you graduate with a BSc Honours degree and your remaining three years
+                            will then be spent at one of the university’s partner medical schools in England or Scotland.
+                            Education will be delivered in the form of lectures, practicals,tutorials, placements,
+                            research projects and ward simulation exercises.</p>
+                        <p>Teaching at St Andrews focuses on learning the scientific foundations of
+                            Medicine while simultaneously providing clinical context. In addition there is emphasis on
+                            giving students an understanding of professionalism, ethics and the importance
+                            of communication,self-reflection and decision-making.
+                        <p>The first year of the course focuses on learning about the systems of the body at all levels
+                            and from all aspects including anatomy, physiology, pathology, pharmacology,public health
+                            and psychology. Clinical placements also take place as part of the integrated clinical
+                            teaching.</p>
+                        <p>The second and third years involves exploration of the body systems though dissections and
+                            clinical imaging as well as further learning into dysfunction of systems in pathological and
+                            disease states. There will also be learning of basic clinical skills and further clinical
+                            placements in primary care environments.</p>
+                        <p>Queen’s offer students plenty of research opportunities during their degree throughsummer
+                            studentships. You can take a nine week assistantship in your final year where you will have
+                            the opportunity to learn and practice some of the roles of a junior doctor.Student also have
+                            the chance to travel abroad during an elective module in their fifth year.</p>
+                        <p>Year three also includes a research project and further development of clinical
+                            skills(including patient examination, investigation and clinical reasoning) that will
+                            be needed for entering the final three years of the course.</p>
+                        <p>The final three years at one of St Andrews’ partner medical schools will be spent enhancing,
+                            consolidation and applying everything learnt from the first three years of the course. The
+                            necessary skills needed to become a clinician will also be further developed and shaped in
+                            preparation to become a junior doctor as part of the FoundationProgramme.</p>
+                        <h3>Get mentored by medical students at University of St Andrews</h3>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <p> * Please confirm all relevant information on this page with your medical school application mentor </p>
+    </div>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> globalcommunity of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'base/base.html' %}
+{% load duration_filter %}
+{% block title %}Dashboard{% endblock %}
+{% load administration_extras %}
+{% load static %}
+{% load widget_tweaks %}
+{% block css %}
+{% load time_filter %}
+<style>
+    form {
+        display: flex;
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="#">Total Appointments</a></li>
+    </ol>
+</nav>
+
+
+<div class="row row-sm mg-b-20">
+    <div class="col-sm-12 col-lg-12">
+        <div class="card card-table-one">
+            <h6 class="card-title">List of Appointments</h6>
+            <hr>
+            <div class="table-responsive">
+                {% if list %}
+                    <table class="table table-hover mg-b-0">
+                        <thead>
+                            <tr>
+                                <th>Alumni</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Service</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    <tbody>
+
+                    {% for x in list %}
+                        <tr>
+                            <td><strong>{{x.provider.first_name}}</strong></td>
+                            <td>{{ x.date }}</td>
+                            <td>{{x.from_time }} - {{x.to_time}}</td>
+                            <td>{{x.status}}</td>
+                            <td>{{x.services.title}}</td>
+                            <td>
+                                {% if not request.user.user_type == 0 %}
+                                <a target="_blank" style="color:#2d54de; font-size: 1.5em;"
+                                   href="https://calendar.google.com/calendar/event?action=TEMPLATE&dates={{ x.date|date:'Ymd' }}T{{ x.from_time|gc_time }}/{{ x.date|date:'Ymd' }}T{{ x.to_time|gc_time }}&location={{ x.booker.country }}&details={{ x.Details }}&text=Meeting with {{ x.booker.first_name }} and {{ x.provider.first_name }}&add={{ x.booker.email }}">
+                                    <i class="fa fa-calendar"></i>
+                                </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+                {% else %}
+                <div style="text-align:center;"><p>No Appointments Available !!!!</p></div>
+                {% endif %}
+            </div><!-- table-responsive -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    $('#id_admin__spoken_languages').select2();
+    var id;
+
+    function change_is_active(id) {
+        if (confirm('Do you really want to do this action')) {
+            $('#' + id).submit();
+        } else {
+            location.reload();
+        }
+    }
+</script>
+{% endblock %}

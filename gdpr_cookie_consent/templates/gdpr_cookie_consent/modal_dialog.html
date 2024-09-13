@@ -1,0 +1,56 @@
+{% load i18n %}
+<div id="cc_modal_window" class="cc-modal-window">
+    <div class="cc-modal-dialog">
+        <button id="cc_modal_close" type="button" class="cc-modal-close" aria-label="{% trans 'Close' %}">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <section id="cc_section_quick_info">
+            <div class="row align-items-center">
+                <!-- <div class="col-md-1">
+                    <h2>{% trans "Cookies" %}</h2>
+                </div> -->
+                <div class="col-md-12 col-lg-12 col-xl-8">
+                    <!-- <h2>{% trans "Cookies" %}</h2> -->
+                    {{ cookie_consent_controller.get_description }}
+                </div>
+                <div class="col-md-12 col-lg-12 col-xl-4">
+                    <div class="cc-buttons">
+                        <button id="cc_accept_all_cookies" class="cc-button theme-btn {{ cookie_consent_controller.get_styling.primary_button_css_classes }}" type="button">{% trans "Accept all" %}</button>
+                        <button id="cc_reject_all_cookies" class="cc-button theme-btn theme-btn-outline {{ cookie_consent_controller.get_styling.primary_button_css_classes }}" type="button">{% trans "Reject all" %}</button>
+                        <button id="cc_manage_cookies" class="cc-button theme-btn theme-btn-outline {{ cookie_consent_controller.get_styling.primary_button_css_classes }}" type="button">{% trans "Manage cookies" %}</button>
+                    </div>
+                </div>
+            </div>
+      
+        </section>
+        <section id="cc_section_manage_cookies" class="cc-hidden">
+            {% include "gdpr_cookie_consent/includes/cookie_consent_form.html" with save_button_text=_("Save and close") %}
+        </section>
+    </div>
+</div>
+
+<script>
+  function moreLess(initiallyVisibleCharacters) {
+	var visibleCharacters = initiallyVisibleCharacters;
+	var paragraph = $("#cc_section_quick_info p")
+
+
+	paragraph.each(function() {
+		var text = $(this).text();
+		var wholeText = text.slice(0, visibleCharacters) + "<span class='ellipsis'>... </span><a href='#' class='more'>Read More</a>" + "<span style='display:none'>" + text.slice(visibleCharacters, text.length) + "</span>"
+
+		if (text.length < visibleCharacters) {
+			return
+		} else {
+			$(this).html(wholeText)
+		}
+	});
+	$(".more").click(function(e) {
+		e.preventDefault();
+		$(this).hide().prev().hide();
+		$(this).next().show();
+	});
+};
+
+moreLess(110);
+</script>

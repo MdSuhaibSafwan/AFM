@@ -1,0 +1,118 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}Study Medicine at University of Sunderland, School of Medicine{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %} The University of Sunderland is one of the newest medical schools in the UK, enroling its first
+medical students onto its 5-year MBChB in 2019.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/uk-medical-schools/studying-medicine-at-the-university-of-sunderland/
+{% endblock %}{% endblock %}
+
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">Apply for Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:uk_medical_schools' %}">UK Medical Schools</a>
+                            <span> >
+                            </span>University of Sunderland
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">University of Sunderland</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in England</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="right-icon-img-area">
+                        <div>
+                            <p style="text-align: right; margin-bottom: 0px;">
+                                <span>*</span>
+                            </p>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>Fees (International/Non-EU students): </td>
+                                        <td>UK only</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Interview Style: </td>
+                                        <td>Traditional</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Course Structure: </td>
+                                        <td>Traditional</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <h2>Study Medicine at The University of Sunderland</h2>
+                        <p>Sunderland’s medical course is a five-year programme divided into three phases. Theteaching
+                            consists of lectures, practicals, one-to-one tutor sessions clinical placements,
+                            problem-based learning and self-directed study organised into a spiralcurriculum.This means
+                            that each year revisits and builds upon the knowledge learnt in the previousyears to
+                            gradually consolidate and enhance the depth of understanding.</p>
+                        <p>
+                            <span class="font-weight-600">Phase 1</span> during the first two years focuses onlearning
+                            biomedical, social and behaviour sciences. Student are also taught some basicclinical
+                            skills, communication, professionalism,etc. Education during this part of the course takes
+                            place mainly on City Campus. Phase 2takes place from the third to fourth years and involves
+                            building on the knowledge fromthe previous phase and clinical skills arealso expanded
+                            through more placements in different healthcare settings (e.g. hospitalsand GPs). Phase 3
+                            takes place during the final year of the course and focusesprincipally on preparing students
+                            for becoming a juniordoctor. Student assistantships also take place to allow students to
+                            shadow a Foundationdoctor and become familiar with the roles and responsibilities involved.
+                        <p>Students may choose to do an intercalation degree after their second or fourth yearwhich may
+                            be done at Sunderland or at a different university. Intercalating after thesecond year will
+                            lead to a BSc degree or if done after the fourth year will leadto a MSc degree.</p>
+                        <p>Sunderland’s medical programme also teaches students the ability to think about andapply
+                            their medical knowledge into social, global and environmental contexts andconsider how this
+                            can influence clinical practice.</p>
+                        <h3>Get mentored by medical students at University of Sunderland</h3>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <p> * Please confirm all relevant information on this page with your medical school application mentor </p>
+    </div>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> globalcommunity of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

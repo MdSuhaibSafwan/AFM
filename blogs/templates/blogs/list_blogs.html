@@ -1,0 +1,127 @@
+{% extends 'base/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+{% load widget_tweaks %}
+{% load administration_extras %}
+{% load static %}
+<nav aria-label="breadcrumb">
+ <ol class="breadcrumb breadcrumb-style1">
+    <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="#">Blog List</a></li>
+ </ol>
+</nav>
+<div class="row mr-b-20">
+    <div class="col-md-12 mb-3 mb-md-4">
+      <div class="d-flex justify-content-lg-between align-items-lg-center table-responsive">
+          <div class="filter-div d-flex justify-content-lg-between align-items-lg-center">
+<!--            <strong>Why not enhance your profile by writing a blog? It’s a great way to engage with your profile-->
+<!--                visitors, who can subscribe to your blogs, so you can expand your network. Simply write your blogs below-->
+<!--                and add images where required. We will review it and let you know once it's been published. Please-->
+<!--                message us if you have any questions. Happy blogging!</strong>-->
+              <p>As you may have read previously, writing blogs is an excellent way to not only promote your personal
+                  brand on your skills and expertise, but also a great way to be found by your global audience.<br>
+                  Here are some examples of blogs written and published by other Alumni:
+                  <a href="{% url 'blogs:public_blog_list' %}"><i data-feather="external-link"></i>Medical School Admission Blogs</a>.<br>
+                  Please remember the ideal word count should be 1000+ and break it up into numerous headings, as its
+                  easier for potential applicants read and digest.</p>
+          </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-12">
+        <div class="add-new-app">
+         <a href="{% url 'blogs:create_post' %}" id="add-new-institute"><button class="btn" style="color: rgb(0, 0, 0); font: 1em poppins ;"><span>+</span> Add New Blog</button><i data-feather="clipboard"></i></a>
+        </div>
+    </div>
+</div>
+<div class="list-user">
+  {% if post_list %}
+ <div class="table-responsive list-border">
+    <table class="table table-hover mg-b-0">
+       <thead>
+          <tr class="box-shadow-none">
+             <th>Image</th>
+             <th>Title</th>
+             <th>Sub Title</th>
+<!--             <th>Content</th>-->
+             <th>Status</th>
+<!--                              <th>Publish Status</th>-->
+             <th class="text-right">Action</th>
+          </tr>
+       </thead>
+       <tbody>
+        {% for post in post_list %}
+          <tr>
+             <td>
+                <div class="az-img-user"> <img src="{% if post.feature_image %}{{ post.feature_image.url }}
+{% else %} /static/images/default_profile.png {% endif %}" alt="alex" class="img-fluid"></div>
+             </td>
+             <td><h6><a href="{% url 'blogs:post_detail_edit' post.pk post.author.admin.slug  %}">{{ post.title }}</a></h6></td>
+             <td><h7>{{ post.sub_title|getifnone }}</h7></td>
+<!--             <td>{{post.content|safe|slice:":50"}}-->
+<!--                <a href="{% url 'blogs:PostDetail' post.slug %}" style="font-size: 10px;color:#FF0000">.......read more</a>-->
+<!--                </td>-->
+             <td>{{post.post_status|getpoststatus}}</td>
+             <td class="text-right">
+              <div class="dropdown">
+                 <button class="btn more-vertical" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <i data-feather="more-vertical"></i>
+                 </button>
+                 <div class="dropdown-menu edit-mr" aria-labelledby="dropdownMenuButton">
+                    {% if post.post_status == 2 %}
+                    {% else %}
+                        <a href="{% url 'blogs:post_detail_edit' post.pk post.author.admin.slug %}" class="dropdown-item"><i data-feather="edit-2"></i>Edit</a>
+                    {% endif %}
+                    <a href="{% url 'blogs:PostDetail' post.slug %}" class="dropdown-item" target="_blank"><i data-feather="eye"></i>view</a>
+                    <a href="#" class="dropdown-item" data-toggle="modal" data-target="#delete-post-{{post.id}}">
+                        <i data-feather="trash"></i>delete</a>
+                 </div>
+              </div>
+           </td>
+          </tr>
+          <!-- Modal -->
+          <div class="modal fade" id="delete-post-{{post.id}}" tabindex="-1" role="dialog"
+           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">
+                    Confirmation</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>Are you ure you want to delete blog '{{post.title}}'?</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-btn">
+                        <a href="{% url 'blogs:post_delete' post.id  %}" class="btn btn-rounded btn-indigo">
+                          Confirm
+                        </a>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+       </tbody>
+    </table>
+ </div>
+  {% else %}
+  No records found
+  {% endif%}
+</div>
+{% endblock content %}
+{% block js %}
+<script>
+    var id;
+    function change_is_active(id){
+        if (confirm('Do you really want to do this action')){
+            $('#'+ id).submit();
+        }
+        else{
+            location.reload();
+        }
+    }
+</script>
+{% endblock %}
