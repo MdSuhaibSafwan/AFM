@@ -149,6 +149,21 @@ FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 if DEVELOPMENT_MODE:
     DATABASES = {
+
+        # 'default': {
+        #     'ENGINE': 'django.db.backends.sqlite3',
+        #     'NAME': BASE_DIR / "default.sqlite3",
+        # },
+        # 'default': {},
+        # 'afm': {
+        #     'ENGINE': 'django.db.backends.sqlite3',
+        #     'NAME': BASE_DIR / "afm.sqlite3",
+        # },
+        # 'afm_personal_information': {
+        #     'ENGINE': 'django.db.backends.sqlite3',
+        #     'NAME': BASE_DIR / "afm_personal_information.sqlite3",
+        # },
+
         'default': dj_database_url.parse(config('DATABASE_URL_GENERAL')),
         # 'afm': {
         #     'ENGINE': 'django.db.backends.sqlite3',
