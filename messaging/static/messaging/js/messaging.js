@@ -1,3 +1,4 @@
+console.log("Working");
 $("input[name='msg']").keyup(function(event) {
 if (event.keyCode === 13) {
     $("#msg-send-button").click();
@@ -231,8 +232,8 @@ function check_msg_read_unread(){
   });
 }
 
-var myInterval_check_msg_read_unread = setInterval(check_msg_read_unread, 5000);
-var myInterval_update_messages = setInterval(update_messages, 2000);
+// var myInterval_check_msg_read_unread = setInterval(check_msg_read_unread, 5000);
+// var myInterval_update_messages = setInterval(update_messages, 2000);
 
 $("#azChatBody").animate({ scrollTop: $("#azChatBody")[0].scrollHeight }, 0);
 $("html, body").animate({ scrollTop: $(document).height() }, 0);
@@ -346,3 +347,36 @@ $(document).on('focus blur', 'select, textarea, input[type=text], input[type=dat
 $(window).on('resize orientationchange', function(){
     applyAfterResize();
 });
+
+
+// Websocket works
+
+var loc = window.location;
+if (loc.protocol == "http:"){
+    var wsUrl = `ws://${loc.host}/messaging/`;
+} else {
+    var wsUrl = `wss://${loc.host}/messaging/`;
+};
+
+var socket = new WebSocket(wsUrl);
+
+socket.onmessage = function(event){
+    console.log(event);
+    var data = JSON.parse(event.data);
+    console.log(data);
+    if (data.command == "incoming_message"){
+        update_messages();
+    };
+};
+
+socket.onopen = function(event){
+    console.log(event);
+};
+
+socket.onerror = function(event){
+    console.log(event);
+};
+
+socket.onclose = function(event){
+    console.log(event);
+};
