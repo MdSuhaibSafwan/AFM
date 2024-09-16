@@ -38,6 +38,9 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',  
+    'daphne',
+
     # stock
     'django.forms',
     'django.contrib.admin',
@@ -65,6 +68,7 @@ INSTALLED_APPS = [
     'blogs',
     'notifications',
     'rest_framework',
+    'rest_framework.authtoken',
     'ckeditor',
     'django_summernote',
     'django_social_share',
@@ -140,6 +144,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'AFM.wsgi.application'
+ASGI_APPLICATION = 'AFM.asgi.application'
+
 CRISPY_TEMPLATE_PACK = 'uni_form'
 
 # drag and drop file
@@ -314,8 +320,15 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 100
 }
 
-MESSAGES_TO_LOAD = 1000
+MESSAGES_TO_LOAD = 10000
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
+
+MAX_UPLOAD_SIZE = 1000000000
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
