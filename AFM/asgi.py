@@ -16,14 +16,14 @@ from channels.security.websocket import AllowedHostsOriginValidator
 from urllib.parse import parse_qs
 from channels.db import database_sync_to_async
 from django.contrib.auth.models import User, AnonymousUser
-from .websocket_auth import WebsocketMiddleware
+from .websocket_auth import WebSocketMiddleware
 from rest_framework.authtoken.models import Token
 
 application = ProtocolTypeRouter({
     "http": django_asgi_app,
     "websocket": AllowedHostsOriginValidator(
         AuthMiddlewareStack(
-            WebsocketMiddleware(
+            WebSocketMiddleware(
                 URLRouter(
                     websocket_urlpatterns
                 )
@@ -31,3 +31,5 @@ application = ProtocolTypeRouter({
         )
     ),
 })
+
+app = application

@@ -35,9 +35,12 @@ from smtplib import SMTPException
 from bookings.models import UserServices, Services, Appointment
 from AFM.settings import SCHOOL_ID
 SCHOOL_OBJECT = None
-if SCHOOL_ID:
-    SCHOOL_OBJECT = School.objects.get(id=SCHOOL_ID)
-
+try:
+    if SCHOOL_ID:
+        SCHOOL_OBJECT = School.objects.get(id=SCHOOL_ID)
+except School.DoesNotExist as e:
+    print(e)
+    
 mail_send_from = MAIL_SEND_FROM
 
 

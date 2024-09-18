@@ -38,6 +38,9 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+    'channels',
+
     # stock
     'django.forms',
     'django.contrib.admin',
@@ -149,6 +152,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'AFM.wsgi.application'
+ASGI_APPLICATION = 'AFM.asgi.application'
+
 CRISPY_TEMPLATE_PACK = 'uni_form'
 
 # drag and drop file
@@ -178,8 +183,8 @@ if DEVELOPMENT_MODE:
         #     'PORT': config('DB_personal_information_PORT'),
         # }
         'default': dj_database_url.parse(config('DATABASE_URL_GENERAL')),
-        # 'afm': dj_database_url.parse(config('DATABASE_URL_GENERAL')),
-        # 'afm_personal_information': dj_database_url.parse(config('DATABASE_URL_GENERAL')),
+        'afm': dj_database_url.parse(config('DATABASE_URL_GENERAL')),
+        'afm_personal_information': dj_database_url.parse(config('DATABASE_URL_GENERAL')),
     }
 elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
     if config('DATABASE_URL_GENERAL', None) is None or config('DATABASE_URL_PERSONAL', None) is None:
@@ -376,6 +381,15 @@ from AFM.aws.conf import *
 #         "BACKEND": "channels.layers.InMemoryChannelLayer"
 #     }
 # }
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("redis-server-name", 6379)],
+        },
+    },
+}
 
 # ------------------ Email verification --------------------------
 

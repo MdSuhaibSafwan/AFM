@@ -76,8 +76,11 @@ mail_send_from = MAIL_SEND_FROM
 from AFM.settings import SCHOOL_ID
 
 SCHOOL_OBJECT = None
-if SCHOOL_ID:
-    SCHOOL_OBJECT = School.objects.get(id=SCHOOL_ID)
+try:
+    if SCHOOL_ID:
+        SCHOOL_OBJECT = School.objects.get(id=SCHOOL_ID)
+except School.DoesNotExist as e:
+    print(e)
 
 
 def clone_data_of_student_table(request):

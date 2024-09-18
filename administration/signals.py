@@ -25,9 +25,12 @@ from AFM.tasks import send_email_notification
 from bookings.models import Services,UserServices
 
 from AFM.settings import SCHOOL_ID
-SCHOOL_OBJECT = None
-if SCHOOL_ID:
-    SCHOOL_OBJECT = School.objects.get(id=SCHOOL_ID)
+try:
+    SCHOOL_OBJECT = None
+    if SCHOOL_ID:
+        SCHOOL_OBJECT = School.objects.get(id=SCHOOL_ID)
+except School.DoesNotExist as e:
+    print(e)
 '''
 Function   : send_email_notification_for_application 
 Description: Display all the mentors available, student can select his/her mentors
