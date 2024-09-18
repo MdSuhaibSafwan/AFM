@@ -1,0 +1,138 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}Medical Course at University of Sheffield School of Medicine{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %} The University of Sheffield in England not only offers Phd for research and development but
+also post-graduation in disciplines like medicine.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/uk-medical-schools/studying-medicine-at-the-university-of-sheffield/
+{% endblock %}{% endblock %}
+
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">International Foundation Group</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:uk_medical_schools' %}">UK Medical Schools</a>
+                            <span> >
+                            </span>University of Sheffield
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">University of Sheffield</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in England</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="right-icon-img-area">
+                        <div>
+                            <p style="text-align: right; margin-bottom: 0px;">
+                                <span>*</span>
+                            </p>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>Fees (International/Non-EU students): </td>
+                                        <td>£35,170 pa</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Interview Style: </td>
+                                        <td>MMI</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Course Structure: </td>
+                                        <td>Integrated</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <h2>Study Medicine at The University of Sheffield</h2>
+                        <p>Sheffield offers a five-year integrated medical course whose teaching involves
+                            lectures,practical teaching, small-group work, tutorials, seminars and clinical teaching in
+                            GPs,hospitals and clinics. The clinical and scientific education is deliveredsimultaneously
+                            in an integrated patient-focused manner.</p>
+                        <p>The course aims to give students a knowledge of the medical sciences with a focus onclinical
+                            relevance and allow student to develop the ability to think about clinicalscenarios /
+                            problems not only from an evidence-based scientific approach but alsofrom the point of view
+                            of patients.</p>
+                        <p>The medical course is split into the following components:</p>
+                        <p>
+                            <span class="font-weight-600">Phase 1: </span>This part of the course involves learningof
+                            the body systems in terms biochemistry, anatomy (via dissection practicals) andphysiology,
+                            etc. During this time you will alsocover Public Health education and Medical Ethics. The
+                            clinical side of this phase willinvolve integrated clinical demonstrations and learning
+                            basic clinical competencies. Youwill also have hospital and GP placements acrossthe first
+                            year in addition to Student Selected Components (SSCs).
+                        </p>
+                        <p>
+                            <span class="font-weight-600">Phase 2a: </span>The first half of Phase 2 will involve
+                            aresearch project, GP placements and basic clinical procedure training. There will alsobe
+                            further learning of pathology, immunology,microbiology, investigation and diagnosis and
+                            presentation of diseases, pharmacology andtherapeutics, etc.
+                        </p>
+                        <p>
+                            <span class="font-weight-600">Phase 2b: </span>You will then move onto doing basicclinical
+                            skills training in patient history-taking and physical examination in additionto clinical
+                            attachments in hospitals, out-patientclinics and surgical operating theatres as well as a
+                            SSC.
+                        </p>
+                        <p>
+                            <span class="font-weight-600">Phase 3: </span>This third phase involves learning in
+                            thefollowing disciplines: Paediatrics, Obstetrics and Gynaecology, Psychiatry, etc.
+                            Studentalso have clinical placements in GPs (communityplacements) and hospitals as well as
+                            projects, group presentations and SSCs.
+                        </p>
+                        <p>
+                            <span class="font-weight-600">Phase 4: </span>This last part of the course is focussedon
+                            learning in preparation for the roles and responsibilities of a Foundation Doctor.This
+                            includes Longitudinal Integrated Placementsand a Student Assistantship offered to students
+                            as further preparation for FY1.
+                        </p>
+                        <h3>Get mentored by medical students at University of Sheffield</h3>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <p> * Please confirm all relevant information on this page with your medical school application mentor </p>
+    </div>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> globalcommunity of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

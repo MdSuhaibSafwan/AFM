@@ -1,0 +1,803 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title2 %}{% block title1 %}Study Medicine in UK | Medical Schools | International Foundation Group{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}Study Medicine at medical schools abroad. Connect with existing medical student Alumni to optimise your application to medical degree courses overseas{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}https://applyformedicine.com/{% endblock %}{% endblock %}
+
+{% block content %}
+
+
+{% block stylings %}
+<style>
+/* <!--UPDATES HERE!!--> */
+.slider-cards {
+   display: flex;
+   justify-content: flex-end;
+}
+
+.mentors-page {
+   display: none;
+}
+
+@media (max-width: 990px) {
+   .first-title {
+      margin-bottom: 2rem !important;
+   }
+   .slider-cards {
+   justify-content: center;
+   }
+   
+}
+</style> 
+{% endblock stylings %}
+
+<section class="slider_area" > <!-- style="background:url(/static/assets/img/pakistan2.png) no-repeat; background-position: contain; opacity: 1; "  -->
+   <div class="container">
+      <div class="row">
+         <div class="col-xl-6 col-lg-6 col-md-12">
+            <div class="left-journey-wrapper mt-4 search_form">
+               <!-- <h2 class="mb-1">The best insights for your</h2> -->
+               <h1 class="first-title" data-animate="fadeInUp" data-animate-delay="0">STUDY UNIVERSITY ABROAD</h1> <!--UPDATES HERE!!-->
+               <h3 class="student-mentors">Start your education and global employment journey with experts from Pakistan  <img class="shadow" src="{% static 'assets/img/student-slider/pak-icon.png' %}" alt="Pakistan Flag" height="30px" >
+                  
+               </h3>
+               <ul class="list-icon list-icon-check student-mentors"> <!--UPDATES HERE!!-->
+                  <li>that speak English, Urdu or your local language </li>
+                  <li>boost your global employment prospects</li>
+                  <li>maximise your choices & chances of success</li>
+                  <li>monitor your progress & build your confidence </li>
+               </ul>
+
+               <div class="journey_wrapper mt-5 d-md-block d-none">
+                  <a href="{% url 'administration:planner' %}" class="theme-btn">
+                  Plan your journey now
+                  </a> <br> <br>
+               </div>
+
+               <span class="text-center theme-btn mt-2 wistia_embed wistia_async_qf4luke2v5 popover=true popoverContent=link d-md-none d-block wistia_embed_initialized" style="display:inline;position:relative" id="wistia-qf4luke2v5-1">
+                  <div id="wistia_59.thumb_container" class="wistia_click_to_play" style="position: relative; display: inline;"><a class="text-white" href="#">Explain TAG in 42 seconds <i class="ml-2 fas fa-play"></i></a></div>
+               </span>
+              
+               <div class="journey_wrapper mt-5 d-md-none d-block">
+                  <a href="{% url 'administration:planner' %}" class="theme-btn">
+                  Plan your journey now
+                  </a> <br> <br>
+               </div>
+            </div>
+         </div>
+
+         <div class="col-xl-6 col-lg-6 col-md-12 m-auto d-none d-md-block" style="display: flex; justify-content:center">
+         
+            <div class="wistia_video_foam_dummy" data-source-container-id="" style="border: 0px;display: block;height: 0px;margin: 0px;padding: 0px;position: static;visibility: hidden;width: auto;"></div>
+            <iframe src="https://fast.wistia.net/embed/iframe/qf4luke2v5?videoFoam=true" title="Apply for University Video" allow="autoplay; fullscreen" frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" width="540" height="304" style="width: 540px; height: 304px;"></iframe>
+         </div>
+      </div>
+         
+      </div>
+   </div>
+</section>
+
+
+<section class="mb-5"> <!-- style="background:url(/static/assets/img/pakistan2.png) no-repeat; background-position: contain; opacity: 1; "  -->
+   <div class="container">
+      <div class="row">
+
+         <div class="col-xl-6 col-lg-7 col-md-12 d-flex align-items-center">
+            <div class="left-journey-wrapper  text-center search_form">
+               <h2 data-animate="fadeInUp" data-animate-delay="0" >Find Top Universities Abroad</h2>
+               <p data-animate="fadeInUp" data-animate-delay="0" class="mt-2 heading-subtitle" style="font-size: 18px;font-weight:400">
+                 Key resources for access to your ideal university overseas
+               </p>
+              
+               <div class="row">
+                  <div class="col-lg-4 col-sm-6">
+                     <div class="card" style="height: 120px;">
+                        <div class="card-body" style="color:#141e42">
+                           <i class="fas fa-briefcase fa-2x" ></i>
+                           <h5 style="font-size: 14px" class="card-title">Maximise Employability</h5>
+                           <!-- <button type="button" class="btn btn-primary">Button</button> -->
+                        </div>
+                        </div>
+                  </div>
+
+                  <div class="col-lg-4 col-sm-6">
+                     <div class="card" style="height: 120px;">
+                        <div class="card-body" style="color:#141e42">
+                           <i class="fas fa-passport fa-2x"></i>
+                           <h5 style="font-size: 14px" class="card-title">VISA help & support</h5>
+                           <!-- <button type="button" class="btn btn-primary">Button</button> -->
+                        </div>
+                        </div>
+                  </div>
+                  
+                  <div class="col-lg-4 col-sm-6">
+                        <div class="card" style="height: 120px;">
+                        <div class="card-body" style="color:#141e42">
+                           <i class="fab fa-readme fa-2x"></i>
+                           <h5 style="font-size: 14px" class="card-title">Crack the IELTS</h5>
+                           <!-- <button type="button" class="btn btn-primary">Button</button> -->
+                        </div>
+                        </div>
+                  </div>
+
+                  <div class="col-lg-4 col-sm-6">
+                     <div class="card" style="height: 120px;">
+                     <div class="card-body" style="color:#141e42">
+                        <i class="fas fa-money-bill-wave fa-2x"></i>
+                        <h5 style="font-size: 14px" class="card-title">Financial Guide</h5>
+                        <!-- <button type="button" class="btn btn-primary">Button</button> -->
+                     </div>
+                     </div>
+                  </div>
+                  
+                  <div class="col-lg-4 col-sm-6">
+                     <div class="card" style="height: 120px;">
+                        <div class="card-body" style="color:#141e42">
+                           <i class="fas fa-graduation-cap fa-2x"></i>
+                           <h5 style="font-size: 14px" class="card-title">Find your ideal University</h5>
+                           <!-- <button type="button" class="btn btn-primary">Button</button> -->
+                        </div>
+                     </div>
+                  </div>
+                  
+                  <div class="col-lg-4 col-sm-6">
+                     <div class="card" style="height: 120px;">
+                        <div class="card-body" style="color:#141e42">
+                           <i class="fas fa-headset fa-2x"></i>
+                           <h5 style="font-size: 14px" class="card-title">FREE discovery call</h5>
+                           <!-- <button type="button" class="btn btn-primary">Button</button> -->
+                        </div>
+                        </div>
+                  </div>
+               </div>
+
+            </div>
+         </div>
+
+         <div class="col-xl-6 col-lg-5 col-md-12 slider-cards"> <!--UPDATES HERE!!-->
+            <div class=" page_hero-talents">
+            <a class="page_hero-talents_cta">Connect with Pakistani medical students<br /> from around the world.</a>
+            <div class="page_hero-talents_items">
+               <!-- *13* -->
+               <div class="slider_card-item for-talent for-hero-talents-slider">
+                  <div class="slider_card-item_photo">
+                     <img alt="" src="{% static 'assets/img/student-slider/8.jpg' %}" />
+                  </div>
+                  <img class="slider_card-item_photo_logo"
+                     src="{% static 'assets/img/student-slider/uni.png' %}" />
+                  <div class="slider_card-item_content">
+                     <div class="slider_card-item_title">Kinza</div>
+                     <div class="slider_card-item_country"> from Pakistan <img
+                        src="{% static 'assets/img/student-slider/pakistan.png' %}" alt="" />
+                     </div>
+                     <div class="slider_card-item_field">
+                        Studying Business Studies at <br> Anglia Ruskin Medical School
+                        <div class="slider_card-item_in_country"> in England <img
+                           src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- *14* -->
+               <div class="slider_card-item for-talent for-hero-talents-slider">
+                  <div class="slider_card-item_photo">
+                     <img alt="" src="{% static 'assets/img/student-slider/11.jpg' %}" />
+                  </div>
+                  <img class="slider_card-item_photo_logo"
+                     src="{% static 'assets/img/student-slider/uni.png' %}" />
+                  <div class="slider_card-item_content">
+                     <div class="slider_card-item_title">Hania</div>
+                     <div class="slider_card-item_country"> from Pakitan <img
+                        src="{% static 'assets/img/student-slider/pakistan.png' %}" alt="" />
+                     </div>
+                     <div class="slider_card-item_field">
+                        Studying Law at <br>The University of
+                        Buckingham
+                        <div class="slider_card-item_in_country"> in England <img
+                           src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- 1 -->
+               <div class="slider_card-item for-talent for-hero-talents-slider">
+                  <div class="slider_card-item_photo">
+                     <img alt="" src="{% static 'assets/img/student-slider/20.jpg' %}" />
+                  </div>
+                  <img class="slider_card-item_photo_logo"
+                     src="{% static 'assets/img/student-slider/uni.png' %}" />
+                  <div class="slider_card-item_content">
+                     <div class="slider_card-item_title">Sara</div>
+                     <div class="slider_card-item_country"> from Pakistan 
+                        <img src="{% static 'assets/img/student-slider/pakistan.png' %}" alt="" />
+                     </div>
+                     <div class="slider_card-item_field">
+                        Studying Pharmacy at <br> University of
+                        Buckingham
+                        <!-- Medical student at <br> The University of Buckingham -->
+                        <!-- Studying Medicine at <br> University of Central Lancashire -->
+                        <div class="slider_card-item_in_country"> in England <img
+                           src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- *2* -->
+               <div class="slider_card-item for-talent for-hero-talents-slider">
+                  <div class="slider_card-item_photo">
+                     <img alt="" src="{% static 'assets/img/student-slider/8.jpg' %}" />
+                  </div>
+                  <img class="slider_card-item_photo_logo"
+                     src="{% static 'assets/img/student-slider/uni.png' %}" />
+                  <div class="slider_card-item_content">
+                     <div class="slider_card-item_title">Kinza</div>
+                     <div class="slider_card-item_country"> from Pakistan <img
+                        src="{% static 'assets/img/student-slider/pakistan.png' %}" alt="" />
+                     </div>
+                     <div class="slider_card-item_field">
+                        Studying Business Studies at <br> The University of
+                        Nottingham
+                        <div class="slider_card-item_in_country"> in England <img
+                           src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- *3* -->
+               <div class="slider_card-item for-talent for-hero-talents-slider">
+                  <div class="slider_card-item_photo">
+                     <img alt="" src="{% static 'assets/img/student-slider/11.jpg' %}" />
+                  </div>
+                  <img class="slider_card-item_photo_logo"
+                     src="{% static 'assets/img/student-slider/uni.png' %}" />
+                  <div class="slider_card-item_content">
+                     <div class="slider_card-item_title">Hania</div>
+                     <div class="slider_card-item_country"> from Pakistan <img
+                        src="{% static 'assets/img/student-slider/pakistan.png' %}" alt="" />
+                     </div>
+                     <div class="slider_card-item_field">
+                        Studying Law at <br>The Royal College
+                        of Surgeons
+                        <div class="slider_card-item_in_country"> in Ireland <img
+                           src="{% static 'assets/img/student-slider/ireland.png' %}" alt="" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- *4* -->
+               <div class="slider_card-item for-talent for-hero-talents-slider">
+                  <div class="slider_card-item_photo">
+                     <img alt="" src="{% static 'assets/img/student-slider/20.jpg' %}" />
+                  </div>
+                  <img class="slider_card-item_photo_logo"
+                     src="{% static 'assets/img/student-slider/uni.png' %}" />
+                  <div class="slider_card-item_content">
+                     <div class="slider_card-item_title">Sara</div>
+                     <div class="slider_card-item_country"> from Pakistan <img
+                        src="{% static 'assets/img/student-slider/pakistan.png' %}" alt="" />
+                     </div>
+                     <div class="slider_card-item_field">
+                        Studying Pharmacy at <br> University of
+                        Central Lancashire
+                        <div class="slider_card-item_in_country"> in England <img
+                           src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- *5* -->
+               <div class="slider_card-item for-talent for-hero-talents-slider">
+                  <div class="slider_card-item_photo">
+                     <img alt="" src="{% static 'assets/img/student-slider/8.jpg' %}" />
+                  </div>
+                  <img class="slider_card-item_photo_logo"
+                     src="{% static 'assets/img/student-slider/uni.png' %}" />
+                  <div class="slider_card-item_content">
+                     <div class="slider_card-item_title">Kinza</div>
+                     <div class="slider_card-item_country"> from Pakistan <img
+                        src="{% static 'assets/img/student-slider/pakistan.png' %}" alt="" />
+                     </div>
+                     <div class="slider_card-item_field">
+                        Studying Medicine at <br>The Royal College
+                        of Surgeons
+                        <div class="slider_card-item_in_country"> in Ireland <img
+                           src="{% static 'assets/img/student-slider/ireland.png' %}" alt="" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- *6* -->
+               <div class="slider_card-item for-talent for-hero-talents-slider">
+                  <div class="slider_card-item_photo">
+                     <img alt="" src="{% static 'assets/img/student-slider/11.jpg' %}" />
+                  </div>
+                  <img class="slider_card-item_photo_logo"
+                     src="{% static 'assets/img/student-slider/uni.png' %}" />
+                  <div class="slider_card-item_content">
+                     <div class="slider_card-item_title">Hania</div>
+                     <div class="slider_card-item_country"> from Pakistan <img
+                        src="{% static 'assets/img/student-slider/pakistan.png' %}" alt="" />
+                     </div>
+                     <div class="slider_card-item_field">
+                        Studying Law at <br> University of
+                        Central Lancashire
+                        <div class="slider_card-item_in_country"> in England <img
+                           src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- *7* -->
+               <div class="slider_card-item for-talent for-hero-talents-slider">
+                  <div class="slider_card-item_photo">
+                     <img alt="" src="{% static 'assets/img/student-slider/20.jpg' %}" />
+                  </div>
+                  <img class="slider_card-item_photo_logo"
+                     src="{% static 'assets/img/student-slider/uni.png' %}" />
+                  <div class="slider_card-item_content">
+                     <div class="slider_card-item_title">Sara</div>
+                     <div class="slider_card-item_country"> from Pakistan <img
+                        src="{% static 'assets/img/student-slider/pakistan.png' %}" alt="" />
+                     </div>
+                     <div class="slider_card-item_field">
+                        Studying Pharmacy at <br>The Royal College
+                        of Surgeons
+                        <div class="slider_card-item_in_country"> in Ireland <img
+                           src="{% static 'assets/img/student-slider/ireland.png' %}" alt="" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- *8* -->
+               <div class="slider_card-item for-talent for-hero-talents-slider">
+                  <div class="slider_card-item_photo">
+                     <img alt="" src="{% static 'assets/img/student-slider/8.jpg' %}" />
+                  </div>
+                  <img class="slider_card-item_photo_logo"
+                     src="{% static 'assets/img/student-slider/uni.png' %}" />
+                  <div class="slider_card-item_content">
+                     <div class="slider_card-item_title">Kinza</div>
+                     <div class="slider_card-item_country"> from Pakistan <img
+                        src="{% static 'assets/img/student-slider/pakistan.png' %}" alt="" />
+                     </div>
+                     <div class="slider_card-item_field">
+                        Studying Business Studies at <br> The University of
+                        Edinburgh
+                        <div class="slider_card-item_in_country"> in Scotland <img
+                           src="{% static 'assets/img/student-slider/scotland.png' %}"
+                           alt="" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- *9* -->
+               <div class="slider_card-item for-talent for-hero-talents-slider">
+                  <div class="slider_card-item_photo">
+                     <img alt="" src="{% static 'assets/img/student-slider/11.jpg' %}" />
+                  </div>
+                  <img class="slider_card-item_photo_logo"
+                     src="{% static 'assets/img/student-slider/uni.png' %}" />
+                  <div class="slider_card-item_content">
+                     <div class="slider_card-item_title">Hania</div>
+                     <div class="slider_card-item_country"> from Pakistan <img
+                        src="{% static 'assets/img/student-slider/pakistan.png' %}" alt="" />
+                     </div>
+                     <div class="slider_card-item_field">
+                        Studying Law at <br> The University of
+                        Silesia
+                        <div class="slider_card-item_in_country"> in Poland <img
+                           src="{% static 'assets/img/student-slider/poland.png' %}" alt="" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- *10* -->
+               <div class="slider_card-item for-talent for-hero-talents-slider">
+                  <div class="slider_card-item_photo">
+                     <img alt="" src="{% static 'assets/img/student-slider/20.jpg' %}" />
+                  </div>
+                  <img class="slider_card-item_photo_logo"
+                     src="{% static 'assets/img/student-slider/uni.png' %}" />
+                  <div class="slider_card-item_content">
+                     <div class="slider_card-item_title">Sara</div>
+                     <div class="slider_card-item_country"> from Pakistan <img
+                        src="{% static 'assets/img/student-slider/pakistan.png' %}" alt="" />
+                     </div>
+                     <div class="slider_card-item_field">
+                        Studying Pharmacy at <br> The University of
+                        Cambridge
+                        <div class="slider_card-item_in_country"> in England <img
+                           src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- *11* -->
+               <div class="slider_card-item for-talent for-hero-talents-slider">
+                  <div class="slider_card-item_photo">
+                     <img alt="" src="{% static 'assets/img/student-slider/8.jpg' %}" />
+                  </div>
+                  <img class="slider_card-item_photo_logo"
+                     src="{% static 'assets/img/student-slider/uni.png' %}" />
+                  <div class="slider_card-item_content">
+                     <div class="slider_card-item_title">Kinza</div>
+                     <div class="slider_card-item_country"> from Pakistan <img
+                        src="{% static 'assets/img/student-slider/pakistan.png' %}" alt="" />
+                     </div>
+                     <div class="slider_card-item_field">
+                        Studying Business Studies at <br> Trinity College
+                        Dublin
+                        <div class="slider_card-item_in_country"> in Ireland <img
+                           src="{% static 'assets/img/student-slider/ireland.png' %}" alt="" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- *12* -->
+               <div class="slider_card-item for-talent for-hero-talents-slider">
+                  <div class="slider_card-item_photo">
+                     <img alt="" src="{% static 'assets/img/student-slider/11.jpg' %}" />
+                  </div>
+                  <img class="slider_card-item_photo_logo"
+                     src="{% static 'assets/img/student-slider/uni.png' %}" />
+                  <div class="slider_card-item_content">
+                     <div class="slider_card-item_title">Hania</div>
+                     <div class="slider_card-item_country"> from Pakistan <img
+                        src="{% static 'assets/img/student-slider/pakistan.png' %}" alt="" />
+                     </div>
+                     <div class="slider_card-item_field">
+                        Studying Law at <br> Imperial College
+                        London
+                        <div class="slider_card-item_in_country"> in England <img
+                           src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- 13 -->
+               <div class="slider_card-item for-talent for-hero-talents-slider">
+                  <div class="slider_card-item_photo">
+                     <img alt="" src="{% static 'assets/img/student-slider/20.jpg' %}" />
+                  </div>
+                  <img class="slider_card-item_photo_logo"
+                     src="{% static 'assets/img/student-slider/uni.png' %}" />
+                  <div class="slider_card-item_content">
+                     <div class="slider_card-item_title">Sara</div>
+                     <div class="slider_card-item_country"> from Pakistan <img
+                        src="{% static 'assets/img/student-slider/pakistan.png' %}" alt="" />
+                     </div>
+                     <div class="slider_card-item_field">
+                        Studying Pharmacy at <br> King’s College
+                        London
+                        <div class="slider_card-item_in_country"> in England <img
+                           src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            </div>
+         </div>
+
+         </div>
+         
+      </div>
+   </div>
+</section>
+
+
+<!-- Horizontal Carousel -->
+<section class="timeline mt-5">
+   <div>
+      <div class="svg-container">
+      </div>
+   </div>
+</section>
+
+
+<!-- Testimonials -->
+<!-- <section class="afm-content-area afm_cmn_bg ptb">
+    <div class="container">
+       <div class="row">
+          <div class="col-md-12 col-xl-12 text-center">
+             <h2 style="font-weight: 600;">Achieving your study abroad dream just got easier. Here's why!</h2>
+ 
+             <div class="row">
+ 
+                 <div class="col-md-4 col-lg-3 col-sm-12" >
+                     <div class="card shadow" style="height: 437px; width: 263px;">
+                     <img height="100%" src="/static/assets/img/content-img/abdallah.jpg" class="card-img ripple" alt="Camera" style="border-radius: 11px;" />
+                     <div class="card-img-overlay text-left" style="display: inline-grid; justify-content: end; padding-top: 250px;background-image:linear-gradient(#04010900, #000000); border-radius: 10px;">
+                        <b class="text-white"> <strong>Areeb</strong></b>
+                        <p class="text-white">We almost missed the deadlines of University application, AFM helped us complete the process super fast</p>
+                     </div>
+                     </div>
+                 </div>
+ 
+                 <div class="col-md-4 col-lg-3 col-sm-12">
+                     <div class="card shadow" style="height: 437px; width: 263px;">
+                     <img height="100%" src="/static/assets/img/content-img/abdallah.jpg" class="card-img" alt="Camera" style="border-radius: 11px;"/>
+                     <div class="card-img-overlay text-left" style="display: inline-grid; justify-content: end; padding-top: 250px;background-image:linear-gradient(#04010900, #000000); border-radius: 10px;">
+                         <b class="text-white"> <strong>Areeb</strong></b>
+                         <p class="text-white">We almost missed the deadlines of University application, AFM helped us complete the process super fast</p>
+                     </div>
+                     </div>
+                 </div>
+ 
+                 <div class="col-md-4 col-lg-3 col-sm-12">
+                     <div class="card shadow" style="height: 437px; width: 263px;">
+                     <img height="100%" src="/static/assets/img/content-img/abdallah.jpg" class="card-img" alt="Camera" style="border-radius: 11px;"/>
+                     <div class="card-img-overlay text-left" style="display: inline-grid; justify-content: end; padding-top: 250px;background-image:linear-gradient(#04010900, #000000); border-radius: 10px;">
+                         <b class="text-white"> <strong>Areeb</strong></b>
+                         <p class="text-white">We almost missed the deadlines of University application, AFM helped us complete the process super fast</p>
+                     </div>
+                     </div>
+                 </div>
+ 
+                 <div class="col-md-4 col-lg-3 col-sm-12">
+                     <div class="card shadow" style="height: 437px; width: 263px;">
+                     <img height="100%" src="/static/assets/img/content-img/abdallah.jpg" class="card-img" alt="Camera" style="border-radius: 11px;"/>
+                     <div class="card-img-overlay text-left" style="display: inline-grid; justify-content: end; padding-top: 250px;background-image:linear-gradient(#04010900, #000000); border-radius: 10px;">
+                         <b class="text-white"> <strong>Areeb</strong></b>
+                         <p class="text-white">We almost missed the deadlines of University application, AFM  helped us complete the process super fast</p>
+                     </div>
+                     </div>
+                 </div>
+             </div>
+          </div>
+       </div>
+    </div>
+</section> -->
+ 
+
+<!-- Guides -->
+<!-- <section class="collapse-bg mb-5">
+
+        <div class="container py-5">
+            <h2 class="text-center mb-5" style="font-weight: 600;">Download free study abroad guides curated by our experts
+            </h2>
+            <div class="row">
+                <div class="col-md-6 col-xl-4 align-items-center text-center">
+                    <div class="card h-100">
+                    <img src="{% static '/img/university/afu-university-icons.png' %}" height="180px" class="card-img-top" alt="Skyscrapers"/>
+                    <div class="card-body">
+                        <h5 class="card-title">Scholarship Guide</h5>
+                        <p class="card-text">
+                           Know about how you can study at your dream university almost for free
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="w-100 btn btn-outline-primary">Dowload Guide</a>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-4 text-center">
+                    <div class="card h-100">
+                    <img src="{% static '/img/university/afu-university-icons.png' %}" height="180px"  class="card-img-top" alt="Skyscrapers"/>
+                    <div class="card-body">
+                        <h5 class="card-title">A-Z of Study Abroad Guide</h5>
+                        <p class="card-text">
+                           Plan of action curated by an expert based on your profile and interests
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="w-100 btn btn-outline-primary">Dowload Guide</a>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-4 text-center">
+                    <div class="card h-100">
+                    <img src="{% static '/img/university/afu-university-icons.png' %}" height="180px" class="card-img-top" alt="Skyscrapers"/>
+                    <div class="card-body">
+                        <h5 class="card-title">VISA Guide</h5>
+                        <p class="card-text">
+                           Know how to crack the Visa interview and also what you need on D-Day
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="w-100 btn btn-outline-primary">Dowload Guide</a>
+                    </div>
+                    </div>
+                </div>
+
+            </div>
+
+    </div>
+</section> -->
+
+<!-- Social Handles -->
+<!-- <section class="afm-icons-content collapse-bg mb-5" >
+    <div class="container">
+        <h2 class="text-center mb-5" style="font-weight: 600;">Join Pakistan's largest communities</h2>
+      
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <div class="card text-white bg-light mb-3" style="max-width: 14rem;">
+                    <div class="card-body">
+                        <img src="/static/img/logo/google_playstore.svg" height="40px" class="card-img ripple" alt="Camera"/>
+                        <h5 class="card-title text-center"><b>1M+</b> <br> Downloads</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+                <div class="card text-white bg-light mb-3" style="max-width: 14rem;">
+                    <div class="card-body">
+                        <img src="/static/img/logo/youtube.svg" height="40px" class="card-img ripple" alt="Camera"/>
+                        <h5 class="card-title text-center"><b>100K+</b>  <br> Subscribers</h5>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6">
+                <div class="card text-white bg-light mb-3" style="max-width: 14rem;">
+                    <div class="card-body">
+                        <img src="/static/img/logo/instagram.svg" height="40px" class="card-img ripple" alt="Camera"/>
+                        <h5 class="card-title text-center"><b>200K+</b> <br> Instagram Family</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+                <div class="card text-white bg-light mb-3" style="max-width: 14rem;">
+                    <div class="card-body">
+                        <img src="/static/img/logo/community.svg" height="50px" class="card-img ripple" alt="Camera"/>
+                        <h5 class="card-title text-center"><b>100K+</b> <br> Community Members</h5>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+     
+    </div>
+ </section> -->
+
+<!-- FAQs -->
+<section class="pb-5 mt-3"> <!--UPDATES HERE!!-->
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12 col-xl-12">
+            <div class="site-title">
+               <h4 class="h4-home">FAQs</h4>
+            </div>
+         </div>
+      </div>
+
+      <div class="row align-items-center">
+         <div class="col-md-12 col-xl-12 col-sm-12">
+            <div id="accordion" class="accordion">
+
+               <div class="card shadow-none">
+                  <div class="card-header collapse-bg">
+                     <a class="card-link" data-toggle="collapse" href="#collapseOne"
+                        data-parent="#accordion">Is the TAG platform 100% free to start using?
+                     <i class="fa fa-plus"></i>
+                     </a>
+                  </div>
+                  <div id="collapseOne" class="collapse">
+                     <div class="card-body">
+                        <p>Yes, registration and being a member of TAG is free. You will also have a free discovery call with a member of the TAG Team who will guide you through the options you have as a Pakistani student wanting to study university and work overseas.
+                        </p>
+                     </div>
+                  </div>
+               </div>
+               <div class="card shadow-none">
+                  <div class="card-header collapse-bg">
+                     <a class="card-link" data-toggle="collapse" href="#collapseTwo"
+                        data-parent="#accordion">How will I get university admission abroad?
+                     <i class="fa fa-plus"></i>
+                     </a>
+                  </div>
+                  <div id="collapseTwo" class="collapse">
+                     <div class="card-body">
+                        <p> 
+                           Our university TAG mentors will pass their experience, special tips and advice (including their mistakes so you avoid them!) making your university application journey as simple as possible. Since many of them are also from Pakistan they will understand your needs and suggest best ways to complete your university application form.
+                        </p>
+                        <p> 
+                           After submitting your completed university application form, a TAG mentor will optimise and submit it to suitable universities from around the world allowing them to make contact with you and consider making you an university admission offer (with or without Scholarship).
+                        </p>
+                     </div>
+                  </div>
+               </div>
+               <div class="card shadow-none">
+                  <div class="card-header collapse-bg">
+                     <a class="card-link" data-toggle="collapse" href="#collapseThree"
+                        data-parent="#accordion">How do I secure employment abroad?
+                     <i class="fa fa-plus"></i>
+                     </a>
+                  </div>
+                  <div id="collapseThree" class="collapse">
+                     <div class="card-body">
+                        <p>
+                           Once you are enrolled into a university abroad via TAG, there could also be student employment opportunities available to you.
+                        </p>
+                        <p>
+                           Before reaching the end of your university course, you will have your CV/resume checked and updated regularly as part of being a TAG member. This CV is then bought to the attention of employers from around the world who can make contact with you directly once you are a TAG Mentor.  
+                        </p>
+                        <p>
+                           This way, your chances of securing employment abroad are maximised even before completing the university course.
+                        </p>
+                     </div>
+                  </div>
+               </div> 
+               <div class="card shadow-none">
+                  <div class="card-header collapse-bg">
+                     <a class="card-link" data-toggle="collapse" href="#collapseFour"
+                        data-parent="#accordion">Do you help with Visas and IELTS requirements?
+                     <i class="fa fa-plus"></i>
+                     </a>
+                  </div>
+                  <div id="collapseFour" class="collapse">
+                     <div class="card-body">
+                        <p>
+                           Yes, IELTS scores are usually higher since you will be mentored and tutored by other Pakistani university students who are currently living abroad. So they can guide and coach you in a way that helps you achieve the best IELTS scores possible. Once you accept an offer from a university abroad, the visa process for Pakistani students can start and we can provide access to guidance on all the steps required.
+                        </p>
+                     </div>
+                  </div>
+               </div>
+               <div class="card shadow-none">
+                  <div class="card-header collapse-bg">
+                     <a class="card-link" data-toggle="collapse" href="#collapseFive"
+                        data-parent="#accordion">Will I also be eligible for scholarships to study abroad?
+                     <i class="fa fa-plus"></i>
+                     </a>
+                  </div>
+                  <div id="collapseFive" class="collapse">
+                     <div class="card-body">
+                        <p>
+                           Yes, depending on your financial status, when universities from around the world see your application, they can also consider you for a scholarship too. This will save you a huge amount of time and effort searching and applying for each university individually.
+                        </p>
+                     </div>
+                  </div>
+               </div>
+              
+            </div>
+         </div>
+
+      </div>
+
+   </div>
+</section>
+
+<section class="afm-join-area bg-2">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+            <div class="get-start-content">
+               <h4>Your university entry could be just a few clicks away</h4>
+               <p>Start your application journey to university and join a fast-growing<br>
+                  peer marketplace of Pakistani students around the world.
+               </p>
+               <div class="mt-5">
+                  <a href="{% url 'administration:planner' %}" class="theme-btn">Start your journey now</a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+
+{% endblock %}
+
+{% block js %}
+
+
+<script>
+   header = document.querySelector('#header');
+   
+   header.addEventListener("load", changeLink());
+   
+   function changeLink() {
+      hrefLink1 = document.querySelector('.change-href1').href = 'https://applyforinternship-sillr.ondigitalocean.app/pk/' 
+      hrefLink2 = document.querySelector('.change-href2').href = 'https://applyforinternship-sillr.ondigitalocean.app/pk/' 
+   };
+
+</script>
+
+<script rel="preload" as="script" defer src="{% static 'assets/js/index.js' %}"></script>
+<script rel="preload" as="script" defer src="{% static 'assets/js/timeline.js' %}"></script>
+<script> $(document).ready(function () { $(".london-uni").hide(); $("#londonuniversity").click(function () { $(".london-uni").toggle(); }); $(".collapse.show").each(function () { $(this).prev(".card-header").find(".fa").addClass("fa-minus").removeClass("fa-plus"); }); $(".collapse").on('show.bs.collapse', function () { $(this).prev(".card-header").find(".fa").removeClass("fa-plus").addClass("fa-minus"); }).on('hide.bs.collapse', function () { $(this).prev(".card-header").find(".fa").removeClass("fa-minus").addClass("fa-plus"); }); }); feather.replace()</script>
+
+{% endblock %}

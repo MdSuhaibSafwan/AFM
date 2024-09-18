@@ -1,0 +1,189 @@
+{% extends 'registration/reg_base.html' %}
+{% block title1 %}{% block title2%}Studying medicine | Medical School in the UK{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}Study Medicine Courses at a UK medical school. Expert Alumni to support and advise
+international students who want to study in the UK.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/study-medicine/{% endblock %}{% endblock %}
+{% block content %}
+{% load static %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">International Foundation Group </a>
+                            <span class=""> >
+                            </span>
+                            <span>Study Medicine</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">Study Medicine </h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0"> Embarking on the journey to study medicine
+                            and become a doctor is one of the most challenging endeavours a young student can choose to
+                            undertake, but it is also one of the most rewarding callings in life. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <h2>Why Study Medicine?</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <!-- <div class="card card-medium mb-5 animated fadeInUp visible" data-animate="fadeInUp" data-animate-delay="0">
+<blockquote class="text-center quote">
+<em>“Wherever the Art of Medicine is loved, there is also a love of Humanity.”</em>
+<span class="name">– Hippocrates</span>
+</blockquote>
+</div> -->
+                    <div>
+                        <article class="mb-5">
+                            <p>The medical profession guarantees you the chance to give something back to society and
+                                contribute to improving people’s lives. If you keep this at heart during the process of
+                                applying to medical schools and while you train to become a doctor, it will take you a
+                                long way in getting you where you want to be. The years of training and hours of study
+                                require dedication and strong motivation to get you through it. It is important that you
+                                take your time and give it some thought whether this is the career path for you. Read
+                                books written by doctors about what it is really like to do their job. If you know
+                                someone who is a healthcare professional or a current medical student ask them questions
+                                about their job and the journey getting there. Watch a documentary about doctors. There
+                                are many ways you can learn about what this career path will entail.</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <h3>Medical Schools</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-3">
+                    <a href="{% url 'administration:uk_medical_schools' %}">
+
+                        <div class="card card-country" data-animate="fadeInUp" data-animate-delay="0">
+                            <div class="img-wrapper med-schools">
+                                <img src="{% static 'website/img/header/uk-image.jpg' %}" class="img-fluid" alt="uk-image" title="uk-image" width="273" height="182" loading="lazy">
+                                <p>UK Medical Schools </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <a href="{% url 'administration:study_medicine_in_ireland' %}">
+                        <div class="card card-country" data-animate="fadeInUp" data-animate-delay="0">
+                            <div class="img-wrapper med-schools">
+                                <img src="{% static 'website/img/header/ireland.jpg' %}" class="img-fluid" alt="Ireland" title="Ireland" width="273" height="182" loading="lazy">
+                                <p>Medical Schools in Ireland </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <a href="{% url 'administration:study_medicine_in_europe' %}">
+                        <div class="card card-country" data-animate="fadeInUp" data-animate-delay="0">
+                            <div class="img-wrapper med-schools">
+                                <img src="{% static 'website/img/header/europe.jpg' %}" class="img-fluid" alt="Europe" title="Europe" width="273" height="182" loading="lazy">
+                                <p>Medical Schools in Europe </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <a href="{% url 'administration:study_medicine_in_the_usa' %}">
+                        <div class="card card-country" data-animate="fadeInUp" data-animate-delay="0">
+                            <div class="img-wrapper med-schools">
+                                <img src="{% static 'website/img/header/usa.jpg' %}" class="img-fluid" alt="Usa" title="Usa" width="273" height="182" loading="lazy">
+                                <p>Medical Schools in the USA </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-3">
+                    <a href="{% url 'administration:study_medicine_in_canada' %}">
+                        <div class="card card-country" data-animate="fadeInUp" data-animate-delay="0">
+                            <div class="img-wrapper med-schools">
+                                <img src="{% static 'website/img/header/canada.jpg' %}" class="img-fluid" alt="Canada" title="Canada" width="273" height="182" loading="lazy">
+                                <p>Medical Schools in Canada </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <a href="{% url 'administration:study_medicine_in_australia' %}">
+                        <div class="card card-country" data-animate="fadeInUp" data-animate-delay="0">
+                            <div class="img-wrapper med-schools">
+                                <img src="{% static 'website/img/header/australia.jpg' %}" class="img-fluid" alt="Australia" title="Australia" width="273" height="182" loading="lazy">
+                                <p>Study Medicine in Australia </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <a href="{% url 'administration:study_medicine_in_the_caribbean' %}">
+
+                        <div class="card card-country" data-animate="fadeInUp" data-animate-delay="0">
+                            <div class="img-wrapper med-schools">
+                                <img src="{% static 'website/img/header/caribbean.jpg' %}" class="img-fluid" alt="Caribbean" title="Caribbean" width="273" height="182" loading="lazy">
+                                <p>
+                                    <a href="{% url 'administration:study_medicine_in_the_caribbean' %}">
+Study Medicine in Caribbean</a>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="mb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <p>You should also consider how much you enjoy learning about biological sciences. A great deal
+                            of your training will involve learning the scientific / biological theory behind medical
+                            practise. It is therefore essential that you enjoy these subjects and will have a passion
+                            for learning more about them.</p>
+                        <p>But if after all this consideration and research into a medical career, you believe this is
+                            what you really want to do then you certainly are ready to start thinking about applying to
+                            medical schools. It is important throughout the application process that you remain inspired
+                            and excited about this endeavour you are about to embark on. This is the type of attitude
+                            that will keep you motivated and carry you through the process, because it is enthusiastic
+                            students who want to make a difference in people’s lives that make the greatest doctors.</p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started instantly!</h4>
+                        <p>Join a growing community of university Alumni and earn<br> some additional income at the
+                            same time. </p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,190 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} Feedback Form {% endblock %}
+{% block css %}
+      <link href="{% static 'lib/typicons.font/typicons.css' %}" rel="stylesheet">
+      <!-- Custom CSS -->
+      <link rel="stylesheet" href="{% static 'css/emoji.css' %}">
+      <link rel="stylesheet" href="{% static 'lib/typicons.font/typicons.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+<!--      <li class="breadcrumb-item"> <a href= "{% url 'feedback:all_feedback' %}">All Feedback</a></li>-->
+    </ol>
+  </nav>
+
+  <div class="page-header">
+    <h3 class="faq-title"> <i data-feather="thumbs-up"></i> We appreciate your feedback </h3>
+ </div>
+<form action="" method="post">
+{% csrf_token %}    
+    <div class="card">
+        <div class="row">
+            <div class="col-xl-12 col-md-12 col-sm-12">
+                <div class="feedback-content">
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="div_id_rate" class="form-group"> <label for="id_rate_0" class=" requiredField">
+                                <h5>How is your overall experience of this platform so far?<span class="asteriskField">*</span></h5></label>
+                                
+                                <div class="give-rating">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-md-12 col-sm-12">
+                                                <ul id="id_rate" class="rating__list">
+
+                                                    <li><div class="rating__item">
+                                                        <input type="radio" class="rating__input rating--1" name="rate" id="id_rate_1" required="" value="1">
+                                                        <label for="id_rate_1" class="rating__label rating--1"><i class="em em-angry"></i></label>
+                                                    </div></li>
+
+                                                    <li><div class="rating__item">
+                                                        <input type="radio" class="rating__input rating--2" name="rate" id="id_rate_2" required="" value="2">
+                                                        <label for="id_rate_2" class="rating__label rating--2"><i class="em em-disappointed"></i></label>
+                                                    </div></li>
+
+                                                    <li><div class="rating__item">
+                                                        <input type="radio" class="rating__input rating--3" name="rate" id="id_rate_3" required="" value="3">
+                                                        <label for="id_rate_3" class="rating__label rating--3"><i class="em em-expressionless"></i></label>
+                                                    </div></li>
+
+                                                    <li><div class="rating__item">
+                                                        <input type="radio" class="rating__input rating--4" name="rate" id="id_rate_4" required="" value="4">
+                                                        <label for="id_rate_4" class="rating__label rating--4"><i class="em em-grinning"></i></label>
+                                                    </div></li>
+
+                                                    <li><div class="rating__item">
+                                                        <input type="radio" class="rating__input rating--5" name="rate" id="id_rate_5" required="" value="5">
+                                                        <label for="id_rate_5" class="rating__label rating--5"><i class="em em-star-struck"></i></label>
+                                                    </div></li>
+
+                                                </ul>
+                                        </div>
+                                    </div>
+
+                                    <div id="div_id_feedback_category" class="feedback-category">
+<!--                                        <label for="id_feedback_category_0" class="requiredField"><h5>Please select your feedback category below<span class="asteriskField">*</span></h5></label>-->
+
+                                        <div class="">
+                                            <ul class="choose-categories">
+                                                <li>
+                                                    <input id="id_feedback_category_1" type="radio" class="rating__input" name="feedback_category" required="" value="Bug"> 
+                                                    <label for="id_feedback_category_1">Bug</label>
+                                                </li>
+
+                                                <li>                                        
+                                                    <input id="id_feedback_category_2" type="radio" class="rating__input" name="feedback_category" required="" value="Suggest">
+                                                    <label for="id_feedback_category_2" >Suggest</label>
+                                                </li>
+                                                
+                                                <li>
+                                                    <input id="id_feedback_category_3" type="radio" class="rating__input" name="feedback_category" required="" value="Content">
+                                                    <label for="id_feedback_category_3">Content</label>
+                                                </li>
+
+                                                <li>
+                                                    <input id="id_feedback_category_4" type="radio" class="rating__input" name="feedback_category"  required="" value="Praise/like"> 
+                                                    <label for="id_feedback_category_4">Praise/like</label>
+                                                </li>
+
+                                                <li>
+                                                    <input id="id_feedback_category_5" type="radio" class="rating__input" name="feedback_category"  required="" value="Other">
+                                                    <label for="id_feedback_category_5">Other</label>
+                                                </li>
+                                            </ul>
+                                                <textarea name="description" rows="5" class="form-control" placeholder="Please note: This platform is currently at Beta testing phase. Your feedback is very useful and we would welcome any new suggestions that you feel would improve our service." required="" id="id_description"></textarea>
+                                                <input type="submit" class="btn btn-az-primary submit-btn"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+ {% endblock %}
+ {% block js %}
+
+<script>
+     ('button.submit').disabled = true; // disable button on load
+         // Enable button 
+         function enable_submit() {
+         $('button.submit').disabled = false;
+         $('button.submit').addClass('not-disabled');
+         }
+         
+         // Disable button
+         function disable_submit() {
+         $('button.submit').disabled = true;
+         $('button.submit').removeClass('not-disabled');
+         }
+         
+         // Display feedback after rating 
+         $('.rating__input').on('click', function() {
+         var rating = this['required="" value'];
+         $('.rating__label').removeClass('active');
+         $(this).siblings('.rating__label').addClass('active');
+         $('.feedback').css('display', "block");
+         
+         feedback_validate(rating);
+         
+         });
+         
+         // Run enable button function based on input
+         $('.feedback textarea').keyup(function() {
+         if ($('.feedback textarea').val().length > 3)   {
+         enable_submit();
+         }
+         });
+         
+         // Enable or disable button by validation
+         function feedback_validate(val) {
+         if (val <= 3) {
+         disable_submit();
+         
+         } 
+         else if (val > 3) {
+         enable_submit();
+         }
+         
+         }
+ </script>
+
+
+
+{% endblock %}
+
+
+    <li><label for="id_rate_0"><input type="radio" name="rate" value="1" required="" id="id_rate_0">
+ 1</label>
+
+</li>
+    <li><label for="id_rate_1"><input type="radio" name="rate" value="2" required="" id="id_rate_1">
+ 2</label>
+
+</li>
+    <li><label for="id_rate_2"><input type="radio" name="rate" value="3" required="" id="id_rate_2">
+ 3</label>
+
+</li>
+    <li><label for="id_rate_3"><input type="radio" name="rate" value="4" required="" id="id_rate_3">
+ 4</label>
+
+</li>
+    <li><label for="id_rate_4"><input type="radio" name="rate" value="5" required="" id="id_rate_4">
+ 5</label>
+
+</li>
+</ul>
+
+
+ 

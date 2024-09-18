@@ -1,0 +1,223 @@
+{% extends 'registration/reg_base.html' %}
+{% block title1 %}{% block title2 %}Register now{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}{% endblock %}
+{% endblock %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% load socialaccount %}
+{% block content %}
+<head>
+   {{ form.media.css }}
+</head>
+<section class="header_area log-area bg-1">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <!-- <div class="site-breadcrub">
+              <p> <a href="/">Applypal</a><span class="">/</span><span>Alumni Register</span></p>
+            </div> -->
+         </div>
+         <div class="col-xl-12 col-md-12">
+            <div class="header-inner-wrapper">
+               <h1 data-animate="fadeInUp" data-animate-delay="5" class="login-heading">
+                  Please sign-up here as Current Student Ambassador
+               </h1>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+
+<section class="header_area ">
+   <div class="container">
+      <div class="row login-detail">
+         <div class="col-md-12">
+            <div class="register-tabs">             
+               <div class="tab-content" id="pills-tabContent">
+                  <div class="tab-pane fade show active" id="pills-Mentor"
+                     role="tabpanel" aria-labelledby="pills-applicant-tab">
+                     <div class="form-wrapper tab-form" id="applicant-form-tab">
+                        {% comment %}
+                        <p class="register-para2">
+                           <a href="#" class="m-auto google" data-toggle="modal"
+                           data-target="#google-signup-modal">
+                             <img src="{% static 'images/google-icon.png' %}" class="img-fluid" alt="google-icon" title="google-icon" width="20" height="20" loading="lazy">
+                             Login or Sign-up via Google
+                           </a>
+                        </p>
+                        {% endcomment %}
+                        <p><b style="color: red;">*Note:</b> For verification purpose, please remember to use your IFG-email* in email field below</p>
+                        <br>
+
+                        <form action="{% url 'administration:current_student_registration'%}" method="POST">
+                           {% csrf_token %}
+
+                           {% load crispy_forms_tags %}
+                           {% if form.errors %}
+                              {% for field in form %}
+                                 {% for error in field.errors %}
+                                       <div class="alert alert-danger">
+                                          <strong>{{ error|escape }}</strong>
+                                       </div>
+                                 {% endfor %}
+                              {% endfor %}
+                           {% endif %}
+                           
+                           <input type="hidden" value="" name="link" id="link">
+                           {% crispy form %}
+                           
+                           
+                           <div class="form-group form-check">
+                              <input type="checkbox" class="form-check-input" id="checkbox1" required>
+                              <label class="form-check-label" for="exampleCheck1">
+                                 By registering here You agree to our
+                                 <a href="{% url 'administration:terms_and_conditions' %}" class="font-weight-bold"
+                                    target="_blank"> Terms & Conditions </a> and
+                                 <a href="{% url 'administration:privacy_notice' %}" class="font-weight-bold"
+                                    target="_blank">Privacy Policy</a> and you are over the
+                                 age of 15.</label>
+                           </div>
+                           
+                           <div class="login-btn">
+                              <button type="submit" id="register_student" value=""
+                                 class="theme-btn not-active">Register</button>
+                           </div>
+                        </form>
+                     </div>
+                  </div>
+
+                  <p class="d-none d-lg-block text-center">
+                      <i>*If you experience any issues for this page, please try using the
+                        <a href="https://www.google.com/intl/en_uk/chrome/" class="m-auto" target="_blank">
+                        Google Chrome browser
+                           <img src="{% static 'images/chrome-icon.png' %}" class="img-fluid" alt="chrome-icon" title="chrome-icon" width="20" height="20" loading="lazy">.</a></i>
+                  </p>
+
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+
+<!-- Google Signup Modal -->
+<div class="modal fade" id="google-signup-modal" tabindex="-1" role="dialog"
+                          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+<!--              <h5 class="modal-title">-->
+<!--                  Confirm Google Signup</h5>-->
+              <button type="button" class="close" data-dismiss="modal"
+                      aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+           <div class="modal-body">
+               <div class="form-group form-check">
+                  <input type="checkbox" class="form-check-input" id="checkbox2" required>
+                  <label class="form-check-label" for="exampleCheck3">
+                     By continuing Your registration You agree to our
+                     <a href="{% url 'administration:terms_and_conditions' %}" class="font-weight-bold"
+                        target="_blank"> Terms & Conditions </a> and
+                     <a href="{% url 'administration:privacy_notice' %}" class="font-weight-bold"
+                        target="_blank">Privacy Policy</a> and you are over the
+                     age of 15.</label>
+               </div>
+           </div>
+           <div class="modal-footer">
+               <a href="{% provider_login_url 'google' %}" id="google_signup" class="theme-btn not-active">
+                   Continue
+               </a>
+           </div>
+      </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+{{ form.media.js }}
+
+<script>
+
+$(document).ready(function(){
+   console.log("Mentor registration DOM triggered....");
+
+
+   let link = document.getElementById('link')
+   link.value = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+   console.log("Link - ", link);
+
+   // Check if email already exists
+   function check_email_exists(form_id) {
+      if ($(form_id + ' #error_1_id_email').length) {
+      }
+      else {
+         $("<span class='invalid-feedback text-danger' id='error-email'><strong>This email is taken. Try another</strong></span>").insertAfter(form_id + ' #id_email');
+      }
+      $(form_id + ' #id_email').on('input', function () {
+         console.log("Email AJAX triggers.....");
+         var email = $(this).val();
+         console.log("Email - ", email);
+         $.ajax(
+            {
+               type: "GET",
+               url: '/get-email-exists',
+               data: {
+                  email: email,
+               },
+               success: function (response) {
+                  console.log("ALAX Response - ", response);
+                  var email_exist = JSON.parse(response["email_exist"]);
+                  if (email_exist) {
+                     $(form_id + ' #error-email').show();
+                     $(form_id + ' #id_email')[0].setCustomValidity("This email is taken. Try another.");
+                  }
+                  else {
+                     $(form_id + ' #error-email').hide();
+                     $(form_id + ' #id_email')[0].setCustomValidity("");
+                  }
+               }
+            })
+      });
+
+   };
+   check_email_exists('#pills-Mentor');
+
+   $("#checkbox1").change(function () {
+      $('#register_student').toggleClass('not-active');
+   });
+
+   $("#checkbox2").change(function () {
+      $('#google_signup').toggleClass('not-active');
+   });
+
+   // Show password
+   $("body").on('click', '.toggle-password', function() {
+        $(this).toggleClass("eye eye-off");
+        let password1 = $("input[name='password1']");
+        if (password1.attr("type") === "password") {
+            password1.attr("type", "text");
+            $(this).attr("class", "feather feather-eye-off eye-close toggle-password");
+        } else {
+            password1.attr("type", "password");
+            $(this).attr("class", "feather feather-eye eye-open toggle-password");
+        }
+
+        let password2 = $("input[name='password2']");
+        if (password2.attr("type") === "password") {
+            password2.attr("type", "text");
+            $(this).attr("class", "feather feather-eye-off eye-close toggle-password");
+        } else {
+            password2.attr("type", "password");
+            $(this).attr("class", "feather feather-eye eye-open toggle-password");
+        }
+    });
+
+});
+
+</script>
+{% endblock %}

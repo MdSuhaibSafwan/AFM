@@ -1,0 +1,200 @@
+{% extends 'base/base.html' %}
+{% block title%}Edit Student Profile{% endblock %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block css%}
+<link rel="stylesheet" href="{% static 'css/dropzone.css' %}">
+<style>
+    {% if not student.consent1 %}
+    .afm-header-menu ul {
+        display: none;
+    }
+    .afm-header-right {
+        display: none;
+    }
+    .signout ul {
+        display: block;
+    }
+    .floating-menu-area {
+        display: none;
+    }
+    {% endif %}
+
+    .sample-profile {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .select2 {
+        width: 100% !important;
+    }
+
+    input#file-upload-button {
+        background: #141F42 !important;
+        color: #fff !important;
+    }
+</style>
+{% endblock%}
+
+{% block content %}
+<form method="POST" id="update-profile-form" enctype="multipart/form-data">
+    {% csrf_token %}
+    <nav aria-label="breadcrumb" class="sample-profile">
+        <ol class="breadcrumb breadcrumb-style1">
+            <li class="breadcrumb-item">
+                <a href="{% url 'administration:dashboard' %}" >Dashboard</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="#">Update Profile</a>
+            </li>
+        </ol>
+    </nav>
+    <div class="alert alert-warning text-center mb-2" >
+        <p>
+            Please complete your profile so that students can reach out to you.
+        </p>
+    </div>
+    <div class="row row-sm mg-b-20">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card card-table-one">
+                <h6 class="card-title">
+                    <i data-feather="info">
+                    </i> Basic information
+                </h6>
+                <hr>
+                <div class="row row-sm">
+                    <div class="col-xl-12">
+                        <div class="row row-sm">
+                            <div class="col-md-6 col-xl-6">
+                                <div class="form-group mg-b-20">
+                                    {{customform.first_name|as_crispy_field}}
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-6">
+                                <div class="form-group mg-b-20">
+                                    {{customform.last_name|as_crispy_field}}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row row-sm">
+                            <div class="col-md-6 col-xl-6">
+                                <div class="form-group mg-b-20">
+                                    {{customform.date_of_birth|as_crispy_field}}
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-6">
+                                <div class="form-group mg-b-20">
+                                    <!-- <input type="text" name="firstname" class="form-control" placeholder="Select gender" required> -->
+                                    {{customform.gender|as_crispy_field}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row row-sm">
+                            <div class="col-md-6 col-xl-6">
+                                <div class="form-group mg-b-20">
+                                    <label class="form-label">Registered email <span class="tx-danger">*</span>
+                                    </label>
+                                    <input type="text" name="firstname" value="{{user.email}}" class="form-control"
+                                        placeholder="Enter email" readonly required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-6 phone_field">
+                                <div class="form-group mg-b-20">
+                                    {{customform.phone|as_crispy_field}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row row-sm">
+                            <div class="col-md-6 col-xl-6">
+                                <div class="form-group mg-b-20">
+                                    {{customform.country|as_crispy_field}}
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-6">
+                                <div class="form-group mg-b-20">
+                                    {{customform.currently_living_in|as_crispy_field}}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row row-sm">
+                            
+                            <div class="col-md-6 col-xl-6">
+                                <div class="form-group mg-b-20">
+                                    {{customform.spoken_languages|as_crispy_field}}
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-6">
+                                <div class="form-group mg-b-20">
+                                    {{studentform.area_of_study|as_crispy_field}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row row-sm">
+                            <div class="col-md-6 col-xl-6">
+                                <div class="form-group mg-b-20">
+                                    {{studentform.student_id_card|as_crispy_field}}
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-6">
+                                <div class="form-group mg-b-20">
+                                    {{studentform.institute_email|as_crispy_field}}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-sm mg-b-20">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card card-table-one">
+                <h6 class="card-title">
+                    <i data-feather="volume-2">
+                    </i> About me
+                </h6>
+                <hr>
+                <div class="row row-sm mg-b-10">
+                    <div class="col-xl-12 col-sm-12">
+                        {{customform.about_me|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="row row-sm mg-b-10">
+                    <div class="col-xl-12 col-sm-12">
+                        {{customform.hobbies|as_crispy_field}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-12">
+            <div class="app-footer-line"></div>
+            <div class="step-btn mg-t-20">
+                <button class="btn btn-rounded btn-sm btn-indigo completed"> Save &amp; Continue
+                    <span class="iconify mr-0"
+                          data-icon="bi:arrow-right" data-inline="false"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'administration/js/current_student_profile.js' %}"></script>
+
+{% if not student.consent1 %}
+<script>
+    $("<div class='afm-header-menu signout'><ul class='nav'><li class='nav-item'><a href='{% url 'logout' %}'><svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-log-out'><path d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'></path><polyline points='16 17 21 12 16 7'></polyline><line x1='21' y1='12' x2='9' y2='12'></line></svg></a><a href='{% url 'logout' %}' class='nav-link'> Sign Out</a></li></ul></div>").insertAfter(".afm-header-right");
+</script>
+{% endif %}
+
+{% endblock js %}

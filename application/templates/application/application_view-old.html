@@ -1,0 +1,287 @@
+{% extends 'administration/dashboard/dashboard_base.html' %}
+{% block title%}Application{% endblock %}
+
+{% block content %}
+
+<h1>Application {% if user.user_type == 5 %} : {{app.id}} {% endif %}</h1>
+<br>
+<h2>Consent</h2>
+{% if consent_additional.subject %}
+<table>
+    <th>Alumni</th>
+    <th>Intake month</th>
+    <th>Intake year</th>
+
+    <tr>
+        <td>{{consent_additional.mentor}}</td>
+        <td>{{consent_additional.intake_month}}</td>
+        <td>{{consent_additional.intake_year}}</td>
+
+    </tr>
+</table>
+{% else %}
+<p style="color:red">Not Submitted yet !!!!</p>
+<a class="btn btn-danger" style="color:#fff;" href="{% url 'application:application_consent_twfl' app.slug %}">Add
+    Details</a>
+<hr>
+
+{% endif %}
+
+<h2>Personal Information</h2>
+<hr>
+{% if basic_info.title %}
+<h2>Basic Information</h2>
+<table>
+    <th>Title</th>
+    <th>First Name</th>
+    <th>Full Name</th>
+
+    <tr>
+        <td>{{basic_info.title}}</td>
+        <td>{{basic_info.first_name}}</td>
+        <td>{{basic_info.fullname}}</td>
+
+    </tr>
+</table>
+
+<h2>Address</h2>
+<table>
+    <th>City</th>
+    <th>State</th>
+    <th>Postcode</th>
+
+    <tr>
+        <td>{{address.city}}</td>
+        <td>{{address.state}}</td>
+        <td>{{address.postcode}}</td>
+
+    </tr>
+</table>
+
+<h2>Passport</h2>
+<table>
+    <th>passport_number</th>
+    <th>Issue Date</th>
+    <th>Expiry Date</th>
+
+    <tr>
+        <td>{{passport.passport_number}}</td>
+        <td>{{passport.issue_date|date:"d/m/Y"}}</td>
+        <td>{{passport.expiry_date|date:"d/m/Y"}}</td>
+
+    </tr>
+</table>
+{% else %}
+<p style="color:red">Not Submitted yet !!!!</p>
+<a class="btn btn-danger" style="color:#fff;"
+   href="{% url 'application:application_personal_information_twfl' app.slug %}">Add Details</a>
+<hr>
+{% endif %}
+<h2>Education History</h2>
+{% if educations.first.institute_name %}
+<table>
+    <th>Institute Name</th>
+    <th>Programme level</th>
+    <th>Institute email</th>
+
+    {% for education in educations %}
+    <tr>
+        <td>{{education.institute_name}}</td>
+        <td>{{education.programme_level}}</td>
+        <td>{{education.institute_email}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% else %}
+<p style="color:red">Not Submitted yet !!!!</p>
+<a class="btn btn-danger" style="color:#fff;" href="{% url 'application:application_education_twfl' app.slug %}">Add
+    Details</a>
+<hr>
+{% endif%}
+
+
+<h2>English Language</h2>
+{% if english_lan.certificate_name %}
+<table>
+    <th>Certificate name</th>
+    <th>Certificate date</th>
+    <th>Score</th>
+
+    <tr>
+        <td>{{english_lan.certificate_name}}</td>
+        <td>{{english_lan.certificate_date|date:"d/m/Y"}}</td>
+        <td>{{english_lan.score}}</td>
+
+    </tr>
+</table>
+{% else %}
+<p style="color:red">Not Submitted yet !!!!</p>
+<a class="btn btn-danger" style="color:#fff;" href="{% url 'application:application_english_language_twfl' app.slug %}">Add
+    Details</a>
+<hr>
+
+{% endif %}
+
+<h2>Experience History</h2>
+{% if experience.first.company_employer_name %}
+<table>
+    <th>Company employer name</th>
+    <th>Duration from</th>
+    <th>Institute email</th>
+
+    {% for exp in experience %}
+    <tr>
+        <td>{{exp.company_employer_name}}</td>
+        <td>{{exp.duration_from}}</td>
+        <td>{{exp.duration_to}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% else %}
+<p style="color:red">Not Submitted yet !!!!</p>
+<a class="btn btn-danger" style="color:#fff;" href="{% url 'application:application_work_experience_twfl' app.slug %}">Add
+    Details</a>
+<hr>
+{% endif%}
+
+<h2>Reference History</h2>
+{% if reference.first.referee_name %}
+<table>
+    <th>Referee name</th>
+    <th>Position</th>
+    <th>Email</th>
+
+    {% for ref in reference %}
+    <tr>
+        <td>{{ref.referee_name}}</td>
+        <td>{{ref.position}}</td>
+        <td>{{ref.email}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% else %}
+<p style="color:red">Not Submitted yet !!!!</p>
+<a class="btn btn-danger" style="color:#fff;" href="{% url 'application:application_references_twfl' app.slug %}">Add
+    Details</a>
+<hr>
+{% endif%}
+
+
+<h2>Personal Statement</h2>
+{% if personal_statement.personal_statement %}
+<table>
+    <th>Personal Statement</th>
+    <tr>
+        <td>{{personal_statement.personal_statement}}</td>
+    </tr>
+</table>
+{% else %}
+<p style="color:red">Not Submitted yet !!!!</p>
+<a class="btn btn-danger" style="color:#fff;" href="{% url 'application:application_personal_statement_twfl' app.slug %}">Add
+    Details</a>
+<hr>
+
+{% endif %}
+
+<h2>Visa History</h2>
+{% if visa.visa_duration_from_year %}
+<table>
+    <th>Visa duration from</th>
+    <th>Visa duration to</th>
+    <th>Have you studied in the uk before</th>
+    <tr>
+        <td> 
+{% if visa.visa_duration_from_month == 0 %}
+            January
+            {% elif visa.visa_duration_from_month == 1 %}
+            February
+            {% elif visa.visa_duration_from_month == 2 %}
+            March
+            {% elif visa.visa_duration_from_month == 3 %}
+            April
+            {% elif visa.visa_duration_from_month == 4 %}
+            May
+            {% elif visa.visa_duration_from_month == 5 %}
+            June
+            {% elif visa.visa_duration_from_month == 6%}
+            July
+            {% elif visa.visa_duration_from_month == 7 %}
+            August
+            {% elif visa.visa_duration_from_month == 8 %}
+            September
+            {% elif visa.visa_duration_from_month == 9 %}
+            October
+            {% elif visa.visa_duration_from_month == 10 %}
+            November
+            {% elif visa.visa_duration_from_month == 11 %}
+            December
+            {% else %}
+            NA
+            {% endif %} {{visa.visa_duration_from_year}}
+        </td>
+        <td> 
+{% if visa.visa_duration_to_month == 0 %}
+            January
+            {% elif visa.visa_duration_to_month == 1 %}
+            February
+            {% elif visa.visa_duration_to_month == 2 %}
+            March
+            {% elif visa.visa_duration_to_month == 3 %}
+            April
+            {% elif visa.visa_duration_to_month == 4 %}
+            May
+            {% elif visa.visa_duration_to_month == 5 %}
+            June
+            {% elif visa.visa_duration_to_month == 6%}
+            July
+            {% elif visa.visa_duration_to_month == 7 %}
+            August
+            {% elif visa.visa_duration_to_month == 8 %}
+            September
+            {% elif visa.visa_duration_to_month == 9 %}
+            October
+            {% elif visa.visa_duration_to_month == 10 %}
+            November
+            {% elif visa.visa_duration_to_month == 11 %}
+            December
+            {% else %}
+            NA
+            {% endif %} {{visa.visa_duration_to_year}}
+        </td>
+        <td>{{visa.have_you_studied_in_the_uk_before}}</td>
+    </tr>
+</table>
+{% else %}
+<p style="color:red">Not Submitted yet !!!!</p>
+<a class="btn btn-danger" style="color:#fff;" href="{% url 'application:application_visa_history_twfl' app.slug %}">Add
+    Details</a>
+<hr>
+
+{% endif %}
+
+<h2>Additional Information</h2>
+{% if consent_additional.disabilities %}
+<table>
+    <th>Disabilities</th>
+    <th>Health conditions</th>
+    <th>Criminal records</th>
+    <tr>
+        <td>{{consent_additional.disabilities}}</td>
+        <td>{{consent_additional.health_conditions}}</td>
+        <td>{{consent_additional.criminal_records}}</td>
+    </tr>
+</table>
+{% else %}
+<p style="color:red">Not Submitted yet !!!!</p>
+<a class="btn btn-danger" style="color:#fff;"
+   href="{% url 'application:application_additional_information_twfl' app.slug %}">Add Details</a>
+<hr>
+
+{% endif %}
+
+{% endblock %}
+
+

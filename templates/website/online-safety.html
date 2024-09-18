@@ -1,0 +1,216 @@
+{% extends 'registration/reg_base.html' %}
+
+<style>
+    a.cky-banner-element {
+        padding: 8px 30px;
+        background: #F8F9FA;
+        color: #858A8F;
+        border: 1px solid #DEE2E6;
+        box-sizing: border-box;
+        border-radius: 2px;
+        cursor: pointer;
+}
+</style>
+
+{% block content %}
+
+    <div class="container pt-5 cookie">
+    
+        
+        <h1 style="font-size: 1rem;color:#262a2e" class="cookie-policy-h1 text-center"><b>Online Safety Policy</b></h1>
+        <p class="text-center">
+            Last Updated: 30-May-2022
+        </p>
+        &nbsp;
+
+        <p>
+            To be read by all Users, considered and agreed to in conjunction with Supeerio’s other Policies and <a style="color: rgb(58, 61, 65); font-weight: 500;" target="_blank" href="{% url 'administration:terms-and-conditions' %}">Terms & Conditions</a>, which will provide context and definitions.
+        </p>
+
+        <p>
+            The Online Safety Policy applies to Supeerio Ltd. and all its subsidiary companies. The subsidiary companies are owned, controlled and operated by Supeerio Ltd with CRN: 1404630 and registered office at: 71-75 Shelton Street, Covent Garden, London, WC2H 9JQ United Kingdom.
+        </p>
+
+        <p>
+            When we mention Supeerio Ltd.  or refer to  ‘We/Our/Us’ in the Student Code of Conduct we are referring to all the relevant subsidiary companies that are responsible for upholding these terms.
+        </p>
+
+        <p>
+            <dt>The relevant Supeerio Ltd companies are;</dt> <br>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                <b style="color:#262a2e;"> The Apply Group Ltd. </b>,(‘TAG’) with CRN: 12938105 has its registered office at: Suite 209, Mayfair Point, 34 South Molton Street, London W1K 5RG, United Kingdom.
+            </dd>
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Safety Foundations</b></h2>
+
+        <p>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                All Students/Applicants must either hold a current and active official university email address to apply to register on Our Websites. Without this, they can not pass initial verification processes so they cannot register. Alumni of universities that no longer have their university e-mail address may be accepted on an individual  case-by-case basis.
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                All communications between Students/Applicants take place via the platform only.
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Do not share any personal information that has not already been disclosed to Us as we cannot protect it in the same way
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Our <a href="{% url 'administration:terms_and_conditions' %}">Terms & Conditions</a> do not allow any contact between Students/Applicants outside of Our platforms.
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                All lessons are recorded by Us and made available for playback to parents, schools and Students/Applicants upon request, provided there is sufficient reason and capacity for this.
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                We give preference to Tutors/Mentors who declare their DBS/CRB status and this information is displayed on the platform along with each Mentor/Tutor record. We do not check CRB/DBS checks; however, parents are entitled to ask the Mentor/Tutor to verify this during their “free discovery call” session with potential Students/Applicants.
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Feedback about our Students/Applicants is reflected in our rating system and we encourage parents and schools to take advantage of this information when choosing a Mentor/Tutor for their particular child(ren).
+            </dd>
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Online Platform Safety</b></h2>
+
+        <p>
+            
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Start all booked sessions on time using a unique meeting link sent to the Students/Applicants email address provided at registration.
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Use the waiting room so that nobody can enter without permission of the Mentor/Tutor.
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Use Our virtual background when delivering each session - this will be provided to all  Students/Applicants.
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Use only my first names on my profile where possible
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                During breaks, put all Students/Applicants back into the waiting room
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Remove and report anybody who is not authorised to be in the classroom
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Not record the lessons without written permission from Us and the parent/guardian if the applicant is under 18 years old.
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Dress appropriately for the lesson
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Ensure that my teaching space is well-lit
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Allow all booked sessions to be monitored by Us at random
+            </dd>
+        </p>
+
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Lesson Preparation and Delivery Recommendations</b></h2>
+
+        <p>
+            
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Be ready to teach/mentor with well-prepared lessons/sessions and activities
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Make lessons fun, engaging and interactive
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Ensure all sessions are appropriate for the student age, skill level and desired to learn outcomes
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Give all Students/Applicants equal opportunities to speak and take part in the class/activity
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Not discriminate for any reason of age, gender, race, religion, sexual orientation or disability
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Support learning and give feedback on student performance
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Not record the lessons without written permission from Us and the parent/guardian if the applicant is under 18 years old.
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Constantly monitor my performance and adjust the lessons as necessary
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Keep progression in mind when planning lessons
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Only give links to websites etc that I have checked are safe for Students/Applicants to use
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Monitor the lesson constantly and deal with disruptions and other misbehaviours appropriately and sensitively
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Set out clear expectations for both for the lesson and for the course
+            </dd>
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Contact Guidelines</b></h2>
+
+        <p>
+            
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Only use your academic or professional email address if any authorised communication with Students/Applicants
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Not attempt to contact Students/Applicants by any other means, including through any social media and by phone
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Not accept any requests from Students/Applicants to connect on social media, in person or any other means, other than via Us
+            </dd>
+            
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Safeguarding Responsibilities</b></h2>
+
+        <p>
+            
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Read and adhere to the Supeerio <a style="color: rgb(58, 61, 65); font-weight: 500;" target="_blank" href="{% url 'administration:safeguarding' %}">Safeguarding Policy</a> and  <a style="color: rgb(58, 61, 65); font-weight: 500;" target="_blank" href="{% url 'administration:online-safety' %}">Online Safety Policy</a>
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Report any concerns to the senior management team.
+            </dd>
+        </p>
+
+</div>
+    
+
+{% endblock %}

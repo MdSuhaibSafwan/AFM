@@ -1,0 +1,189 @@
+{% extends 'base/base.html' %}
+{% block title%}Visa History-Page{% endblock %}
+{% load crispy_forms_tags %}
+{% load administration_extras %}
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb breadcrumb-style1">
+    <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="#">Build your CV</a></li>
+  </ol>
+</nav>
+{% include 'application/breadcrumb.html' %}
+<div class="card">
+    <div class="row">
+        <div class="col-12">
+            <div class="pd-lg-l-40 d-flex flex-column">
+                <form role="form" method="post" enctype="multipart/form-data">
+                    <div class="wizard">
+                        <div class="content clearfix">
+                            <div class="consent">
+                                <h5>8. Passport Information</h5>
+                                <div class="line-2"></div>
+                                {% crispy passport_form %}
+                                <h5>
+                                {% if request.user.user_type == 3 %}
+                                {% else %}Applicant's {% endif %}Visa
+                                                                    History</h5>
+                                <div class="line-2"></div>
+                                <p class="consent-p"></p>
+                                {% csrf_token %}
+                                {{ formset.management_form|crispy}}
+                                {% for form in formset %}
+                                <h6>Visa History for {{ form.id.value|getvisahistorycountry }}</h6>
+                                {% crispy form %}
+                                {% endfor %}
+                                <div class="row ">
+                                    <div class="col-12">
+                                        <div class="app-footer-line"></div>
+                                        <div class="step-btn three-btn mg-t-20">
+                                            <div>
+                                                <a type="button" class="btn btn-outline-indigo btn-rounded"
+                                                   href="{% url 'application:application_references_twfl' app.slug %}"
+                                                   role="menuitem"> Previous
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <a type="button" class="btn btn-outline-indigo btn-rounded"
+                                                   href="{% url 'application:application_additional_information_twfl' app.slug %}"
+                                                   role="menuitem"> Skip & Continue </a>
+                                                <button class="btn btn-outline-indigo btn-rounded"> Save & Continue
+                                                    <span class="iconify"
+                                                          data-icon="bi:arrow-right" data-inline="false"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div><!-- az-content-body -->
+</div>
+
+{% endblock %}
+{% block js%}
+<script>
+// Have you departed from uk
+function have_you_ever_been_deported_from_the_uk(val, i){
+    if(val == 1){
+      $("#div_id_form-"+ i +"-reason").closest('.reason').show();
+    }
+    else{
+      $("#div_id_form-"+ i +"-reason").closest('.reason').hide();
+    }
+}
+// add date-field
+var formId = "id_form-TOTAL_FORMS";
+var totalForms = parseInt($('#' + formId).val());
+for( i=0; i < totalForms; i++){
+    var value = $("select#id_form-"+ i +"-have_you_ever_been_deported_from_the_uk option").filter(":selected").val();
+    have_you_ever_been_deported_from_the_uk(value,i);
+    $("#id_form-"+ i +"-have_you_ever_been_deported_from_the_uk").change({form: i},function(event){
+        var value = $(this).val();
+        have_you_ever_been_deported_from_the_uk(value, event.data.form);
+    });
+    if($("#id_form-"+ i +"-have_you_studied_in_the_uk_before_2").is(':checked')){
+        $("#div_id_form-"+ i +"-visa_duration_from_month").closest('.duration').show();
+        $("#id_form-"+ i +"-visa_duration_from_month").attr('required', 'required');
+        $("#id_form-"+ i +"-visa_duration_from_year").attr('required', 'required');
+        $("#id_form-"+ i +"-visa_duration_to_month").attr('required', 'required');
+        $("#id_form-"+ i +"-visa_duration_to_month").attr('required', 'required');
+    }
+    else{
+        $("#div_id_form-"+ i +"-visa_duration_from_month").closest('.duration').hide();
+        $("#id_form-"+ i +"-visa_duration_from_month").val('');
+        $("#id_form-"+ i +"-visa_duration_from_year").val('');
+        $("#id_form-"+ i +"-visa_duration_to_month").val('');
+        $("#id_form-"+ i +"-visa_duration_to_year").val('');
+
+        $('#id_visa_duration_from_month').removeAttr('required');
+        $('#id_visa_duration_from_year').removeAttr('required');
+        $('#id_visa_duration_to_month').removeAttr('required');
+        $('#id_visa_duration_to_year').removeAttr('required');
+    }
+   $("input[name='form-"+ i +"-have_you_studied_in_the_uk_before']").click({form: i},function(event){
+       if($(this).attr('id') == 'id_form-'+ event.data.form + '-have_you_studied_in_the_uk_before_1') {
+            $("#div_id_form-"+ event.data.form +"-visa_duration_from_month").closest('.duration').hide();
+            $('#id_visa_duration_from_month').val('');
+            $('#id_visa_duration_from_year').val('');
+            $('#id_visa_duration_to_month').val('');
+            $('#id_visa_duration_to_year').val('');
+
+            $('#id_visa_duration_from_month').removeAttr('required');
+            $('#id_visa_duration_from_year').removeAttr('required');
+            $('#id_visa_duration_to_month').removeAttr('required');
+            $('#id_visa_duration_to_year').removeAttr('required');
+       }
+       else {
+            $("#div_id_form-"+ event.data.form +"-visa_duration_from_month").closest('.duration').show();
+            $('#id_visa_duration_from_month').attr('required', 'required');
+            $('#id_visa_duration_from_year').attr('required', 'required');
+            $('#id_visa_duration_to_month').attr('required', 'required');
+            $('#id_visa_duration_to_month').attr('required', 'required');
+       }
+   });
+}
+
+$( '#id_issue_date').datepicker({
+      changeYear: true,
+      dateFormat: "dd/mm/yy",
+    }).attr("placeholder", "dd/mm/yyyy");
+
+$( '#id_expiry_date').datepicker({
+      changeYear: true,
+      dateFormat: "dd/mm/yy",
+    }).attr("placeholder", "dd/mm/yyyy");
+
+$('#id_passport_number').on('input', function(){
+    $(this).val(function(i,val) {
+        return val.toUpperCase();
+    });
+});
+
+// Check if passport already exists
+function check_passport_exists(div_id){
+
+    if( $(div_id + ' #error_1_id_passport_number').length ){
+    <!--    error exits-->
+    }
+    else{
+            $("<span class='invalid-feedback' id='error-passport'><strong>Applicant already exist</strong></span>").insertAfter(div_id + ' #id_passport_number');
+            $(div_id +' #error-passport').hide();
+    }
+    $(div_id +' #id_passport_number').on('input', function(){
+          var passport = $(this).val();
+
+          $.ajax(
+          {
+              type:"GET",
+              url: "{% url 'application:get-passport-exists' %}",
+              data:{
+                passport: passport,
+                app_id: {{app.id}},
+              },
+              success: function(response)
+              {
+                var passport_exist = JSON.parse(response["passport_exist"]);
+                if (passport_exist){
+                    $(div_id +' #error-passport').show();
+                    $(div_id +' #id_passport_number')[0].setCustomValidity("Please try with another passport.");
+                }
+                else{
+                    $(div_id +' #error-passport').hide();
+                   $(div_id +' #id_passport_number')[0].setCustomValidity("");
+                }
+
+               }
+
+          })
+      });
+
+}
+check_passport_exists('#div_id_passport_number');
+</script>
+
+{% endblock%}

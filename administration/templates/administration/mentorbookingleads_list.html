@@ -1,0 +1,175 @@
+{% extends 'base/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% load administration_extras %}
+{% load static %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% block css %}
+<style>
+  form {
+    display: contents;
+  }
+
+  div.btn,
+  .filter {
+    margin-right: 5px;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb breadcrumb-style1">
+    <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="#">List of Mentors Booking Leads</a></li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mb-3">
+      <div class="card-body">
+        <form action="" method="get" class="form-inline filter_form">
+          <div class="row row-sm mg-b-10">
+            <div class="select2-box mb-3">
+              {% render_field filter.form.mentor class='form-control mentor' placeholder=filter.form.mentor.label %}
+            </div>
+
+            <div class="select2-box mb-3">
+              {% render_field filter.form.email class='form-control email' placeholder=filter.form.email.label %}
+            </div>
+
+            <div class="select2-box mb-3">
+              {% render_field filter.form.country class='form-control country' placeholder=filter.form.country.label %}
+            </div>
+
+            <div class="select2-box mb-3">
+              {% render_field filter.form.reasone_for_an_appointment class='form-control reasone_for_an_appointment' placeholder=filter.form.reasone_for_an_appointment.label %}
+            </div>
+          </div>
+          <div class="row row-sm mg-b-10">
+            <div class="select2-box mb-3">
+              <label>&nbsp;</label>
+              <button type="submit" class='btn btn-rounded  btn-md btn-indigo'>Search</button>
+              <a href="{{request.path}}"><button type="button"
+                  class='btn btn-outline-indigo btn-rounded'>Clear</button></a>
+            </div>
+          </div>
+          <!-- {# include "filter-form.html" with form=filter.form #} -->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row row-sm mg-b-20">
+  <div class="col-sm-12 col-lg-12">
+    <div class="card card-table-one">
+      <h6 class="card-title">List of Alumni Booking Leads</h6>
+      <hr>
+      <div class="table-responsive">
+        <table class="table table-hover mg-b-0">
+          <thead>
+            <tr>
+              <th>Alumni</th>
+              <!-- <th>date for appointment</th>
+              <th>time for appointment</th> -->
+              <th>name</th>
+              <th>Email</th>
+              <th>age of applicant</th>
+              <th>Applicant is</th>
+              <th>country</th>
+              <th>reason for an appointment</th>
+              <th>message</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if page_obj %}
+            {% for i in page_obj %}
+            <tr>
+              <td>{{i.mentor}}</td>
+              <!-- <td>{{i.date_for_appointment}}</td>
+              <td>{{i.time_for_appointment}}</td> -->
+              <td>{{i.first_name}}</td>
+              <td>{{i.email}}</td>
+              <td>{{i.age_of_applicant}}</td>
+              <td>{{i.i_am}}</td>
+              <td>{{i.country.name}}</td>
+              <td>{{i.reasone_for_an_appointment}}</td>
+              <td>
+                <a href="#" class="btn btn-primary btn-rounded" data-toggle="modal"
+                  data-target="#message-user-{{i.id}}">
+                  Message</a>
+              </td>
+            </tr>
+            <div class="modal fade" id="message-user-{{i.id}}" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <h5>Message of {{i.first_name}}</h5>
+                    {% if i.message %}
+                    <p>{{i.message}}</p>
+                    {% else %}
+                    <p>No Message</p>
+                    {% endif %}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-rounded btn-indigo reject" data-dismiss="modal">Close
+                    </button>
+                  </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <tr>
+              <td>
+                No Record found !!!!
+              </td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="">
+  <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+  <div class="d-flex justify-content-center">
+    <ul class="pagination pagination-circled">
+      {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link"
+          href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}"><i
+            data-feather="arrow-left"></i></a></li>
+      {% endif %}
+      {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link"
+          href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}"><i
+            data-feather="arrow-right"></i></a></li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+  $('#id_mentor').select2({
+    placeholder: 'Select Alumni',
+  });
+  $('#id_country').select2({
+    placeholder: 'Select Country',
+  });
+  $('#id_reasone_for_an_appointment').select2({
+    placeholder: 'Select reasone for appointment',
+  }); 
+</script>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% load static %}
+{% load administration_extras %}
+<div class="floating-menu-area">
+    <div class="container">
+        <div class="row justify-content-center mt-4">
+            <ul class="floating-border list-icon list-icon-check col-md-12 col-lg-10 col-xl-5 m-md-0 p-md-0 px-1 mx-1">
+            <li class="mr-1 pr-1"> <a href="{% url 'administration:terms_and_conditions' %}" target="_blank">Terms & Conditions</a> </li>
+            <li class="mr-1 pr-1"> <a href="{% url 'administration:privacy_notice' %}" target="_blank">Privacy Notice</a> </li>
+            <li class="mr-1 pr-1"> <a href="{% url 'administration:cookies_policy' %}" target="_blank">Cookie Policy</a> </li>
+            <li class="mr-1 pr-1"> <a href="{% url 'administration:safeguarding_policy' %}" target="_blank">Safeguarding Policy</a> </li>
+            <li class="mr-1 pr-1"> <a href="{% url 'administration:online_safety' %}" target="_blank">Online Safety</a> </li>
+            <li class="mr-1 pr-1"> <a href="{% url 'administration:codes_of_conduct' %}" target="_blank">Codes of Conduct</a> </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container text-center mt-5 floating-bottom">
+        <span>&copy; 2020 - 2022 Copyright The Apply Group Ltd. All Rights Reserved.</span>
+    </div><!-- container -->
+</div><!-- dropdown-menu -->
+        

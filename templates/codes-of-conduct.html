@@ -1,0 +1,274 @@
+{% extends 'registration/reg_base.html' %}
+{% load static%}
+{% block title2 %}{% block title1 %}Codes Of Conduct{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}These Codes of Conducts must be read by all Users with consideration and agreement in conjunction with The Apply Group..{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2 %}https://applyformedicine.com/codes-of-conduct/{% endblock %}{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<article class="py-5 container policies">
+
+    <div class="site-breadcrub">
+                  <p>
+                     <a href="/">Apply for University </a>
+                     <span class=""> &gt;
+                     </span>
+                     <span>Codes Of Conduct</span>
+                  </p>
+               </div>
+       <div class="header-inner-wrapper">
+            <h1 class="border-bottom text-capitalize">Codes Of Conduct</h1>
+       </div>
+            
+            <h2 class="pt-3">Last updated 10/11/22</h2>
+
+            <p>These Codes of Conducts must be read by all Users with consideration and agreement in conjunction with The Apply Group Ltd.’s other Policies and <a href="{% url 'administration:terms_and_conditions' %}">Terms & Conditions</a>, which will provide context and definitions.</p>
+
+            <h2>Introduction</h2>
+
+            <p>These Codes of Conduct apply to The Apply Group Ltd’s Website(s), as defined in the Company Terms & Conditions, connecting existing university students and alumni (Mentors/Tutors) with potential applicants (Students/Applicants) and their representatives (inc. parents, legal guardians, schools) as well as potential employers. When we refer to, “we, us or our” in this Codes of Conduct  then we are referring to:</p>
+
+            <ul>
+                <li><b>The Apply Group Ltd.</b>(‘TAG’) with CRN: 12938105 has its registered office at: Suite 209, Mayfair Point, 34 South Molton Street, London W1K 5RG, United Kingdom.</li>
+            </ul>
+
+            <h2 class="text-center">Code of Conduct for Students/Applicants:</h2>
+
+            <p>The following behaviours/conduct are expected of all our Students/Applicants to ensure all Tutors/Mentors and Students/Applicants continue to feel safe and are free to study and communicate in a supportive environment, below is a list of what we expect from our Students/Applicants:</p>
+
+            <p>Be <b>Respectful</b>. Respect is an important part of cultural exchange. Respect is to be shown to all Tutor/Mentors and staff members including but not limited to their: culture, English level, religion, age, gender, or sexual preference. I will use respectful language, physical gestures, and a respectful tone of voice during Tutor/Mentor lessons and while participating in activities.</p>
+
+            <ul class="list-style">
+                <li><b>Communicate clearly at all times.</b> Students/Applicants and Mentors/Tutors can agree to communicate in whichever language is most appropriate.</li>
+                <li><b>Attendance of Booked Appointments.</b> Attendance is extremely important to your learning success. Our attendance policy applies to all Students/Applicants and will be enforced equally. As part of our commitment to academic quality and Applicant/Student progress, We will monitor and record student attendance for all appointments.</li>
+                <p>Regular attendance means that Students/Applicants can take full advantage of the learning opportunities available and gain the greatest benefit from the mentoring. Poor attendance not only affects individual student performance and progress but also has a negative impact on class mentors.</p>
+                <li><b>Participate in their booked sessions.</b> Students/Applicants are expected to work with the Tutor/Mentor and actively use and practise their skills in this setting. We encourage Students/Applicants to challenge themselves and not be shy or fearful of making mistakes. Applicants/Students who fail to attend may still be subject to pay in full for their agreed  Tutor/Mentor Services.</li>
+                <li><b>Respect Online Tutor/Mentoring.</b> No eating or using other devices is allowed unless told otherwise by the Tutor/Mentor for a specific instance.</li>
+                <li><b>Tutor/Mentor Correspondence.</b> Students/Applicants should provide us with current contact details and respond to all Tutor/Mentor correspondence including but not limited to: e-mails, invitations for Tutor/Mentoring lessons etc.</li>
+                <li><b>Appropriate personal presentation:</b> All Students/Applicants are required to show proper attention to personal cleanliness, health, neatness, safety and suitability of clothing and appearance for online session. Dress and grooming shall be clean and should not cause actual distraction from or disturbance in any activity or interfere with the participation of the  online session create a hazard to the safety of him/herself or others</li>
+                <li><b>No Smoking Substance-Free Environment.</b> There is strictly no smoking, consumption of drugs or alcohol whilst receiving online Tutor/Mentoring. Students/Applicants shall be “fit to learn” when attending and participating in online lessons.</li>
+                <li><b>No Mobile/Cell Phone during the online appointments.</b> To show respect to Tutor/Mentors cell phone use whilst in an online lesson is not allowed (including answering the phone while lessons are taking place, replying to text messages, checking social media sites). Mobile/cell phones may only be used as dictionaries as permitted by Tutor/Mentors.</li>
+                <li><b>No Violent Language.</b>We prohibit bullying, threatening language, sexual or racial harassment or   violence against our staff or Tutor/Mentors. <b>No Harassment of staff or Tutor/Mentors</b>, this includes  bullying, sexual or racial harassment.</li>
+                <li><b>No Illegal Activity.</b> We will report any violent or illegal activity to the police and the responsible student will be terminated from Our website.</li>
+                <li><b>No Weapons.</b> Students/Applicants who are found in possession of weapons whilst participating in online Tutor/Mentoring will be terminated from the online lessons immediately. Any object used in a dangerous manner will also be considered a weapon.</li>
+                <li><b>No extreme view or radical behaviour</b> will be tolerated and will be reported to Our staff.</li>
+                <li><b>No Inappropriate Communications.</b> When communicating with potential or hired Tutors/Mentors via any messaging service, all Student/Applicants must behave appropriately, including no obscene, rude or aggressive language/profanities to be used or violent language and the content of such messages must refer to potential mentoring/tutoring services being discussed, strictly for the purposes of considering and making applications to schools or universities.</li>
+                <li><b>Services offered my Tutors/Mentors.</b> Please note that Tutors/Mentors may offer their services, and with associated costs, if any, in their absolute discretion only and this includes whether they wish to offer any to Service at all. Please respect any decisions of Services/Pricing that that Mentor/Tutor may set and feel free to accept or decline as you wish in a respectful and professional manner.</li>
+            </ul>
+
+            <h2 class="text-center">Code of Conduct for Mentors/Tutors:</h2>
+
+            <h3>Essence Summary</h3>
+
+            <p>This document must be read by all potential or existing Mentors/Tutors before they start any Services on Our Website(s) during the registration process. It will outline the behaviours and attitudes that we expect our Tutors/Mentors to adhere to whilst in any communication with any of our Users (inc. Students/Applicants, Parents/Guardians or other stakeholders).</p>
+
+            <h3>General Standards</h3>
+
+            <p>Ensure advice, mentoring, tutoring, general guidance or any other related Services agreed to by Students/Applicants is high-quality, error-free, informed by first-hand knowledge of the Student’s/Applicants’s requirements.</p>
+
+            <p>Be solutions-oriented by raising any Student/Applicant issue immediately to Us, where possible. If possible, identify the cause(s), possible solution(s) and proposed solution(s).</p>
+
+            <p>Use good judgement aligned with Our values to ensure a strive towards a successful university application journey. Be approachable to all potential and existing Students/Applicants, clients, and partners which enables them to feel comfortable asking questions and providing feedback to you.</p>
+
+            <h3>Effective Communication General Standards</h3>
+
+            <p>This Website contains links to other third party websites, such as for appointment bookings and payments, which are not under the control of Ours and are not maintained by Us. These links are provided for their convenience only and We are not responsible for the content or availability of those websites.</p>
+
+            <h3>Team Contribution General Standards</h3>
+
+            <p>Our reputation has been successfully built and maintained through the efforts of our employees and Tutors/Mentors to observe high standards of business conduct. It is important to safeguard the company’s reputation and image at all times.</p>
+
+            <p>You should adhere to these high standards by conducting yourself in a manner that will bring credit to the Company and by avoiding any action which would discredit the Company.</p>
+
+            <p>Whenever you are interacting with Students/Applicants, partners or vendors (both in-person and online), act in a manner that will inspire public trust in your integrity, impartiality and devotion to the best interests of the company and its customers.</p>
+
+            <p>Create a culture of support and hold yourself accountable for both successes and failures. Be mindful of using time efficiently when using shared resources.</p>
+
+            <p>Be flexible and adaptable to the changing needs of the Students/Applicants.</p>
+
+            <p>Support organisational initiatives, and focus your efforts on ensuring those initiatives create the most value for the overall program. Support for these events and participation is appreciated. Be a role model for your student’s behaviour.</p>
+
+            <h2 class="text-center">STAFF & TUTOR/MENTOR STANDARDS</h2>
+
+            <h3>Positive Environment</h3>
+
+            <p>We endeavour to maintain a positive work environment for staff. Each member or staff, or Tutor/Mentor plays a role in fostering this environment. The following are examples of some, but not all, conduct that can be considered unacceptable:</p>
+
+            <ul class="list-style">
+                <li>Obtaining employment/freelance promotion by registering on Our platform on the basis of false or misleading information.</li>
+                <li>Violation of Our Policies.</li>
+                <li>Failure to follow lawful instructions from Us.</li>
+                <li>Failure to perform assigned duties or expectations. (may result in negatve feedback from your Clients). Irregular attendance, habitual lateness or unexcused absences (may result in negatve feedback from your Clients)</li>
+                <li>Violation of any IT and data security policies.</li>
+                <li>Disclosure of confidential information.</li>
+            </ul>
+
+            <h2>Punctuality & Attendance</h2>
+
+            <p>Operating effectively takes cooperation and commitment from everyone. Therefore, your attendance and punctuality are very important. Unnecessary absences and lateness are disruptive to your clients and place an unfair burden on your Students/Applicants and Us, which may result in negative reviews/feedback from a Student/Applicant, Parents/your Clients. We do recognise, however, that there are times when absences and tardiness cannot be avoided. In such cases, you are expected to verbally notify your Student/Applicant/Client and Us as early as possible.</p>
+
+            <h2>Smoking, Alcohol & Drugs</h2>
+
+            <p>We operate a no smoking policy. Smoking, including the use of e-cigarettes or vaporisers, is prohibited during online Tutor/Mentoring, We operate a zero-tolerance policy on being under the influence of alcohol or non-prescriptive drugs whilst working or engaging in workplace affairs.</p>
+
+            <p>Students/Applicants shall be ‘Fit to Work’ whether at the school or at another off site location as a representative of Ours and its services. ‘Fit to Work’ means that an individual is in a physical, mental, and emotional state which enables the individual to perform the essential tasks of their work successfully or in a manner that does not threaten the safety or health of oneself, co-workers, property, or the public at large.</p>
+
+            <h2>Conflict of Interest & Business Ethics</h2>
+
+            <p>It is Our guidance that all Students/Applicants avoid any conflict between their personal interests and those of Ours. The purpose of this is to ensure that Our honesty and integrity, and therefore its reputation, are not compromised. The fundamental principle guiding this section is that no Student/Applicant should have, or appear to have, personal interests or relationships that actually or potentially conflict with the best interests of the Company.</p>
+
+            <p>It is not possible to give an exhaustive list of situations that might involve violations of this guidance. However, the situations that would constitute a conflict in most cases include but are not limited to:</p>
+
+            <ul class="list-style">
+                <li>Holding an interest in or accepting free or discounted goods from any organisation that does, or is seeking to do, business with Us, by any employee who is in a position to directly or indirectly influence either Our decision to do business or the terms upon which business would be done with such organisation.</li>
+                <li>Holding any interest (ownership) in an organisation that competes with Us</li>
+                <li>Being employed by (including as a consultant) or serving on the board of any organisation which does, or is seeking to do, business with Us or which competes with Us.</li>
+                <li>Profiting personally, e.g., through commissions, loans, expense reimbursements or other payments, from any organisation seeking to do business with Us.</li>
+            </ul>
+
+            <p>This guidance is not intended to prohibit the acceptance of modest courtesies, openly given and accepted as part of the usual business amenities, for example, occasional business-related meals or promotional items of nominal or minor value. It is your responsibility to report any actual or potential conflict that may exist between you (and your immediate family) and Us.</p>
+
+            <h2>Use of Facilities, Equipment and Property, Including Intellectual Property</h2>
+
+            <p>Equipment essential in fulfilling your role as a Student/Applicant. You are expected to have your own equipment that has the most appropriate security features.</p>
+
+            <p>Clients, Students/Applicants must not use the platform for their own course work/assignments/writing exercises. The platform is for the sole purpose of providing lessons/mentoring sessions to Students/Applicants for a Service and Tutors/Mentors must not suggest to offer assistance for any other reason.</p>
+
+            <p>Students/Applicants also are prohibited from any unauthorized use of the Our intellectual property, such as audio and videos, print materials and software, blogs, or other documents.</p>
+
+            <h2>Dress Code</h2>
+
+            <p>You are expected to report to work clean and dressed according to the requirements of your position/expectation from Us and your Student/Applicant/Client. Generally, the dress code for the Mentors/Tutors is smart casual, unless informed otherwise.</p>
+
+            <p>Please dress appropriately and bear in mind the international Mentees/Tutees that you will teach/mentor and their different cultures. Students/Applicants should ensure they adhere to Our dress code and be aware of the effect of their appearance on Mentees. They should also be extra sensitive when Tutor/Mentoring any Mentees under the age of 18.</p>
+
+            <p>If you attend an online session dressed inappropriately, you may be removed from registering onto Our platforms in the future.</p>
+
+            <h2>Publicity/Statements to the Media</h2>
+
+            <p>All media inquiries regarding the position of the company on any issues must be referred to Us. No Student/Applicant, unless specifically designated by a company Director are authorised to make those statements on behalf of Us. Any Students/Applicants wishing to write and/or publish an article, paper, or other publication on behalf of the Company must first obtain approval from a company Director.</p>
+
+            <h2>Leaving the Platform</h2>
+
+            <p>Should you decide to leave the platform, we ask that you provide written notification to Us. You will be expected to teach out any remaining lessons you have booked with your Tutees/Mentee.</p>
+
+            <h2>Physical Contact</h2>
+
+            <p>It is Our guidance to advise against any physical contact with Mentees. However, we recognise that there may be circumstances where this is unavoidable, and some exceptions exist, but it is crucial that Students/Applicants only do so in ways appropriate to their professional role. Please see the Safeguarding Policy for more details and the possible exceptions regarding physical contact.</p>
+
+            <h2>Cultural Sensitivity & Discrimination</h2>
+
+            <p>Our organisation values the individuality of all our Students/Applicants, clients, and partners. We are committed to giving all members of our community every opportunity to be the ‘best they can be’. Within our environment of learning and healthy interaction, we do not tolerate any lack of sensitivity, disrespect, bullying or harassment of any kind or any form of discrimination due to age, religion, sex, race, or sexual orientation. These provisions apply to all employment-related interactions including recruitment, selection, promotion, change of position, termination of contract, compensation, training, and in general, all working conditions.</p>
+
+            <h2>PERSONAL COMMUNICATION WITH STUDENTS/APPLICANTS</h2>
+
+            <p>All Tutors/Mentors must be aware of the potential dangers of personal contact (i.e. contact beyond what is reasonably expected in performing your agreed Services) with Students/Applicants, and the following advice from child protection/ teaching agencies:</p>
+
+            <ul class="list-style">
+                <li>If Students/Applicants try to make direct contact with Tutors/Mentors on their personal email or phone, this should be discouraged and reported to Us.</li>
+                <li>Extreme caution should be exercised in connection with internet sites/messaging systems, and inappropriate communication with all individuals under 18, or others with whom you may be in a position of trust, should be avoided. This also extends to taking part or attempting to take part in online gaming with Students/Applicants (or their associates), who may well be underage or unaware that you are an adult.</li>
+                <li>Take care to avoid becoming personally involved in a student’s personal affairs. Remember that Tutees/Mentees profiles, blog posts on Our platforms can be viewed by anyone, and people working with children should be especially careful about their personal web presence, checking any relevant privacy settings carefully. The legal responsibilities of people working with minors extend past the end of any contract they have with Us.</li>
+            </ul>
+
+            <p>Students/Applicants may be able to find information about the personal lives of Tutors/Mentors that may be inappropriate for minors and may damage the working relationship between themselves.</p>
+
+            <p>By allowing Students/Applicants access to friendship groups, Tutors/Mentors may be inadvertently introducing them to a wider circle of adults, over which Tutors/Mentors have no control, and may facilitate inappropriate contacts.</p>
+
+            <p>Sexual predators and bullies are known to use the information available on web pages and social networking sites to gain information about children, such as their interests, tastes and location. A Tutor/Mentor who posts information about Students/Applicants (e.g. photos of their summer holiday, names etc.) on a personal web page, including personal profile, public profiles and blog posts on Our platforms may make them vulnerable to inappropriate attention.</p>
+
+            <h2>Mentor/Tutor Guidance</h2>
+
+            <p>The onus is on Tutors/Mentors – not the Students/Applicants – to distance themselves from any potentially inappropriate situation. Students/Applicants are clients of Tutors/Mentors. Tutors/Mentors should not attempt to instigate private contact with Mentees of any age at any time.</p>
+
+            <p>Tutors/Mentors must not give their personal email/postal addresses or telephone number to Students/Applicants, or ask for theirs, during or after any Services they may provide to the Students/Applicants.</p>
+
+            <p>Tutors/Mentors must use common sense and professional judgement to avoid circumstances that could be perceived to be of an inappropriate nature.</p>
+
+            <p>Tutors/Mentors must not – by any means or in any circumstances – make, view or access illegal or inappropriate images. Tutors/Mentors must not distribute (by any means) images or information about Students/Applicants of any age. This includes the use of images or details on blogs, social networking sites, messaging systems or any internet sites.</p>
+
+            <h2>USE OF TECHNOLOGY</h2>
+
+            <p>This part of the document will outline the behaviours and attitudes that we expect our Students/Applicants to adhere to.</p>
+
+            <h2>Use of Social Media</h2>
+
+            <p>We respect the right of any employee/Tutors/Mentors to maintain a blog or web page or to participate in social networking. However, to protect Our interests and ensure employees focus on their job duties, employees/Tutors/Mentors must adhere to the following rules:</p>
+
+            <ul class="list-style">
+                <li>All rules regarding confidential and proprietary business information apply in full to blogs, web pages, social networking, Twitter and similar sites.</li>
+                <li>Any information that cannot be disclosed through a conversation, a note or an e-mail also cannot be disclosed in a blog, web page, social networking, Twitter or similar site.</li>
+                <li>Whether a Student/Applicant is posting something on their own blog, web page, social networking site or on someone else’s, if the employee mentions information involving a Student/Applicant, client, or partner and also expresses either a political opinion or an opinion regarding the company’s actions, the poster must include a disclaimer. The poster should specifically state that the opinion expressed is his/her personal opinion and not reflective of the company’s position.</li>
+                <li>Any conduct that is impermissible under the law if expressed in any other form or forum is impermissible if expressed through a blog, web page, social networking, or similar site. For example, posted material that is discriminatory, obscene, defamatory, libellous or threatening is forbidden.</li>
+                <li>Students/Applicants must use their best judgement. Students/Applicants with any questions should review the guidelines above and/or consult with Us.</li>
+            </ul>
+
+            <h2>Personal Telephone Calls/Messages</h2>
+
+            <p>Disruptions during Students/Applicants time can lead to errors and delays. Therefore, we ask that personal telephone calls and text messaging must be kept to a minimum, and only be made or received after Tutor/Mentoring time, or during breaks between Tutor/Mentoring.</p>
+
+            <h2 class="text-center">WORKING WITH MINORS</h2>
+
+            <h3>Interactions with Minors</h3>
+
+            <p>We create an online environment where the welfare of children and young people is of paramount importance. All children have the right to protection from abuse regardless of age, gender, ethnicity, disability, sexuality or beliefs. All Students/Applicants, either paid or voluntary, should be aware of and adhere to Our <a href="{% url 'administration:safeguarding_policy' %}">Safeguarding Policy</a>.</p>
+
+            <p>All concerns and allegations of abuse will be taken seriously and responded to, recorded and actioned appropriately. We have a commitment to safer recruitment, selection and vetting.</p>
+
+            <p>All Tutors/Mentors must assume they are in communication with a younger person, below the age of 18, at all times, unless they are informed by the Student/Applicant otherwise.</p>
+
+            <h3>Responding to a Minor</h3>
+
+            <p>Stay calm-sometimes issues are raised which, whilst seemingly complex, are generally safeguarding matters and not necessarily a child protection issue.</p>
+            
+            <ul class="list-style">
+                <li>These matters should be responded to by offering a supportive response and where necessary or relevant, refer them to a member of the senior management team,</li>
+                <li>When a StudentApplicant self-discloses a matter that constitutes a potential or alleged situation of abuse, the Tutor/Mentor must ensure there is a safe space (virtually) for the student to talk in confidence. This may mean you need to ensure you are not in a public/group meeting, etc.</li>
+                <li>Promises of confidentiality must not be given. Tell the learner that you have a duty to pass on the information, only to those who need to know.</li>
+                <li>Listen carefully to what is said</li>
+                <li>Do not interview them, but ask what happened, keep questions to a minimum and obtain sufficient facts to understand what is being alleged</li>
+                <li>Allow the child to continue at their own pace</li>
+                <li>Ask questions for clarification only and always avoid asking leading questions (questions that suggest a particular answer). Do not make assumptions or offer explanations• Remember that an allegation of child abuse may lead to a criminal investigation, so do not attempt to personally investigate any allegations of abuse</li>
+                <li>Reassure the child that they have done the right thing in telling you•</li>
+                <li>Tell them what you will do next and with whom the information will be shared.</li>
+            </ul>
+
+            <h3>Advice</h3>
+
+            <p>Tutors/Mentors must avoid actions/situations that might be misconstrued, bearing in mind that even perfectly innocent actions can sometimes be misinterpreted.</p>
+
+            <p>Staff, Tutors/Mentors should be aware of the effect of their appearance on other Students/Applicants.</p>
+
+            <p><b>Tutorss/Mentors Must Not:</b></p>
+
+            <ul class="list-style">
+                <li><b>Physically meet</b> any Student/Applicant of any age and all communication is to be made via Our platform</li>
+                <li><b>Allow themselves</b> to be drawn into any inappropriate behaviour, or make suggestive or derogatory remarks or gestures in front of children or young people</li>
+                <li><b>Show favouritism</b> to any individual or group of individuals</li>
+                <li><b>Swear, use any profanity or make racist, sexist or blasphemous remarks Smoke or consume alcohol</b>, in front of or in the company of Mentees or allow any effects of these practises to affect them in any way</li>
+                <li><b>Take a chance</b>, when common sense, policy or practice suggests another more prudent approach</li>
+                <li><b>Endanger the well-being</b> of children/young people through action or inaction, whether intentional or not</li>
+                <li><b>When communicating</b> with potential or existing Students/Applicants via any messaging service, all Tutors/mentors must behave appropriately, with no obscene, rude or aggressive language/profanities to be used or violent language and the content of such messages must relate to potential mentoring/tutoring Services being discussed, strictly for the purposes of considering and making applications to colleges or universities.</li>
+                <li><b>No Inappropriate Communications.</b> When communicating with potential or hired Tutors/Mentors via any messaging service, all Student/Applicants must behave appropriately, including no obscene, rude or aggressive language/profanities to be used or violent language and the content of such messages must refer to potential mentoring/tutoring services being discussed, strictly for the purposes of considering and making applications to schools or universities.</li>
+            </ul>
+
+            <h3>Personal Relationships/Sharing Personal Information</h3>
+
+            <p>While we encourage Tutors/Mentors to be friendly and welcoming to all potential Students/Applicants, including their Clients, it is against our guidance to have any intimate relationship with any User, of any age.</p>
+
+            <p>If friendships are formed during a Student’s/Applicant’s with us then the Tutor/Mentor should always remember to keep a professional relationship with the Student/Applicant at all times.</p>
+
+            <p>Please be aware of the potential dangers of personal contact (i.e. contact beyond what is reasonably expected in performing your duties) with Students/Applicants, and the following advice from child protection/ teaching agencies:</p>
+
+            <ul class="list-style">
+                <li>If Students/Applicants do try to make contact with you (Tutor/Mentor) on your personal email or phone, discourage this and inform senior management as soon as possible</li>
+                <li>Exercise extreme caution in connection with internet sites/messaging systems, and avoid inappropriate communication with all individuals under 18 or others with whom you may be in a position of trust.</li>
+                <li>This also extends to taking part or attempting to take part in online gaming with Students/Applicants or their associates, who may well be underage or unaware that you, in your capacity as a Tutor/Mentor are an adult.</li>
+                <li>Take care to avoid becoming personally involved in a Student’s/Applicant’s personal affairs.</li>
+                <li>Remember that your (Tutors/Mentors) public profiles can be viewed by anyone, and people working with children should be especially careful about their personal web presence, checking any relevant privacy settings carefully.</li>
+                <li>The legal responsibilities of people working with minors extend past the end of any contract they may have with Students/Applicants.</li>
+            </ul>
+
+</article>
+
+
+{% endblock %}

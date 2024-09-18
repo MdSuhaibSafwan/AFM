@@ -1,0 +1,248 @@
+{% extends 'base/base.html' %}
+{% block title %}Search Alumni{% endblock %}
+{% block css %}
+<style>
+form {
+    display: contents;
+}
+div.btn,.filter {
+    margin-right: 5px;
+}
+.facebook-this, .tweet-this{
+    display:contents;
+}
+#empty-row{
+    display:none;
+}
+#empty-row2{
+    display:none;
+}
+.select2-container .select2-selection--single {
+  width: 100%;
+}
+.select2-container--open{
+  z-index: 1051 !important; /* Set the z-index value */
+}
+.modal-open .select2-container {
+  width: auto !important; /* Set the width to auto */
+  min-width: 100% !important; /* Set the min-width to 100% */
+}
+
+
+</style>
+{% endblock %}
+{% block content %}
+{% load administration_extras %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% load social_share %}
+{% if user.user_type == 12 %}
+<div class="row mr-b-20 mg-b-10">
+    <div class="col-12 col-sm-12">
+        <div class="all-app-list pro-detail">
+            <nav class="nav nav-pills nav-fill">
+                <a class="nav-item nav-link" href="{% url 'administration:search_mentors_twfl' %}">
+                    <h5><i data-feather="award"></i> Search Alumni</h5>
+                </a>
+                <a class="nav-item nav-link active" href="#">
+                    <h5><i data-feather="book"></i> Search Students</h5>
+                </a>
+            </nav>
+        </div>
+    </div>
+</div>
+{% else %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb breadcrumb-style1">
+    <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="#">Search Students</a></li>
+  </ol>
+</nav>
+{% endif %}
+<div class="row row-sm mg-b-10">
+  <div class="col-md-12 mb-3 mb-md-4">
+      <div class="d-flex justify-content-lg-between align-items-lg-center table-responsive">
+          <div class="filter-div d-flex justify-content-lg-between align-items-lg-center">
+            <strong>Search students using the following filters</strong>
+          </div>
+          <div class="reset-txt-area">
+        <a href="{% url 'administration:search_students_twfl' %}" class="btn btn-rounded btn-md btn-outline-indigo">
+            Resets Filters</a>
+      </div>
+      </div>
+  </div>
+  <form id="search-mentor-form">
+    <div class="col-sm-12 col-md-6 col-lg-2">
+      <div class="select2-box mb-2">
+<!--        <label>{{form.keyword.label}}</label>-->
+        {% render_field form.keyword placeholder=form.keyword.label class='form-control keyword' %}
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="select2-box mb-2">
+<!--        <label>{{form.nationality.label}}</label>-->
+        {% render_field form.nationality class='form-control nationality' %}
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="select2-box mb-2">
+<!--        <label>{{form.currently_living_in.label}}</label>-->
+        {% render_field form.currently_living_in placeholder=form.currently_living_in.label class='form-control currently_living_in' %}
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="select2-box mb-2">
+<!--        <label>{{form.native_languages.label}}</label>-->
+        {% render_field form.native_languages class='form-control native_languages' %}
+        <span class="small">You may select more than one</span>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-1">
+      <button type="submit" class="btn btn-indigo btn-block btn-rounded">
+        <i data-feather="search">
+        </i>
+      </button>
+    </div>
+  </form>
+</div>
+{% if personal_info_list %}
+{% for x in students %}
+    {% for y in personal_info_list %}
+        {% if x.admin.slug == y.user_slug %}
+        <div class="row row-sm mg-b-20 ">
+            <div class="col-12 col-md-12 col-lg-12">
+                <div class="card card-dashboard-twentysix mg-b-10">
+                    <div class="card-body pd-t-15 pd-b-15 pd-l-30 pd-r-30">
+                        <div class="row d-flex align-items-md-center">
+                            <div class="col-md-6 col-lg-4 col-xl-4"> 
+                                <div class="afm-mentor-student-details pd-b-15 pd-t-15">
+                                    <div class="afm-mentor-student-img">
+                                        <img src="{% static 'images/default_profile.png' %}" alt="{{y.first_name}}">
+                                    </div>
+                                    <div class="mentor-content d-flex align-items-md-center">
+                                        <div>
+                                            <div class="pd-b-10">
+                                                <h4 class="d-inline text-capitalize">{{y.first_name}}</h4>
+                                                    <span class="d-block mg-t-10">Student of {{x.currently_studying_course}}</span>
+                                            </div>
+                                            <div class="pd-b-5 pd-t-5">
+                                                <span class="tx-medium">From:</span> <span class="country-flags"> {{y.nationality.name}} <img
+                                                    src="{{y.nationality.flag}}" alt="{{y.nationality.name}}"> </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 col-xl-3">
+                                <div class="pd-b-15 pd-t-15 text-center text-md-left">
+                                    <div>
+                                        <div class="pd-b-5 pd-t-5">
+                                            <span class="tx-medium">Spoken Languages:</span> <span>{{y.native_languages.all|print_languages}} </span>
+                                        </div>
+                                        <div class="pd-b-5 pd-t-5">
+                                            <span class="tx-medium">Currently Living In:</span> <span class="country-flags"> {{y.currently_living_in.name}} <img
+                                                src="{{y.currently_living_in.flag}}" alt="{{y.currently_living_in.name}}"> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 col-xl-3">
+                                <div class="pd-b-15 pd-t-15  text-center text-md-left">
+                                    <div>
+                                        <div class="pd-b-5 pd-t-5">
+                                            <span class="tx-medium">Studying in:</span>
+                                            {% if x.are_you_studying_an_online_course == 1 %}
+                                            <span>Online</span>
+                                            {% else %}
+                                            <span class="country-flags"> {{y.currently_living_in.name}} <img
+                                                src="{{y.currently_living_in.flag}}" alt="{{y.currently_living_in.name}}"> </span>
+                                            {% endif %}
+                                        </div>
+                                        <div class="pd-b-5 pd-t-5">
+                                            <span class="tx-medium">Currently Studying:</span>
+                                            <span>{{x.currently_studying_course}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-2 col-xl-2 justify-content-center align-items-md-center d-flex">
+                                <div class="uni-logo pd-b-15 pd-t-15">
+                                    <div class="text-center">
+                                        <!--                                                      <h4>University</h4>-->
+                                    </div>
+                                    <div class="text-center">
+                                        <img src="{% static 'assets/img/logo/university/ifg.png' %}"
+                                             alt="International Foundation Group" style="max-height:100px;">
+                                        <p>
+                                            International Foundation Group
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line-3">
+                        <div class="last-edited">
+                          <div class="row">
+                             <div class="col-md-6 col-lg-6 col-xl-6 col-sm-6 text-left pd-l-30">
+                                 <p>
+                                     <i data-feather="user"></i>Student ID :
+                                     <strong class="text-uppercase">{{x.admin.slug}} </strong>
+                                 </p>
+                             </div>
+                             <div class="col-md-6 col-lg-6 col-xl-6 col-sm-6 text-right pd-r-30">
+                                 <a href="{% url 'messaging:comment_student_twfl' x.admin.slug %}"
+                                       class="btn btn-rounded btn-md btn-indigo"> Send a Message</a>
+                             </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+{% else %}
+<div style="text-align:center;">
+  <p>Please broaden your search criteria for a great choice of students.</p>
+</div>
+{% endif %}
+<div class="">
+  <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+  <div class="d-flex justify-content-center">
+    <ul class="pagination pagination-circled">
+      {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link"
+          href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}"><i
+            data-feather="arrow-left"></i></a></li>
+      {% endif %}
+      {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link"
+          href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}"><i
+            data-feather="arrow-right"></i></a></li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+  $('#id_currently_living_in').select2({
+    placeholder: 'Select Country Living In',
+    searchInputPlaceholder: 'Search'
+  });
+  $('#id_nationality').select2({
+    placeholder: 'Select Country From',
+    searchInputPlaceholder: 'Search'
+  });
+  $('#id_native_languages').select2({
+    placeholder: 'Select Spoken Languages',
+    searchInputPlaceholder: 'Search'
+  });
+  $('#search-mentor-form select').change(function(){
+    $('#search-mentor-form').submit();
+  });
+</script>
+{% endblock %}

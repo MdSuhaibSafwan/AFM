@@ -1,0 +1,114 @@
+{% extends 'base/base.html' %}
+{% block title %}Education Form-Page{% endblock %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block css %}
+<style>
+    #empty-row{
+        display:none;
+        }
+</style>
+{% endblock %}
+{% block content%}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="#">Build your CV</a></li>
+    </ol>
+</nav>
+{% include 'application/breadcrumb.html' %}
+
+<div class="card">
+    <div class="row">
+        <div class="col-12">
+            <div class="pd-lg-l-40 d-flex flex-column">
+                <form id="msform" role="form" method="post" enctype="multipart/form-data">
+                    <div class="wizard">
+                        <div class="content clearfix">
+                            <div class="consent">
+                                <h5>Education History</h5>
+                                <div class="line-2"></div>
+                                <p class="consent-p"></p>
+                                {% csrf_token %}
+                                {{ formset.management_form|crispy}}
+                                {% for form in formset %}
+                                <h6>Education-{{forloop.counter}}</h6>
+                                {% crispy form %}
+                                {% endfor %}
+                                <div id='empty-row' class='new-form-row'>
+                                    <h6 id='form-head'></h6>
+                                    {% crispy formset.empty_form %}
+                                </div>
+                                <div class="align-right">
+                                    <button type="button" class="btn btn-outline-indigo btn-rounded add-new-form">Add Education</button>
+                                    <a href="{% url 'application:application_education_twfl' app.slug %}" class="btn btn-outline-indigo btn-rounded">Reset</a>
+                                </div>
+                                <hr>
+                                <div class="row ">
+                                    <div class="col-12">
+                                        <div class="app-footer-line"></div>
+                                        <div class="step-btn mg-t-20">
+                                            <a href="{% url 'application:application_personal_information_twfl' app.slug %}" class="btn btn-outline-indigo btn-rounded mr-1 ">Previous</a>
+                                            <a class="btn btn-outline-indigo btn-rounded align-right mr-1" href="{% url 'application:application_english_language_twfl' app.slug %}">Mark As Read</a>
+                                            <button type="submit" class="btn btn-outline-indigo btn-rounded">Save & Continue</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div><!-- az-content-body -->
+</div>
+
+
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        function updateEmptyFormIDs(element,totalForms){
+        var thisInput = element
+        //get current form input name
+        var currentName = element.attr('name')
+        // replace prefix with actual number
+        var newName = currentName.replace(/__prefix__/g, totalForms)
+        thisInput.attr('name', newName)
+        thisInput.attr('id', "id_" + newName)
+        // creat new form  row id
+        var newFormRow = element.closest(".new-form-row");
+        var newRowID = "row_id_" + newName;
+        newFormRow.attr("id", newRowID);
+        // add clas fopr newbasic animations
+        newFormRow.addClass("new-parent-row");
+        // update form group id
+        var parentDiv = element.parent();
+        parentDiv.attr("id", "parent_id_" + newName)
+        // update label id
+        var inputLabel  = parentDiv.find("label")
+        inputLabel.attr("for", "id_"  + newName)
+        return newFormRow
+    };
+        $('.add-new-form').click(function(e) {
+        e.preventDefault()
+        var formId = "id_form-TOTAL_FORMS";
+        var totalForms = parseInt($('#' + formId).val());
+        $('#form-head').html('Education-' + (totalForms + 1));
+        var emptyRow = $("#empty-row").clone();
+        //remove id from new form
+        emptyRow.attr("id", null)
+        if (totalForms<=2){
+            var newFormRow;
+            emptyRow.find("input, select, textarea").each(function() {
+                newFormRow = updateEmptyFormIDs($(this), totalForms)
+            })
+            $(".new-form-row:last").after(newFormRow);
+            $('#' + 'id_form-TOTAL_FORMS').val(totalForms + 1);
+        }else{
+            $('.add-new-form').addClass('disabled')
+        }
+    })
+    })
+</script>
+{% endblock %}

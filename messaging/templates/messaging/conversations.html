@@ -1,0 +1,142 @@
+{% extends 'base/base.html' %}
+{% block title %}Conversations{% endblock %}
+{% load administration_extras %}
+{% load static %}
+{% load widget_tweaks %}
+{% block css %}
+<style>
+  form {
+    display: contents;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb breadcrumb-style1">
+    <li class="breadcrumb-item">
+      <a href="{% url 'administration:dashboard' %}">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item">
+      <a href="#">Student Conversations</a>
+    </li>
+  </ol>
+</nav>
+
+
+
+<div class="container-fluid">
+  <div class="table-responsive">
+    {% if conversations %}
+    <table class="table table-hover mg-b-0">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Date</th>
+          <th>Sender</th>
+          <th>Receiver</th>
+          <th>View</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for x in page_obj %}
+        <tr>
+          <td>{{ page_obj.start_index|add:forloop.counter0 }}</td>
+          <td>{{x.created_at|date:"d/m/Y"}}</td>
+          <td>
+            <strong>
+              <span>{{x.sender.first_name}} {{x.sender.last_name}}</span>
+              <span><img src="{{x.sender.future_student.where_are_you_from.flag}}" alt="{{x.where_are_you_from.name}}">
+              </span>
+              <small class="d-block">{{x.sender.email}}</small>
+              <small class="d-block" style="color: green;">
+                {{x.sender.get_user_type_display}}
+              </small>
+            </strong>
+          </td>
+
+          <td>
+            <strong>
+              <span>{{x.receiver.first_name}} {{x.receiver.last_name}}</span>
+              <small class="d-block">{{x.receiver.email}}</small>
+              <small class="d-block" style="color: green;">
+                {% if x.receiver.user_type == 4 %}Alumni
+                {% else %}{{x.receiver.get_user_type_display}}
+                {% endif %}
+              </small>
+            </strong>
+          </td>
+
+          <td>
+            <a href="{% url 'messaging:conversations_detail' x.sender.slug x.receiver.slug %}"
+              class="btn btn-indigo btn-rounded"
+            >
+            conversation
+            </a>
+          </td>
+
+          {% comment %}
+          <td>
+            {{x.comment|truncatewords:100}}
+          </td>
+          {% endcomment %}
+
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %} <div style="text-align:center;">
+      <p>No student conversations available !!!!</p>
+    </div>
+    {% endif%}
+  </div>
+</div>
+
+
+<!-- Paginator -->
+<div class="">
+  <p>Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}</p>
+  <div class="d-flex justify-content-center">
+    <ul class="pagination pagination-circled">
+      {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}">
+          <i data-feather="arrow-left">
+          </i>
+        </a>
+      </li>
+      {% endif %}
+      {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}">
+          <i data-feather="arrow-right">
+          </i>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+  $('#id_admin__spoken_languages').select2();
+  var id;
+  function change_is_active(id) {
+    if (confirm('Do you really want to do this action')) {
+      $('#' + id).submit();
+    }
+    else {
+      location.reload();
+    }
+  }
+  $(document).ready(function () {
+    $('#id_work_type').select2({
+      placeholder: 'Choose Recruiter Type', searchInputPlaceholder: 'Search'
+    });
+  });
+</script>
+{% endblock %}

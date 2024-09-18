@@ -1,0 +1,709 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} Messages {% endblock %}
+{% load administration_extras %}
+{% load messaging_extras %}
+{% load crispy_forms_tags %}
+{% load social_share %}
+
+
+{% block meta %}
+<!-- SET MERCHANTID DYNAMICALLY AFTER QUERYING FROM DB! -->
+<!-- Include the PayPal JavaScript SDK; replace "test" with your own sandbox Business account app client ID -->
+{% if paypal_merchant_id != None %}
+<script src="https://www.paypal.com/sdk/js?&client-id=AbuWE-ONEloc8BCh2k11l-ig_7uBJkW_t0xuhq6jlLdACjO1-1zWQPtwUmEpzRDsZSV-Xs9fY4-Cl3jJ&merchant-id={{paypal_merchant_id}}&currency={{appointment.currency}}&disable-funding=card,paylater"></script>
+{% endif %}
+{% endblock %}
+
+{% block css %}
+<style>
+
+    .hidden {
+        display: none !important;
+    }
+
+    .decline-btn {
+        background-color: none;
+        color: #141e42;
+        border: 1px solid #141e42
+    }
+
+    .decline-btn:hover {
+        background-color: #141e42;
+        color: white;
+    }
+
+    .badge-info {
+        font-family: poppins, sans-serif;
+        position: relative;
+        /* width: 160px; */
+        color: rgb(172, 169, 169);
+        text-align: center;
+        /* background-color: #141e42; */
+        /* margin-right: 60px; */
+        float: right;
+        /* top: 21px;
+        left: -11px;
+        z-index: 1;
+        display: block; */
+        /* line-height: 1.2; */
+        /* font-weight: 700; */
+        /* text-decoration: none; */
+        /* box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%); */
+        /* transform: rotate(15deg);8 */
+        /* transition: all .1s ease-in; */
+        /* pointer-events: auto; */
+    }
+
+    /* MULTISTEP FORM */
+    .tab-content {
+        height: auto !important;
+    }
+
+    .formNav::before {
+        display: none;
+    }
+
+    .formNav li {
+        display: none;
+    }
+
+    .sw-theme-dots > .nav .nav-link.active {
+        color: #141e42 !important;
+    }
+
+    .sw-theme-dots > .nav .nav-link.inactive {
+        color: #8e97b3;
+    }
+
+    .sw-theme-dots > .nav .nav-link.done {
+        color: #8e97b3;
+    }
+
+    .sw-theme-dots > .nav .nav-link.active::after {
+        background-color: #141e42 !important;
+    }
+
+    .sw-theme-dots > .nav .nav-link.inactive::after {
+        background-color: #8e97b3;
+    }
+
+    .sw-theme-dots > .nav .nav-link.done::after {
+        background-color: #8e97b3;
+    }
+
+    .sw-theme-dots .toolbar > .btn {
+        background-color: #141e42;
+    }
+
+    .sw-btn-prev {
+        background-color: white !important;
+        color: black !important;
+        border: white !important;
+    }
+
+    .prev {
+        font-size: 30px;
+    }
+
+    .next {
+        font-size: 30px;
+    }
+
+    .terms-info {
+        color: #8e97b3;
+        font-size: 14px;
+        text-transform: uppercase;
+        font-weight: 500;
+    }
+
+    .service-label {
+        color: #8e97b3;
+        font-size: 14px;
+        text-transform: uppercase;
+        font-weight: 500;
+        letter-spacing: 1px;
+    }
+
+    .service-info {
+        color: #141e42;
+        line-height: 1.3;
+        font-weight: 500;
+        font-size: 17px;
+        position: relative;
+        display: inline-block;
+        z-index: 2;
+    }
+
+    .appointment-info {
+        color: #141e42;
+        line-height: 1.3;
+        font-weight: 500;
+        font-size: 22px;
+        position: relative;
+        display: inline-block;
+        z-index: 2;
+    }
+
+    .top-heading {
+        font-size: 18px;
+        line-height: 1.2;
+        color: #141e42;
+        font-weight: 500;
+    }
+
+    .date-div {
+        margin-right: 75px;
+    }
+
+    .datepicker table tr td {
+        color: #141e42;
+        background-color: rgb(230 235 250);
+        border-radius: 20px;
+        padding: 8px 12px;
+    }
+
+    .datepicker table tr td.disabled {
+        color: #141e42;
+        border-radius: 23px;
+    }
+
+    .datepicker table tr td.disabled:hover {
+        color: #141e42;
+        cursor: not-allowed;
+    }
+
+    .time-row {
+        height: 106%;
+        width: 44%;
+        overflow: scroll;
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .time-row-bg {
+        padding-top: 4px !important;
+        padding-bottom: 0px !important;
+    }
+
+    input[name="timeslots_for_date"]:checked + label {
+        background-color: #141e42;
+        color: white !important;
+    }
+
+    /* .services-btn {
+
+    } */
+    .services-btn:hover {
+        background-color: #141e42;
+        color: white !important;
+    }
+
+    .service-clicked {
+        background-color: #141e42;
+        color: white !important;
+    }
+
+    @media (min-width: 1350px) {
+        /* .time-row {
+            width: 95%;
+        }  */
+        /* .time-col {
+            height: 18rem;
+            width: 50% !important;
+        }
+        .date-row {
+            justify-content: start !important;
+        }
+        .date-col {
+            width: 50%;
+        }
+        .date-label {
+            text-align: start !important;
+        } */
+    }
+
+    @media (min-width: 990px) {
+        .main-form-div {
+            overflow: hidden;
+            overflow-y: scroll;
+        }
+
+        .small-div-height {
+            height: 55vh;
+        }
+
+        .div-height {
+            height: 80vh;
+        }
+    }
+
+    @media (max-width: 990px) {
+
+    }
+
+    @media (max-width: 1200px) {
+        .time-row {
+            width: 67%;
+        }
+
+        .terms-info {
+            font-size: 12px;
+        }
+    }
+
+    @media (max-width: 515px) {
+        .time-row {
+            width: 100%;
+        }
+
+        .social-icons {
+            padding: 0.25rem 1.5rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .datepicker table tr td {
+            padding: 9px 10px;
+        }
+
+        .date-div {
+            margin-right: 50px;
+        }
+    }
+</style>
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="row py-5 justify-content-between">
+    <div class="col-12 col-sm-8">
+
+        <div class="row mb-5">
+            <div class="col-12 col-sm-12">
+
+                <div class="modal fade py-5" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                     tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
+                         style="min-height: 88vh;">
+                        <div class="modal-content">
+                            <div class="modal-body" style="padding-bottom: 0;">
+                                <div class="row">
+                                    <p class="service-label mt-2 text-center pb-2"
+                                       style="letter-spacing: 0px; border-bottom: 1px solid #63666e;">
+                                        Please Double Check the info below Before you Confirm Appointment
+                                    </p>
+
+                                    <div class="col-lg-4 col-sm-12 text-center"
+                                         style="border-right: 1px solid #141e42;">
+                                        <div class=" col-12">
+                                            <h6 class="service-label">Session Date</h6>
+                                            <p class="service-info" id="datePara">{{appointment.date}}</p>
+                                        </div>
+
+                                        <div class=" col-12">
+                                            <h6 class="service-label">Session Time</h6>
+                                            <div class="service-info">
+                                                <p>{{ appointment.from_time }} - {{ appointment.to_time }}
+                                                    <span style="color: red;">({{appointment.booker.timezone}} Time)</span>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class=" col-12">
+                                            <h6 class="service-label">Alumni ID</h6>
+                                            <p class="service-info">{{appointment.provider.slug}}</p>
+                                        </div>
+
+                                        <div class=" col-12">
+                                            <h6 class="service-label">Service</h6>
+                                            <p class="service-info">{{ appointment.services.title }}</p>
+                                        </div>
+
+                                        <div class=" col-12">
+                                            <h6 class="service-label">Service Duration</h6>
+                                            <p class="service-info">{{appointment.duration_minutes}} minutes</p>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <h6 class="service-label">Cost Of Session</h6>
+                                            <p class="service-info">
+                                                {% if appointment.currency == 'USD' %}
+                                                ${{ appointment.cost|floatformat:0 }}
+                                                {% elif appointment.currency == 'GBP' %}
+                                                £{{ appointment.cost|floatformat:0 }}
+                                                {% elif appointment.currency == 'EUR' %}
+                                                €{{ appointment.cost|floatformat:0 }}
+                                                {% elif appointment.cost == 0 %}
+                                                    FREE!
+                                                <!-- 0  <span style="color: red;">(FREE)</span> -->
+                                                {% endif %}
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8 col-sm-12 align-items-center" style="display:grid">
+                                        <div class="text-center payment-alert-message alert alert-success alert-dismissible fade show">
+                                            Go ahead! Best insights are ready to inspire you.
+                                        </div>
+
+
+                                        <div class="col-12 align-items-center text-center">
+                                            <h6 class="service-label">Service Description</h6>
+                                            <!-- <p id="reasonsPara" class="service-info"></p> -->
+                                            <p class="service-info">
+                                                {{ appointment.services.description|safe|truncatechars:500 }}</p>
+
+                                            <!-- <div class="col-12 mb-3">
+                                                <h6 class="service-label">Service Description</h6>
+                                                <p id="reasonsPara" class="service-info"></p>
+                                            </div> -->
+
+                                            <div class="col-12 my-3">
+                                                <h6 class="service-label">Extra Info</h6>
+                                                <p id="detailPara">{{ appointment.Details|safe|truncatechars:200 }}</p>
+                                            </div>
+
+                                            <!-- <div class="row justify-content-center">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 ">
+                                    
+                                                    {% if not request.user.terms_and_conditions_agreed %}
+                                                    <p class="terms-info mt-1">
+                                                        Please <a data-bs-toggle="modal" data-bs-target="#tcModal" style="cursor: pointer; color: #141e42;">click here</a> to read & agree to our Terms and Policies.
+                                                    </p>
+                                                    {% endif %}
+                                                    <div class="modal fade" id="tcModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title " id="staticBackdropLabel">Terms & Conditions</h5>
+                                                        </div>
+                                                        <div class="modal-body">            
+                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. In consequatur temporibus laudantium nesciunt reprehenderit optio voluptates provident soluta perspiciatis, rerum iusto minima doloribus porro aperiam a, cupiditate praesentium! Distinctio nostrum neque eius cumque? Consectetur, omnis. Neque dolor totam adipisci modi minima illo, ea quam nostrum nulla cupiditate voluptatum architecto eaque animi itaque odio dignissimos tempora voluptatem excepturi perspiciatis reprehenderit sed, aperiam voluptates! Accusantium corrupti eos tempore sapiente optio tempora eveniet iste quis sit dolore cumque et nihil nesciunt commodi laboriosam quam placeat possimus odit, dignissimos 
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                        <input class="form-check-input" name="terms" value="" onclick="modalBtnEnable()" required style="height: 28px;width: 30px;border: 2px solid #141e42;" type="checkbox"  id="TermsConditionsCheckBox">
+                                                        <button type="button" id="tcBtn" class="btn btn-success" disabled data-bs-toggle="modal" data-bs-target="#tcModal" 
+                                                        style="width: 90%;">I Agree</button>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                    <hr>
+                                                </div>
+                                            </div> -->
+                                        </div>
+
+
+                                        {% if appointment.status == 'Pending' %}
+                                        <div class="row text-center align-items-center">
+
+                                            <div class="mb-2">
+                                                {% if appointment.cost == 0 %}
+                                                <div class="row justify-content-center">
+                                                    <div class="col-9">
+<!--                                                        <h5 style="color:#141e42">Say thanks! <i style="color:#141e42" class="ml-1" data-feather="thumbs-up"></i></h5>-->
+<!--                                                            <p style="color:#141e42">-->
+<!--                                                            Please show your appreciation to <b>{{ appointment.provider.first_name }}</b> for this FREE session by sharing their profile on your social media, before proceeding: </p>-->
+
+<!--                                                        <div class="text-center">-->
+<!--                                                            <button-->
+<!--                                                                    class="mb-3 btn btn-sm social-icons"-->
+<!--                                                                    onclick="activatesubmit()">-->
+<!--                                                                {% post_to_facebook " " link " " %}-->
+<!--                                                            </button>-->
+<!--                                                            <button-->
+<!--                                                                    class="mb-3 btn btn-sm social-icons"-->
+<!--                                                                    onclick="activatesubmit()">-->
+<!--                                                                {% post_to_whatsapp "lallalala" link " " %}-->
+<!--                                                            </button>-->
+<!--                                                            <button-->
+<!--                                                                    class="mb-3 btn btn-sm social-icons"-->
+<!--                                                                    onclick="activatesubmit()">-->
+<!--                                                                {% post_to_twitter " " link " " %}-->
+
+<!--                                                            </button>-->
+<!--                                                            <button style="color: #141e42;margin-left: 14px;"-->
+<!--                                                                    class="mb-3 btn btn-sm social-icons" id="copy-link"-->
+<!--                                                                    onclick="activatesubmit()">-->
+<!--                                                                <i style="font-size: 2.5rem" class="fa fa-copy" ></i>-->
+<!--                                                            </button>-->
+
+
+<!--                                                        </div>-->
+                                                    </div>
+                                                </div>
+                                                <button type="submit" id="free-submit" name="btnprofile"
+                                                        style="font-size: 15px; border-radius: 10px; background-color: #141e42; color: white;"
+                                                        onclick="submitform()">
+                                                    Confirm Appointment
+                                                </button>
+                                                {% elif appointment.cost > 0 and paypal_merchant_id != None %}
+                                                <!-- <button type="submit" name="btnprofile"
+                                                        class="py-2 px-4"
+                                                        style="font-size: 15px;border-radius: 10px; background-color: #141e42; color: white;"
+                                                        onclick="submitform()"> Confirm Appointment
+                                                </button> -->
+                                                <p class="text-center service-info">
+                                                    Please make your payment of
+                                                    <b>
+                                                        {% if appointment.currency == 'USD' %}
+                                                        ${{ appointment.cost|floatformat:0 }}
+                                                        {% elif appointment.currency == 'GBP' %}
+                                                        £{{ appointment.cost|floatformat:0 }}
+                                                        {% elif appointment.currency == 'EUR' %}
+                                                        €{{ appointment.cost|floatformat:0 }}
+                                                        {% endif %}
+                                                    </b>
+                                                    now:
+                                                </p> <br>
+
+                                                <!-- Set up a container element for the button -->
+                                                <div style="display:flex; justify-content: center;">
+                                                    <div style="width: 25%;" id="paypal-button-container"></div>
+                                                </div>
+
+                                                {% elif appointment.cost == 0 and paypal_merchant_id == None %}
+                                                <div class="row  justify-content-center">
+                                                    <div class="col-12">
+                                                        <p class="pb-3" style="color:#141e42">To proceed
+                                                            with this FREE booking, please show your
+                                                            appreciation by sharing their profile via
+                                                            social media: </p>
+                                                        <div class="text-center py-2">
+                                                            <button style="color: #141e42;"
+                                                                    class="mb-3 btn btn-sm social-icons"
+                                                                    onclick="activatesubmit()">
+                                                                {% post_to_facebook "I've just booked a discovery
+                                                                session with" link " my-2 btn-lg border-2" %}
+                                                            </button>
+                                                            <button style="color: #141e42;"
+                                                                    class="mb-3 btn btn-sm social-icons"
+                                                                    onclick="activatesubmit()">
+                                                                {% post_to_whatsapp "I've just booked a discovery
+                                                                session with" link " my-2 btn-lg border-2" %}
+                                                            </button>
+                                                            <button style="color: #141e42;"
+                                                                    class="mb-3 btn btn-sm social-icons"
+                                                                    onclick="activatesubmit()">
+                                                                {% post_to_twitter "I've just booked a discovery session
+                                                                with" link "btn btn-primary btn-width my-2 btn-lg
+                                                                border-2" %}
+
+                                                            </button>
+                                                            <button style="color: #141e42;margin-left: 14px;"
+                                                                    class="mb-4 btn btn-sm social-icons"
+                                                                    onclick="activatesubmit()">
+                                                                {% post_to_linkedin link "btn btn-primary btn-width my-2
+                                                                btn-lg border-2" %}
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" id="submit" name="btnprofile"
+                                                        class="mt-2 py-2"
+                                                        style="font-size: 15px; border-radius: 10px; background-color: #141e42; color: white;"
+                                                        onclick="submitform()">
+                                                    Confirm Appointment
+                                                </button>
+                                                <hr>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        {% endif %}
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="model-footer" style="border-top: 1px solid #141e42;">
+                                <div class="row">
+                                    <div class="col-lg-2 d-lg-block d-none">
+                                        {% if appointment.status == 'Pending' %}
+                                        <a href="{% url 'messaging:comment_mentor_public_profile_twfl' appointment.provider.slug %}"
+                                           style="float:left;" class="btn-rounded mt-3 ml-3 decline-btn btn">Decline</a>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="col-lg-8 col-sm-12">
+                                        <p class="mt-4 terms-info text-center">
+                                            Appointment bookings are in accordance with the agreed Terms & Policies.
+                                        </p>
+                                    </div>
+
+                                    <div class="col-lg-2 d-lg-none d-md-block">
+                                        {% if appointment.status == 'Pending' %}
+                                        <a href="{% url 'messaging:comment_mentor_public_profile_twfl' appointment.provider.slug %}"
+                                           style="float:left;" class="btn-rounded mt-3 ml-3 decline-btn btn">Decline</a>\
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="col-6 col-lg-2">
+                                        <img src="{% static 'img/logo/tag-water.png' %}" class="mb-2 mr-3"
+                                             style="float: right;" width="60px" alt="TAG Logo">
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            {% endblock %}
+
+            {% block js %}
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+                    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+                    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+            <script src="{% static 'assets/plugin/datapicker/js/bootstrap-datepicker.min.js' %}"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+                    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+                    crossorigin="anonymous"></script>
+
+            <script src="https://cdn.jsdelivr.net/npm/smartwizard@5/dist/js/jquery.smartWizard.min.js"
+                    type="text/javascript"></script>
+
+            <script src="https://cdn.jsdelivr.net/npm/clipboard-js@0.3.6/clipboard.min.js" integrity="sha256-gItQ2FJM3Fqui1yy9GX6bPKVb7FmiKUBaTM3QzwHw2w=" crossorigin="anonymous"></script>
+
+            <script src="{% static 'assets/js/style.js' %}"></script>
+            <script>
+                function activatesubmit() {
+                    document.getElementById('free-submit').disabled = false;
+                    document.getElementById('free-submit').style.backgroundColor = '#141e42';
+                }
+
+
+            </script>
+            <script>
+                function submitform() {
+
+                    var cost = {{appointment.cost}};
+
+                    $.ajax({
+                        url: '/booking/confirm/{{appointment.id}}/',
+                        type: 'POST',
+                        headers: {'X-CSRFToken': $('[name="csrfmiddlewaretoken"]').val()},
+                        data: {
+                            'cost': cost,
+                        },
+                        dataType: 'json',
+                        success: function (response) {
+                            console.log(response);
+                            window.location='/message/mentor/{{appointment.provider.slug}}';
+                        },
+                        error: function (request, status, error) {
+                            alert('error; ' + error);
+                        }
+                    });
+
+
+                }
+            </script>
+
+            <script>
+                $(document).ready(function () {
+                    $("#exampleModal").modal('show');
+                });
+            </script>
+            <script>
+                // var fee = '{{appointment.cost}}'
+
+                function transactionData(orderData) {
+                    appointment = {{ appointment.id }}
+                    transactionId = orderData.purchase_units[0].payments.captures[0].id
+                    transactionStatus = orderData.purchase_units[0].payments.captures[0].status
+                    transactionAmmount = orderData.purchase_units[0].payments.captures[0].amount.value
+                    transactionCurrency = orderData.purchase_units[0].payments.captures[0].amount.currency_code
+                    transactionPayerName = orderData.payer.name.given_name + ' ' + orderData.payer.name.surname
+                    transactionEmail = orderData.payer.email_address
+
+                    $.ajax({
+                        url: '/payment/paypal-payment-status/',
+                        type: 'POST',
+                        headers: {'X-CSRFToken': $('[name="csrfmiddlewaretoken"]').val()},
+                        data: {
+                            'transaction_id': transactionId,
+                            'transaction_status': transactionStatus,
+                            'transaction_amount': transactionAmmount,
+                            'transaction_currency': transactionCurrency,
+                            'transaction_payer': transactionPayerName,
+                            'transaction_payer_email': transactionEmail,
+                            'appointment': appointment,
+                        },
+                        dataType: 'json',
+                        // success: function (response) {
+                        //     console.log(response);
+                        //     navigator.clipboard.writeText(response['link']);
+                        //     $('.toast').toast('show');
+                        // },
+                        // error: function (request, status, error) {
+                        //     alert('error; ' + error);
+                        // }
+                    });
+
+                }
+
+                paypal.Buttons({
+                    style: {
+                        color: 'blue',
+                    },
+                    // Sets up the transaction when a payment button is clicked
+                    createOrder: function (data, actions) {
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: '{{appointment.cost}}' // parseFloat(fee).toFixed(2)  // Can reference variables or functions. Example: `value: document.getElementById('...').value`
+                                }
+                            }]
+                        });
+                    },
+
+                    // Finalize the transaction after payer approval
+                    onApprove: function (data, actions) {
+                        return actions.order.capture().then(function (orderData) {
+                            // Successful capture! For dev/demo purposes:
+                            // console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                            transactionData(orderData)
+                            var transaction = orderData.purchase_units[0].payments.captures[0];
+                            var alertDiv = document.querySelector('.payment-alert-message');
+                            alertDiv.innerHTML = "Transaction " + transaction.status + " Successfully, ID: " + transaction.id + ". Yaay! Let's go back to the chat.";
+                            setTimeout(function() {
+                                actions.redirect('https://alumni.intfoundationgroup.co.uk/message/mentor/{{appointment.provider.slug}}/');
+                                // actions.redirect('https://alumni.intfoundationgroup.co.uk/message/mentor/{{appointment.provider.slug}}/');
+                            }, 5000);
+                            // When ready to go live, remove the alert and show a success message within this page. For example:
+                            // var element = document.getElementById('paypal-button-container');
+                            // element.innerHTML = '';
+                            // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                            // Or go to another URL:  actions.redirect('thank_you.html');
+                        });
+                    }, 
+                    onCancel: function (data) {
+                        var alertDiv = document.querySelector('.payment-alert-message');
+                        alertDiv.classList.remove('alert-success');
+                        alertDiv.classList.add('alert-danger');
+                            alertDiv.innerHTML = 'Transaction ' + data.orderID + ' Failed. Please Try again.';
+                    }
+                }).render('#paypal-button-container');
+
+                    
+                  
+
+            </script>
+            {% endblock %}

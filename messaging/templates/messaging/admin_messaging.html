@@ -1,0 +1,91 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} Messages {% endblock %}
+{% load administration_extras %}
+{% load messaging_extras %}
+{% load crispy_forms_tags %}
+{% block css %}
+<style>
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  select,
+  textarea,
+  input {
+    font-size: 16px !important;
+  }
+}
+@media (max-width:767px){
+      .az-content .container , .az-content.pd-y-20{
+      padding: 0 !important;
+    }
+}
+.whatsapp-icon{
+    display:none;
+}
+</style>
+{% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'messaging:comment_list_user_twfl' %}">Back</a></li>
+    </ol>
+</nav>
+<div class="az-content az-content-app pd-b-0 height">
+    <div class="container dis-flex">
+        <div class="card flex-dir">
+            <div class="az-content-body az-content-body-chat d-block ">
+                <div class="az-chat-header">
+                    <div class="az-img-user">
+                        <img id='my_profile_pic' src="{% static 'images/default_profile.png' %}" alt="">
+                    </div>
+                    <div class="az-chat-msg-name">
+                        <h6 class="text-capitalize">{{admin_profile.first_name}}</h6>
+                        <small>{{admin_profile.user_type|getuser}}</small>
+                    </div>
+                </div>
+                <!-- az-chat-header -->
+                <div id="azChatBody" class="az-chat-body az-chat-body-inner">
+                    <div class="content-inner">
+                        {% for comment in comments %}
+                        {{ comment.id|get_message_receive_date }}
+                        <div
+                         class="media {% if comment.sender == request.user %}flex-row-reverse{% else %}reverse{% endif %}
+                         {% if not comment.read %} unread-msg{% endif %}"
+                         {% if not comment.read %}data-id="{{ comment.id }}"{% endif %}>
+                            <div class="media-body">
+                                <div class="az-msg-wrapper">
+                                    {{ comment.comment|safe }}
+                                    {% if comment.sender == request.user %}
+                                    {% if comment.read %}
+                                    <i data-feather="check" class="fs-blue fs-dark"></i>
+                                    <i data-feather="check" class="fs-blue fs-dark right-0"></i>
+                                    {% else %}
+                                    <i data-feather="check" class="fs-dark"></i>
+                                    <i data-feather="check" class="fs-dark right-0"></i>
+                                    {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- content-inner -->
+                </div>
+                <!-- az-chat-body -->
+                <div class="az-chat-footer chat-footer pb-lg-4">
+                    <input name="msg" type="text" class="form-control type-msg"
+                           placeholder="Click Return or Go on your keypad to send">
+                    <a href="#" class="az-msg-send d-none" id="msg-send-button"
+                       data-receiver="{{admin_profile.slug}}">
+                        <i data-feather="send"></i></a>
+                </div>
+                <!-- az-chat-footer -->
+            </div>
+            <!-- az-content-body -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="{% static 'messaging/js/messaging.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,344 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% load administration_extras %}
+{% load static %}
+{% load widget_tweaks %}
+{% load social_share %}
+
+{% block title %}Search Alumni{% endblock %}
+
+{% block css %}
+<style>
+    form {
+        display: contents;
+    }
+
+    div.btn,
+    .filter {
+        margin-right: 5px;
+    }
+
+    .facebook-this,
+    .tweet-this {
+        display: contents;
+    }
+
+    #empty-row {
+        display: none;
+    }
+
+    #empty-row2 {
+        display: none;
+    }
+
+    .select2-container .select2-selection--single {
+        width: 100%;
+    }
+
+    .select2-container--open {
+        z-index: 1051 !important;
+        /* Set the z-index value */
+    }
+
+    .modal-open .select2-container {
+        width: auto !important;
+        /* Set the width to auto */
+        min-width: 100% !important;
+        /* Set the min-width to 100% */
+    }
+    
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group mr-2" style="margin-bottom: 10px;" role="group" aria-label="Second group">
+        <a href="{% url 'administration:new_search_alumni' %}" class="btn btn-lg btn-rounded btn-outline-secondary">
+            <i data-feather="users"></i> Former Students
+        </a>
+    </div>
+    
+    <div class="btn-group mr-2" style="margin-bottom: 10px;" role="group" aria-label="Third group">
+        <a href="#" class="btn btn-lg btn-rounded btn-outline-secondary">
+            <i data-feather="users"></i> Current Students
+        </a>
+    </div>
+   
+
+</div>
+
+<h5 id="click-search-button" style="color: green; cursor: help;">Click and search IFG students</h5><br>
+
+<!-- Filters -->
+<!-- <div class="mg-b-10">
+    <div style="text-align: right;">
+    <h5 id="click-search-button" class="text-center" style="    background-color: #08498e;
+    border-radius: 50px;
+    color: #fff;
+    padding: 6px 28px;
+    display: inline-block;
+    text-align: right !important;
+    cursor: pointer;">
+        Click to search and filter IFG Alumni
+    </h5>
+</div> -->
+    
+    <div id="search-filter" class="col-md-12 mb-3 mb-md-4" style="background: white; padding: 24px; border-radius: 5px;">
+        <form id="search-mentor-form">
+            {% load crispy_forms_tags %}
+            <div class="d-flex justify-content-lg-between align-items-lg-center table-responsive">
+                <div class="filter-div d-flex justify-content-lg-between align-items-lg-center">
+                    <strong>Search students using the following filters</strong>
+                </div>
+            </div>
+            <br>
+            <div class="form-row">
+                <div class="form-group col-md-4 col-lg-4 ">
+                    {{form.name|as_crispy_field}}
+                </div>
+                <div class="form-group col-md-4 col-lg-4 ">
+                    {{form.email|as_crispy_field}}
+                </div>
+                <div class="form-group col-md-4 col-lg-4 ">
+                    {{form.admin__country|as_crispy_field}}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4 col-lg-4 ">
+                    {{form.programme_level|as_crispy_field}}
+                </div>
+                <div class="form-group col-md-4 col-lg-4 select2-box">
+                    {{form.admin__spoken_languages|as_crispy_field}}
+                </div>
+                <div class="form-group col-md-4 col-lg-4 ">
+                    {{form.university_start_year|as_crispy_field}}
+                </div>
+            </div>
+
+            <div class="form-row justify-content-end">
+                <button class="btn btn-rounded btn-indigo" style="margin-right: 5px;">Search</button>
+                <a href="{{request.path}}" class="btn btn-rounded btn-info" style="margin-right: 5px;">Clear</a>
+            </div>
+        </form>
+    </div>
+
+
+
+{% if personal_info_list %}
+{% for x in mentors %}
+{% for y in personal_info_list %}
+{% if x.admin.slug == y.admin.user_slug %}
+<div class="row row-sm mg-b-20 ">
+    <div class="col-12 col-md-12 col-lg-12">
+        <div class="card card-dashboard-twentysix mg-b-10">
+            <div class="card-body pd-t-15 pd-b-15 pd-l-30 pd-r-30">
+                <div class="row d-flex align-items-md-center">
+                    <div class="col-md-6 col-lg-4 col-xl-4">
+                        <div class="afm-mentor-student-details pd-b-15 pd-t-15">
+                            <div class="afm-mentor-student-img">
+                                {% if y.admin.profile_pic %}
+                                <img src="{{y.admin.profile_pic.url}}" alt="{{y.admin.first_name}}">
+                                {% else %}
+                                <img src="{% static 'images/default_profile.png' %}" alt="{{y.admin.first_name}}">
+                                {% endif %}
+                            </div>
+                            <div class="mentor-content d-flex align-items-md-center">
+                                <div>
+                                    <div class="pd-b-10">
+                                        <h4 class="d-inline text-capitalize">{{y.admin.first_name}} </h4>
+                                        <span class="d-block mg-t-10">Student of
+                                            {{y.currently_studying|getsubject}}</span>
+                                    </div>
+                                    <div class="pd-b-5 pd-t-5">
+                                        <span class="tx-medium">From:</span> <span class="country-flags">
+                                            {{y.admin.country.name}} <img src="{{y.admin.country.flag}}"
+                                                alt="{{y.admin.country.name}}"> </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 col-xl-3">
+                        <div class="pd-b-15 pd-t-15 text-center text-md-left">
+                            <div>
+                                <div class="pd-b-5 pd-t-5">
+                                    <span class="tx-medium">Spoken Languages:</span>
+                                    <span>{{y.admin.spoken_languages.all|print_languages}} </span>
+                                </div>
+                                <div class="pd-b-5 pd-t-5">
+                                    <span class="tx-medium">Currently Living In:</span> <span class="country-flags">
+                                        {{y.admin.currently_living_in.name}} <img
+                                            src="{{y.admin.currently_living_in.flag}}"
+                                            alt="{{y.admin.currently_living_in.name}}"> </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 col-xl-3">
+                        <div class="pd-b-15 pd-t-15  text-center text-md-left">
+                            <div>
+                                <div class="pd-b-5 pd-t-5">
+                                    <span class="tx-medium">Studying in:</span> <span class="country-flags">
+                                        {{y.studying_in.name}} <img src="{{y.studying_in.flag}}"
+                                            alt="{{y.studying_in.name}}"> </span>
+                                </div>
+                                <div class="pd-b-5 pd-t-5">
+                                    <span class="tx-medium">Currently Studying:</span>
+                                    <span>{{y.currently_studying|getsubject}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2 col-xl-2 justify-content-center align-items-md-center d-flex">
+                        <div class="uni-logo pd-b-15 pd-t-15">
+                            <div class="text-center">
+                                <!--                                                      <h4>University</h4>-->
+                            </div>
+                            <div class="text-center">
+                                {% if x.institute_name %}
+                                {% with my_string=x.institute_name|slugify %}
+                                {% with image_url='assets/img/logo/university/'|add:my_string|add:'.png' %}
+                                {% if image_url|check_if_file_exists %}
+                                <img src="{% static 'assets/img/logo/university/'|add:my_string|add:'.png' %}"
+                                    alt="{{x.institute_name}}" style="max-height:100px;">
+                                {% else %}
+                                <img src="{% static 'img/university/afu-university-icons.png' %}"
+                                    alt="{{x.institute_name}}" style="max-height:100px;">
+                                {% endif %}
+                                {% endwith %}
+                                {% endwith %}
+                                {% else %}
+                                <img src="{% static 'img/university/afu-university-icons.png' %}"
+                                    alt="{{x.institute.institute_name}}" style="max-height:100px;">
+                                {% endif %}
+                                <p>
+                                    {% if x.institute %}
+                                    {{x.institute.institute_name}}
+                                    {% else %}
+                                    {{x.institute_name}}
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="line-3">
+                <div class="last-edited">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6 col-xl-6 col-sm-6 text-left pd-l-30">
+                            <p>
+                                <i data-feather="user"></i>Alumnus ID :
+                                <strong class="text-uppercase">{{x.admin.slug}} </strong>
+                                {% if y.university_start_year %}
+                                | Left IFG in {{ y.university_start_year|getifnone}}
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-xl-6 col-sm-6 text-right pd-r-30">
+                            <!--                                    <a href="https://booking.theapplygroup.com/?mentor-id={{x.admin.slug}}" class="btn btn-rounded btn-md btn-indigo" target="_blank"> Book an Appointment</a>-->
+                            <!--                                <a class="btn btn-rounded btn-md btn-outline-indigo"-->
+                            <!--                                   href="{{ x.admin.slug|getmentorprofileurl }}" target="_blank">View Profile</a>-->
+                            <a href="{% url 'messaging:comment_mentor_public_profile_twfl' x.admin.slug %}"
+                                class="btn btn-rounded btn-md btn-indigo"> Send a Message</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% else %}
+<div style="text-align:center;">
+    <p>Please broaden your search criteria for a great choice of potential mentors.</p>
+</div>
+{% endif %}
+
+<div class="">
+    <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+    <div class="d-flex justify-content-center">
+        <ul class="pagination pagination-circled">
+            {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link"
+                    href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}"><i
+                        data-feather="arrow-left"></i></a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link"
+                    href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}"><i
+                        data-feather="arrow-right"></i></a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+
+
+
+<!-- Chat Modal  -->
+<div class="modal fade students-modal" id="chat-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+
+            </div>
+            <div class="modal-body pt-0">
+                <div class="text-center">
+                    <h3 class="modal-title" id="exampleModalLabel">You are almost there</h3>
+                    <p>Sign up with IFG</p>
+                </div>
+
+                <div>
+                    <form action="" method="post">
+                        <div class="mt-4">
+                            {% csrf_token %}
+                            <input type="hidden" name="chat_slug" value="{{chat_slug}}">
+                            {% crispy signupform %}
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="submit" class="btn btn-primary w-100">Sign up</button>                            
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- <div class="modal-footer justify-content-center">
+                    <button type="submit" class="btn btn-lg btn-primary">Register</button>
+                    <p>Already have an account? <a href="#">Sign in</a></p>
+                </div> -->
+
+        </div>
+    </div>
+</div>
+
+<!-- <h3 style="color: brown;">Request session Chat Slug: </h3> -->
+{{ chatslug|json_script:"chat-slug" }}
+{% endblock %}
+
+
+{% block js %}
+<script>
+$(document).ready(function () {
+    console.log("New search mentor ready !!");
+    let chatSlug = JSON.parse(document.getElementById('chat-slug').textContent);
+    {% if request.user.user_type == 12 %}
+    {% if not student.where_are_you_from %}
+        console.log("Request Session Chat Slug: ", chatSlug);
+        console.log("New FutureStudent Form popup......");
+        $("#chat-modal").modal({ "backdrop": "static", "keyboard": false }, 'show');
+    {% endif %}
+    {% endif %}
+
+    console.log("Search Filter Toggle !!");
+    $('#search-filter').hide();
+    $('#click-search-button').click(function() {
+      $('#search-filter').toggle("slide");
+    });
+});
+
+</script>
+{% endblock %}

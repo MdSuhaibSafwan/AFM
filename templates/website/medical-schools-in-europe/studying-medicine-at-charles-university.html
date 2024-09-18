@@ -1,0 +1,95 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%} Study Medicine at the Charles University in Prague{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %} Contact medical students to assist with your application to study medicine in the Charles University in Prague.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}https://applyformedicine.com/medical-schools-in-europe/studying-medicine-at-charles-university/{% endblock %}{% endblock %}
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">International Foundation Group</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine_in_europe' %}">
+
+                                Medical Schools In Europe</a>
+                            <span> >
+                            </span>Charles University in Prague
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-8 col-md-8">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">Charles University in Prague
+                            <br>1<sup>st</sup> Faculty of Medicine
+                        </h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in the Czech Republic</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-xl-8">
+                    <article>
+                        <h3>Get mentored by medical students at Charles University in Prague</h3>
+                        <p>
+                            <em>Currently, I'm a 4th year medical student with a passion for educating and
+                                beingeducated. Before COVID-19, I would frequent the gym and other activities with
+                                peopleI like to call my second family. Getting to where I am now has not been easy and
+                                Ihave gone through my fair share of ups and downs, but I am a firm believer
+                                thateverything happens for a reason and have tried to use all my past obstacles
+                                aslessons to work on myself and improve every single day. As I know of the many
+                                struggles
+                                at hand for someone who moves away from their family at a very young age,I spend my time
+                                trying to help others acclimate to the drastic change and make it just a bit easier if
+                                possible.</em>
+                        </p>
+                        <p>One of the many reasons I love to teach and mentor is to see that moment in their eyeswhen
+                            all the different factors come in together and their mental light bulb finally turns on and
+                            they are able to pass that knowledge to the younger years later.</p>
+                        <p class="mb-5">
+                            <em> -by <strong>Helia, </strong>
+                                <a href="{% url 'administration:study_medicine_in_europe' %}"
+                                    class="afm-link">studying medicinein Europe</a> at Charles University, First
+                                Faculty, Prague, Czech Republic</em>
+                        </p>
+                    </article>
+                </div>
+                <div class="col-md-4 col-xl-4">
+                    <div class="afm-student-img">
+                        <img src="{% static 'website/img/content-img/helia.jpg' %} " class="img-fluid rounded-circle"
+                            alt="helia" title="helia" width="290" height="290" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> global community of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:contact_us' %} " class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

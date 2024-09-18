@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floating Card</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+
+    <style>
+        /*popuup css start*/
+        #tap-pop-card .pop-card-wrapper {
+            visibility: hidden;
+            font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, “Roboto”, “Droid Sans”, “Helvetica Neue”, Helvetica, Arial, sans-serif;
+            font-weight: bold;
+            min-width: 8vw;
+            /* background-color: #fff; */
+            background-color: rgba(0, 0, 0, 0.69);
+            position: fixed;
+            bottom: 2rem;
+            right: 0;
+            margin: 2rem;
+            padding: 1rem;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.02), 0 5px 22px -6px rgba(0, 0, 0, 0.1), 0 -12px 35px -19px rgba(0, 0, 0, 0.2);
+            border-radius: 7px;
+            text-decoration: none;
+            color: #efefef !important;
+            transition: 0.2s all;
+            z-index: 99999;
+        }
+    
+        #tap-pop-card .pop-card {
+            position: relative;
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        #tap-pop-card .hide-pop-card {
+            position: absolute;
+            right: -15px;
+            top: -13px;
+            width: 28px;
+            height: 28px;
+            background: url(data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjI0IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWluWU1pbiIgdmlld0JveD0iLTYgLTYgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBmaWxsPSIjZWZlZmVmIiBkPSJtNy4zMTQgNS45IDMuNTM1LTMuNTM2YTEgMSAwIDEgMCAtMS40MTQtMS40MTRsLTMuNTM2IDMuNTM1LTMuNTM1LTMuNTM1YTEgMSAwIDEgMCAtMS40MTQgMS40MTRsMy41MzUgMy41MzUtMy41MzUgMy41MzZhMSAxIDAgMSAwIDEuNDE0IDEuNDE0bDMuNTM1LTMuNTM1IDMuNTM2IDMuNTM1YTEgMSAwIDEgMCAxLjQxNC0xLjQxNGwtMy41MzUtMy41MzZ6Ii8+PC9zdmc+Cg==) no-repeat center;
+            background-size: contain;
+            z-index: 999;
+            cursor: pointer;
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+    
+        #tap-pop-card h1,
+        #tap-pop-card h2 {
+            font-size: 1.33rem;
+            font-weight: normal;
+            text-align: center;
+            line-height: 1.1;
+            padding: 0;
+            color: #efefef;
+            max-width: 15rem;
+            margin-bottom: 5px;
+        }
+    
+        #tap-pop-card .avatar-wrapper {
+            overflow: hidden;
+            position: relative;
+            margin: 8px 0;
+        }
+    
+        #tap-pop-card .avatar-wrapper img {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #efefef;
+            transition: 0.4s all;
+            margin: 10px 0;
+        }
+    
+        #tap-pop-card .avatar-wrapper img:nth-child(1) {
+            z-index: 1;
+        }
+    
+        #tap-pop-card .avatar-wrapper img:nth-child(2) {
+            z-index: 2;
+            margin-left: -0.9rem;
+        }
+    
+        #tap-pop-card .avatar-wrapper img:nth-child(3) {
+            z-index: 3;
+            margin-left: -0.9rem;
+        }
+    
+        #tap-pop-card .avatar-wrapper img:nth-child(4) {
+            z-index: 4;
+            margin-left: -0.9rem;
+        }
+    
+        #tap-pop-card .avatar-wrapper img:nth-child(5) {
+            z-index: 5;
+            margin-left: -0.9rem;
+        }
+    
+        #tap-pop-card .avatar-wrapper img:nth-child(6) {
+            z-index: 6;
+            margin-left: -0.9rem;
+        }
+    
+        #tap-pop-card a.chat-now-button {
+            margin: 0 auto;
+            padding: 7px 8px;
+            border-radius: 5px;
+            background: #efefef;
+            border: none;
+            transition: all 0.2s;
+            color: #262e45;
+            font-size: 14px;
+            font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, “Roboto”, “Droid Sans”, “Helvetica Neue”, Helvetica, Arial, sans-serif;
+            font-weight: bold;
+            text-transform: none !important;
+            opacity: 0.9;
+            text-decoration: none;
+            max-width: calc(15rem - 34px);
+            text-align: center;
+        }
+    
+        a.chat-now-button .chat-now-button-label {
+            white-space: wrap;
+            display: inline-block;
+        }
+    
+        #tap-pop-card .pop-card-wrapper-mini {
+            visibility: hidden;
+            font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, “Roboto”, “Droid Sans”, “Helvetica Neue”, Helvetica, Arial, sans-serif;
+            font-weight: bold;
+            min-width: 8vw;
+            position: fixed;
+            bottom: 2rem;
+            right: 0;
+            margin: 2rem;
+            text-decoration: none;
+            color: #efefef !important;
+            transition: 0.2s all;
+            z-index: 99999;
+        }
+    
+        #tap-pop-card .chat-now-button-mini {
+            display: flex;
+            align-items: center;
+            padding: 9px 18px;
+            border-radius: 12px;
+            -webkit-font-smoothing: antialiased;
+            margin: 0 auto;
+            background: #efefef;
+            border: none;
+            transition: all 0.2s;
+            letter-spacing: normal;
+            color: #262e45;
+            font: 400 1.75rem Arial;
+            font-family: sans-serif;
+            text-transform: none !important;
+            opacity: 0.9;
+            text-decoration: none;
+        }
+    
+        #tap-pop-card .pop-card-wrapper-mini .tap-pop-card-avatar {
+            width: 33px;
+            height: 33px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #efefef;
+            transition: 0.4s all;
+            margin-right: 10px;
+        }
+    
+        #tap-pop-card .chat-now-button-mini span {
+            font-size: 14px;
+            height: 18px;
+            letter-spacing: 1px;
+        }
+    
+        @media (max-width:767px) {
+            #tap-pop-card .pop-card-wrapper-mini-common {
+                visibility: visible !important;
+            }
+    
+            #tap-pop-card .pop-card-wrapper-common {
+                visibility: hidden !important;
+            }
+    
+            #tap-pop-card .pop-card-wrapper {
+                width: auto;
+                margin: 2rem;
+            }
+    
+            #tap-pop-card .hide-pop-card {
+                display: none;
+                right: 0;
+            }
+    
+            #tap-pop-card .pop-card-title {
+                display: none;
+            }
+    
+            #tap-pop-card .avatar-wrapper {
+                display: flex;
+                justify-content: flex-end;
+            }
+    
+            #tap-pop-card .avatar-wrapper img:nth-child(1) {
+                z-index: 1;
+            }
+    
+            #tap-pop-card .avatar-wrapper img {
+                display: block;
+                border: none;
+            }
+    
+            #tap-pop-card .avatar-wrapper img:nth-child(2) {
+                z-index: 2;
+                margin-left: -1rem;
+            }
+    
+            #tap-pop-card .avatar-wrapper img:nth-child(3) {
+                z-index: 3;
+                margin-left: -1rem;
+            }
+    
+            #tap-pop-card .avatar-wrapper img:nth-child(4) {
+                display: none;
+            }
+    
+            #tap-pop-card a.chat-now-button {
+                padding: 5px 15px;
+                font-size: 0.9rem;
+            }
+        }    
+        /*popup css end*/
+    </style>
+</head>
+<body>
+
+<!-- Chat card -->
+<div id="tap-pop-card">
+    <!-- <div class="pop-card-wrapper pop-card-wrapper-common" aria-label="chat pop card" tabindex="0"
+    style="background: rgba(0, 0, 0, 0.959); backdrop-filter: blur(10px); visibility: visible;"> -->
+    <div class="pop-card-wrapper pop-card-wrapper-common" aria-label="chat pop card" tabindex="0"
+    style="background: rgba(210, 210, 210, 0.3); backdrop-filter: blur(10px);  box-shadow: 0 0 5px 0 ; visibility: visible;">
+        <div class="pop-card"> 
+            <!-- <button class="hide-pop-card" aria-label="close chat pop card" role="button"
+                onclick="return hideTheAccessPlatformPopCard(),!1"></button> -->
+            <h2 class="pop-card-title text-dark">What's IFG really like?</h2>
+            <!-- <div class="avatar-wrapper" onkeypress="return handleMobileTheAccessPlatformPopCard(),!1"
+                onclick="return handleMobileTheAccessPlatformPopCard(),!1"><img
+                    src="https://fs.theambassadorplatform.com/images/204389/bfea3005-858a-414e-a6b6-f800de58a1ce/160x160.jpeg"
+                    alt="Student ambassador profile picture"><img
+                    src="https://fs.theambassadorplatform.com/images/262846/f0f80abb-4d5d-4de6-9a11-70a4fe0ff6ea/160x160.jpeg"
+                    alt="Student ambassador profile picture"><img
+                    src="https://fs.theambassadorplatform.com/images/261408/c14feb2e-7445-4c55-a61b-653c6f4f3ff8/160x160.jpeg"
+                    alt="Student ambassador profile picture"><img
+                    src="https://fs.theambassadorplatform.com/images/254704/c03a73ee-64e5-4ec4-aa7c-6359d1d382df/160x160.jpeg"
+                    alt="Student ambassador profile picture">
+            </div>  -->
+            
+            
+            <div class="avatar-wrapper" onkeypress="return handleMobileTheAccessPlatformPopCard(),!1"
+                onclick="return handleMobileTheAccessPlatformPopCard(),!1">
+                {% for x in mentors %}
+                {% for mentor in random_mentors|slice:"0:3" %}
+                {% if x.admin.slug == mentor.admin.user_slug %}
+                <img src="{{mentor.admin.profile_pic.url}}" class="img-fluid" alt="{{y.admin.first_name}}" title="" width="" height="">
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
+            </div> 
+            
+
+            <a href="#" data-toggle="modal" data-target="#floating-chat-modal"
+                class="btn btn-indigo btn-rounded"
+                aria-label="chat now" role="button"
+                style="background-color: rgb(0, 47, 108);">
+                <span class="chat-now-button-label" style="color: white;">Chat to our former students now!</span>
+            </a>
+        </div>
+    </div>
+    <div class="pop-card-wrapper-mini pop-card-wrapper-mini-common" aria-label="chat pop card"> 
+        <a href="#" data-toggle="modal" data-target="#floating-chat-modal"
+            class="button chat-now-button-mini" aria-label="chat now" role="button"
+            style="background: rgba(210, 210, 210, 0.3); backdrop-filter: blur(10px);  box-shadow: 0 0 5px 0;">
+            <div class="avatar-wrapper-mini"><img
+                    src="https://fs.theambassadorplatform.com/images/262846/f0f80abb-4d5d-4de6-9a11-70a4fe0ff6ea/160x160.jpeg"
+                    class="tap-pop-card-avatar" alt="Student ambassador profile picture">
+            </div> 
+            <span class="pop-card-wrapper-chat-btn" style="padding-top: 0px;padding-bottom: 38px;">
+                Chat to our <br>students
+            </span>
+        </a> 
+    </div>
+</div>
+
+
+<!-- Floating Chat modal -->
+<div class="modal fade students-modal" id="floating-chat-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pt-0">
+                <div class="text-center">
+                    <h3 class="modal-title" id="exampleModalLabel">You are almost there</h3>
+                    <p>Please select how you want to signup</p>
+                </div>
+
+                <!-- Select Button -->
+                <div>
+                    <div class="form-check">
+                        <input type="radio" class="google-radio-button" name="sso" value="sso" />
+                        <label for="google-sso">
+                        <img src="{% static 'images/google-icon.png' %}" alt="Google Icon" loading="lazy" 
+                        title="Google Icon" height="20" width="20"> 
+                        Google
+                    </label>
+                    </div>   
+                    
+                    <div class="form-check">
+                        <input type="radio" class="local-radio-button" name="sso" value="sso" />
+                        <label for="local-email">
+                        <i class="fa fa-envelope fa-lg" aria-hidden="true"></i> 
+                        Email
+                    </label>
+                    </div>
+                    
+                </div>
+                
+
+                
+                <!-- Google Signup -->
+                <div class="google-registration">
+                    <input type="checkbox" class="google-marketing" name="google-marketing" value="google-marketing">
+                    <label for="google-marketing"> I agree to receive marketing communications email from IFG.</label><br>
+                    <div class="justify-content-center">
+                        <a class="googleLink btn btn-block btn-rounded btn-secondary" href="{% provider_login_url 'google' %}" data-slug="{{student.admin.user_slug}}" style="pointer-events: none;">
+                        <img src="{% static 'images/google-icon.png' %}" alt="Google Icon" loading="lazy" 
+                        title="Google Icon" height="20" width="20"> 
+                        Sign up with Google Account
+                        </a>
+                    </div>
+                </div>
+                      
+                <!-- Local Signup -->
+                <form class="local-registration" action="" method="post">
+                    <div class="mt-4">
+                        {% csrf_token %}
+                        {% crispy form %}
+                    </div>
+                    <input type="checkbox" class="local-marketing" name="local-marketing" value="local-marketing">
+                    <label for="local-marketing"> I agree to receive marketing communications email from IFG.</label><br>
+                    <div class="modal-footer justify-content-center">
+                        <button class="local-registration-button" type="submit" class="btn btn-rounded btn-secondary w-100" style="pointer-events: none;">Continue</button>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer justify-content-center">
+                <p>Already have an account? <a href="{% url 'administration:login' %}">Sign in</a></a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

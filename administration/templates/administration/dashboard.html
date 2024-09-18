@@ -1,0 +1,983 @@
+{% extends 'base/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% load administration_extras %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% load static %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb breadcrumb-style1">
+    <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="#">Welcome</a></li>
+  </ol>
+</nav>
+
+<!-- Institute User -->
+{% if user.user_type == 2 %}
+<div class="row row-sm mg-b-20">
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Current Students</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:list_students_twfl' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Former Student(s)</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:list_mentors_twfl' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4> Alumni Blogs </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'blogs:PostListAdmin' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row row-sm mg-b-20">
+  <div class="col-6 col-lg-6">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Total number of Alumni from your university</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <label>{{mentors}}</label>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row row-sm mg-b-20">
+  <div class="col-sm-12 col-lg-12">
+    <div class="card card-table-one">
+      <h6 class="card-title">Recent Alumni</h6>
+      <hr>
+      <div class="table-responsive">
+        <table class="table table-hover mg-b-0">
+          <thead>
+            <tr>
+              <th>Photo</th>
+              <th>Name</th>
+              <th>Currently living</th>
+              <th>Subject</th>
+              <th>Currently Studying In</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if pi_info %}
+            {% for i in mentors_list %}
+            {% for y in pi_info %}
+            {% if i.admin.slug == y.admin.user_slug %}
+            <tr>
+              <td>
+                <div class="az-img-user">
+                  {% if i.admin.profile_pic %}
+                  <img src="{{i.admin.profile_pic.url}}" alt="">
+                  {% else %}
+                  <img src="{% static 'images/default_profile.png' %}" alt="">
+                  {% endif %}
+                </div>
+              </td>
+              <td><strong>{{i.admin.first_name}}</strong></td>
+              <td>{{y.admin.currently_living_in.name}}</td>
+              <td>{{y.currently_studying|getsubject}}</td>
+              <td>{{y.studying_in.name}}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+            {% else %}
+            <tr>
+              <td>No Record found</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<!-- Parent User -->
+{% if user.user_type == 11 %}
+<div class="row row-sm mg-b-20">
+  <div class="col-6 col-lg-6">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Current Students</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:list_students_twfl' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-6">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Parents</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:list_parents_twfl' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-6">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Former Student(s)</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:list_mentors_twfl' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-6">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4> Appointments </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'bookings:appointment' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<!-- SuperAdmin User -->
+{% if user.user_type == 0 %}
+<div class="row row-sm mg-b-20">
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Future Students (New Leads)</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:list_future_students_twfl' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Parents</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:list_parents_twfl' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Former Student(s)</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:list_mentors_twfl' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Current IFG Student(s)</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:list_students_twfl' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>System(Former Students)</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:list_system_mentors_twfl' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Create Users</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:list_app_admin_twfl' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Conversations</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'messaging:conversations' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Messages</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'messaging:comment_list_user_twfl' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Institutes</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:list_institutes_twfl' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>System Recruiter</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:list_system_recruiter_twfl' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Reported Users</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'messaging:reported_users_twfl' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Praised Users</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'messaging:praised_users_twfl' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4> Recruiters </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:list_recruiters_twfl' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4> Applypool Leads </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:list_lead_institute_twfl' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4> Alumni Blogs </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'blogs:PostListAdmin' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4> Pages </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="#">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4> Alumni Feedbacks </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:list_mentor_testimonials' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4> FAQs </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'faqs:list-faq' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4> Demand & Supply </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:demand_n_suppy' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4> Alumni Booking Leads </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:mentor_booking_list' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4> Student Feedbacks </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'feedback:all_feedback' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4> Tech Support Enquiries </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:list_tech_support_twfl' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4> Contact Enquiries </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:list_contact_leads_twfl' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4> List of Alumni profile links </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:test_link_list_mentors_twfl' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4> Admin Links </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="#" data-toggle="modal" data-target="#meeting-link"
+          data-link="{{ y.late_point }}">Update Links</a>
+          <i data-feather="link"></i>
+          <!-- Modal -->
+          <div class="modal fade text-left" id="meeting-link" tabindex="-1"
+                                   role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <form method="post"
+                            action="{% url 'administration:admin_meeting_link' %}">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                          <h5 class="modal-title" id="">
+                              Update Meeting Links</h5>
+                          <button type="button" class="close" data-dismiss="modal"
+                                  aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                          {% csrf_token %}
+                          <div class="modal-body">
+                              {% crispy meeting_form %}
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-rounded btn-indigo reject"
+                                      data-dismiss="modal">Close
+                              </button>
+                              <button type="submit" class="btn btn-rounded btn-indigo">
+                                  Confirm
+                              </button>
+                          </div>
+                      </div>
+              </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4> Services </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'bookings:ListService' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4> Appointments </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'bookings:appointment' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4> Import Users </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <a href="{% url 'administration:import_data' %}">View More</a>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!--  <div class="col-6 col-lg-3">-->
+<!--    <div class="card card-dashboard-twentysix mg-b-10">-->
+<!--      <div class="card-body">-->
+<!--        <div class="dashboard-card-title">-->
+<!--          <h4> PayPal Onboarded Sellers </h4>-->
+<!--        </div>-->
+<!--        <div class="dashboard-card-content">-->
+<!--          <a href="{% url 'payments:paypal_sellers' %}">View More</a>-->
+<!--          <i data-feather="user"></i>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="col-6 col-lg-3">-->
+<!--    <div class="card card-dashboard-twentysix mg-b-10">-->
+<!--      <div class="card-body">-->
+<!--        <div class="dashboard-card-title">-->
+<!--          <h4> PayPal Transactions </h4>-->
+<!--        </div>-->
+<!--        <div class="dashboard-card-content">-->
+<!--          <a href="{% url 'payments:paypal_transactions' %}">View More</a>-->
+<!--          <i data-feather="user"></i>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+</div>
+{% endif %}
+<!-- Mentor User -->
+{% if user.user_type == 4 %}
+  {% if user.mentor.profile_status %}
+  <div class="alert alert-success text-center mb-2" role="alert">
+    <i data-feather="check-circle"></i> Your profile is currently live and ready to receive appointments.
+  </div>
+  {% else %}
+  <div class="alert alert-warning text-center mb-2" role="alert">
+    <i data-feather="info"></i> Thank you for completing your profile. You will receive
+    an email from us within 24 hours once your account has been activated.
+  </div>
+<!--  <div class="filter-div justify-content-lg-between align-items-lg-center">-->
+<!--    <p class="text-center">In the meantime, why not make a start on writing your first blog?-->
+<!--      <a href="{% url 'blogs:blogs_list' %}"><i data-feather="external-link"></i>Click here</a> to start one now and-->
+<!--      see what other Alumni have already written and published.</p>-->
+<!--  </div>-->
+  {% endif %}
+  <div class="row row-sm mg-b-20">
+<!--    <div class="col-md-6">-->
+<!--      <div class="card card-dashboard-twentysix mg-b-10">-->
+<!--        <div class="card-header">-->
+<!--          <h6 class="card-title">Total Blogs</h6>-->
+<!--        </div>-->
+<!--        <div class="card-body">-->
+<!--          <div class="dashboard-card-title">-->
+<!--            <h4>Total number of blogs you have written.</h4>-->
+<!--          </div>-->
+<!--          <div class="dashboard-card-content">-->
+<!--            <label>{{total_blogs}}</label>-->
+<!--          <i data-feather="user"></i>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+    <div class="col-md-6">
+      <div class="card card-dashboard-twentysix mg-b-10">
+        <div class="card-header">
+          <h6 class="card-title"><a href="{% url 'bookings:appointment' %}">Appointments</a></h6>
+        </div>
+        <div class="card-body">
+          <div class="dashboard-card-title">
+            <h4>Total number of bookings.</h4>
+          </div>
+          <div class="dashboard-card-content">
+            <label>{{total_appointments}}</label>
+          <i data-feather="user"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card card-dashboard-twentysix mg-b-10">
+        <div class="card-header">
+          <h6 class="card-title"><a href="{% url 'bookings:SetAvailability' %}">Availability</a></h6>
+        </div>
+        <div class="card-body">
+          <div class="dashboard-card-title">
+            <h4>Your schedule for the next 3 months.</h4>
+          </div>
+<!--          <div class="dashboard-card-content">-->
+<!--            <label>{{total_appointments}}</label>-->
+<!--          <i data-feather="user"></i>-->
+<!--          </div>-->
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card card-dashboard-twentysix mg-b-10">
+        <div class="card-header">
+          <h6 class="card-title"><a href="{% url 'bookings:UpdateAvailablilty' %}">Update Availability</a></h6>
+        </div>
+        <div class="card-body">
+          <div class="dashboard-card-title">
+            <h4>Update your schedule for the next 3 months.</h4>
+          </div>
+<!--          <div class="dashboard-card-content">-->
+<!--            <label>{{total_appointments}}</label>-->
+<!--          <i data-feather="user"></i>-->
+<!--          </div>-->
+        </div>
+      </div>
+    </div>
+  <!--          <div class="col-6 col-lg-6">-->
+  <!--            <div class="card card-dashboard-twentysix mg-b-10">-->
+  <!--              <div class="card-header">-->
+  <!--                <h6 class="card-title">Messages</h6>-->
+  <!--              </div>-->
+  <!--              <div class="card-body">-->
+  <!--                <div class="dashboard-card-title">-->
+  <!--                  <h4>Total number of unread messages from your Mentees.</h4>-->
+  <!--                </div>-->
+  <!--                <div class="dashboard-card-content">-->
+  <!--                  <label>{{unread_messages.count}}</label>-->
+  <!--                <i data-feather="message-square"></i>-->
+  <!--                </div>-->
+
+  <!--              </div>-->
+  <!--            </div>-->
+  <!--          </div>-->
+<!--    <div class="col-md-6">-->
+<!--      <div class="card card-dashboard-twentysix mg-b-10">-->
+<!--        <div class="card-header">-->
+<!--          <h6 class="card-title">Total Feedback</h6>-->
+<!--        </div>-->
+<!--        <div class="card-body">-->
+<!--          <div class="dashboard-card-title">-->
+<!--            <h4>Feedback you have received from Mentees who have connected with you.</h4>-->
+<!--          </div>-->
+<!--          <div class="dashboard-card-content">-->
+<!--            <label>{{total_feedback}}</label>-->
+<!--          <i data-feather="thumbs-up"></i>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+  </div>
+  {% if user.mentor.profile_status %}
+<!--  <div class="alert alert-warning text-center mb-2" role="alert">-->
+<!--    Let our global community of Mentors know that you have joined us, so they can join us in congratulating you!<br>-->
+<!--    Just find <a href="https://www.linkedin.com/company/the-apply-group/" target="_blank">TheApplyGroup</a> and add us as a new place of work/experience.-->
+<!--  </div>-->
+<!--  <div class="alert alert-warning mb-2" role="alert">-->
+<!--    <p>Let our global community of Alumni know that you have joined us so they can join us in congratulating you! </p>-->
+<!--    <strong>Step 1:</strong> On your LinkedIn profile, click the ‘+’ to add   <img src="{% static 'assets/img/content-img/briefcase.png' %}" height="22px">  new position <br>-->
+<!--    <strong>Step 2:</strong> Complete the small pop-up box adding ‘Student Alumni’ as title <br>-->
+<!--    <strong>Step 3:</strong> Employment type is ‘Freelance’<br>-->
+<!--    <strong>Step 4:</strong> Find TAG, by searching ‘The Apply Group’<br>-->
+<!--    <strong>Final step:</strong> Save and TAG should appear on your LinkedIn profile-->
+<!--  </div>-->
+  {% endif %}
+  {% if faq_list %}
+<!--  <hr>-->
+<!--  <div class="faq-content">-->
+<!--    <div class="card">-->
+<!--       <div class="card-body">-->
+<!--          <div class="page-header">-->
+<!--              <h3 class="faq-title mb-2"> <i data-feather="message-square"></i> Frequently Asked Questions</h3>-->
+<!--          </div>-->
+<!--          <div class="faq-section">-->
+<!--             <div id="accordion-1" class="accordion mt-4">-->
+<!--                {% for i in faq_list %}-->
+<!--                <div class="card">-->
+<!--                   <div class="card-header" id="headingTwo">-->
+<!--                      <h5 class="mb-0">-->
+<!--                         <a data-toggle="collapse" data-target="#collapse_{{i.id}}" aria-expanded="false" aria-controls="collapseTwo"> {{forloop.counter}}. {{i.title}} </a>-->
+<!--                      </h5>-->
+<!--                   </div>-->
+<!--                   <div id="collapse_{{i.id}}" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-1">-->
+<!--                      <div class="card-body">{{i.description | safe}}</div>-->
+<!--                   </div>-->
+<!--                </div>-->
+<!--                {% endfor %}-->
+<!--             </div>-->
+<!--          </div>-->
+<!--       </div>-->
+<!--    </div>-->
+<!--  </div>-->
+  {% endif %}
+{% endif %}
+<!-- Student User -->
+{% if user.user_type == 3 %}
+<div class="row row-sm mg-b-20">
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>My Potential Alumni</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <label>{{mentors.count}}</label>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Total Alumni </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <label>{{total_mentors}}</label>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Messages </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <label>{{unread_messages.count}}</label>
+          <i data-feather="message-square"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Total Feedback</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <label>{{total_feedback.count}}</label>
+          <i data-feather="thumbs-up"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row row-sm mg-b-20">
+  <div class="col-sm-12 col-lg-12">
+    <div class="card card-table-one">
+      <h6 class="card-title">List of Your Potential Mentors</h6>
+      <hr>
+      <div class="table-responsive">
+        {% if mentors %}
+        <table class="table table-hover mg-b-0">
+          <thead>
+            <tr>
+              <th>Photo</th>
+              <th>Name</th>
+              <th>Currently Living In</th>
+              <th>Languages</th>
+              <th>Subject interest</th>
+              <th>Studying In</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for x in mentors %}
+            {% for y in personal_info_list %}
+            {% if x.admin.slug == y.admin.user_slug %}
+            <tr>
+            <tr>
+              <td>
+                <div class="az-img-user">
+                  {% if i.admin.profile_pic %}
+                  <img src="{{i.admin.profile_pic.url}}" alt="">
+                  {% else %}
+                  <img src="{% static 'images/default_profile.png' %}" alt="">
+                  {% endif %}
+                </div>
+              </td>
+              <td><strong>{{y.admin.first_name}}</strong></td>
+              <td>{{y.admin.currently_living_in.name}}</td>
+              <td>{{y.admin.spoken_languages.all|print_languages}}
+              </td>
+              <td>{{y.currently_studying|getsubject}}</td>
+              <td>{{y.studying_in.name}}</td>
+            </tr>
+            {% endif%}
+            {% endfor %}
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <div style="text-align:center;">
+          <p>No Students Available !!!!</p>
+        </div>
+        {% endif%}
+      </div><!-- table-responsive -->
+    </div>
+  </div>
+</div>
+{% endif %}
+<!-- Parent User -->
+{% if user.user_type == 5 %}
+<div class="row row-sm mg-b-20">
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Approved Appliction</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <label>0</label>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Total Applications </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <label>{{total_applications.count}}</label>
+          <i data-feather="user"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Messages </h4>
+        </div>
+        <div class="dashboard-card-content">
+          <label>{{unread_messages.count}}</label>
+          <i data-feather="message-square"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="card card-dashboard-twentysix mg-b-10">
+      <div class="card-body">
+        <div class="dashboard-card-title">
+          <h4>Total Feedback</h4>
+        </div>
+        <div class="dashboard-card-content">
+          <label>{{total_feedback.count}}</label>
+          <i data-feather="thumbs-up"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row row-sm mg-b-20">
+  <div class="col-sm-12 col-lg-12">
+    <div class="card card-table-one">
+      <h6 class="card-title">List of Your Application</h6>
+      <hr>
+      <div class="table-responsive">
+        {% if total_applications %}
+        <table class="table table-hover mg-b-0">
+          <thead>
+            <tr>
+              <th>Photo</th>
+              <th>Course Name</th>
+              <th>Intake Month/year</th>
+              <th>Programme Level</th>
+              <th>Country From</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for x in total_applications %}
+            {% for y in personal_info_list %}
+            {% if x.id == y.app %}
+            <tr>
+              <td>{{forloop.counter}}</td>
+              <td><strong>{{x.subject|getsubject}}</strong></td>
+              <td>{{x.intake_month|getmonth}}-{{x.intake_year}}</td>
+              <td>{{x.program_level|getpost}}</td>
+              <td>{{y.app_address.country.name}}</td>
+              <td>{{x.status|getstatus}}</td>
+            </tr>
+            {% endif%}
+            {% endfor %}
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <div style="text-align:center;">
+          <p>No Students Available !!!!</p>
+        </div>
+        {% endif%}
+      </div><!-- table-responsive -->
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

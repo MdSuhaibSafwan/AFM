@@ -1,0 +1,42 @@
+{% load static %}
+<header id="header" data-transparent="true" class="dark submenu-light">
+    <div class="header-inner">
+        <link href="" rel="stylesheet"/>
+        <link rel="stylesheet" href="">
+        <div class="container">
+            <div id="logo"><a href="/">
+                <img src="{% static 'assets/img/logo/logo.png' %}" class="logo-fixed"
+                     alt="afm-logo" title="afm-logo" loading="lazy"> </a></div>
+            <div id="mainMenu-trigger"><a class="lines-button x"><span class="lines"></span></a></div>
+            <div id="mainMenu" class="menu-outline">
+                <div class="container">
+                    <nav>
+                        <ul>
+                            <li class="d-xl-none d-block"><a href="{% url 'login' %}" class="regiter-btn">Login</a></li>
+                            {% if user.is_authenticated %}
+                            <li><a href="{% url 'administration:dashboard' %}" class="regiter-btn">Dashboard</a></li>
+                            {% else %}
+                            
+                            {% comment %}
+                            <li class="d-xl-block d-none">
+                                <a href="{% url 'login' %}" class="regiter-btn">Login</a>
+                            </li>
+                            {% endcomment %}
+
+                            <li class="d-xl-block d-none">
+                                <a class="theme-btn" href="{% url 'administration:registration' %}">Register</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!--<div class="sticky-header">-->
+<!--    <div class="sticky-header-containt">-->
+<!--        <p>Start your journey now</p>-->
+<!--        <a href="{% url 'administration:registration' %}" class="theme-btn">FREE discovery call</a>-->
+<!--    </div>-->
+<!--</div>-->

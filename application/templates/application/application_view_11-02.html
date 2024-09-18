@@ -1,0 +1,988 @@
+{% extends 'base/base.html' %}
+{% block title%}Application{% endblock %}
+{% load crispy_forms_tags %}
+{% load administration_extras %}
+
+{% load static %}
+
+{% block content %}
+
+
+
+
+
+<!-- --------------------------------------------New Template-------------------------------------------------------------------- -->
+
+<div class="institute-name ">
+    <div class="row mg-b-20 ">
+       <div class="col-sm-12 col-lg-6">
+          <div class="card">
+             <div class="card-body">
+                <div class="table-responsive">
+                   {% if direct_applications %}
+                   <table class="table table-hover mg-b-0">
+
+                      <thead>
+                         <tr>
+                            <th>Institute Name</th>
+                            <th>Course Name</th>
+                            <th>Offer Status</th>
+                         </tr>
+                      </thead>
+                      <tbody>
+                        {% for x in direct_applications %}
+                         <tr>
+                            <td>{{forloop.counter}}. {{x.institute.institute_name}}</td>
+                            <td>{{x.course_name}}</td>
+                            <td>
+                                {% for y in applied_apps %}
+                                    {% if x.institute.id == y.institute.id %}
+                                        {% if y.status == 0 %}
+                                        <span class="badge badge-pill warning">
+                                        Pending
+                                        </span>
+                                        {% elif y.status == 1 %}
+                                        <span class="badge badge-pill ">
+                                        Conditional
+                                        </span>
+                                        {% elif y.status == 2 %}
+                                        <span class="badge badge-pill ">
+                                        Unconditional
+                                        </span>
+                                        {% elif y.status == 3 %}
+                                        <span class="badge badge-pill ">
+                                        Unsuccessful
+                                        </span>
+                                        {% else %}
+                                        <span class="badge badge-pill warning">
+                                        Pending
+                                        </span>
+                                        {% endif %}
+                                    {% else %}
+                                        <span class="badge badge-pill warning">
+                                        Pending
+                                        </span>
+                                    {% endif %}
+                                {% empty%}
+                                    <span class="badge badge-pill warning">
+                                    Pending
+                                    </span>
+                                {% endfor %}
+
+                            </td>
+=                         </tr>
+
+                      {% endfor %}
+                      </tbody>
+                   </table>
+                   {% else %}
+                   <p>Haven't applied to any of institutes</p>
+                   {% endif %}
+                </div>
+             </div>
+          </div>
+          <!-- table-responsive -->
+       </div>
+       <div class="col-sm-12 col-lg-6">
+          <div class="card">
+             <div class="card-body">
+                <div class="table-responsive">
+                    {% if institutes_offer %}
+                   <table class="table table-hover mg-b-0">
+                      <thead>
+                         <tr>
+                            <th>Institute Name</th>
+                            <th>View Response</th>
+                            <th>Course Name</th>
+                            <th>Offer Status</th>
+                             <th>Final Selection</th>
+
+                         </tr>
+                      </thead>
+                      <tbody>
+                      {% for instance in institutes_offer %}
+                         <tr>
+                            <td>{{forloop.counter}}. {{instance.institute.institute_name}}</td>
+                            <td>
+                            {% if instance.app_status_by_institute %}
+                                <a href="#" data-toggle="modal" data-target="#detail{{instance.institute.id}}"><i data-feather="eye"></i></a>
+
+
+                                <!-- Modal -->
+
+                                <div class="modal fade" id="detail{{instance.institute.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLongTitle">{{instance.institute.institute_name}} Institute's Response</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <strong>
+                                            {% if instance.app_status_by_institute == 1 %}
+
+                                                make a formal application
+                                                {% elif instance.app_status_by_institute == 2 %}
+                                                request documents
+                                                {% else %}
+                                                interview
+
+                                            {% endif %}
+                                                </strong>
+                                          <p>{{instance.feedback_comment}}</p>
+<!--                                                <div class="form-group mg-b-20">-->
+<!--                                                    <select class="form-control reason pd10">-->
+<!--                                                      <option value="Abc Institute">Year</option>-->
+<!--                                                      <option value="Def Institute">2016</option>-->
+<!--                                                      <option value="Institute">2017</option>-->
+<!--                                                      <option value="Institute">2018</option>-->
+<!--                                                      <option value="Institute">2019</option>-->
+<!--                                                      <option value="Institute">2020</option>-->
+<!--                                                      <option value="Institute">2021</option>-->
+<!--                                                    </select>-->
+<!--                                                </div>-->
+                                                {% if instance.offer_select %}
+
+                                                    <strong style="color:green">You have already applied</strong>
+                                                {% else %}
+                                                    <form role="form" method="post" enctype="multipart/form-data"
+                                                      action="{% url 'application:apply_for_institute_twfl' instance.id %}">
+                                                        {% csrf_token %}
+                                                    <div class="modal-btn">
+<!--                                                      <button type="button" class="btn btn-rounded btn-indigo reject" data-dismiss="modal">Close</button>-->
+
+                                                        <button type="submit" class="btn btn-rounded btn-indigo">Accept</button>
+                                                    </div>
+                                                    </form>
+
+                                                {% endif %}
+
+                                        </div>
+                                        <div class="modal-footer">
+                                          <p><i data-feather="clock"></i> {{instance.updated_at|date:"d/m/Y"}}</p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                            {% else %}
+                                --
+                            {% endif %}
+                            </td>
+                            <td> 
+{% for y in applied_apps %}
+                                    {% if instance.institute.id == y.institute.id %}
+                                        {{y.course_name}}
+                                    {% endif %}
+                                {% empty %}
+                                --
+                                {% endfor %}
+                            </td>
+                             <td>
+                                {% for y in applied_apps %}
+                                    {% if instance.institute.id == y.institute.id %}
+                                        {% if y.status == 0 %}
+                                        <span class="badge badge-pill warning">
+                                        Pending
+                                        </span>
+                                        {% elif y.status == 1 %}
+                                        <span class="badge badge-pill ">
+                                        Conditional
+                                        </span>
+                                        {% elif y.status == 2 %}
+                                        <span class="badge badge-pill ">
+                                        Unconditional
+                                        </span>
+                                        {% elif y.status == 3 %}
+                                        <span class="badge badge-pill ">
+                                        Unsuccessful
+                                        </span>
+                                        {% else %}
+                                        <span class="badge badge-pill warning">
+                                        Pending
+                                        </span>
+                                        {% endif %}
+                                    {% endif %}
+                                {% empty%}
+                                    <span class="badge badge-pill warning">
+                                    Pending
+                                    </span>
+                                {% endfor %}
+
+                            </td>
+                             <td>
+                                 {% for y in applied_apps %}
+                                    {% if instance.institute.id == y.institute.id %}
+                                        {% if instance.final_selection %}
+                                            <h4 style="color:green">Final Selected</h4>
+                                        {% else %}
+                                            {% if y.status == 2 %}
+                                                <form role="form" id="" method="post" enctype="multipart/form-data"
+                                                  action="{% url 'application:final_section_institute_twfl' y.id %}">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-primary">Apply</button>
+                                                </form>
+                                            {% else %}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                                 {% empty %}
+                                 {% endfor %}
+                             </td>
+
+                            
+                         </tr>
+
+                      {% endfor %}
+                      </tbody>
+                   </table>
+                    {% else %}
+                    <p>Waiting for response !!</p>
+                    {% endif %}
+                </div>
+                <!-- table-responsive -->
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+<!--************************************** Application Details ************************************-->
+
+ <div class="row mg-b-20">
+    <div class="col-sm-12 col-md-12 col-lg-12"> 
+             <div class="pro-detail">
+                <ul class="nav nav-pills nav-tabs mb-3" id="pills-tab" role="tablist">
+                   <li class="nav-item">
+                      <a class="nav-link active" id="pills-consent-tab" data-toggle="pill" href="#pills-consent" role="tab" aria-controls="pills-consent" aria-selected="true">Consent</a>
+                   </li>
+                   <li class="nav-item">
+                      <a class="nav-link" id="pills-personal-tab" data-toggle="pill" href="#pills-personal" role="tab" aria-controls="pills-personal" aria-selected="false">Personal Info</a>
+                   </li>
+                   <li class="nav-item">
+                      <a class="nav-link" id="pills-education-tab" data-toggle="pill" href="#pills-education" role="tab" aria-controls="pills-education" aria-selected="false">Education History</a>
+                   </li>
+                   <li class="nav-item">
+                      <a class="nav-link" id="pills-professional-tab" data-toggle="pill" href="#pills-professional" role="tab" aria-controls="pills-professional" aria-selected="false">Professional Training/certificate</a>
+                   </li>
+                   <li class="nav-item">
+                      <a class="nav-link" id="pills-english-tab" data-toggle="pill" href="#pills-english" role="tab" aria-controls="pills-english" aria-selected="false">English Language</a>
+                   </li>
+                   <li class="nav-item">
+                      <a class="nav-link" id="pills-work-tab" data-toggle="pill" href="#pills-work" role="tab" aria-controls="pills-work" aria-selected="false">Work Exp</a>
+                   </li>
+                   <li class="nav-item">
+                      <a class="nav-link" id="pills-reference-tab" data-toggle="pill" href="#pills-reference" role="tab" aria-controls="pills-reference" aria-selected="false">Reference</a>
+                   </li>
+                   <li class="nav-item">
+                      <a class="nav-link" id="pills-statement-tab" data-toggle="pill" href="#pills-statement" role="tab" aria-controls="pills-statement" aria-selected="false">Personal Statement</a>
+                   </li>
+                   <li class="nav-item">
+                      <a class="nav-link" id="pills-visa-tab" data-toggle="pill" href="#pills-visa" role="tab" aria-controls="pills-visa" aria-selected="false">Visa History</a>
+                   </li>
+                   <li class="nav-item">
+                      <a class="nav-link" id="pills-requirement-tab" data-toggle="pill" href="#pills-requirement" role="tab" aria-controls="pills-requirement" aria-selected="false">Additional Information</a>
+                   </li>
+                </ul>
+             </div>
+
+
+       <div class="tab-content-detail">
+          <div class="tab-content" id="pills-tabContent">
+             <div class="tab-pane fade show active" id="pills-consent" role="tabpanel" aria-labelledby="pills-consent-tab">
+                <div class="card">
+                   <div class="card-body">
+                      <ul>
+                         <li><strong>Course/Subject Interest:</strong> </li>
+                         <li><strong>Programme/Course name:</strong> </li>
+                         <li><strong>Intake month/year:</strong> </li>
+                         <li><strong>Institute Selected:</strong></li>
+                      </ul>
+                      <ul>
+                         <li>{{consent_additional.subject|getsubject}} </li>
+                         <li>{{consent_additional.program_level|getpost}} </li>
+                         <li>{{consent_additional.intake_month|getmonth}}/{{consent_additional.intake_year}} </li>
+                         <li>
+                             {% for i in consent_additional.direct_application.all %}
+                             {{forloop.counter}}. {{i.institute.institute_name}},
+                             {% empty %}
+                                --
+                             {% endfor%}
+
+                         </li>
+                      </ul>
+                   </div>
+                </div>
+             </div>
+            
+
+             <div class="tab-pane fade" id="pills-personal" role="tabpanel" aria-labelledby="pills-personal-tab">
+                <div class="row mg-b-20">
+                   <div class="col-lg-12 col-sm-12 col-md-12">
+                      <div class="card">
+                         <div class="card-body">
+                            <h5>Personal Information</h5>
+                            <div class="line-2"></div>
+                            <ul>
+                               <li><strong>Application Type: </strong> </li>
+                               <li><strong> Full Name: </strong> </li>
+                               <li><strong> Date of Birth:</strong> </li>
+                               <li><strong> Email: </strong></li>
+                               <li><strong> Mobile No: </strong></li>
+                               <li><strong> Nationality: </strong></li>
+                               <li><strong> Gender: </strong></li>
+                               <li><strong> Native Language: </strong></li>
+                               <li><strong> Marital Status: </strong></li>
+                               <li><strong> Next Kin Name: </strong></li>
+                               <li><strong> Kin Relation with Student: </strong></li>
+                               <li><strong> Kin Email: </strong></li>
+                               <li><strong> Kin Phone No: </strong></li>
+                            </ul>
+                            <ul>
+                               <li>--</li>
+                               <li>{{basic_info.fullname}}</li>
+                               <li>{{basic_info.date_of_birth|date:"d/m/Y"}}</li>
+                               <li>{{basic_info.email}}</li>
+                               <li>{{basic_info.mobile_number}}</li>
+                               <li>{{basic_info.nationality}}</li>
+                               <li>{{basic_info.gender|getgender}}</li>
+                               <li>{{basic_info.native_languages}}</li>
+                               <li>{{basic_info.marital_status|getmarital}}</li>
+                               <li>{{basic_info.next_of_kin_name}}</li>
+                               <li>{{basic_info.relationship_to_student}}</li>
+                               <li>{{basic_info.next_of_kin_email}}</li>
+                               <li>{{basic_info.next_of_kin_phone}}</li>
+                            </ul>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+ 
+                <div class="row mg-b-20">
+                   <div class="col-lg-12 col-sm-12 col-md-12">
+                      <div class="card">
+                         <div class="card-body">
+                            <h5>Address Information</h5>
+                            <div class="line-2"></div>
+                            <ul>
+                               <li><strong>Address Line 1: </strong> </li>
+                               <li><strong> Address Line 2: </strong> </li>
+                               <li><strong> City:</strong> </li>
+                               <li><strong> State: </strong></li>
+                               <li><strong> Postcode: </strong></li>
+                               <li><strong> Country: </strong></li>
+                            </ul>
+                            <ul>
+                               <li>{{address.address_line_1}}</li>
+                               <li>{{address.address_line_2}}</li>
+                               <li>{{address.city}}</li>
+                               <li>{{address.state}}</li>
+                               <li>{{address.postcode}}</li>
+                               <li>{{address.country.name}}</li>
+                            </ul>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+
+                <div class="row mg-b-20">
+                   <div class="col-lg-12 col-sm-12 col-md-12">
+                      <div class="card">
+                         <div class="card-body">
+                            <h5>Passport Information</h5>
+                            <div class="line-2"></div>
+                            <ul>
+                               <li><strong>Passport Number: </strong> </li>
+                               <li><strong> Issuing Date: </strong> </li>
+                               <li><strong> Issuing Authority:</strong> </li>
+                               <li><strong> Place of Birth: </strong></li>
+                               <li><strong> Current Passport: </strong></li>
+                            </ul>
+                            <ul>
+                               <li>{{passport.passport_number}}</li>
+                               <li>{{passport.issue_date|date:"d/m/Y"}}</li>
+                               <li>{{passport.issuing_authority}}</li>
+                               <li>{{passport.place_of_birth}}</li>
+                               <li>Passport.pdf <a href="{{passport.passport.url}}" target='_blank' class="pass-view">View</a></li>
+                            </ul>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+
+
+             <div class="tab-pane fade" id="pills-education" role="tabpanel" aria-labelledby="pills-education-tab">
+                {% for education in educations %}
+
+                <div class="row mg-b-20">
+                   <div class="col-lg-12 col-sm-12 col-md-12">
+                      <div class="card">
+                         <div class="card-body">
+                            <h5>Education {{forloop.counter}} </h5>
+                            <div class="line-2"></div>
+                            <ul>
+                               <li><strong>Institute Name: </strong> </li>
+                               <li><strong> Qualification: </strong> </li>
+                               <li><strong> Grades Achieved:</strong> </li>
+                               <li><strong> Course Duration: </strong></li>
+                               <li><strong> Institute Email: </strong></li>
+                               <li> <strong>Institute Address:</strong></li>
+                               <li><strong>Certificate:</strong></li>
+                               <li><strong>Transcript:</strong></li>
+                            </ul>
+                            <ul>
+                               <li>{{education.institute_name}}</li>
+                               <li>{{education.qualification_achieved}}</li>
+                               <li>{{education.grades_achieved}}</li>
+                               <li>{{education.course_duration_from_month|getmonth}}/{{education.course_duration_from_year}}
+                                   to {{education.course_duration_to_month|getmonth}}/{{education.course_duration_to_year}}
+                               </li>
+                               <li><a href="{{education.institute_email.url}}">{{education.institute_email}}</a></li>
+                               <li>{{education.institute_address}}</li>
+                               <li>Certificate.pdf <a href="{{education.certificate_doc_url.url}}" class="pass-view">View</a></li>
+                               <li>1234567890.pdf <a href="{{education.transcripts_doc_url.url}}" class="pass-view">View</a></li>
+                            </ul>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                {% endfor %}
+             </div>
+
+
+             <div class="tab-pane fade" id="pills-professional" role="tabpanel" aria-labelledby="pills-professional-tab">
+               <div class="row mg-b-20">
+                   <div class="col-lg-12 col-sm-12 col-md-12">
+                      <div class="card">
+                         <div class="card-body">
+                            <ul>
+                               <li><strong>Professional Training: </strong> </li>
+                               <li><strong> Training Company / Institute: </strong> </li>
+                               <li><strong> City:</strong> </li>
+                               <li><strong> Training Certificate Date: </strong></li>
+                               <li><strong> Course Duration: </strong></li>
+                               <li> <strong>Training Certificate:</strong></li>
+                            </ul>
+                            <ul>
+                               <li>Lorem Ipsum</li>
+                               <li>Dummy text</li>
+                               <li>Surat</li>
+                               <li>13/10/2018</li>
+                               <li>March 2019 to June 2020</li>
+                               <li>12456654.pdf <a href="#" class="pass-view">View</a></li>
+                            </ul>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+
+             <div class="tab-pane fade" id="pills-english" role="tabpanel" aria-labelledby="pills-english-tab">
+               <div class="row mg-b-20">
+                   <div class="col-lg-12 col-sm-12 col-md-12">
+                      <div class="card">
+                         <div class="card-body">
+                            <ul>
+                               <li><strong>Certificate Name: </strong> </li>
+                               <li><strong> CertificateDate: </strong> </li>
+                               <li><strong> Listening Score:</strong> </li>
+                               <li><strong> Reading Score: </strong></li>
+                               <li><strong> Writing Score: </strong></li>
+                               <li> <strong>Speaking Score:</strong></li>
+                               <li> <strong>Ovarall:</strong></li>
+                               <li> <strong>Score:</strong></li>
+                               <li> <strong>Training Cerificate:</strong></li>
+                            </ul>
+                            <ul>
+                               <li>{{english_lan.certificate_name}}</li>
+                               <li>{{english_lan.certificate_date|date:"d/m/Y"}}</li>
+                               <li>{{english_lan.listening}}</li>
+                               <li>{{english_lan.reading}}</li>
+                               <li>{{english_lan.writing}}</li>
+                               <li>{{english_lan.speaking}}</li>
+                               <li>{{english_lan.overall}}</li>
+                               <li>{{english_lan.score}}</li>
+
+                               <li>12456654.pdf <a href="{{english_lan.certificate.url}}" class="pass-view">View</a></li>
+                            </ul>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+
+
+             <div class="tab-pane fade" id="pills-work" role="tabpanel" aria-labelledby="pills-work-tab">
+            
+               {% for exp in experience %}
+
+               <div class="row mg-b-20">
+                   <div class="col-lg-12 col-sm-12 col-md-12">
+                      <div class="card">
+                         <div class="card-body">
+                          <h5>Work Experience {{forloop.counter}} </h5>
+                            <div class="line-2"></div>
+                            <ul>
+                               <li><strong>Company or Employer Name: </strong> </li>
+                               <li><strong> Duration: </strong> </li>
+                               <li><strong> Company Email: </strong></li>
+                               <li><strong> Company Phone: </strong></li>
+                               <li> <strong>Company Address:</strong></li>
+                               <li> <strong>Brif Description:</strong></li>
+                            </ul>
+                            <ul>
+                               <li>{{exp.company_employer_name}}</li>
+                               <li>{{exp.duration_from_month|getmonth}}/{{exp.duration_from_year}}
+                                  to {{exp.duration_to_month|getmonth}}/{{exp.duration_to_year}}
+                               </li>
+                               <li><a href="{{exp.company_email.url}}">{{exp.company_email}}</a></li>
+                               <li>{{exp.company_phone}}</li>
+                               <li>{{exp.company_address}}</li>
+                               <li>{{exp.brief_description}}</li>
+                            </ul>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                {% endfor %}
+
+
+             </div>
+             
+             <div class="tab-pane fade" id="pills-reference" role="tabpanel" aria-labelledby="pills-reference-tab">
+               <div class="row mg-b-20">
+                   <div class="col-lg-12 col-sm-12 col-md-12">
+                      <div class="card">
+                         <div class="card-body">
+                            <ul>
+                               <li><strong>Reference Name: </strong> </li>
+                               <li><strong> Position: </strong> </li>
+                               <!-- <li><strong> Date of Birth:</strong> </li> -->
+                               <li><strong> Email: </strong></li>
+                               <li><strong> Phone: </strong></li>
+                               <li> <strong>Website:</strong></li>
+                               <li> <strong>Capacity Knew Under:</strong></li>
+                               <li> <strong>Duration:</strong></li>
+                            </ul>
+                            <ul>
+                              {% for ref in reference %}
+
+                              <li>{{ref.referee_name}}</li>
+                              <li>{{ref.position}}</li>
+                              <li>{{ref.email}}</li>
+                              <li>{{ref.phone}}</li>
+                              <li>{{ref.website}}</li>
+                              <li>{{ref.capacity_knew_under}}</li>
+                              <li>{{ref.duration_from_month|getmonth}}/{{ref.duration_from_year}} to
+                                {{ref.duration_from_month|getmonth}}/{{ref.duration_to_month}} </li>
+                              
+                              {% endfor %}
+                              </ul>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+
+
+             <div class="tab-pane fade" id="pills-statement" role="tabpanel" aria-labelledby="pills-statement-tab">
+               <div class="row mg-b-20">
+                   <div class="col-lg-12 col-sm-12 col-md-12">
+                      <div class="card">
+                         <div class="card-body">
+                            <ul>
+                               <li><strong>Statment: </strong> </li>
+                            </ul>
+                            <ul>
+                               <li>
+                                 {{personal_statement.personal_statement}}
+                               </li>
+                            </ul>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+
+
+             <div class="tab-pane fade" id="pills-visa" role="tabpanel" aria-labelledby="pills-visa-tab">
+                <div class="row mg-b-20">
+                   <div class="col-lg-12 col-sm-12 col-md-12">
+                      <div class="card">
+                         <div class="card-body">
+                            <ul>
+                               <li><strong>Have You Studied in Uk Before?: </strong> </li>
+                               <li><strong> Duration: </strong> </li>
+                               <li><strong> Have You Ever Refused Entry Into the UK?</strong> </li>
+                               <li><strong> Have You Ever Been Deported From the UK? </strong></li>
+                               <li><strong> Are You a Self Funded or Sponsored Student? </strong></li>
+                            </ul>
+                            <ul>
+                               <li>{{visa.have_you_studied_in_the_uk_before}}</li>
+
+                               <li>{{visa.visa_duration_from_month|getmonth}}/{{visa.visa_duration_from_year}}
+
+                                   to {{visa.visa_duration_to_month|getmonth}}/{{visa.visa_duration_to_year}} </li>
+
+                               <li>{{visa.have_you_ever_been_refuse_entry_in_to_the_uk}}</li>
+                               <li>{{visa.have_you_ever_been_deported_from_the_uk}}</li>
+                               <li>field not included in table</li>
+                            </ul>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+
+
+             <div class="tab-pane fade" id="pills-requirement" role="tabpanel" aria-labelledby="pills-requirement-tab">
+                <div class="row mg-b-20">
+                   <div class="col-lg-12 col-sm-12 col-md-12">
+                      <div class="card">
+                         <div class="card-body">
+                            <ul>
+                               <li><strong>Learning Disabilities Odd Difficulties? </strong> </li>
+                               <li><strong> Health Condition: </strong> </li>
+                               <li><strong> Criminal Record(S):</strong> </li>
+                               <li><strong> Other </strong></li>
+                            </ul>
+                            <ul>
+                               <li>{{consent_additional.disabilities}}</li>
+                               <li>{{consent_additional.health_conditions}}</li>
+                               <li>{{consent_additional.criminal_records}}</li>
+                               <li>{{consent_additional.others}}</li>
+                            </ul>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+
+<!--**************************************** COMMENT SECTION ************************************-->
+
+<div class="row">
+   <div class="col-md-12 col-lg-12 col-sm-12">
+     <div class="card">
+       <div class="card-body">
+        <h5>Comments </h5>
+        <div class="line-2"></div>
+         <div class="comments">
+           <div class="user-comments">
+
+
+            {% for comment in open_comments %}
+            {% if not comment.parent %}
+
+            <div class="row mg-b-20">
+              <div class="col-sm-5 col-lg-1">
+                 <div class="gsd-img">
+                  <!-- <img src="{{comment.app_admin.profile_pic.url}}" alt="alex" class="img-fluid"> -->
+                   <img src="{% static 'img/avatar/alex.png' %}" alt="alex" class="img-fluid">
+                </div>
+              </div>
+            
+             <div class="col-sm-7 col-lg-11 ">
+               <h5>{{comment.app_admin.first_name}} {{ comment.app_admin.last_name}}~{{comment.app_admin.user_type|getuser}}</h5>
+                <h6><i data-feather="clock"></i> {{ comment.created_at|date:"d/m/Y"}}</h6>
+                <p>{{ comment.comment }}</p>
+              </div>
+
+             </div>
+
+             {% for reply in comment.replies.all %}
+            
+            <div class="row">
+               <div class="col-lg-1"></div>
+                  <div class="col-sm-5 col-lg-1">
+                     <div class="gsd-img">
+                        <img src="{% static 'img/avatar/john-2.png' %}" alt="alex" class="img-fluid">
+                     </div>   
+                  </div>
+               
+                  <div class="col-sm-7 col-lg-10 ">
+                     <h5>{{reply.app_admin.first_name}} {{reply.app_admin.last_name}}~{{reply.app_admin.user_type|getuser}} </h5>
+                     <h6><i data-feather="clock"></i> {{ reply.created_at|date:"d/m/Y"}}</h6>
+                     <p>{{reply.comment}}</p>
+                  </div>
+            </div>
+            {% endfor %}
+                {% if user.user_type == 4 or user.user_type == 8 %}
+               <div class="col-rg-5 col-lg-12 ">
+                  <form action="{% url 'application:comment_reply_twfl' comment.id %}" method="post" role="form">
+                     {% csrf_token %}
+                     <textarea id="" name="comment" class="form-control" rows="2" placeholder="reply comment!"></textarea>
+                     <br>
+                     <button type="submit" class="btn btn-az-primary submit-btn">Post Reply</button>
+                  </form>
+               </div>
+               <hr>
+               {% endif %}
+
+            {% endif %}
+            {% empty %}
+            No comments found !!
+            {% endfor %}
+
+            {% if user.user_type == 4 or user.user_type == 8 %}
+            <div class="row">
+               <div class="col-sm-12 col-lg-12">
+                  <form role="form" method="post" action="{% url 'application:application_comments_save_twfl' app.id %}">
+                     {% csrf_token %}
+                     {{comment_form|crispy}}
+                     <button class="btn btn-az-primary submit-btn" type="submit">Post Comment</button>
+                 </form>
+               </div>
+            </div>
+           {% endif %}
+
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+{% endblock %}
+
+
+<h2>Application (ID : {{app.id}})</h2>
+
+<!-- ******************************** Institutes Applied ********************************************** -->
+<section class="container">
+    <div class="col-md-12">
+        <h1>Institutes which have direct applications</h1>
+
+        {% if app.selected_institutes.all %}
+        <table>
+            <th>Institute</th>
+            <th>Institute Response</th>
+            <th>Feedback Comment</th>
+            <th>Offer Status </th>
+
+            <tr>
+            {% for x in app.selected_institutes.all %}
+                    <td>{{x.institute_name}}</td>
+                    <td>
+                    {% for y in direct_app_institutes_offer %}
+                        {% if x.id == y.institute.id %}
+
+                                {% if y.app_status_by_institute == 1 %}
+                                make a formal application
+                                {% elif y.app_status_by_institute == 2 %}
+                                request documents
+                                {% else %}
+                                interview
+                                {% endif %}
+                        {% else %}
+                        -
+                        {% endif %}
+                    {% empty%}
+                        -
+                    {% endfor %}
+                        </td>
+
+
+
+                    <td>
+                        {% for y in direct_app_institutes_offer %}
+                        {% if x.id == y.institute.id %}
+                        {{ y.feedback_comment }}
+
+<!--                                <div class="modal fade" id="myModal2" role="dialog">-->
+<!--                                    <div class="modal-dialog">-->
+
+<!--                                        &lt;!&ndash; Modal content&ndash;&gt;-->
+<!--                                        <div class="modal-content">-->
+<!--                                            <div class="modal-header">-->
+<!--                                                <button type="button" class="close" data-dismiss="modal">&times;</button>-->
+<!--                                                <h4 class="modal-title">View Feedback</h4>-->
+<!--                                            </div>-->
+<!--                                            <div class="modal-body">-->
+<!--                                                {{ y.feedback_comment }}-->
+
+<!--                                            </div>-->
+<!--                                            <div class="modal-footer">-->
+
+<!--                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+
+<!--                                    </div>-->
+<!--                                </div>-->
+
+                        {% else %}
+                        -
+                        {% endif %}
+                        {% empty%}
+                            -
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for y in direct_app_institutes_offer %}
+                            {% if x.id == y.institute.id %}
+                                {% if y.offer_status == 0 %}
+                                In Process
+                                {% elif y.offer_status == 1 %}
+                                Conditional
+                                {% elif y.offer_status == 2 %}
+                                Unconditional
+                                {% elif y.offer_status == 3 %}
+                                Unsuccessful
+                                {% else %}
+                                ---
+                                {% endif %}
+                            {% endif %}
+                        {% empty%}
+                            -
+                        {% endfor %}
+
+                    </td>
+
+
+                </tr>
+
+
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>Not applied for any institutes !!!</p>
+        {% endif %}
+
+        <strong>
+            Created at : {{app.created_at|date:"d/m/Y"}} |
+            Submitted by :
+            {% if app.mentor %}
+                {{app.mentor.admin.first_name}} {{app.mentor.admin.last_name}} ( Mentor )
+            {% else %}
+                {{app.admin.first_name}} {{app.admin.last_name}} ( Agent )
+            {% endif %}
+
+        </strong>
+
+
+    </div>
+    <div class="col-md-12">
+        <h1>Institutes Response</h1>
+        {% if institute_response %}
+
+        <table>
+            <th>Institute</th>
+            <th>Institute Response</th>
+            <th>Feedback comment</th>
+            <th>Offer Status </th>
+            <th>Select institute to apply</th>
+            <th>Final Selection</th>
+
+            {% for instance in institute_response %}
+            <tr>
+                <td>{{instance.institute.institute_name}}</td>
+                <td>
+                    {% if instance.app_status_by_institute == 1 %}
+                    make a formal application
+                    {% elif instance.app_status_by_institute == 2 %}
+                    request documents
+                    {% else %}
+                    interview
+                    {% endif %}
+                </td>
+                <td>
+                    {% if instance.feedback_comment %}
+
+                    <button type="button" class="btn btn- btn-light" data-toggle="modal" data-target="#{{instance.id}}">View Feedback
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="{{instance.id}}" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Feedback From Institute</h4>
+                                </div>
+                                <div class="modal-body">
+                                   {{instance.feedback_comment}}
+                                <div class="modal-footer">
+
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                     {% else %}
+                    -
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if instance.offer_status == 0 %}
+                    In Process
+                    {% elif instance.offer_status == 1 %}
+                    Conditional
+                    {% elif instance.offer_status == 2 %}
+                    Unconditional
+                    {% elif instance.offer_status == 3 %}
+                    Unsuccessful
+                    {% else %}
+                    ---
+                    {% endif %}
+
+                </td>
+
+                <td> 
+{% if instance.offer_select %}
+
+                        <strong style="color:green">You can apply</strong>
+                        {% else %}
+                        <form role="form" method="post" enctype="multipart/form-data"
+                          action="{% url 'application:apply_for_institute_twfl' instance.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Apply</button>
+                        </form>
+
+                        {% endif %}
+                </td>
+                <td> 
+{% if instance.final_selection %}
+
+                        <h4 style="color:green">Final Selected</h4>
+                        {% else %}
+                            {% if instance.offer_select == 2 %}
+                                <form role="form" id="" method="post" enctype="multipart/form-data"
+                                  action="{% url 'application:final_section_institute_twfl' instance.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">Apply</button>
+                                </form>
+                            {% else %}
+                            --
+                            {% endif %}
+                        {% endif %}
+                </td>
+
+            </tr>
+            {% endfor %}
+        </table>
+
+        {% else %}
+        <p>None of the institutes responded yet !!!</p>
+        {% endif %}
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+

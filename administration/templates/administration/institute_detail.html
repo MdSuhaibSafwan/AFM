@@ -1,0 +1,104 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} institute_object Profile {% endblock %}
+{% load administration_extras %}
+{% block css %}
+<style>
+h5.form-label {
+  font-size: 15px;
+}
+  @media only screen and (min-width: 768px) {
+    .uni_detail_profile{
+        padding: 10px 50px;
+    }
+  }
+</style>
+{% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'administration:list_institutes_twfl' %}">Institute list</a></li>
+        <li class="breadcrumb-item">Institute Details</li>
+    </ol>
+</nav>
+<div class="row row-sm mg-b-20">
+    <div class="col-sm-12 col-lg-12">
+        <div class="card card-table-one">
+            <div class="d-flex justify-content-between">
+                <h6 class="card-title"><i data-feather="info"></i> {{institute_object.institute_name}}</h6>
+                <h6 class="mb-0"> <a href="{% url 'administration:institute_information_edit' object.pk %}"><i data-feather="edit"></i> Edit</a></h6>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-xl-4 uni_detail_profile">
+                    <div class="afu-avatar-bg bg-gray-100 mb-5">
+                        <div class="afm-edit-profile">
+                            {% if object.profile_pic %}
+                            <img src="{{object.profile_pic.url}}" alt="">
+                            {% else %}
+                            <img src="{% static 'images\default_profile.png' %}" alt="">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8">
+                    <form action="">
+                        <div class="row row-sm">
+                            <div class="col-md-5 col-xl-5">
+                                <div class="form-group mg-b-20">
+                                    <h5 class="form-label">Email</h5>
+                                    <label class="form-label">{{object.email}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-7 col-xl-7">
+                                <div class="form-group mg-b-20">
+                                    <h5 class="form-label">Country</h5>
+                                    <label class="form-label">
+                                        {% if institute_object.countries_available %}
+                                        {% for i in institute_object.countries_available %}{{i.name}}
+                                        {% if not forloop.last %},{% endif %}
+                                        {% endfor %}
+                                        {% endif %}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-sm">
+                            <div class="col-md-5 col-xl-5">
+                                <div class="form-group mg-b-20">
+                                    <h5 class="form-label">Funding Current year</h5>
+                                    <label class="form-label">{{institute_object.funding_current_year|getifnone}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-7 col-xl-7">
+                                <div class="form-group mg-b-20">
+                                    <h5 class="form-label">Funding Last year</h5>
+                                    <label class="form-label">{{institute_object.funding_last_year|getifnone}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-sm">
+                            <div class="col-md-5 col-xl-5">
+                                <div class="form-group mg-b-20">
+                                    <h5 class="form-label">Subject & programme level</h5>
+                                    <label class="form-label">{{institute_object.subject_and_programme_level|getifnone}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-sm">
+                            <div class="col-md-12 col-xl-12">
+                                <div class="form-group mg-b-20">
+                                    <h5 class="form-label">Extra notes</h5>
+                                    <label class="form-label"> 
+                                    {% if institute_object.extra_notes %}{{institute_object.extra_notes}}
+                                    {% else%} -- {% endif %}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

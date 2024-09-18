@@ -1,0 +1,1168 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} User Profile {% endblock %}
+{% load administration_extras %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% block css%}
+<link rel="stylesheet" href="{% static 'css/dropzone.css' %}">
+<style>
+    .preview_div img{
+        height: 200px;
+        width: 200px;
+        object-fit: contain;
+    }
+
+    .preview_profile_pic {
+      overflow: hidden;
+      width: 200px !important;
+      height: auto;
+      margin: 0 auto;
+    }
+    .saved_preview{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+</style>
+{% endblock%}
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-2">
+    <ol class="breadcrumb breadcrumb-style1 d-inline-block">
+      <li class="breadcrumb-item d-inline-block"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+      <li class="breadcrumb-item d-inline-block"><a href="{% url 'administration:list_mentors_twfl' %}">Back</a></li>
+    </ol>
+    <div class="float-right gs-edit">
+        <a href="{% url 'administration:update_profile_twfl' %}"
+           class="{% if mentor_info.profile_status %}
+           btn btn-danger btn-rounded
+           {% else %}btn btn-indigo btn-rounded{% endif %}
+            {% if mentor_personal_info.consent4 %}{% else %}disabled{% endif %}"
+           data-toggle="modal" data-target="#activate-mentor">
+            {% if mentor_info.profile_status %}
+            <i data-feather="x-circle"></i> Deactivate
+            {% else %}
+            {% if mentor_personal_info.consent4 %}
+            <i data-feather="alert-circle"></i> Awaiting Approval
+            {% else %}
+            <i data-feather="alert-triangle"></i> Incomplete Profile
+            {% endif %}
+            {% endif %}
+        </a>
+<!--        <a href="#" class="btn btn-indigo btn-rounded currently_studying" data-toggle="modal"-->
+<!--           data-target="#latepoint-link"-->
+<!--          data-link="{{ mentor_personal_info.late_point }}">-->
+<!--            {% if mentor_personal_info.late_point %}-->
+<!--            <i data-feather="edit"></i> Edit ApplyPeer Link-->
+<!--            {% else %}-->
+<!--            <i data-feather="user-plus"></i> Add ApplyPeer Link-->
+<!--            {% endif %}-->
+<!--        </a>-->
+        {% if mentor_personal_info.consent4 %}
+        <a href="{% url 'messaging:comment_mentor_public_profile_twfl' mentor_info.admin.slug %}"
+                   class="btn btn-indigo btn-block btn-rounded d-inline">
+                   <i data-feather="message-square"></i> Send Message
+        </a>
+        {% endif %}
+        {% if mentor_info.profile_status %}
+<!--        <a class="btn btn-rounded btn-md btn-indigo" href="{{ mentor_info.admin.slug|getmentorprofileurl }}" target="_blank"><i data-feather="user"></i> View Public Profile</a>-->
+        {% endif %}
+    </div>
+    <!-- Modal for activate/deactivate mentor-->
+    <div class="modal fade text-left" id="activate-mentor" tabindex="-1"
+                             role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="">
+                        Confirm</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post"
+                      action="{% url 'administration:approve_mentor_twfl' mentor_info.admin.slug %}">
+                  {% csrf_token %}
+                    <div class="modal-body">
+                        <h5>Are you sure you want to
+                            {% if mentor_info.profile_status %}deactivate{% else %}active{% endif %} this Alumnus?</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-rounded btn-indigo reject"
+                                data-dismiss="modal">Close
+                        </button>
+                        <button type="submit" class="btn btn-rounded btn-indigo">
+                            Confirm
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for ApplyPeer Link -->
+    <div class="modal fade" id="latepoint-link" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <form method="post"
+                  action="{% url 'administration:mentor_latepoint_link' mentor_personal_info.id %}">
+                {% csrf_token %}
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">
+                            Unique meeting URL for Mentor <strong>{{mentor_personal_info.admin.first_name}}
+                              {{mentor_personal_info.admin.last_name}}</strong> </h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          {% csrf_token %}
+                          {% crispy latepoint_form %}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-rounded btn-indigo">
+                              Submit
+                            </button>
+                        </div>
+                  </div>
+            </div>
+        </form>
+    </div>
+</nav>
+<div class="gs-profile">
+    <div class="row row-sm mg-b-20">
+        <div class="col-xl-12 col-md-12 col-sm-12">
+            <div class="card mg-b-10">
+                <div class="card-body">
+                    <div class="">
+                        <div class="">
+                            <div class="row">
+                                <div class="col-xl-7 col-md-7 col-sm-12 pl-md-0">
+                                    <div class="border-right">
+                                        <div class="afm-mentor-student-details pd-b-15 pd-t-15">
+                                                {% if user.user_type == 0 %}
+                                                <div class="col-xl-5 drop_area pl-md-0">
+                                                    <form method="POST" id="update-profile-form" enctype="multipart/form-data">
+                                                        {% csrf_token %}
+                                                        <div class="drop_area">
+                                                            <div class="form-group">
+                                                                <div class="">
+                                                                    <div class="dropzone">
+                                                                        <div class="dz-preview text-center m-4">
+                                                                            <h6 id="help_line"><a type="button">Click here</a> to upload
+                                                                                image</h6>
+                                                                            <div class="preview_div" id="preview-clone-profile_pic">
+                                                                                <div class="preview_profile_pic dz-image m-2 rounded-circle ">
+                                                                                    {% if mentor_personal_info.admin.profile_pic %}
+                                                                                    <img class="saved_preview"
+                                                                                         src="{{mentor_personal_info.admin.profile_pic.url}}" width="auto">
+                                                                                    {% endif %}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-none">
+                                                            {{form.x}}
+                                                            {{form.y}}
+                                                            {{form.width}}
+                                                            {{form.height}}
+                                                            {{form.rotation}}
+                                                            {{form.profile_pic|as_crispy_field }}
+                                                        </div>
+                                                        <div class="form-group form-check">
+                                                            <input type="checkbox" class="form-check-input" id="id_photo_consent"
+                                                                   required>
+                                                            <label class="form-check-label" for="id_photo_consent">
+                                                                I am sure, I want to change the profile picture for this mentor.
+                                                            </label>
+                                                        </div>
+                                                        <button class="btn btn-outline-indigo btn-rounded not-active"
+                                                                id="upload-photo-button">
+                                                            Update Photo</button>
+                                                    </form>
+                                                </div>
+                                                {% else %}
+                                                <div class="afm-mentor-student-img">
+                                                    {% if mentor_personal_info.admin.profile_pic %}
+                                                    <img src="{{mentor_personal_info.admin.profile_pic.url}}" alt="">
+                                                    {% else %}
+                                                    <img src="{% static 'images/default_profile.png' %}" alt="">
+                                                    {% endif %}
+                                                </div>
+                                                {% endif %}
+                                                <div class="mentor-content">
+                                                <div class="">
+                                                    <h4>{{mentor_personal_info.admin.first_name}} {{mentor_personal_info.admin.last_name}}</h4>
+                                                    <span>{{mentor_personal_info.currently_studying|getsubject}}</span>
+                                                    {% if mentor_info.profile_status %}
+                                                    <span class="badge badge-pill badge-success">Active</span>
+                                                    {% endif %}
+                                                </div>
+                                                <br>
+                                                <div>
+                                                    <span class="tx-medium">Alumni ID:</span>
+                                                    <span>{{mentor_info.admin.slug}}</span>
+                                                </div>
+                                                <div>
+                                                    <span class="tx-medium">What year did you leave IFG?:</span>
+                                                    <span>{{mentor_personal_info.university_start_year}}</span>
+                                                </div>
+                                                <div>
+                                                    <span class="tx-medium">Email:</span>
+                                                    <span>{{mentor_info.admin.email}}</span>
+                                                </div>
+                                                <div>
+                                                    <span class="tx-medium">Originally From:</span> <span
+                                                        class="country-flags">{{mentor_personal_info.admin.country.name}}<img
+                                                            src="{{mentor_personal_info.admin.country.flag}}" alt="{{mentor_personal_info.admin.country.name}}"></span>
+                                                </div>
+                                                <div>
+                                                    <span class="tx-medium">Studying in :</span><span
+                                                        class="country-flags">{{mentor_personal_info.studying_in.name}} <img
+                                                            src="{{mentor_personal_info.studying_in.flag}}" alt="{{mentor_personal_info.studying_in.name}}"></span>
+                                                </div>
+                                                <div>
+                                                    <span class="tx-medium">Currently Living In :</span><span
+                                                        class="country-flags">{{mentor_personal_info.admin.currently_living_in.name}} <img
+                                                            src="{{mentor_personal_info.admin.currently_living_in.flag}}" alt="{{mentor_personal_info.admin.currently_living_in.name}}"></span>
+                                                </div>
+                                                <div>
+                                                    <span class="tx-medium">Date Of Birth:</span>
+                                                    <span>{{mentor_personal_info.admin.date_of_birth|date:"d/m/Y"|getifnone}}</span>
+                                                </div>
+                                                <div>
+                                                    <span class="tx-medium">Spoken Language(s):</span>
+                                                    <span>{{mentor_personal_info.admin.spoken_languages.all|print_languages}}</span>
+                                                </div>
+                                                <div>
+                                                    <span class="tx-medium">Phone Number:</span>
+                                                    <span>{{mentor_personal_info.admin.phone|getifnone}}</span>
+                                                </div>
+                                                <div>
+                                                    <span class="tx-medium">University Email:</span>
+                                                    <span>{{mentor_personal_info.university_email|getifnone}}</span>
+                                                </div>
+                                                <div>
+                                                    <span class="tx-medium">University student ID:</span>
+                                                    {% if mentor_personal_info.passport %}
+                                                    <span>
+                                                    <a href="{{mentor_personal_info.passport.url}}" target="_blank" class="pass-view">View ID</a></span>
+                                                    {% else %}
+                                                    <span>No record found</span>
+                                                    {% endif %}
+                                                </div>
+<!--                                                <div>-->
+<!--                                                    <span class="tx-medium">How did you hear about us?:</span>-->
+<!--                                                    <span>{{mentor_info.admin.how_did_you_hear_about_us|getifnone}}</span>-->
+<!--                                                </div>-->
+<!--                                                <div>-->
+<!--                                                    <span class="tx-medium">Url slug:</span>-->
+<!--                                                    <span>{{mentor_personal_info.url_slug|getifnone}}</span>-->
+<!--                                                </div>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-5 col-md-5 col-sm-12">
+                                    <div class="about-me">
+                                        <h5>About me</h5>
+                                        <p class=""> 
+                                        {% if mentor_personal_info.admin.about_me %}{{mentor_personal_info.admin.about_me}}
+                                        {% else %} -- {% endif %}</p>
+                                        {% if user.user_type == 0 %}
+                                        <hr>
+                                        <h5>Hobbies & Interests</h5>
+                                        <p> 
+                                        {% if mentor_personal_info.admin.hobbies.all %}
+                                        {% for h in mentor_personal_info.admin.hobbies.all %}{{h}},{% endfor %}
+                                        {% else %} -- {% endif %}</p>
+                                        
+                                        <a href="#"
+                                           class="btn btn-indigo btn-rounded"
+                                           data-toggle="modal" data-target="#mentor_update_about_me_field">
+                                            <i data-feather="edit"></i> Edit About me</a>
+                                        {% endif %}
+                                    </div>
+                                    {% if user.user_type == 0 %}
+                                    <div class="mt-3">
+                                        <form method="post"
+                                              action="{% url 'administration:mentor_update_youtube_shots_field_twfl' mentor_info.admin.slug %}">
+                                            {% csrf_token %}
+                                            {{form3|crispy}}
+                                            <button type="submit"
+                                               class="btn btn-indigo btn-rounded">Update</button>
+                                        </form>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mr-b-20 mg-t-20">
+        <div class="col-12 col-sm-12">
+            <div class="all-list">
+                <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-company-tab" data-toggle="pill" href="#pills-education" role="tab"
+                            aria-controls="pills-education" aria-selected="true">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-experience-tab" data-toggle="pill" href="#pills-experience" role="tab"
+                            aria-controls="pills-position" aria-selected="false">Advisory Experience
+<!--                            & Tutor Experience-->
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-questions-tab" data-toggle="pill" href="#pills-questions" role="tab"
+                            aria-controls="pills-questions" aria-selected="false">Experience at IFG
+<!--                            & Tutor Experience-->
+                        </a>
+                    </li>
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" id="pills-content-creation-tab" data-toggle="pill" href="#content-creation" role="tab"-->
+<!--                            aria-controls="content-creation" aria-selected="false">Social media profiles & Content creation</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" id="pills-dbs-tab" data-toggle="pill" href="#dbs" role="tab"-->
+<!--                            aria-controls="dbs" aria-selected="false">DBS Information</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" id="pills-employability-prospect-tab" data-toggle="pill" href="#employability-prospect" role="tab"-->
+<!--                            aria-controls="employability-prospect" aria-selected="false">Maximise your Employability!</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" id="pills-HR-tab" data-toggle="pill" href="#HR" role="tab"-->
+<!--                            aria-controls="HR" aria-selected="false">Eligibility to work</a>-->
+<!--                    </li>-->
+                </ul>
+                <hr>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-education" role="tabpanel" aria-labelledby="pills-education-tab">
+                        <div class="row row-sm mg-b-20">
+                            <div class="col-12 col-md-12 col-lg-12">
+                                <div class="card card-dashboard-twentysix mg-b-10">
+                                    <div class="card-body pd-30">
+                                        <div class="basic-detail">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="border-right">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p><b>Are you currently a university student?:</b></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p>{{mentor_personal_info.are_you_graduated|getyesnostatus}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                {% if mentor_personal_info.are_you_graduated == 1 %}
+                                                                <p><b>Your Current University:</b></p>
+                                                                {% else %}
+                                                                <p><b>The university where graduated from:</b></p>
+                                                                {% endif %}
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p>{{ mentor_info.institute_name|getifnone }}</p>
+                                                                <div>
+                                                                    {% if mentor_info.institute_name %}
+                                                                    {% with my_string=mentor_info.institute_name|slugify %}
+                                                                    {% with image_url='assets/img/logo/university/'|add:my_string|add:'.png' %}
+                                                                    {% if image_url|check_if_file_exists %}
+                                                                    <img src="{% static 'assets/img/logo/university/'|add:my_string|add:'.png' %}"
+                                                                         alt="{{mentor_info.institute_name}}" style="max-height:100px;">
+                                                                    {% else %}
+                                                                    <img src="{% static 'img/university/afu-university-icons.png' %}"
+                                                                         alt="{{mentor_info.institute_name}}" style="max-height:100px;">
+                                                                    {% endif %}
+                                                                    {% endwith %}
+                                                                    {% endwith %}
+                                                                    {% else %}
+                                                                    <img src="{% static 'img/university/afu-university-icons.png' %}"
+                                                                         alt="{{mentor_info.institute.institute_name}}" style="max-height:100px;">
+                                                                    {% endif %}
+<!--                                                                    <p>-->
+<!--                                                                        {% if mentor_info.institute %}-->
+<!--                                                                        {{mentor_info.institute.institute_name}}-->
+<!--                                                                        {% else %}-->
+<!--                                                                        {{mentor_info.institute_name|getifnone}}-->
+<!--                                                                        {% endif %}-->
+<!--                                                                    </p>-->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+<!--                                                        <div class="row">-->
+<!--                                                            <div class="col-md-6">-->
+<!--                                                                <p><b>Year of Graduation :</b></p>-->
+<!--                                                            </div>-->
+<!--                                                            <div class="col-md-6">-->
+<!--                                                                <p>{{mentor_personal_info.year_graduated}}-->
+<!--                                                                </p>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="row">-->
+<!--                                                            <div class="col-md-6">-->
+<!--                                                                <p><b>What year did you leave IFG?:</b></p>-->
+<!--                                                            </div>-->
+
+<!--                                                            <div class="col-md-6">-->
+<!--                                                                <p>{{mentor_personal_info.university_start_year}}-->
+<!--                                                                </p>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p><b>Did you study a foundation/pathway course?:</b></p>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p>{{mentor_personal_info.did_you_study_the_foundation_course_in_uk|getyesnostatus}}-->
+<!--                                                            </p>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+                                                    {% if mentor_personal_info.did_you_study_the_foundation_course_in_uk == 1%}
+                                                    {% if mentor_personal_info.where_did_you_study %}
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p><b>Where did you study this foundation/pathway course?:</b></p>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p>{{mentor_personal_info.where_did_you_study}}</p>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+                                                    {% else %}
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p><b>Where did you study this foundation/pathway course?:</b></p>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p>{{mentor_personal_info.foundation_provider}}</p>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+                                                    {% endif %}
+                                                    {% endif %}
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p><b>Please enter the name of the school where you studied before starting at IFG:</b></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>
+                                                                {{mentor_personal_info.name_of_school|getifnone}}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p><b>Any other qualification you would like to add?:</b></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>
+                                                                {{mentor_personal_info.previous_qualification|getifnone}}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-experience" role="tabpanel" aria-labelledby="pills-experience-tab">
+                        <div class="row row-sm mg-b-20">
+                            <div class="col-12 col-md-12 col-lg-12">
+                                <div class="card card-dashboard-twentysix mg-b-10">
+                                    <div class="card-body pd-30">
+                                        <div class="basic-detail">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="border-right">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p><b>Are you registered as an Ambassador for your existing university?:</b></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p>{{mentor_personal_info.are_you_registered_as_an_ambassador|getyesnostatus}}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+<!--                                                <div class="col-md-6">-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p><b>Do you have tutoring experience?:</b></p>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p>{{mentor_personal_info.are_you_currently_a_tutor|getyesnostatus}}-->
+<!--                                                            </p>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    {% if mentor_personal_info.are_you_currently_a_tutor == 1 %}-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p><b>Do you tutor privately or with any online platform?:</b></p>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p>{{mentor_personal_info.do_you_tutor_privately_or_online|gettuttiontype}}-->
+<!--                                                            </p>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p><b>Approximately how many hours have you tutored in the past?:</b></p>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p>{{mentor_personal_info.hours_you_tutored|getifnone}}-->
+<!--                                                            </p>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p><b>Approximately how many hours per month would you like-->
+<!--                                                                to commit to tutoring/mentoring in the future?</b></p>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p>{{mentor_personal_info.hours_you_commit_to_tutor|getifnone}}-->
+<!--                                                            </p>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    {% if mentor_personal_info.do_you_tutor_privately_or_online == 1 %}-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p><b>Online platform name:</b></p>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p>{{mentor_personal_info.online_platform|getifnone}}-->
+<!--                                                            </p>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    {% endif %}-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p><b>Do you have experience via agency/online platforms?:</b></p>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p>{{mentor_personal_info.have_experience_tutoring_agency_or_online|getyesnostatus}}-->
+<!--                                                            </p>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    {% if mentor_personal_info.have_experience_tutoring_agency_or_online == 1 %}-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p><b>Please state the name here:</b></p>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p>{{mentor_personal_info.name_of_agency_or_online_platforms|getifnone}}-->
+<!--                                                            </p>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    {% endif %}-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p><b>Tutoring level(s):</b></p>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <ul>-->
+<!--                                                            {% for level in mentor_personal_info.tutoring_in_level_list.all %}-->
+<!--                                                                <li>{{level}}</li>-->
+<!--                                                            {% endfor %}-->
+<!--                                                            </ul>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p><b>Tutoring subject(s):</b></p>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <ul>-->
+<!--                                                            {% for subject in mentor_personal_info.tutoring_subject_list.all %}-->
+<!--                                                                <li>{{subject}}</li>-->
+<!--                                                            {% endfor %}-->
+<!--                                                            </ul>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p><b>Prep test support:</b></p>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            {% if mentor_personal_info.tutoring_with_list.all %}-->
+<!--                                                            <ul>-->
+<!--                                                            {% for help_with in mentor_personal_info.tutoring_with_list.all %}-->
+<!--                                                                <li>{{help_with}}</li>-->
+<!--                                                            {% endfor %}-->
+<!--                                                            </ul>-->
+<!--                                                            {% else%}-->
+<!--                                                            &#45;&#45;-->
+<!--                                                            {% endif%}-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p><b>Language(s) you can teach:</b></p>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <ul>-->
+<!--                                                            {% for language in mentor_personal_info.languages_i_can_teach.all %}-->
+<!--                                                                <li>{{language}}</li>-->
+<!--                                                            {% endfor %}-->
+<!--                                                            </ul>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    {% endif %}-->
+<!--                                                </div>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-questions" role="tabpanel" aria-labelledby="pills-questions-tab">
+                        <div class="row row-sm mg-b-20">
+                            <div class="col-12 col-md-12 col-lg-12">
+                                <div class="card card-dashboard-twentysix mg-b-10">
+                                    <div class="card-body pd-30">
+                                        <div class="basic-detail">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="border-right">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p><b>What advice would you give to a current student at IFG?:</b></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p>{{mentor_info.q1|getifnone}}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p><b>What do you wish you had known about your current university before you started?:</b></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p>{{mentor_info.q2|getifnone}}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p><b>What skills do you think were most important for you to develop while at IFG?:</b></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p>{{mentor_info.q3|getifnone}}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p><b>Please summarise your experience studying at IFG and living in central London?:</b></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p>{{mentor_info.q4|getifnone}}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p><b>What top tips to can you provide to secure your student visa to progress to university?:</b></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p>{{mentor_info.q5|getyesnostatus}}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p><b>Please give information on the cost of living/accommodation when studying at IFG?:</b></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p>{{mentor_info.q6|getyesnostatus}}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="content-creation" role="tabpanel" aria-labelledby="content-creation-tab">
+                        <div class="row row-sm mg-b-20">
+                            <div class="col-12 col-md-12 col-lg-12">
+                                <div class="card card-dashboard-twentysix mg-b-10">
+                                    <div class="card-body pd-30">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="border-right">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <p><b>Facebook: </b></p>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <p>{{mentor_personal_info.facebook_profile_url|getifnone}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <p><b>Instagram: </b></p>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <p>{{mentor_personal_info.instagram_profile_url|getifnone}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <p><b>TikTok: </b></p>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <p>{{mentor_personal_info.tiktok_profile_url|getifnone}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <p><b>Twitter: </b></p>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <p>{{mentor_personal_info.twitter_profile_url|getifnone}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <p><b>linkedin: </b></p>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <p>{{mentor_personal_info.linkedin_profile_url|getifnone}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <p><b>Following Us on: </b></p>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <p><input type="checkbox"
+                                                               {% if mentor_personal_info.follow_us_on_facebook %}
+                                                               checked{% endif %} onclick="return false" />
+                                                                Facebook
+                                                            </p>
+                                                            <p><input type="checkbox"
+                                                               {% if mentor_personal_info.follow_us_on_instagram %}
+                                                               checked{% endif %} onclick="return false" />
+                                                                Instagram
+                                                            </p>
+                                                            <p><input type="checkbox"
+                                                               {% if mentor_personal_info.follow_us_on_tiktok %}
+                                                               checked{% endif %} onclick="return false" />
+                                                                Tiktok
+                                                            </p>
+                                                            <p><input type="checkbox"
+                                                               {% if mentor_personal_info.follow_us_on_twitter %}
+                                                               checked{% endif %} onclick="return false" />
+                                                                Twitter
+                                                            </p>
+                                                            <p><input type="checkbox"
+                                                               {% if mentor_personal_info.follow_us_on_linkedin %}
+                                                               checked{% endif %} onclick="return false" />
+                                                                Linkedin
+                                                            </p>
+                                                            <p><input type="checkbox"
+                                                               {% if mentor_personal_info.follow_us_on_youtube %}
+                                                               checked{% endif %} onclick="return false" />
+                                                                Youtube
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p><b>Do you have experience in writing website/blog content?:</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p>{{mentor_personal_info.experience_in_content_creation|getyesnostatus}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p><b>About Content Creation :</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p>{{mentor_personal_info.about_content_creation|getifnone}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="dbs" role="tabpanel" aria-labelledby="dbs-tab">
+                        <div class="row row-sm mg-b-20">
+                            <div class="col-12 col-md-12 col-lg-12">
+                                <div class="card card-dashboard-twentysix mg-b-10">
+                                    <div class="card-body pd-30">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="border-right">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p><b>Have you had a recent DBS checked?:</b></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>{{mentor_personal_info.dbs_check|getyesnostatus}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                    {% if mentor_personal_info.dbs_check == 1 %}
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p><b>DBS ID number:</b></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>{{mentor_personal_info.dbs_Reference_no|getifnone}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p><b>Date of issue:</b></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>{{mentor_personal_info.dbs_date|date:"d/m/Y"|getifnone}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p><b>Certificate number:</b></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>{{mentor_personal_info.dbs_certificate_no|getifnone}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p><b>Please state anything you wish to declare regarding
+                                                                your DBS:</b></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>{{mentor_personal_info.dbs_declaration|getifnone}}</p>
+                                                        </div>
+                                                    </div>
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            <p><b>Upload a scanned copy of your DBS certificate:</b></p>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-md-6">-->
+<!--                                                            {% if mentor_personal_info.dbs_certificate %}-->
+<!--                                                            <span>{{mentor_personal_info.dbs_certificate|getfilename}}-->
+<!--                                                            <a href="{{mentor_personal_info.dbs_certificate.url}}" target="_blank" class="pass-view">View Document</a></span>-->
+<!--                                                            {% else %}-->
+<!--                                                            <span>No record found</span>-->
+<!--                                                            {% endif %}-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+                                                    {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="employability-prospect" role="tabpanel" aria-labelledby="employability-prospect-tab">
+                        <div class="row row-sm mg-b-20">
+                            <div class="col-12 col-md-12 col-lg-12">
+                                <div class="card card-dashboard-twentysix mg-b-10">
+                                    <div class="card-body pd-30">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p><b>Would you like potential employers to show interest in your profile? :</b></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>{{mentor_personal_info.profile_made_visible_to_employers|getyesnostatus}}</p>
+                                                        </div>
+                                                    </div>
+                                                    {% if mentor_personal_info.profile_made_visible_to_employers == 1 %}
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p><b>Preferred Career Field:</b></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>{{mentor_personal_info.preferred_career_field|getifnone}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p><b>Preferred Location:</b></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>{{mentor_personal_info.preferred_location|getifnone}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p><b>What core skills are you hoping to develop?:</b></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <ul>{% for skills_to_develop in mentor_personal_info.skills_to_develop.all %}
+                                                                <li>{{skills_to_develop}}</li>
+                                                            {% endfor %}
+                                                            </u>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p><b>Where Will You be During the Completion of Your Internship Program?:</b></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>{{mentor_personal_info.where_will_you_be_during_the_completion_of_your_internship.name|getifnone}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p><b>Duration:</b></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>{{mentor_personal_info.duration_of_internship|getifnone}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p><b>Max number of hours you could commit per week:</b></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>{{mentor_personal_info.weekly_working_hours|getifnone}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p><b>Please write a few words about yourself here:</b></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>{{mentor_personal_info.about_yourself|getifnone}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p><b>Would you like us to generate a CV template for you
+                                                                based on the information you have provided?*:</b></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>{{mentor_personal_info.would_you_like_us_to_generate_a_CV|getyesnostatus}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p><b>Upload CV:</b></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            {% if mentor_personal_info.cv %}
+                                                            <span>{{mentor_personal_info.cv|getfilename}}
+                                                            <a href="{{mentor_personal_info.cv.url}}" target="_blank" class="pass-view">View Document</a></span>
+                                                            {% else %}
+                                                            <span>No record found</span>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="HR" role="tabpanel" aria-labelledby="HR-tab">
+                        <div class="row row-sm mg-b-20">
+                            <div class="col-12 col-md-12 col-lg-12">
+                                <div class="card card-dashboard-twentysix mg-b-10">
+                                    <div class="card-body pd-30">
+                                        <div class="row">
+                                            {% if mentor_personal_info.admin.currently_living_in == 'GB' and mentor_personal_info.studying_in == 'GB' %}
+                                            <div class="col-md-6">
+                                                <div class="border-right">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p><b>Is your nationality UK?:</b></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>{{mentor_personal_info.are_you_a_uk_national|getyesnostatus}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p><b>Does your Tier 4 Student Visa allow you to be employed in the UK?:</b></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>{{mentor_personal_info.tier_4_visa_allow_you_to_work_in_uk|getyesnostatus}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% if mentor_personal_info.tier_4_visa_allow_you_to_work_in_uk %}
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p><b>Visa Duration:</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p>{{mentor_personal_info.visa_start_date|date:"d/m/Y"|getifnone}} to  {{mentor_personal_info.visa_end_date|date:"d/m/Y"|getifnone}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p><b>Visa Card:</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {% if mentor_personal_info.visa_card %}
+                                                        <span>{{mentor_personal_info.visa_card|getfilename}}
+                                                        <a href="{{mentor_personal_info.visa_card.url}}" target="_blank" class="pass-view">View Document</a></span>
+                                                        {% else %}
+                                                        <span>No record found</span>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            {% endif %}
+                                            {% else %}
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p><b>Are you eligible to work in country you are living in?:</b></p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{{mentor_personal_info.eligible_to_work_in_country_living_in|getyesnostatus}}</p>
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p><b>BRP (Biometric Residence Permits) Card:</b></p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {% if mentor_personal_info.brp_card %}
+                                                    <span>{{mentor_personal_info.brp_card|getfilename}}
+                                                    <a href="{{mentor_personal_info.brp_card.url}}" target="_blank" class="pass-view">View Document</a></span>
+                                                    {% else %}
+                                                    <span>No record found</span>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="feature_image_modal_crop" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Crop the photo
+                </h5>
+<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                    <span aria-hidden="true">&times;</span>-->
+<!--                </button>-->
+            </div>
+            <div class="modal-body">
+                <img src="" id="profile_pic" style="max-width: 100%;">
+            </div>
+            <div class="modal-footer">
+<!--                <div class="btn-group pull-left" role="group">-->
+<!--                    <button type="button" class="btn btn-outline-indigo btn-rounded rotateL">-->
+<!--                        <i data-feather="rotate-ccw"></i>-->
+<!--                            Rotate-->
+<!--                    </button>-->
+                    <button type="button" class="btn btn-outline-indigo btn-rounded js-zoom-in-one">
+<!--                        <i data-feather="zoom-in"></i>-->Zoom-In
+                    </button>
+                    <button type="button" class="btn btn-outline-indigo btn-rounded js-zoom-out-one">
+<!--                        <i data-feather="zoom-out"></i>-->Zoom-Out
+                    </button>
+<!--                </div>-->
+
+                <button type="button" class="btn btn-outline-indigo btn-rounded js-crop-and-upload-one">
+                    Crop
+                </button>
+                <button type="button" class="btn btn-outline-indigo btn-rounded cancel_btn" data-dismiss="modal">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="mentor_update_about_me_field" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <form method="post" action="{% url 'administration:mentor_update_about_me_field_twfl' mentor_info.admin.slug %}">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        Update About Me
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    {% csrf_token %}
+                    {{ form2|crispy }}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-outline-indigo btn-rounded">
+                        Submit
+                    </button>
+                    <button type="button" class="btn btn-outline-indigo btn-rounded cancel_btn" data-dismiss="modal">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="{% static 'administration/js/new_mentor_update_profile.js' %}"></script>
+<script>
+$("input[type=checkbox]").change(function(){
+    if($('#id_photo_consent').is(':checked')) {
+       $('#upload-photo-button').removeClass('not-active');
+    }
+    else{
+         $('#upload-photo-button').addClass('not-active');
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %}
+{% load static%}
+{% block title%}404 Page{% endblock %}
+{% block content %}
+<main>
+    <section class="header_area">
+        <div class="container">
+            <div class="row align-items-center justify-content-center page-404">
+                <div class="col-xl-8 col-md-12">
+                    <div class="right-icon-img-area py-5 flex">
+                         <img src="{% static 'assets/img/404/404-error.png' %}" class="img-fluid" alt="404">
+<!--                        <h1 class="text-center">Opps!</h1>-->
+<!--                        <h4 class="text-center">Looks like the link you have landed on isn't active. Please go back or to the homepage and retry.</h4>-->
+                    </div>
+                </div>
+            </div>
+           <div class="__404_links text-center">
+                    <a href="/" class="btn btn-rounded btn-md btn-indigo m-auto">Go to Home page</a>
+             </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

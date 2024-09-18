@@ -1,0 +1,69 @@
+{% extends 'base/base.html' %}
+{% load static%}
+{% block title%}Tech Support{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item">Help</li>
+    </ol>
+</nav>
+
+<!----- NAV END-------->
+<div class="page-header">
+    <h3 class="faq-title"><i data-feather="headphones"></i> Help </h3>
+</div>
+{% if user.user_type == 4 %}
+{% if faq_list %}
+<div class="faq-content">
+<div class="card">
+   <div class="card-body">
+      <div class="page-header">
+          <h3 class="faq-title mb-2"> <i data-feather="message-square"></i> Frequently Asked Questions</h3>
+      </div>
+      <div class="faq-section">
+         <div id="accordion-1" class="accordion mt-4">
+            {% for i in faq_list %}
+            <div class="card">
+               <div class="card-header" id="headingTwo">
+                  <h5 class="mb-0">
+                     <a data-toggle="collapse" data-target="#collapse_{{i.id}}" aria-expanded="false" aria-controls="collapseTwo"> {{forloop.counter}}. {{i.title}} </a>
+                  </h5>
+               </div>
+               <div id="collapse_{{i.id}}" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-1">
+                  <div class="card-body">{{i.description | safe}}</div>
+               </div>
+            </div>
+            {% endfor %}
+         </div>
+      </div>
+   </div>
+</div>
+</div>
+{% endif %}
+{% endif %}
+<div class="card support-card">
+    <div class="support-section2">
+        <h3>Send us an Email</h3>
+        <div class="row">
+            <div class="col-xl-6 col-md-6 col-sm-12">
+                <div class="support-img">
+                    <img src="{% static 'img/step/support-img.jpg' %}" alt="support-image" class="center">
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-6 col-sm-12">
+                <div class="support-form">
+                    <form class="" role="form" method="post">
+                        {% csrf_token %}
+                        <div class="form-group ">
+                            {% crispy form %}
+                            <button class="btn btn-az-primary submit-btn" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

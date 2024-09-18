@@ -1,0 +1,136 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load administration_extras %}
+{% block title %}FAQs{% endblock %}
+{% block css %}
+<style>
+  form {
+    display: contents;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"> <a href= "#">List FAQs</a></li>
+    </ol>
+  </nav>
+<div class="page-header">
+ <h3 class="faq-title"> <i data-feather="message-square"></i> Frequently Asked Questions</h3>
+</div>
+<div class="row mr-b-20">
+    <div class="col-12 col-sm-12">
+        <div class="add-new-app">
+         <a href="{% url 'faqs:faq-create' %}" id="add-new-institute"><button class="btn" style="color: rgb(0, 0, 0); font: 1em poppins ;">
+             <span>+</span> Add New FAQ</button><i data-feather="clipboard"></i></a>
+        </div>
+    </div>
+</div>
+<div class="row row-sm mg-b-10">
+  <form>
+    <div class="col-sm-12 col-md-3 col-lg-3">
+      <div class="select2-box mb-2">
+        {% render_field form.user_type placeholder=form.user_type.label class='form-control' %} </div>
+    </div>
+    <div class="col-sm-12 col-md-2 col-lg-1">
+      <button type="submit" class="btn btn-indigo btn-block btn-rounded">
+        <i data-feather="search">
+        </i>
+      </button>
+    </div>
+  </form>
+</div>
+{% if list %}
+<div class="faq-content">
+    <div class="card">
+       <div class="card-body">
+          <div class="faq-section">
+             <div id="accordion-1" class="accordion mt-4">
+                {% for i in list %}
+                <div class="card">
+                   <div class="card-header" id="headingTwo">
+                      <h5 class="mb-0">
+                         <a data-toggle="collapse" data-target="#collapse_{{i.id}}" aria-expanded="false" aria-controls="collapseTwo"> {{forloop.counter}}. {{i.title}} </a>
+                      </h5>
+                   </div>
+                   <div id="collapse_{{i.id}}" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-1">
+                      <div class="card-body">{{i.description}}<br>
+                      <i class="blockquote-footer">Created on {{ i.created|date:"d/m/Y" }}</i></p>
+                      </div>
+                      {% if user.user_type == 0 %}
+                      <div class="card-body" align='right'>
+                         <a href="{{i.get_absolute_url}}">View</a> /
+                         <a href="{{i.get_update_url}}">Edit</a> /
+                         <a href='#' data-toggle="modal" data-target="#exampleModal_{{i.id}}">Delete</a>
+                      </div>
+                      <div class="modal fade" id="exampleModal_{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <form action="{% url 'faqs:faq-delete' i.id %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Confirm </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="text" id="" value='{{i.id}}' hidden>
+                                        Are you sure you want to do delete Alumni "{{i.title}}"?
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-rounded btn-indigo reject"
+                                      data-dismiss="modal">Close
+                                      </button>
+                                      <button type="submit" class="btn btn-rounded btn-indigo">
+                                          Confirm
+                                      </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                      </div>
+                      {% endif %}
+                   </div>
+                </div>
+                {% endfor %}
+             </div>
+          </div>
+       </div>
+    </div>
+</div>
+<div class="">
+  <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+  <div class="d-flex justify-content-center">
+    <ul class="pagination pagination-circled">
+      {% if page_obj.has_previous %} <li class="page-item">
+        <a class="page-link" href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}">
+          <i data-feather="arrow-left">
+          </i>
+        </a>
+      </li>
+      {% endif %}
+      {% if page_obj.has_next %} <li class="page-item">
+        <a class="page-link" href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}">
+          <i data-feather="arrow-right">
+          </i>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+{% else %}
+   <div class="text-center">No Record found</div>
+{% endif %}
+{% endblock %}
+{% block js %}
+<script>
+  $('#id_user_type').select2({
+    placeholder: 'Select User Type',
+    searchInputPlaceholder: 'Search'
+  });
+</script>
+{% endblock %}

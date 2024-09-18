@@ -1,0 +1,125 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'bookings:UpdateAvailablilty' %}">Availability</a></li>
+        <li class="breadcrumb-item"><a href="javascript:history.back()">Go Back</a></li>
+
+    </ol>
+</nav>
+
+<div class="row py-5 justify-content-between px-10">
+    <!--your Appointments-->
+    <div class="col-12 col-md-7">
+
+        <!--        <h3 class="pb-4" style="font-weight:400;">Update your availability</h3>-->
+        <!--        <small style="font-style: 12px;font-weight: 500;">Bookings can be made by your clients within your avilability-->
+        <!--            only and at least 24 hours in advance to give you time to accept new appointment requests.</small>-->
+
+        {% if msg|length %}
+        <div style="margin-top: 20px" class="alert alert-danger ">
+            <strong>{{ msg }}</strong>
+        </div>
+        {% endif %}
+        <!--appoinment content -->
+        <div class="py-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title pb-1" style="font-weight:400;">Update your availability</h3>
+                    <small class="card-subtitle pb-4" style="font-weight: 500;">Bookings can be made by your clients
+                        within your avilability
+                        only and at least 24 hours in advance to give you time to accept new appointment
+                        requests.</small>
+                    <div class="fade-in-left sec-target" id="sec-1">
+                        <form method="post" id="timeslotform" data-url="{% url 'bookings:ajax_timeslot' %}">
+                            {% csrf_token %}
+                            <!--profile -->
+                            <div class="mt-4 mb-4">
+                                <label>Select date to check available time:</label>
+                                <input type="date" name="date" id="id_date">
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-4">
+                                        <label>From:</label>
+                                        <input type="time" name="from" id="id_from">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-4">
+                                        <label>To:</label>
+                                        <input type="time" name="to" id="id_to">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label>Unavailable on this timeslot?:</label>
+                                <input type="checkbox" name="unavail" id="id_unavilable">
+                            </div>
+                            <div class="mb-4">
+                                <label>Unavailable for holidays?:</label>
+                                <input type="checkbox" name="holiday" id="id_holiday" onclick="onCheck(this);">
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-4">
+                                        <label>From:</label>
+                                        <input type="date" name="from_date" id="id_from_date">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-4">
+                                        <label>To:</label>
+                                        <input type="date" name="to_date" id="id_to_date">
+                                    </div>
+                                </div>
+                            </div>
+                            <input class="btn btn-outline-indigo btn-rounded m-2" type="submit" value="Submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $("#id_date").change(function () {
+            console.log("Umair")
+            var url = $("#timeslotform").attr("data-url");  // get the url of the `load_cities` view
+            var date = $(this).val();  // get the selected country ID from the HTML input
+            console.log("Umair--->", date, " ---> ", url)
+
+            $.ajax({                       // initialize an AJAX request
+                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                data: {
+                    'data': $(this).val(),       // add the country id to the GET parameters
+                },
+                success: function (data) {   // `data` is the return of the `load_cities` view function
+                    var start = data.instance["start"]
+                    var end = data.instance["end"]
+                    document.getElementById("id_from").value = start
+                    document.getElementById("id_to").value = end
+                }
+            });
+
+        });
+    </script>
+
+    <script type="text/javascript">
+        function onCheck(checkbox) {
+            alert("All booked meeting on these, will be cancelled ")
+        }
+    </script>
+    {% endblock %}
+
+
+</div>

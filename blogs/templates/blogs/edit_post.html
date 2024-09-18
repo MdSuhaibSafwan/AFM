@@ -1,0 +1,72 @@
+{% extends 'base/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block css %}
+<style>
+.django-ckeditor-widget,#cke_id_content{
+  width: 100% !important;
+}
+</style>
+{% endblock %}
+{% block content %}
+{% load widget_tweaks %}
+{% load administration_extras %}
+{% load crispy_forms_tags %}
+{% load static %}
+<nav aria-label="breadcrumb">
+   <ol class="breadcrumb breadcrumb-style1">
+      <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+      <li class="breadcrumb-item"><a href="#">Edit Blog</a></li>
+   </ol>
+</nav>
+<div class="row row-sm mg-b-20">
+   <div class="col-sm-12 col-lg-12">
+    <form  method="POST" enctype="multipart/form-data" action="{% url 'blogs:post_detail_edit' post.id post.author.admin.slug %}">
+       {% csrf_token %}
+      <div class="card card-table-one">
+<!--                 <h4 class=" mg-b-10">Add Title</h4>-->
+<!--                 <div class="form-group mg-b-15">-->
+<!--                    &lt;!&ndash; <input type="text" name="addtitle" class="form-control" value="This is my first blog" placeholder="Add Title" required=""> &ndash;&gt;-->
+<!--                    {% render_field form.title placeholder="Add Title" class='form-control' %}-->
+<!--                    <div class="az-content-label mg-t-20">Write Content</div>-->
+<!--                    <div class="ql-wrapper ql-wrapper-demo">-->
+<!--                       <div id="quillEditor">-->
+<!--                        {% render_field form.content placeholder="Write Content." class='form-control' %}-->
+<!--                       </div>-->
+<!--                    </div>-->
+<!--                    <div class="form-group mg-b-20 mg-t-20">-->
+<!--                       <label class="form-label">Feature Image <span class="">(.jpg, .jpeg, .png)</span></label>-->
+<!--                       <div class="custom-file">-->
+<!--                          &lt;!&ndash; <input type="file" class="custom-file-input" id="validatedCustomFile" required=""> &ndash;&gt;-->
+<!--                          {% render_field form.feature_image placeholder="Choose file..." class='form-control ' %}-->
+<!--&lt;!&ndash;                           <label class="custom-file-label" for="validatedCustomFile"></label>Choose file...</label>&ndash;&gt;-->
+<!--                          <div class="invalid-feedback">Example invalid custom file feedback</div>-->
+<!--                       </div>-->
+<!--&lt;!&ndash;                       <div class="uploded-image mg-t-15"><img src="img/avatar/blog-img.png"><span>blog-img.png</span></div>&ndash;&gt;-->
+<!--                    </div>-->
+<!--                    <div class="form-group mg-b-20 mg-t-20">-->
+<!--                        <label class="form-label">Status</label>-->
+<!--                        <div class="custom-file">-->
+<!--                           -->
+<!--                           {% render_field form.status  class='form-control' %} -->
+<!--                        </div>-->
+<!--                       -->
+<!--                     </div>-->
+<!--                    <button class="btn btn-rounded btn-indigo mg-t-20" type="submit">Post </button>-->
+<!--                 </div>-->
+          {{ form|crispy }}
+      </div>
+      <button class="btn btn-rounded btn-indigo mg-t-20" type="submit">Submit to Review </button>
+      <button class="btn btn-rounded btn-indigo mg-t-20" id="draft" type="button">Save as Draft </button>
+
+    </form>
+   </div>
+</div>
+{% endblock content %}
+{% block js %}
+<script>
+$("#draft").on("click", function(e){
+    e.preventDefault();
+    $('form').attr('action', "{% url 'blogs:save_as_draft_twfl' post.id %}").submit();
+});
+</script>
+{% endblock %}

@@ -1,0 +1,182 @@
+{% extends 'base/base.html' %}
+{% load static%}
+{% block title%}How It Works{% endblock %}
+{% block css %}
+  <style>
+    .header-inner-wrapper {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+    .header-inner-wrapper h1 {
+      font-size: 40px;
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+    .header-inner-wrapper p {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 2rem;
+      margin-bottom: 2.5rem;
+      letter-spacing: .01rem;
+    }
+    .middle-wrapper article p {
+      letter-spacing: .02rem;
+      line-height: 2rem;
+      font-size: 16px;
+    }
+    .middle-wrapper {
+      padding: 60px 0 10px;
+      font-size: 16px;
+    }
+    .uni-key-advantage .p-progress-bar-container {
+      margin: 5px;
+    }
+
+    .p-progress-bar-container,
+    .progress-bar-container {
+      width: 100%;
+      height: 33px;
+      margin: 30px 0;
+      overflow: hidden;
+      background-color: #eee;
+      border-radius: 50px;
+      color: #fff;
+    }
+    .p-progress-bar,
+    .progress-bar {
+      height: 100%;
+      padding: 5px;
+      background-color: #141e42;
+      box-shadow: none;
+    }
+    .p-progress-bar-container.title-up span {
+      float: right;
+    }
+    @media (min-width: 1024px) {
+      .uni-head-title {
+        width: 75%;
+      }
+      .middle-wrapper .card-body {
+      padding: 50px;
+    }
+    }
+  </style>
+{% endblock %}
+{% block content %}
+
+  <div class="az-content pd-y-20">
+    <div class="container">
+      <div class="az-content-body">
+
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb breadcrumb-style1">
+            <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="#">How It Work</a></li>
+          </ol>
+        </nav>
+
+        <!----- NAV END-------->
+
+        <div class="head-wrapper">
+          <div class="row">
+            <div class="col-xl-6 col-md-6 col-sm-12">
+              <div class="header-inner-wrapper">
+                <div>
+                  <h1 data-animate="fadeInUp" data-animate-delay="5" class="animated fadeInUp visible">Activate &amp;
+                    empower your most powerful
+                    marketing voice.
+                  </h1>
+                  <p data-animate="fadeInUp" data-animate-delay="0" class="animated fadeInUp visible">
+                    Attract more applicants, increase your conversation and upskill your existing students
+                    at the same time - all at a fraction of the cost.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-md-6 col-sm-12">
+              <div class="right-icon-img-area">
+                <img src="{% static 'img/afm-university-work.png' %}" class="img-fluid"
+                  alt="Activate &amp; empower your most powerful marketing voice.">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="middle-wrapper">
+          <div class="row">
+            <div class="col-md-12 col-xl-12">
+
+              <div class="uni-head-title m-auto">
+                <article class="text-center ">
+                  <p>
+                    We harness the power of social media to engage existing students with future
+                    applicants to manage expectations and empower both the applicant and mentor to
+                    fulfil their future goal.
+                    <br><strong>Universities benefit from this two-fold.</strong>
+                  </p>
+                </article>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col-md-12 col-xl-12">
+              <div class="card card-medium animated fadeInUp visible" data-animate="fadeInUp" data-animate-delay="0">
+                <div class="card-body">
+                  <div class="uni-key-advantage">
+
+                    <p class="mb-3">It is widely accepted that prospective applicants are increasingly
+                      turning to
+                      existing university students as part of their decision-making process. A recent
+                      survey by the QS International Student Survey 2020 found that :</p>
+                    <div class="mb-5">
+                      <b>
+                        The following factors as influential in helping to choose a university :
+                      </b>
+                      <p>1. The Ability to connect with existing international students to ask questions.
+                        ‘Practical tips to help with your application’</p>
+                      <div class="p-progress-bar-container title-up">
+                        <div class="p-progress-bar progress-animated" data-percent="58" data-delay="200" data-type="%"
+                          style="width: 58%;">
+                          <span class="progress-type">%</span><span class="progress-number animated fadeIn">58</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <b>
+                      The following factors would make them less worried about studying abroad :
+                    </b>
+                    <p>1. Able to ask questions to international students studying at the intuition</p>
+                    <div class="p-progress-bar-container title-up">
+                      <div class="p-progress-bar" data-percent="49" data-delay="200" data-type="%" style="width: 49%;">
+                        <span class="progress-type">%</span><span class="progress-number animated fadeIn">49</span>
+                      </div>
+                    </div>
+                    <p>2. Already knew others at the instution they are applying to.</p>
+                    <div class="p-progress-bar-container title-up">
+                      <div class="p-progress-bar" data-percent="40" data-delay="200" data-type="%" style="width: 40%;">
+                        <span class="progress-type">%</span><span class="progress-number animated fadeIn">40</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-md-12 col-xl-12">
+              <p class="mt-5 text-center">
+                We can provide a full demo, answer common questions, showcase all features and benefits that
+                would be a right fit for you while studying. To unlock these features, please register your
+                interest here with your university email, and a member of AfU team will be in touch in 24
+                hours.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div><!-- az-content-body -->
+    </div>
+  </div><!-- az-content -->
+{% endblock %}
+{% block js %}
+{% endblock %}

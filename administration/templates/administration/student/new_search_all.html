@@ -1,0 +1,381 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% load administration_extras %}
+{% load static %}
+{% load widget_tweaks %}
+{% load social_share %}
+
+{% block title %}Search All{% endblock %}
+
+{% block css %}
+<style>
+    form {
+        display: contents;
+    }
+
+    div.btn,
+    .filter {
+        margin-right: 5px;
+    }
+
+    .facebook-this,
+    .tweet-this {
+        display: contents;
+    }
+
+    #empty-row {
+        display: none;
+    }
+
+    #empty-row2 {
+        display: none;
+    }
+
+    .select2-container .select2-selection--single {
+        width: 100%;
+    }
+
+    .select2-container--open {
+        z-index: 1051 !important;
+        /* Set the z-index value */
+    }
+
+    .modal-open .select2-container {
+        width: auto !important;
+        /* Set the width to auto */
+        min-width: 100% !important;
+        /* Set the min-width to 100% */
+    }
+
+    .topright {
+        position: absolute;
+        top: 8px;
+        right: 16px;
+        font-size: 18px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<h3 class="text-center">Search all IFG Students and Alumni</h3>
+<br>
+
+<div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+        <a href="{% url 'administration:new_search_all' %}" class="btn btn-lg btn-rounded btn-outline-secondary"><h3><i data-feather="award"></i>All IFG Students</h3></a>
+    </div>
+    <div class="btn-group mr-2" role="group" aria-label="Second group">
+        <a href="{% url 'administration:new_search_alumni' %}" class="btn btn-lg btn-rounded btn-outline-secondary"><h3><i data-feather="award"></i>IFG Alumni</h3></a>
+    </div>
+    <div class="btn-group mr-2" role="group" aria-label="Third group">
+        <a href="{% url 'administration:new_search_students' %}" class="btn btn-lg btn-rounded btn-outline-secondary"><h3><i data-feather="award"></i>IFG Students</h3></a>
+    </div>
+</div>
+
+<br>
+<hr>
+<br>
+
+<!-- <h3 class="text-center">Students</h3> -->
+<!-- Students -->
+{% if students_pi %}
+{% for x in students %}
+{% for y in students_pi %}
+{% if x.admin.slug == y.admin.user_slug %}
+<div class="row row-sm mg-b-20 ">
+    <div class="col-12 col-md-12 col-lg-12">
+        <div class="card card-dashboard-twentysix mg-b-10">
+            {% comment %}
+            <div id="loggeduser-{{x.admin.slug}}" class="topright"
+                data-loggeduser-url = "{% url 'administration:ajax_loggeduser_status' x.admin.slug %}">                                      
+                <button class="btn btn-sm btn-rounded {% if x.admin.loggeduser.online_status %}btn-success{% else %}btn-danger{% endif %}">
+                {% if x.admin.loggeduser.online_status %}Online{% else %}Offline{% endif %}
+                </button>                          
+            </div>
+            {% endcomment %}
+            <div class="card-body pd-t-15 pd-b-15 pd-l-30 pd-r-30">
+                <div class="row d-flex align-items-md-center">
+                    <div class="col-md-6 col-lg-4 col-xl-4">
+                        <div class="afm-mentor-student-details pd-b-15 pd-t-15">
+                            <div class="afm-mentor-student-img">
+                                {% if y.admin.profile_pic %}
+                                <img src="{{y.admin.profile_pic.url}}" alt="{{y.admin.first_name}}">
+                                {% else %}
+                                <img src="{% static 'images/default_profile.png' %}" alt="{{y.admin.first_name}}">
+                                {% endif %}
+                            </div>
+                            <div class="mentor-content d-flex align-items-md-center">
+                                <div>
+                                    <div class="pd-b-10">
+                                        <span class="tx-medium">{{y.admin.first_name}}</span>
+                                    </div>
+                                    <div class="pd-b-5 pd-t-5">
+                                        <span class="tx-medium">From:</span> <span class="country-flags">
+                                            {{y.admin.country.name}} <img src="{{y.admin.country.flag}}"
+                                                alt="{{y.admin.country.name}}"> </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 col-xl-3">
+                        <div class="pd-b-15 pd-t-15 text-center text-md-left">
+                            <div>
+                                <div class="pd-b-5 pd-t-5">
+                                    <span class="tx-medium">Spoken Languages:</span>
+                                    <span>{{y.admin.spoken_languages.all|print_languages}} </span>
+                                </div>
+                                <div class="pd-b-5 pd-t-5">
+                                    <span class="tx-medium">Currently Living In:</span> <span class="country-flags">
+                                        {{y.admin.currently_living_in.name}} <img
+                                            src="{{y.admin.currently_living_in.flag}}"
+                                            alt="{{y.admin.currently_living_in.name}}"> </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 col-xl-3">
+                        <div class="pd-b-15 pd-t-15  text-center text-md-left">
+                            <div>
+                                <div class="pd-b-5 pd-t-5">
+                                    <span class="tx-medium">Programme Level:</span>
+                                    <span>{{y.get_programme_level_display}}</span>
+                                </div>
+                                <div class="pd-b-5 pd-t-5">
+                                    <span class="tx-medium">Subject:</span>
+                                    <span>{{y.get_area_of_study_display}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2 col-xl-2 justify-content-center align-items-md-center d-flex">
+                        <div class="uni-logo pd-b-15 pd-t-15">
+                            <div class="text-center">
+                                <h4>School</h4>
+                            </div>
+                            <div class="text-center">
+                                
+                                <img src="{% static 'assets/img/logo/IFG-Colour-Logo-338x100.png' %}"
+                                    alt="{{x.school.name}}" style="max-height:100px; max-width: 100px;">
+                                
+                                <p>
+                                    {{x.school.name}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="line-3">
+                <div class="last-edited">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6 col-xl-6 col-sm-6 text-left pd-l-30">
+                            <p>
+                                <i data-feather="user"></i>Student ID :
+                                <strong class="text-uppercase">{{x.admin.slug}} </strong>
+                            </p>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-xl-6 col-sm-6 text-right pd-r-30">
+                           
+                            <a href="{% url 'messaging:send_message_to_student' x.admin.slug %}"
+                                class="btn btn-rounded btn-md btn-indigo"> Send a Message</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+<br><hr><br>
+
+<!-- <h3 class="text-center">Alumni</h3> -->
+<!-- Alumni -->
+{% if mentors_pi %}
+{% for x in mentors %}
+{% for y in mentors_pi %}
+{% if x.admin.slug == y.admin.user_slug %}
+<div class="row row-sm mg-b-20 ">
+    <div class="col-12 col-md-12 col-lg-12">
+        <div class="card card-dashboard-twentysix mg-b-10">
+            {% comment %}
+            <div id="loggeduser-{{x.admin.slug}}" class="topright"
+                data-loggeduser-url = "{% url 'administration:ajax_loggeduser_status' x.admin.slug %}">                              
+                <button class="btn btn-sm btn-rounded {% if x.admin.loggeduser.online_status %}btn-success{% else %}btn-danger{% endif %}">
+                {% if x.admin.loggeduser.online_status %}Online{% else %}Offline{% endif %}
+                </button>                       
+            </div>
+            {% endcomment %}
+            <div class="card-body pd-t-15 pd-b-15 pd-l-30 pd-r-30">
+                <div class="row d-flex align-items-md-center">
+                    <div class="col-md-6 col-lg-4 col-xl-4">
+                        <div class="afm-mentor-student-details pd-b-15 pd-t-15">
+                            <div class="afm-mentor-student-img">
+                                {% if y.admin.profile_pic %}
+                                <img src="{{y.admin.profile_pic.url}}" alt="{{y.admin.first_name}}">
+                                {% else %}
+                                <img src="{% static 'images/default_profile.png' %}" alt="{{y.admin.first_name}}">
+                                {% endif %}
+                            </div>
+                            <div class="mentor-content d-flex align-items-md-center">
+                                <div>
+                                    <div class="pd-b-10">
+                                        <h4 class="d-inline text-capitalize">{{y.admin.first_name}} </h4>
+                                        <span class="d-block mg-t-10">Student of
+                                            {{y.currently_studying|getsubject}}</span>
+                                    </div>
+                                    <div class="pd-b-5 pd-t-5">
+                                        <span class="tx-medium">From:</span> <span class="country-flags">
+                                            {{y.admin.country.name}} <img src="{{y.admin.country.flag}}"
+                                                alt="{{y.admin.country.name}}"> </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 col-xl-3">
+                        <div class="pd-b-15 pd-t-15 text-center text-md-left">
+                            <div>
+                                <div class="pd-b-5 pd-t-5">
+                                    <span class="tx-medium">Spoken Languages:</span>
+                                    <span>{{y.admin.spoken_languages.all|print_languages}} </span>
+                                </div>
+                                <div class="pd-b-5 pd-t-5">
+                                    <span class="tx-medium">Currently Living In:</span> <span class="country-flags">
+                                        {{y.admin.currently_living_in.name}} <img
+                                            src="{{y.admin.currently_living_in.flag}}"
+                                            alt="{{y.admin.currently_living_in.name}}"> </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 col-xl-3">
+                        <div class="pd-b-15 pd-t-15  text-center text-md-left">
+                            <div>
+                                <div class="pd-b-5 pd-t-5">
+                                    <span class="tx-medium">Studying in:</span> <span class="country-flags">
+                                        {{y.studying_in.name}} <img src="{{y.studying_in.flag}}"
+                                            alt="{{y.studying_in.name}}"> </span>
+                                </div>
+                                <div class="pd-b-5 pd-t-5">
+                                    <span class="tx-medium">Currently Studying:</span>
+                                    <span>{{y.currently_studying|getsubject}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2 col-xl-2 justify-content-center align-items-md-center d-flex">
+                        <div class="uni-logo pd-b-15 pd-t-15">
+                            <div class="text-center">
+                                <!--                                                      <h4>University</h4>-->
+                            </div>
+                            <div class="text-center">
+                                {% if x.institute_name %}
+                                {% with my_string=x.institute_name|slugify %}
+                                {% with image_url='assets/img/logo/university/'|add:my_string|add:'.png' %}
+                                {% if image_url|check_if_file_exists %}
+                                <img src="{% static 'assets/img/logo/university/'|add:my_string|add:'.png' %}"
+                                    alt="{{x.institute_name}}" style="max-height:100px;">
+                                {% else %}
+                                <img src="{% static 'img/university/afu-university-icons.png' %}"
+                                    alt="{{x.institute_name}}" style="max-height:100px;">
+                                {% endif %}
+                                {% endwith %}
+                                {% endwith %}
+                                {% else %}
+                                <img src="{% static 'img/university/afu-university-icons.png' %}"
+                                    alt="{{x.institute.institute_name}}" style="max-height:100px;">
+                                {% endif %}
+                                <p>
+                                    {% if x.institute %}
+                                    {{x.institute.institute_name}}
+                                    {% else %}
+                                    {{x.institute_name}}
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="line-3">
+                <div class="last-edited">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6 col-xl-6 col-sm-6 text-left pd-l-30">
+                            <p>
+                                <i data-feather="user"></i>Alumnus ID :
+                                <strong class="text-uppercase">{{x.admin.slug}} </strong>
+                                {% if y.university_start_year %}
+                                | Left IFG in {{ y.university_start_year|getifnone}}
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-xl-6 col-sm-6 text-right pd-r-30">
+                            <a href="{% url 'messaging:comment_mentor_public_profile_twfl' x.admin.slug %}"
+                                class="btn btn-rounded btn-md btn-indigo">Send a Message</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+
+<!-- <h3 style="color: brown;">Request session Chat Slug: </h3> -->
+{{ chatslug|json_script:"chat-slug" }}
+{% endblock %}
+
+
+{% block js %}
+<script>
+// var logStatus = setInterval(loggedUserStatus, 20000);
+
+// // Logged User Status
+// function loggedUserStatus() {
+//     console.log("Loggeduser ajax triggered.....");
+//     $(".topright").each(function( index ) {
+//     console.log( index + ": " + $(this).text() );
+//     let url = $(this).attr("data-loggeduser-url");
+//     console.log(" Logged User URL - ", url);
+
+//     $.ajax({
+//         url: url,
+//         type: "GET",
+//         success: (data) => {
+//             console.log("AJAX LoggedUser Data - ", data);
+//             let onlinestatus = data["onlinestatus"]
+//             let slug = data["slug"]
+//             console.log("slug - ", slug)
+//             console.log("Online Status - ", onlinestatus);
+//             let button = document.getElementById(`loggeduser-${slug}`)
+//             console.log("Button Element - ", button);
+
+//             if (onlinestatus == true) {
+//                 button.innerHTML = `
+//             <button class="btn btn-sm btn-rounded btn-success">AJAX ONLINE</button>
+//             `
+//             } else {
+//                 button.innerHTML = `
+//             <button class="btn btn-sm btn-rounded btn-danger">AJAX OFFLINE</button>
+//             `
+//             }
+//         },
+//         error: (error) => {
+//             console.log(error);
+//         }
+//     });
+//   }); 
+// };
+
+</script>
+{% endblock %}

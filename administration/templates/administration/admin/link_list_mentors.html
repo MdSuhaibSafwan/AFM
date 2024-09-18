@@ -1,0 +1,80 @@
+{% extends 'base/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% load administration_extras %}
+{% load static %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% block css %}
+<style>
+  form {
+    display: contents;
+  }
+  div.btn,.filter {
+    margin-right: 5px;
+}
+</style>
+{% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb breadcrumb-style1">
+    <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="#">Total Mentors</a></li>
+  </ol>
+</nav>
+<div class="row row-sm mg-b-20">
+  <div class="col-sm-12 col-lg-12">
+    <div class="card card-table-one parent-table">
+      <h6 class="card-title">List of Mentors</h6>
+      <hr>
+      <div class="table-responsive">
+        {% if personal_info_list %}
+        <table class="table table-hover mg-b-0">
+          <thead>
+            <tr>
+              <th class="sticky first-col mob-sticky">Photo</th>
+              <th class="sticky second-col">Name</th>
+              <th>Mentor Profile link</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for y in personal_info_list %}
+            {% for x in mentors %}
+            {% if x.profile_status %}
+            {% if x.admin.slug == y.admin.user_slug %}
+            <tr>
+              <td class="sticky first-col mob-sticky">
+                <div class="az-img-user">
+                  {% if y.admin.profile_pic %}
+                  <img src="{{y.admin.profile_pic.url}}" alt="{{y.admin.first_name}}">
+                  {% else %}
+                  <img src="{% static 'images/default_profile.png' %}" alt="{{y.admin.first_name}}">
+                  {% endif %}
+                </div>
+              </td>
+              <td class="sticky second-col">
+                <strong>
+                  <a href="{% url 'administration:mentor_profile' x.admin.slug %}">{{y.admin.first_name}}</a>
+                </strong>
+              </td>
+              <td>
+                  {% if x.profile_status %}
+                    <a href="{{ x.admin.slug|getmentorprofileurl }}" target="_blank">{{ x.admin.slug|getmentorprofileurl }}</a>
+                  {% endif %}
+              </td>
+            </tr>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <div style="text-align:center;">
+          <p>No Mentors Available !!!!</p>
+        </div>
+        {% endif%}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

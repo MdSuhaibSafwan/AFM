@@ -1,0 +1,73 @@
+{% extends 'base/base.html' %}
+{% block title %}Create FAQ{% endblock %}
+{% load crispy_forms_tags %}
+{% block css %}
+<style>
+.django-ckeditor-widget,#cke_id_description{
+  width: 100% !important;
+}
+</style>
+{% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+      <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+      <li class="breadcrumb-item">
+        <a href="{% url 'faqs:list-faq' %}">FAQs</a>
+      </li>
+    </ol>
+</nav>
+<div class="page-header">
+    <h3 class="faq-title"> <i data-feather="message-square"></i> {{title}}</h3>
+</div>
+<div class="row row-sm mg-b-20">
+    <div class="col-sm-12 col-lg-12">
+        <form method="POST">
+            {% csrf_token %}
+<!--            <div class="card card-table-one">-->
+<!--                {{ form|crispy }}-->
+<!--            </div>-->
+            <div class="card card-table-one">
+                <div class="row row-sm">
+                    <div class="col-xl-12">
+                        <div class="row row-sm">
+                            <div class="col-md-12 col-xl-12">
+                                <div class="form-group mg-b-20">
+                                    {{form.title|as_crispy_field}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-sm">
+                            <div class="col-md-12 col-xl-12">
+                                <div class="form-group mg-b-20">
+                                    {{form.description|as_crispy_field}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-sm">
+                            <div class="col-md-4">
+                                <div class="form-group mg-b-20">
+                                    {{form.user_type|as_crispy_field}}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mg-b-20">
+                                    {{form.status|as_crispy_field}}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mg-b-20">
+                                    {{form.rank|as_crispy_field}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-outline-indigo btn-rounded btn-indigo mg-t-20" type="submit">
+                Submit
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

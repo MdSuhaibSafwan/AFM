@@ -1,0 +1,103 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}Study Medicine at The University College Dublin (UCD){% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}Enhance your knowledge in Medicine, Nursing, Midwifery and Health Systems, Public Health,
+Physiotherapy, and Sports Science, Veterinary Medicine from UCD.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/study-medicine-in-ireland/studying-medicine-at-university-college-dublin/
+{% endblock %}{% endblock %}
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">International Foundation Group</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine_in_ireland' %}">Medical schools in
+                                Ireland</a>
+                            <span> >
+                            </span>University College Dublin
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">University College Dublin(UCD)</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in Ireland</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <h2>Study Medicine at The University College Dublin(UCD)</h2>
+                        <p>UCD offer a six-yearmedicine course in the largest university campus in Ireland. Theprogramme
+                            takes a modern approach to medical education involving early patient contact,a global
+                            curriculum and the medical school provides a diverse social environment.</p>
+                        <p>UCD offers many medical education facilities such as dissection labs,clinical
+                            placementsacross over twenty different general, acute and specialist hospitals and over a
+                            hundredand forty different GPs.</p>
+                        <p>UCD also offer a Graduate Entry to Medicine programme which is a 4-year course.
+                            Theircurriculum is challenging yet stimulating and is internationally recognised, taught
+                            bysome of the best educators in Ireland. At UCD, we’ve been training the best and
+                            thebrightest for more than 150 years.</p>
+                        <p>The main hospitals associated with the programme are St Vincent’s University Hospitaland the
+                            Mater Misericordiae University Hospital, and there are many other traininghospitals and
+                            around 100 primary care practices in where their medical students aretaught.</p>
+                        <p>Since UCD has an extensive clinical network, their medical students will benefit from arange
+                            of international placement outside of Ireland.</p>
+                        <p>Students can also choose from a multitude of placements abroad to undertake
+                            throughinternational electives (including locations such as USA, Canada, Malaysia,
+                            Australia,etc) and the voluntary Medical Students Overseas Relief (MSOR) society to
+                            placessuch as Africa, Asia and South America.</p>
+                    </article>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <h2>Main features of the medical course include:</h2>
+                        <ul class="grade-li">
+                            <li>Early and continual patient contact giving students experience in a clinicalsetting,
+                                including shadowing GPs.</li>
+                            <li>Opportunities to travel towards the later stages of the course</li>
+                        </ul>
+                        <p>For non-academic activities and opportunities to relax, USD has extensive sportingfacilities,
+                            which include a 50m olympic swimming pool and more than 50 student-ledclubs. (edited)</p>
+                        <h3>Get mentored by medical students at University College Dublin(UCD)</h3>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> globalcommunity of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} User Profile {% endblock %}
+{% load administration_extras %}
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-2">
+    <ol class="breadcrumb breadcrumb-style1 d-inline-block">
+        <li class="breadcrumb-item d-inline-block"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        {% if request.user.user_type == 5 %}
+        <li class="breadcrumb-item d-inline-block">My Profile</li>
+        {% else %}
+        <li class="breadcrumb-item d-inline-block"><a href="{% url 'administration:list_students_twfl' %}">Back</a></li>
+        {% endif %}
+    </ol>
+    {% if request.user.user_type == 5 %}
+    <div class="float-right gs-edit">
+        <a href="{% url 'administration:update_parent_profile_twfl' %}" class="btn btn-outline-indigo btn-rounded">Edit</a>
+    </div>
+    {% endif %}
+</nav>
+<div class="gs-profile">
+    <div class="row row-sm mg-b-20">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card card-table-one mg-b-10">
+                <h6 class="card-title"><i data-feather="info"></i> Basic Information</h6>
+                <hr>
+                <div class="card-body">
+                    <div class="basic-detail">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="border-right">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Name:</b></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p class="text-capitalize">{{parent_info.admin.first_name}}
+                                                {{parent_info.admin.last_name}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Your Parent Id:</b></p>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <p class="text-uppercase">{{parent_info.admin.slug}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Email Address:</b></p>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <p class='text-nowrap'>{{parent_info.admin.email}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Your Phone Number:</b></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>{{parent_info.phone_no|getifnone}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Address:</b></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>
+                                                {{parent_info.address|getifnone}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>City:</b></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>
+                                            {{ parent_info.city|getifnone }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>State:</b></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>
+                                            {{ parent_info.state|getifnone }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>Pincode/Zipcode/Postal Code:</b></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>
+                                            {{ parent_info.postcode|getifnone }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>Country:</b></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span class="country-flags">{{parent_info.country.name}} ~ <img
+                                                src="{{parent_info.country.flag}}"
+                                                alt=""></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

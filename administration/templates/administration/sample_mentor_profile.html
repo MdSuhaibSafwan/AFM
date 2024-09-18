@@ -1,0 +1,314 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title %}Alumni Profile{% endblock %}
+{% block content %}
+<section class="header_area bg-1">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="site-breadcrub mb-4">
+                            <p> <a href="/">International Foundation Group</a><span> > </span>
+                                <a href="{% url 'administration:uk_medical_schools' %}">UK Medical Schools</a>
+                                <span> > </span><a href="#">The University of Sample</a><span> >
+                                </span><span>Jane:</span> <span>Studying Medicine in
+                                    the United Kingdom</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-xl-8 col-md-8">
+                        <div class="header-inner-wrapper mentor-title">
+                            <div>
+                                <h1 data-animate="fadeInUp" data-animate-delay="5">Jane: Studying
+                                    Medicine in the United Kingdom
+                                </h1>
+                                <h2 data-animate="fadeInUp" data-animate-delay="0">
+                                    Studying Medicine at The University of Sample University
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-4">
+                        <div class="afm-mentor-profile-wrapper">
+                            <div class="mentor-profile-img">
+                                <img src="{% static 'img/avatar/the-apply-group-sample-mentor-profile.jpg' %}"
+                                    class="img-fluid rounded-circle"
+                                    alt="medical-student-at-the-university-of-sample-university">
+                            </div>
+                            <button class="theme-btn">Send me a message</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="mentor-pro-area-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-xl-8">
+                        <article>
+                            <h3>About Me</h3>
+                            <hr>
+                            <p>
+                                I am a student at this university and I am great at helping other applicants to what I
+                                did. I can also tutor you to boost your grades and prepare for entrance tests to secure
+                                a place.<br>
+                                Learn tips and tricks from me and also from my mistakes!
+Please message me and we can arrange a FREE discovery call to find out how I can assist you.
+                            </p>
+                        </article>
+                    </div>
+                    <div class="col-md-4 col-xl-4">
+                        <div class="mentor-key-information-wrapper">
+                            <p><strong>Spoken Language(S) :</strong> <span>Slovakian, English, Cantonese, Hindi</span></p>
+                            <p><strong>Originally From :</strong> <span>Slovakia</span> <img src="{% static 'website/img/input/slovakia.png' %}" alt=""> </p>
+                            <p><strong>Studing In :</strong> <span>Hungary </span><img src="{% static 'website/img/input/hungary.png' %}" alt=""> </p>
+                            <p><strong>Currently Studying :</strong> <span>Medicine</span> </p>
+                            <p class="inline-pro-block"><strong>Profile Share Via :</strong> </p>
+                            <ul class="pro-share-social">
+                                <li class="social-fb"><a href="#"><i class="fab fa-facebook-f"></i> </a></li>
+                                <li class="social-insta"><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                <li class="social-tweet"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li class="social-linkedin"><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-xl-6">
+                        <div class="mentor-skill-wrapper">
+                            <h3>I can help you with</h3>
+                            <hr>
+                            <ul class="list-icon list-icon-check">
+                                <li>Mentoring</li>
+                                <li>University Course choices</li>
+                                <li>University Choices</li>
+                                <li>General Guidance on universities in UK</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-6">
+                        <div class="mentor-skill-wrapper">
+                        <h3>I can tutor you with</h3>
+                            <hr>
+                            <ul class="list-icon list-icon-check">
+                            <li>Maths</li>
+                                <li>Physics</li>
+                                <li>Biology</li>
+                                <li>Chemistry</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- <div class="row">
+                    <div class="col-md-12 col-xl-12">
+                        <div class="mentor-skill-wrapper">
+                            <h2>I can tutor you on the following subjects</h2>
+                            <hr>
+                            <ul class="list-icon list-icon-check list-subject-icon">
+                                <li>Maths</li>
+                                <li>Physics</li>
+                                <li>Biology</li>
+                                <li>Chemistry</li>
+                            </ul>
+
+
+                        </div>
+                    </div>
+
+                </div> -->
+                <div class="row">
+                    <div class="col-md-12 col-xl-12">
+                        <div class="mentor-skill-wrapper">
+                            <h3>My Blogs</h3>
+                            <hr>
+                            <div class="carousel" data-items="3">
+
+                                <div class="post-item border">
+                                    <div class="post-item-wrap">
+                                        <div class="post-image">
+                                            <a href="#">
+                                                <img alt="" src="{% static 'website/img/blog/the-apply-group-blog-1.jpg' %}"></a>
+
+                                        </div>
+                                        <div class="post-item-description">
+                                            <span class="post-meta-date"><i class="fa fa-calendar-o"></i>December 12,
+                                                2021</span>
+
+                                            <h2><a href="#">Things I wish I knew before joining my university</a>
+                                            </h2>
+
+                                            <a href="#" class="item-link">Read More <i
+                                                    class="icon-chevron-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="post-item border">
+                                    <div class="post-item-wrap">
+                                        <div class="post-image">
+                                            <a href="#">
+                                                <img alt="" src="{% static 'website/img/blog/the-apply-group-blog-2.jpg' %}"></a>
+
+                                        </div>
+                                        <div class="post-item-description">
+                                            <span class="post-meta-date"><i class="fa fa-calendar-o"></i>January 12,
+                                                2022</span>
+
+                                            <h2><a href="#">Never start university before know this!</a>
+                                            </h2>
+
+                                            <a href="#" class="item-link">Read More <i
+                                                    class="icon-chevron-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="post-item border">
+                                    <div class="post-item-wrap">
+                                        <div class="post-image">
+                                            <a href="#">
+                                                <img alt="" src="{% static 'website/img/blog/the-apply-group-blog-3.jpg' %}"></a>
+
+                                        </div>
+                                        <div class="post-item-description">
+                                            <span class="post-meta-date"><i class="fa fa-calendar-o"></i>February 27,
+                                                2022</span>
+
+                                            <h2><a href="#">How i prepared for university entrance</a>
+                                            </h2>
+
+                                            <a href="#" class="item-link">Read More <i
+                                                    class="icon-chevron-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="post-item border">
+                                    <div class="post-item-wrap">
+                                        <div class="post-image">
+                                            <a href="#">
+                                                <img alt="" src="{% static 'website/img/blog/the-apply-group-blog-4.jpg' %}"></a>
+
+                                        </div>
+                                        <div class="post-item-description">
+                                            <span class="post-meta-date"><i class="fa fa-calendar-o"></i>March 10,
+                                                2022</span>
+
+                                            <h2><a href="#">A day in the life of a student at my university</a>
+                                            </h2>
+
+                                            <a href="#" class="item-link">Read More <i
+                                                    class="icon-chevron-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="subscription-wrapper">
+                            <div>
+                                <p>Subscribe to my future blogs</p>
+                                <div class="form-group">
+
+                                    <input class="form-control" placeholder="Enter Your E-mail Address" type="text">
+                                    <input type="submit" class="theme-btn" value="Subscribe">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Testimonials</h3>
+                        <hr>
+                        <div class="carousel testimonial testimonial-border" data-items="3"
+                            data-equalize-item=".testimonial-item">
+
+                            <div class="testimonial-item">
+<!--                                <img src="{% static 'images\default_profile.png' %}"-->
+<!--                                    alt="">-->
+                                <p class="font-italic">'Excellent support provided for my daughter’s university application, well done!'</p>
+                                <span>A. Parent</span>
+                                <div class="star-rating d-block">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="testimonial-item">
+<!--                                <img src="{% static 'images\default_profile.png' %}"-->
+<!--                                    alt="">-->
+                                <p class="font-italic">'Thank you for boosting my confidence and my grades!'</p>
+                                <span>Anne Applicant</span>
+                                <div class="star-rating d-block">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="testimonial-item">
+<!--                                <img src="{% static 'images\default_profile.png' %}"-->
+<!--                                    alt="">-->
+                                <p class="font-italic">‘Definitely speak to a Alumni before applying - my pupils are so grateful for the special insight.'</p>
+                                <span>A School Teacher</span>
+                                <div class="star-rating d-block">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="testimonial-item">
+<!--                                <img src="{% static 'images\default_profile.png' %}"-->
+<!--                                    alt="">-->
+                                <p class="font-italic">’What a great way to start one of the most important decisions of your life - and
+                                    make friends along the way - I can’t wait to also start mentoring future applicants
+                                    myself!</p>
+                                <span>Another Alumni</span>
+                                <div class="star-rating d-block">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="afm-join-area bg-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                        <div class="get-start-content">
+                            <h4>Get Started now!</h4>
+                            <p>Start your application journey to university and join a fast-growing<br> global
+                                community of students by searching for a Alumni now
+                            </p>
+                            <div class="mt-5">
+                                <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}

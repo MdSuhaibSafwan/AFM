@@ -1,0 +1,127 @@
+{% extends 'registration/reg_base.html' %}
+{% block title1 %}{% block title2%}Widening Access to Medicine | Medical School & University{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}We strive to level the playing field so that applicants with the right aptitude have access to
+our mentors at medical schools across the UK.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%} https://applyformedicine.com/uk-medical-schools/widening-access/
+{% endblock %}{% endblock %}
+{% block content %}
+{% load static %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">International Foundation Group</a>
+                            <span class=""> >
+                            </span>Widening Access<span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-md-12">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">Widening Access to Medical School</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">We strongly believe in widening access to
+                            applicants for medical school from all walks of life.</p>
+                    </div>
+                </div>
+<!--                <div class="col-xl-6 col-md-6">-->
+<!--                    <div class="right-icon-img-area">-->
+<!--                        <img src="{% static 'website/img/header/Why-be-an-ambassador-when-you-can-mentor.png' %}"-->
+<!--                            class="img-fluid" alt="Why be an ambassador, when you can mentor?">-->
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <p>We understand that not every potential applicant for medical school will have the resources
+                            or equipment to benefit from 1-on-1 tutoring. This disparity is amplified even further under
+                            the COVID19, where remote support is considered to be the norm.</p>
+                        <p>We also acknowledge that the percentage of medical students and practising doctors are from
+                            private, selective grammar schools and this is not reflected in the population of patients
+                            they will eventually care for.</p>
+                        <p>
+                            <strong>We strive to level this playing field for all aspiring applicants to medical
+                                schools, whatever their background.</strong>
+                        </p>
+                        <p>To help reinforce our belief, 100% of our mentors and tutors on this platform are in support
+                            of Widening Participation and providing access to medical school to deserving applicants
+                            from all walks of life.</p>
+                        <p>100% of our mentors and tutors are willing to commit some of their time each month at <b>no
+                                cost</b> to help support this disadvantaged group of aspiring medical students.</p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> globalcommunity of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal" id="login" tabindex="-1" role="modal" aria-labelledby="modal-label-3" aria-hidden="true">
+        <div class="modal-dialog modal-center modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                        <idata-feather="x-circle">
+                            </i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 col-xl-12">
+                            <form method="POST" id="afm-form" action="">
+                                <h4>Register Your Interest</h4>
+                                <div class="form-group" required>
+                                    <select name="ima_roll" class="form-control" required>
+                                        <option value="">I m a..</option>
+                                        <option value="Student">Student</option>
+                                        <option value="Parent">Parent</option>
+                                        <option value="Agent">Agent</option>
+                                        <option value="Mentor">Mentor</option>
+                                        <option value="University">University</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <input type="text" name="email" class="form-control border-right-0"
+                                        placeholder="Provide Your Email" required>
+                                    <span class="input-group-append bg-white border-left-0">
+                                        <span class="input-group-text bg-transparent">
+                                            <i data-feather="mail">
+                                            </i>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="d-flex justify-content-center my-5">
+                                    <input class="theme-btn" type="submit" name="send_message_btn" value="Register"
+                                        id="my_button" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

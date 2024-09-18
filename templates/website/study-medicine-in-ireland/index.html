@@ -1,0 +1,154 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}Applying for Medical School in Ireland | International Foundation Group{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}There are six Medical Schools located in the main cities of Ireland teaching medicines for
+years. One of the attractive places for medical students.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/study-medicine-in-ireland/
+{% endblock %}{% endblock %}
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">International Foundation Group</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>Medical Schools In Ireland
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">Studying medicine at medical schools in
+                            Ireland </h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Connect with mentors currently studying
+                            medicine at Irish medical schools. </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12">
+                    <div class="right-icon-img-area parent-img">
+                        <img src="{% static 'assets/img/flag-img/ireland-flag.png' %}"
+                           class="img-fluid" alt="Medical Admission Blogs" title="Medical Admission Blogs" width="400" height="250" loading="lazy">
+                     </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section class="university-list-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <div class="site-title">
+                        <h2>There are six medical schools in the Republic of Ireland’s shown on the map below.</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-xl-6">
+                    <img src="{% static 'website/img/content-img/Universities-list-ireland.png' %}"
+                        class="img-fluid mb-3" alt="Universities List Ireland" title="Universities List Ireland" width="500" height="732" loading="lazy">
+                </div>
+                <div class="col-md-6 col-xl-6">
+                    <div class="ireland-university">
+                        <p>
+                            <a href="{% url 'administration:studying_medicine_at_university_college_dublin' %}">
+                                1-University College Dublin (UCD)</a>
+                        </p>
+                        <p>
+                            <a href="{% url 'administration:studying_medicine_at_royal_college_of_surgeons' %}">
+                                2-Royal College of Surgeons (RCSI)</a>
+                        </p>
+                        <p>
+                            <a href="{% url 'administration:studying_medicine_at_trinity_college_dublin' %}">
+                                3-Trinity College Dublin</a>
+                        </p>
+                        <p>
+                            <a href="{% url 'administration:studying_medicine_at_national_university_of_ireland' %}">
+                                4-National University of Ireland</a>
+                        </p>
+                        <p>
+                            <a href="{% url 'administration:studying_medicine_at_university_of_limerick' %}">
+                                5-University of Limerick</a>
+                        </p>
+                        <p>
+                            <a href="{% url 'administration:studying_medicine_at_university_college_cork_ucc' %}">
+                                6-University College Cork</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ptb ptb2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <p> All of these medical schools offer a five/six-year undergraduate programme and/or a
+                            four-year graduate programme which results in a MB BCh BAO Hons degree which is recognised
+                            internationally. Upon completion of the course, newly qualified doctors must complete a year
+                            of training in a hospital within Ireland. </p>
+                        <p> The entry requirements for applying to study Medicine in Ireland are as follows:</p>
+                        <ul class="grade-li">
+                            <li> Academic requirement: Irish Leaving Certificate with a minimum of 480 points (or
+                                equivalent for Non-Irish medical school applicants)</li>
+                            <li>For undergraduate applicants: applicants must sit the Health Professions Admissions Test
+                                (HPAT) – this 2½ multiple-choice test will assess an applicant’s logic, problem-solving
+                                skills, non-verbal reasoning and interpersonal understanding. </li>
+                            <li> For graduate applicants: applicants must sit the Graduate Medical School Admissions
+                                Test (GAMSAT) or Medical College Admissions Test (MCAT) and must have gained a minimum
+                                of a 2:1 in their previous degree.</li>
+                        </ul>
+                        <p> In order to apply to these Irish medical schools, an applicant must do the following </p>
+                        <ul class="grade-li">
+                            <li> Register with the Complete Admissions Office (CAO) through whom all applications go
+                                through </li>
+                            <li> Submit an application (fee of €40) (a personal statement is not required) </li>
+                            <li> Send photocopies of your qualification certificates to the CAO by post.</li>
+                            <li> Select you medical school choices (Note: Medicine is a Level 8 course which you will be
+                                applying for). The maximum number of course choices you can select is 10 across all
+                                courses.</li>
+                        </ul>
+                    </article>
+                </div>
+                <div class="col-md-12 col-xl-12">
+                    <div class="site-title">
+                        <h2>Fees</h2>
+                    </div>
+                    <article>
+                        <p> The fees that a student will have to pay depend on whether they are an Irish/EU student or a
+                            Non-EU student and also on they are an undergraduate or post-graduate student. These factors
+                            will determine whether you are eligible for the Free Fees initiative and/or the SUSI grant.
+                            The various fees involved will include, but not be limited to, the course tuition fee, a
+                            student contribution charge and other fees required by individual medical schools
+                            specifically. </p>
+                    </article>
+                </div>
+            </div>
+    </section>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> global community of
+                            students by searching for a mentor now </p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

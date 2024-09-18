@@ -1,0 +1,623 @@
+{% extends 'registration/reg_base.html' %}
+{% block title1 %}{% block title2 %}Login now to start your journey{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}{% endblock %}{% endblock %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% load socialaccount %}
+{% block css %}
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+   #header , footer{
+        display: none;
+   }
+   .applypool-login{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 1.5rem;
+   }
+   .login-bg {
+        background-image: linear-gradient(to top left,#41b6e6,#08498E);
+        /* background-color: #141e42; */
+   }
+   .applypool-login .theme-btn{
+        border-radius: .5rem;
+   }
+   .applypool-login .theme-btn a{
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+   }
+   .w-5 {
+        width: 1.25rem;
+    }
+    .h-5 {
+        height: 1.25rem;
+    }
+    .register-email{
+        font-size: .875rem;
+        text-align: center;
+        position: relative;
+    }
+    .register-email::after{
+        content: '';
+        position: absolute;
+        background-color: rgba(203,213,225,1);
+        width: 22%;
+        height: 1px;
+        left: 0;
+        top: .75rem;
+    }
+    .register-email::before{
+        content: '';
+        position: absolute;
+        background-color: rgba(203,213,225,1);
+        width: 22%;
+        height: 1px;
+        right: 0;
+        top: .75rem;
+    }
+    .login-text{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+    .login-text h1 {
+        font-size: 4rem;
+        font-weight: 700;
+        line-height: 1;
+    }
+    #change-content{
+        line-height: 1.2;
+    }
+    .applypool-login{
+        font-size: 14px;
+    }
+    .social-login ul li a {
+        color: #131E42;
+    }
+    .social-login ul.footer-social a {
+        background: #EDECFD;
+    }
+    .login-display {
+        display: none;
+        font-size: 65px;
+        color: #fff;
+        /* animation: elementor-headline-slide-down-out .6s; */
+        font-weight: 700;
+    }
+    .tag-content p{
+        font-family: "Caveat", Sans-serif;
+        color: #fff;
+        font-size: 37px;
+    }
+    .tag-content{
+        position: absolute;
+        bottom: 3rem;
+        transform: translateX(-50%);
+        left: 50%;
+    }
+    #google-signup-modal a:hover{
+        text-decoration: none;
+    }
+    .login-bg h2{
+        font-size: 20px;
+    }
+    .applypool-login .theme-btn{
+      border: 1px solid #141e42;
+      background-color:unset;
+      color:#141e42;
+    }
+    .applypool-login .theme-btn a{
+      color:#141e42;
+    }
+    @media (max-width:1440px){
+        .applypool-login {
+            padding: 0px 1rem;
+        }
+        .register-email::before ,.register-email::after {
+            width: 18%;
+            top: 0.65rem;
+        }
+        .login-display {
+            font-size: 46px;
+        }
+        .login-text h1 {
+            font-size: 3rem;
+        }
+        .tag-content p {
+            font-size: 26px;
+        }
+    }
+    @media (max-width:1280px){
+        .navbar-brand {
+            width: 265px;
+        }
+        .tag-content p {
+            font-size: 26px;
+            white-space: nowrap;
+        }
+    }
+
+    @media (max-width:1024px){
+        .login-text h1 {
+            font-size: 1.5rem;
+        }
+        .applypool-login {
+            padding: 0 1rem;
+        }
+        .login-display {
+            font-size: 33px;
+        }
+        .tag-content p {
+            font-size: 22px;
+        }
+    }
+    .message-alert-box{
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+
+    }
+    
+
+    /*popuup css start*/
+    #tap-pop-card .pop-card-wrapper {
+            visibility: hidden;
+            font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, “Roboto”, “Droid Sans”, “Helvetica Neue”, Helvetica, Arial, sans-serif;
+            font-weight: bold;
+            min-width: 8vw;
+            /* background-color: #fff; */
+            background-color: rgba(0, 0, 0, 0.69);
+            position: fixed;
+            bottom: 2rem;
+            right: 0;
+            margin: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.02), 0 5px 22px -6px rgba(0, 0, 0, 0.1), 0 -12px 35px -19px rgba(0, 0, 0, 0.2);
+            border-radius: 7px;
+            text-decoration: none;
+            color: #efefef !important;
+            transition: 0.2s all;
+            z-index: 99999;
+        }
+
+        #tap-pop-card .pop-card {
+            position: relative;
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #tap-pop-card .hide-pop-card {
+            position: absolute;
+            right: -15px;
+            top: -13px;
+            width: 28px;
+            height: 28px;
+            background: url(data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjI0IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWluWU1pbiIgdmlld0JveD0iLTYgLTYgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBmaWxsPSIjZWZlZmVmIiBkPSJtNy4zMTQgNS45IDMuNTM1LTMuNTM2YTEgMSAwIDEgMCAtMS40MTQtMS40MTRsLTMuNTM2IDMuNTM1LTMuNTM1LTMuNTM1YTEgMSAwIDEgMCAtMS40MTQgMS40MTRsMy41MzUgMy41MzUtMy41MzUgMy41MzZhMSAxIDAgMSAwIDEuNDE0IDEuNDE0bDMuNTM1LTMuNTM1IDMuNTM2IDMuNTM1YTEgMSAwIDEgMCAxLjQxNC0xLjQxNGwtMy41MzUtMy41MzZ6Ii8+PC9zdmc+Cg==) no-repeat center;
+            background-size: contain;
+            z-index: 999;
+            cursor: pointer;
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #tap-pop-card h1, #tap-pop-card h2 {
+            font-size: 1.33rem;
+            font-weight: normal;
+            text-align: center;
+            line-height: 1.1;
+            padding: 0;
+            color: #efefef;
+            max-width: 15rem;
+            margin-bottom: 5px;
+        }
+
+        #tap-pop-card .avatar-wrapper {
+            overflow: hidden;
+            position: relative;
+            margin: 8px 0;
+        }
+
+        #tap-pop-card .avatar-wrapper img {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #efefef;
+            transition: 0.4s all;
+            margin: 10px 0;
+        }
+
+        #tap-pop-card .avatar-wrapper img:nth-child(1) {
+            z-index: 1;
+        }
+
+        #tap-pop-card .avatar-wrapper img:nth-child(2) {
+            z-index: 2;
+            margin-left: -0.9rem;
+        }
+
+        #tap-pop-card .avatar-wrapper img:nth-child(3) {
+            z-index: 3;
+            margin-left: -0.9rem;
+        }
+
+        #tap-pop-card .avatar-wrapper img:nth-child(4) {
+            z-index: 4;
+            margin-left: -0.9rem;
+        }
+
+        #tap-pop-card a.chat-now-button {
+            margin: 0 auto;
+            padding: 7px 8px;
+            border-radius: 5px;
+            background: #efefef;
+            border: none;
+            transition: all 0.2s;
+            color: #262e45;
+            font-size: 14px;
+            font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, “Roboto”, “Droid Sans”, “Helvetica Neue”, Helvetica, Arial, sans-serif;
+            font-weight: bold;
+            text-transform: none !important;
+            opacity: 0.9;
+            text-decoration: none;
+            max-width: calc(15rem - 34px);
+            text-align: center;
+        }
+
+        a.chat-now-button .chat-now-button-label {
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        #tap-pop-card .pop-card-wrapper-mini {
+            visibility: hidden;
+            font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, “Roboto”, “Droid Sans”, “Helvetica Neue”, Helvetica, Arial, sans-serif;
+            font-weight: bold;
+            min-width: 8vw;
+            position: fixed;
+            bottom: 2rem;
+            right: 0;
+            margin: 2rem;
+            text-decoration: none;
+            color: #efefef !important;
+            transition: 0.2s all;
+            z-index: 99999;
+        }
+
+        #tap-pop-card .chat-now-button-mini {
+            display: flex;
+            align-items: center;
+            padding: 9px 18px;
+            border-radius: 12px;
+            -webkit-font-smoothing: antialiased;
+            margin: 0 auto;
+            background: #efefef;
+            border: none;
+            transition: all 0.2s;
+            letter-spacing: normal;
+            color: #262e45;
+            font: 400 1.75rem Arial;
+            font-family: sans-serif;
+            text-transform: none !important;
+            opacity: 0.9;
+            text-decoration: none;
+        }
+
+        #tap-pop-card .pop-card-wrapper-mini .tap-pop-card-avatar {
+            width: 33px;
+            height: 33px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #efefef;
+            transition: 0.4s all;
+            margin-right: 10px;
+        }
+
+        #tap-pop-card .chat-now-button-mini span {
+            font-size: 18px;
+            height: 18px;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width:767px) {
+            #tap-pop-card .pop-card-wrapper-mini-common {
+                visibility: visible !important;
+            }
+
+            #tap-pop-card .pop-card-wrapper-common {
+                visibility: hidden !important;
+            }
+
+            #tap-pop-card .pop-card-wrapper {
+                width: auto;
+                margin: 2rem;
+            }
+
+            #tap-pop-card .hide-pop-card {
+                display: none;
+                right: 0;
+            }
+
+            #tap-pop-card .pop-card-title {
+                display: none;
+            }
+
+            #tap-pop-card .avatar-wrapper {
+                display: flex;
+                justify-content: flex-end;
+            }
+
+            #tap-pop-card .avatar-wrapper img:nth-child(1) {
+                z-index: 1;
+            }
+
+            #tap-pop-card .avatar-wrapper img {
+                display: block;
+                border: none;
+            }
+
+            #tap-pop-card .avatar-wrapper img:nth-child(2) {
+                z-index: 2;
+                margin-left: -1rem;
+            }
+
+            #tap-pop-card .avatar-wrapper img:nth-child(3) {
+                z-index: 3;
+                margin-left: -1rem;
+            }
+
+            #tap-pop-card .avatar-wrapper img:nth-child(4) {
+                display: none;
+            }
+
+            #tap-pop-card a.chat-now-button {
+                padding: 5px 15px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /*popup css end*/
+
+
+
+
+
+</style>
+{% endblock %}
+{% block content %}
+<section class="recruiter-profile vh-100">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-lg-6 col-xl-3">
+                <div class="applypool-login vh-100  ">
+                    <div class="text-center mb-0 mb-md-5">
+                        <a class="" href="#">
+                            <img src="{% static 'assets/img/logo/logo.png' %}" alt="Logo" class="img-fluid">
+                        </a>
+                    </div>
+
+                    <!-- <h3 class="my-3">Login</h3> -->
+
+                    <form method="post" id="login-form-1">
+                        <div class="text-center theme-btn mt-4 mb-4">
+                            <a href="#" class="google" data-toggle="modal"
+                               data-target="#google-signup-modal">
+                                <img src="{% static 'images/google-icon.png' %}" class="img-fluid mr-2"
+                                     alt="Google Icon" loading="lazy" title="Google Icon" height="20" width="20"> Login
+                                or Signup with Google
+                                <!--                                 <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512" class="w-5 h-5 mr-2">-->
+                                <!--                                    <path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path></svg>-->
+
+                            </a>
+                        </div>
+
+                        <div class="register-email mb-3">
+                            Or Sign in with your email
+                        </div>
+                        <div class='alert alert-danger' role='alert' id='error-password' style="display:none;">Incorrect Password</div>
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <a href="{% url 'password_reset' %}" class="text-right"><span>Forgot Password?</span></a>
+                        <div class="login-btn mt-2">
+                            <button type="button" id="form-button" value="" class="theme-btn w-100">Login</button>
+                            <p>Don't have an account yet?<span><a
+                                    href="{% url 'administration:registration' %}"> Sign Up</a></span></p>
+                        </div>
+                        <!--                            <div class="mt-4 text-center login-back">-->
+                        <!--                                <a href="{% url 'administration:registration' %}" class="">-->
+                        <!--                                    <i class="fas fa-arrow-left mr-2"></i>Back to Login</a>-->
+                        <!--                            </div>-->
+                    </form>
+                    <div class="copyright">
+                         <div class="container">
+                            <p class="text-center">Powered by <a href="https://theapplygroup.com/" target="_blank">
+                                <img src="{% static 'website/img/content-img/Tag.png' %}" class="afm-font-500"></a>
+                            </p>
+                         </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-9 col-lg-6 col-xl-9 d-lg-block d-none pr-0">
+                <div class="login-bg h-100 position-relative">
+                    <div class="login-text text-center">
+                        <img src="{% static 'assets/img/logo/logo.png' %}" class="img-fluid my-4 d-none" alt="logo"
+                             width="160" height="70" loading="lazy" title="Tag">
+
+                        <div id='change-content'>
+                            <div id='div1' class='login-display'>Connect directly with our past students.</div>
+                            <div id='div2' class='login-display'>See how successful they are at our partner universities
+                            </div>
+                            <div id='div3' class='login-display'>...
+                                and learn from their experiences and feedback.
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <div class="tag-content">
+
+                        <div class="useful-links mt-3 social-login">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- Google Modal -->
+<div class="modal fade" id="google-signup-modal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+               <h3 class="modal-title">Confirm Google Signup or Login</h3>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck3" required>
+                    <label class="form-check-label" for="exampleCheck3">
+                        By continuing Your registration You agree to our
+                        <a href="{% url 'administration:terms_and_conditions' %}"
+                        class="font-weight-bold" target="_blank">Terms & Conditions</a> and
+                        <a href="{% url 'administration:privacy_notice' %}" class="font-weight-bold"
+                           target="_blank">Privacy Policy</a> and you are over the
+                        age of 15.</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="{% provider_login_url 'google' %}" id="google_signup" class="theme-btn not-active">
+                    Continue
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- background: rgba(255, 255, 255, 0.192);
+        backdrop-filter: blur(10px); -->
+
+
+
+
+{% endblock %}
+{% block js %}
+<script>
+$("input").keypress(function(event) {
+    if (event.which == 13) {
+        event.preventDefault();
+        $("#form-button").click();
+    }
+});
+// Password field validation
+// Check if two password field are equal
+$("#form-button").click(function(){
+  if($('input[name="password"]').val() == '' || $('input[name="username"]').val() == ''){
+    $("#error-password").show(500);
+    $("#error-password").html('Please fill all the field');
+    return false;
+  }
+  $("#error-password").hide(500);
+  var password = $('input[name="password"]').val();
+  var email = $('input[name="username"]').val();
+  var is_valid = false;
+  $.ajax(
+  {
+      type: "GET",
+      url: "{% url 'administration:check-username-password' %}",
+      data:{
+        email: email,
+        password: password,
+      },
+      success: function(response, event)
+      {
+        var message = response["message"];
+
+        if(message){
+            $("#error-password").show(500);
+            $("#error-password").html(message);
+        }
+        else{
+           $("#error-password").hide(500);
+           $('#login-form-1').submit();
+        }
+
+      }
+  });
+});
+
+$(function() {
+    $(':submit').dblclick(false);
+});
+
+// Show password
+$("body").on('click', '.toggle-password', function() {
+  $(this).toggleClass("eye eye-off");
+  var input = $("input[name='password']");
+  if (input.attr("type") === "password") {
+    input.attr("type", "text");
+    $(this).attr("class", "feather feather-eye-off eye-close toggle-password");
+  } else {
+    input.attr("type", "password");
+    $(this).attr("class", "feather feather-eye eye-open toggle-password");
+  }
+});
+$("#exampleCheck3").change(function () {
+  $('#google_signup').toggleClass('not-active');
+});
+
+</script>
+
+<script>
+    $(document).ready(function () {
+
+    var activeDiv = 1;
+    showDiv(activeDiv);
+    var timer = setInterval(changeDiv, 3000);
+
+
+    function changeDiv() {
+        activeDiv++;
+        if (activeDiv == 4) {
+            activeDiv = 1;
+        }
+        showDiv(activeDiv);
+    }
+
+    function showDiv(num) {
+        $('div.login-display').hide();
+        $('#div' + num).fadeIn();
+    }
+
+
+    });
+
+</script>
+
+{% endblock %}
+
+
+
+
+
+
+
+

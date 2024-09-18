@@ -1,0 +1,401 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'bookings:SetAvailability' %}">Availability</a></li>
+        <li class="breadcrumb-item"><a href="javascript:history.back()">Go Back</a></li>
+
+    </ol>
+</nav>
+
+    <div class="row py-5 justify-content-between px-10">
+    <!--your Appointments-->
+    <div class="col-12 col-md-7">
+<!--        <h3 class="pb-4" style="font-weight:400;">Set your availability</h3>-->
+<!--        <small style="font-weight: 500;">Bookings can be made by your clients within your avilability-->
+<!--            only and at least 24 hours in advance.</small>-->
+
+        {% for message in messages %}
+            {% if 'success' in message.tags %}
+                <div class="success-message message" style="margin-top: 2%">
+                    <div class="alert alert-info">
+                        <div class="row">
+                            <div class="col-9">
+                                <strong>{{ message }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if 'error' in message.tags %}
+                <div class="success-message message" style="margin-top: 2%">
+                    <div class="alert alert-danger">
+                        <div class="row">
+                            <div class="col-9">
+                                <strong>{{ message }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if 'info' in message.tags %}
+                <div class="success-message message">
+                    <div class="alert alert-success">
+                        <strong>{{ message }}</strong>
+                        <a style="margin-left: 5rem" href="#" class="del-msg">&times;</a>
+                    </div>
+                </div>
+
+            {% endif %}
+        {% endfor %}
+        <!--appoinment content -->
+        <div class="card">
+            <div class="card-body">
+            <h3 class="card-title" style="font-weight:400;">Set your availability</h3>
+            <small class="card-subtitle" style="font-weight: 500;">Bookings can be made by your clients within your avilability
+                only and at least 24 hours in advance.
+            </small>
+            <div class="py-5">
+            <div class="fade-in-left sec-target" id="sec-1">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="custom-form-group mb-4">
+<!--                        {{ form }}-->
+                        <div class="row">
+                            <div class="col-4">
+                                <input onclick="distime()" type="checkbox" name="Monday" class="mr-3 form-group shadow" id="Monday"
+                                       style="margin-right:15px;">
+
+                                <label for="monday">
+                                    <span class="text text-light-blue" style="padding-right:100px;">Monday</span>
+                                </label>
+                            </div>
+                            <div class="col-3">
+                                <label for="monday">
+                                    <span class="text text-light-blue" style="padding-right:100px;">From</span>
+                                </label>
+                                <input type="time" disabled name="monday-from" class="mr-3" id="monday-from"
+                                       style="margin-right:15px;">
+                            </div>
+                            <div class="col-1">
+
+                            </div>
+                            <div class="col-3">
+                                <label for="monday">
+                                    <span class="text text-light-blue" style="padding-right:100px;">To</span>
+                                </label>
+                                <input type="time" disabled name="monday-to" class="mr-3" id="monday-to"
+                                       style="margin-right:15px;">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="custom-form-group mb-4">
+                        <div class="row">
+                            <div class="col-4">
+                                <input type="checkbox" name="Tuesday" class="mr-3" id="Tuesday"
+                                       style="margin-right:15px;">
+
+                                <label for="monday">
+                                    <span class="text text-light-blue" style="padding-right:100px;">Tuesday</span>
+                                </label>
+                            </div>
+                            <div class="col-3">
+                                <label for="monday">
+                                    <span class="text text-light-blue" style="padding-right:100px;">From</span>
+                                </label>
+                                <input type="time" disabled name="tuesday-from" class="mr-3" id="tuesday-from"
+                                       style="margin-right:15px;">
+                            </div>
+                            <div class="col-1">
+
+                            </div>
+                            <div class="col-3">
+                                <label for="monday">
+                                    <span class="text text-light-blue" style="padding-right:100px;">To</span>
+                                </label>
+                                <input type="time" disabled name="tuesday-to" class="mr-3" id="tuesday-to"
+                                       style="margin-right:15px;">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="custom-form-group mb-4">
+                        <div class="row">
+                            <div class="col-4">
+                                <input type="checkbox" name="Wednesday" class="mr-3" id="Wednesday"
+                                       style="margin-right:15px;">
+
+                                <label for="monday">
+                                    <span class="text text-light-blue" style="padding-right:50px;">Wednesday</span>
+                                </label>
+                            </div>
+                            <div class="col-3">
+                                <label for="monday">
+                                    <span class="text text-light-blue" style="padding-right:100px;">From</span>
+                                </label>
+                                <input type="time" disabled name="wednesday-from" class="form-group shadow mr-3" id="wednesday-from"
+                                       style="margin-right:15px;">
+                            </div>
+                            <div class="col-1">
+
+                            </div>
+                            <div class="col-3">
+                                <label for="monday">
+                                    <span class="text text-light-blue" style="padding-right:100px;">To</span>
+                                </label>
+                                <input type="time" disabled name="wednesday-to" class="mr-3" id="wednesday-to"
+                                       style="margin-right:15px;">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="custom-form-group mb-4">
+                        <div class="row">
+                            <div class="col-4">
+                                <input type="checkbox" name="Thursday" class="mr-3" id="Thursday"
+                                       style="margin-right:15px;">
+
+                                <label for="monday">
+                                    <span class="text text-light-blue" style="padding-right:100px;">Thursday</span>
+                                </label>
+                            </div>
+                            <div class="col-3">
+                                <label for="monday">
+                                    <span class="text text-light-blue" style="padding-right:100px;">From</span>
+                                </label>
+                                <input type="time" disabled name="thursday-from" class="mr-3" id="thursday-from"
+                                       style="margin-right:15px;">
+                            </div>
+                            <div class="col-1">
+
+                            </div>
+                            <div class="col-3">
+                                <label for="monday">
+                                    <span class="text text-light-blue" style="padding-right:100px;">To</span>
+                                </label>
+                                <input type="time" disabled name="thursday-to" class="mr-3" id="thursday-to"
+                                       style="margin-right:15px;">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="custom-form-group mb-4">
+                        <div class="row">
+                            <div class="col-4">
+                                <input type="checkbox" name="Friday" class="mr-3" id="Friday"
+                                       style="margin-right:15px;">
+                                <label for="monday">
+                                    <span class="text text-light-blue" style="padding-right:50px;">Friday</span>
+                                </label>
+                            </div>
+                            <div class="col-3">
+                                <label for="monday">
+                                    <span class="text text-light-blue" style="padding-right:100px;">From</span>
+                                </label>
+                                <input type="time" disabled name="friday-from" class="mr-3" id="friday-from"
+                                       style="margin-right:15px;">
+                            </div>
+                            <div class="col-1">
+
+                            </div>
+                            <div class="col-3">
+                                <label for="monday">
+                                    <span class="text text-light-blue" style="padding-right:100px;">To</span>
+                                </label>
+                                <input type="time" disabled name="friday-to" class="mr-3" id="friday-to"
+                                       style="margin-right:15px;">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="custom-form-group mb-4">
+                        <div class="row">
+                            <div class="col-4">
+                                <input type="checkbox" name="Saturday" class="mr-3" id="Saturday"
+                                       style="margin-right:15px;">
+
+                                <label for="monday">
+                                    <span class="text text-light-blue" style="padding-right:100px;">Saturday</span>
+                                </label>
+                            </div>
+                            <div class="col-3">
+                                <label for="monday">
+                                    <span class="text text-light-blue" style="padding-right:100px;">From</span>
+                                </label>
+                                <input type="time" disabled name="saturday-from" class="mr-3" id="saturday-from"
+                                       style="margin-right:15px;">
+                            </div>
+                            <div class="col-1">
+
+                            </div>
+                            <div class="col-3">
+                                <label for="monday">
+                                    <span class="text text-light-blue" style="padding-right:100px;">To</span>
+                                </label>
+                                <input type="time" disabled name="saturday-to" class="mr-3" id="saturday-to"
+                                       style="margin-right:15px;">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="custom-form-group mb-4">
+                        <div class="row">
+                            <div class="col-4">
+                                <input type="checkbox" name="Sunday" class="mr-3" id="Sunday"
+                                       style="margin-right:15px;">
+
+                                <label for="monday">
+                                    <span class="text text-light-blue" style="padding-right:100px;">Sunday</span>
+                                </label>
+                            </div>
+                            <div class="col-3">
+                                <label for="monday">
+                                    <span class="text text-light-blue" style="padding-right:100px;">From</span>
+                                </label>
+                                <input type="time" disabled name="sunday-from" class="mr-3" id="sunday-from"
+                                       style="margin-right:15px;">
+                            </div>
+                            <div class="col-1">
+                            </div>
+                            <div class="col-3">
+                                <label for="monday">
+                                    <span class="text text-light-blue" style="padding-right:100px;">To</span>
+                                </label>
+                                <input type="time" disabled name="sunday-to" class="mr-3" id="sunday-to"
+                                       style="margin-right:15px;">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <input class="btn btn-outline-indigo btn-rounded m-2" type="submit" value="Submit">
+                </form>
+
+
+            </div>
+            <!--<div class="fade-in-left d-none sec-target" id="sec-2">
+                <p class="text-mute">You have no past appointments.</p>
+            </div>
+            <div class="fade-in-left d-none sec-target" id="sec-3">
+                <p class="text-mute">You have no past appointments.</p>
+            </div>-->
+        </div>
+        </div>
+        </div>
+
+    </div>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#Monday").click(function () {
+                if ($(this).is(":checked")) {
+
+                    $("#monday-from").removeAttr("disabled");
+                    $("#monday-to").removeAttr("disabled");
+                    $("#monday-from").focus();
+                    $("#monday-to").focus();
+
+                } else {
+                    $("#monday-from").attr("disabled", "disabled");
+                    $("#monday-to").attr("disabled", "disabled");
+                }
+            });
+            $("#Tuesday").click(function () {
+                if ($(this).is(":checked")) {
+
+                    $("#tuesday-from").removeAttr("disabled");
+                    $("#tuesday-to").removeAttr("disabled");
+                    $("#tuesday-from").focus();
+                    $("#tuesday-to").focus();
+
+                } else {
+                    $("#tuesday-from").attr("disabled", "disabled");
+                    $("#tuesday-to").attr("disabled", "disabled");
+                }
+            });
+            $("#Wednesday").click(function () {
+                if ($(this).is(":checked")) {
+
+                    $("#wednesday-from").removeAttr("disabled");
+                    $("#wednesday-to").removeAttr("disabled");
+                    $("#wednesday-from").focus();
+                    $("#wednesday-to").focus();
+
+                } else {
+                    $("#wednesday-from").attr("disabled", "disabled");
+                    $("#wednesday-to").attr("disabled", "disabled");
+                }
+            });
+            $("#Thursday").click(function () {
+                if ($(this).is(":checked")) {
+
+                    $("#thursday-from").removeAttr("disabled");
+                    $("#thursday-to").removeAttr("disabled");
+                    $("#thursday-from").focus();
+                    $("#thursday-to").focus();
+
+                } else {
+                    $("#thursday-from").attr("disabled", "disabled");
+                    $("#thursday-to").attr("disabled", "disabled");
+                }
+            });
+            $("#Friday").click(function () {
+                if ($(this).is(":checked")) {
+
+                    $("#friday-from").removeAttr("disabled");
+                    $("#friday-to").removeAttr("disabled");
+                    $("#friday-from").focus();
+                    $("#friday-to").focus();
+
+                } else {
+                    $("#friday-from").attr("disabled", "disabled");
+                    $("#friday-to").attr("disabled", "disabled");
+                }
+            });
+            $("#Saturday").click(function () {
+                if ($(this).is(":checked")) {
+
+                    $("#saturday-from").removeAttr("disabled");
+                    $("#saturday-to").removeAttr("disabled");
+                    $("#saturday-from").focus();
+                    $("#saturday-to").focus();
+
+                } else {
+                    $("#saturday-from").attr("disabled", "disabled");
+                    $("#saturday-to").attr("disabled", "disabled");
+                }
+            });
+            $("#Sunday").click(function () {
+                if ($(this).is(":checked")) {
+
+                    $("#sunday-from").removeAttr("disabled");
+                    $("#sunday-to").removeAttr("disabled");
+                    $("#sunday-from").focus();
+                    $("#sunday-to").focus();
+
+                } else {
+                    $("#sunday-from").attr("disabled", "disabled");
+                    $("#sunday-to").attr("disabled", "disabled");
+                }
+            });
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            //messages timeout for 10 sec
+            setTimeout(function () {
+                $('.message').fadeOut('slow');
+            }, 10000);
+
+        });
+    </script>
+{% endblock %}
+    </div>

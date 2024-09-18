@@ -1,0 +1,128 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}Apply to Study Medicine in the USA | International Foundation Group{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}Medical school mentors helping you to apply to medical schools across the USA, exclusing
+Caribbean Off-Shore medical schools{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/study-medicine-in-the-usa/
+{% endblock %}{% endblock %}
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">International Foundation Group</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>Study medicine in the USA
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">Study medicine in the USA </h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Connect directly with student mentors who are
+                            at medical schools on mainland United States of America. </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12">
+                    <div class="right-icon-img-area parent-img">
+                        <img src="{% static 'assets/img/flag-img/usa-flag.png' %}"
+                           class="img-fluid" alt="Medical Admission Blogs" title="Medical Admission Blogs" width="400" height="250" loading="lazy">
+                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area pt-5 pb-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <h2>Medicine in the USA</h2>
+                        <p> The US is one of the best countries in the world to study medicine and is home to 172
+                            different medical schools. They offer various medical programs including: </p>
+                        <ul class="grade-li">
+                            <li>Regular MD programs</li>
+                            <li>Combined bachelors/medical degree</li>
+                            <li>Combined medical degree-graduate program</li>
+                            <li>Combined medical degree-PhD programs</li>
+                            <li>Deferred/delayed matriculation </li>
+                            <li>Early Decision Program (EDP) </li>
+                            <li>Other special programs (OSP)</li>
+                        </ul>
+                        <p>Upon completion of the four-year medical course, you will receive a Doctor of Medicine degree
+                            (M.D.) or a Doctor of Osteopathic Medicine degree (D.O.). You will then go on to begin a
+                            residency training program in a specialty of your choice – this can last anywhere between
+                            3-7 years depending on the specialty chosen.</p>
+                        <p>Studying Medicine in the US is expensive for both US citizens as well as international
+                            students and part of the application process requires that an applicant demonstrates they
+                            have the financial capability to pay the tuition fees of the medical schools they have
+                            applied to. Thus is it important to take time to consider this and to research the fees of
+                            various US medical schools before applying. Various financial aid/support can be applied
+                            for.</p>
+                    </article>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <p>
+                            <strong>Requirements</strong>
+                        </p>
+                        <p>In order to study Medicine in the USA:</p>
+                        <ul class="grade-li">
+                            <li>Applicants must have first completed a pre-Med undergraduate degree (in subjects such as
+                                biology, chemistry, physics, neuroscience, behavioural science,etc.).</li>
+                            <li>Applicants must sit and score well in the Medical College Admissions Test (MCAT) which
+                                tests scientific knowledge as well as skills such as problem-solving,reasoning and
+                                critical analysis.</li>
+                            <li>Medical schools may also require transcripts, information about coursework, letters of
+                                evaluation/recommendation, personal essays, evidence of work experience,
+                                extra-curricular activities, etc.</li>
+                            <li>An interview will most likely be required at some stage.</li>
+                        </ul>
+                        <p>It is important that you check the websites of the medical schools you are applying to in
+                            order to identify any specific entry requirements that they have. You can then ensure you
+                            are able to meet those criteria and give yourself the best chance of submitting a
+                            competitive application. </p>
+                        <p>
+                            <strong>Application</strong>
+                        </p>
+                        <p>The applications are submitted through the American Medical College Application Service
+                            (AMCAS) which will collect all your personal details, verify that you’ve submitted all the
+                            relevant documentation and met all the entry requirements, before sending your application
+                            to your chosen medical schools.</p>
+                        <p>Note: applications to Texas public medical schools are processed through the Texas Medical
+                            and Dental School Application Service (TMDSAS) rather than through AMCAS.</p>
+                        <p>The fee for applying to one medical school through AMCAS is $170 with an additional $41 for
+                            every further medical school applied to. Financial aid may be sought for this if you are
+                            eligible for the AAMC Fee Assistance Program.</p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> global community of
+                            students by searching for a mentor now </p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

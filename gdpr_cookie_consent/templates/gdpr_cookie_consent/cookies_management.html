@@ -1,0 +1,52 @@
+{% extends cookie_consent_controller.get_base_template_name %}
+{% load i18n %}
+
+{% block content %}
+
+    <div class="container pt-5 cookie">
+    <h1>{% trans "Cookies" %}</h1>
+    {{ cookie_consent_controller.get_description }}
+
+    <p>{% trans "Please check which cookies you accept or reject and save your preferences." %}</p>
+
+    {% include "gdpr_cookie_consent/includes/cookie_consent_form.html" %}
+
+    {% for section in cookie_consent_controller.get_sections %}
+        <section class="cc-section container">
+            <a class="cc-section-anchor {{ cookie_consent_controller.get_styling.section_anchor_css_classes }}" id="section_{{ section.slug }}">⚓️</a>
+            <header class="cc-header">
+                <h2>{{ section.get_title }}</h2>
+            </header>
+            {{ section.get_description }}
+            <table class="cc-table">
+                <thead>
+                    <tr>
+                        <th>{{ _("Cookie name")|upper }}</th>
+                        <th>{{ _("Duration")|upper }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for provider in section.get_providers %}
+                        <tr>
+                            <td colspan="2"><strong>{{ provider.get_title }}</strong>
+                            {{ provider.get_description }}
+                            </td>
+                        </tr>
+                        {% for cookie in provider.get_cookies %}
+                            <tr>
+                                <td>{{ cookie.cookie_name }}
+                                {{ cookie.get_description }}
+                                </td>
+                                <td>{{ cookie.get_duration }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+    {% endfor %}
+
+    {{ cookie_consent_controller.get_extra_information }}
+
+{% endblock %}

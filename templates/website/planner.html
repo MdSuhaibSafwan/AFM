@@ -1,0 +1,691 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% load socialaccount %}
+
+{% block title2 %}{% block title1 %}Study Medicine in UK | Medical Schools | International Foundation Group{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}Study Medicine at medical schools abroad. Connect with existing medical student Alumni to optimise your application to medical degree courses overseas{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}https://applyformedicine.com/{% endblock %}{% endblock %}
+
+{% block stylings %}
+
+<style>
+
+
+.next {
+    font-family: poppins,sans-serif !important;
+}
+.previous {
+    font-family: poppins,sans-serif !important;
+}
+
+.tag-water-img {
+    height: 100px;
+}
+
+#subjectSelect {
+    width: 30% !important;
+}
+/*custom font*/
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+@media (min-width: 768px) {
+    .cards-for-mentors {
+    display: flex !important;
+    justify-content: center;
+    }
+
+
+}
+    .mentor-card {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .tag-journey-img img {
+        width: 550px;
+    }
+   
+
+@media (max-width: 768px) {
+    .tag-journey-img img {
+        width: 450px;
+    }
+    #subjectSelect {
+    width: 45% !important;
+    }
+    .cards-for-mentors {
+        justify-content: center;
+    }
+    .extra-div {
+            display: none !important;
+        }
+    
+    .tag-water-img {
+        height: 130px;
+        width: 86px !important;
+        margin-bottom: -60px;
+    }
+}
+
+@media (max-width: 500px) {
+    .tag-journey-img img {
+        width: 320px;
+    }
+    #subjectSelect {
+    width: 100% !important;
+    }
+
+    .tag-water-img {
+    height: 130px;
+    width: 86px !important;
+    margin-bottom: -60px;
+    }
+
+    .extra-div {
+            display: none !important;
+    }
+}
+
+
+/*form styles*/
+#msform {
+    text-align: center;
+    position: relative;
+}
+
+#msform fieldset {
+
+    /* background: white; */
+    border: #141e42;
+    border-radius: 0px;
+    padding: 0px 20px;
+    box-sizing: border-box;
+    width: 80%;
+    margin: 0 10%;
+
+    /*stacking fieldsets above each other*/
+    position: relative;
+}
+
+/*Hide all except first fieldset*/
+#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+
+/*inputs*/
+#msform input{
+    /* padding: 15px; */
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    /* margin-bottom: 10px; */
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #141e42;
+    font-size: 13px;
+}
+
+#msform input:focus, #msform textarea:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #141e42;
+    outline-width: 0;
+    transition: All 0.5s ease-in;
+    -webkit-transition: All 0.5s ease-in;
+    -moz-transition: All 0.5s ease-in;
+    -o-transition: All 0.5s ease-in;
+}
+
+/*buttons*/
+#msform .action-button {
+    width: 100px;
+    background: #141e42;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+#msform .action-button:hover, #msform .action-button:focus {
+    /* box-shadow: 0 0 0 2px white, 0 0 0 3px #141e42; */
+}
+
+#msform .action-button-previous {
+    width: 100px;
+    /* background: #C5C5F1; */
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+#msform .action-button-previous:hover, #msform .action-button-previous:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #C5C5F1;
+    
+}
+
+/*headings*/
+.fs-title {
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #2C3E50;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+    /* font-weight: bold; */
+}
+
+/*progressbar*/
+#progressbar {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    /*CSS counters to number the steps*/
+    counter-reset: step;
+}
+
+#progressbar li {
+    list-style-type: none;
+    color: #141e42;
+    text-transform: uppercase;
+    font-size: 12px;
+    width: 25%;
+    float: left;
+    position: relative;
+    letter-spacing: 1px;
+}
+
+#progressbar li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 24px;
+    height: 24px;
+    display: block;
+    font-size: 12px;
+    background: #141e42;
+    color: white;
+    border-radius: 25px;
+    margin: 0 auto 0 auto;
+}
+
+/*progressbar connectors*/
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    /* background: white; */
+    position: absolute;
+    left: -50%;
+    top: 9px;
+    z-index: -1; /*put it behind the numbers*/
+}
+
+ #progressbar li:first-child:after {
+    /* connector not needed before the first step */
+    content: none;
+} 
+
+#progressbar li:after {
+    /*connector not needed before the first step*/
+    background: #b2b8c0;
+    color: white;
+}
+
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+#progressbar li.active:before, #progressbar li.active:after {
+    background: #141e42;
+    color: white;
+}
+
+
+/* Not relevant to this form */
+.dme_link {
+    margin-top: 30px;
+    text-align: center;
+}
+.dme_link a {
+    /* background: #FFF; */
+    font-weight: bold;
+    color: #141e42;
+    border: 0 none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 5px 25px;
+    font-size: 12px;
+}
+
+.dme_link a:hover, .dme_link a:focus {
+    /* background: #C5C5F1; */
+    text-decoration: none;
+}
+
+</style>
+
+{% endblock stylings %}
+
+{% block content %}
+
+<section class="afm-content-area"> <!--   mt-3 -->
+   <div class="container-fluid cont-fluid">
+    <div class="col-xl-12 col-lg-12 col-md-12" style="z-index: 10;min-height: 60vh;">
+
+                <div class="d-flex flex-column">
+                    <div class="search_form pt-4">
+                    <!-- <h1 class="text-center">Take your first steps to university</h1> -->
+                    </div>
+                    <!-- <h2 class="text-center" style="font-weight: 600;">Take the leap today</h2>
+                    <h2 class="text-center" style="font-size: 35px; font-weight: 500;">Help us build your journey</h2>
+                    <h2 class="text-center" >Choose your dream country</h2> -->
+
+                    <!-- MultiStep Form -->
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10 col-sm-12 mb-5" style="min-height: 60vh;" >
+                            <form id="msform">
+                                
+                                <!-- progressbar -->
+                                <ul id="progressbar">
+                                    <li class="active">Where?</li>
+                                    <li>When?</li>
+                                    <li>Level?</li>
+                                    <li>Subject?</li>
+                                </ul>
+                                <!-- fieldsets -->
+                                <fieldset class="pb-3">
+                                    
+                                    <h1 class="fs-title"><b>Where</b> would you like to study?</h1>
+
+                                    <label style="width: 130px;border:1px solid #141e42" class="btn" for="btn-check-outlined2">
+                                    <input type="checkbox" onclick="nextBtnActive()" class="btn-check fieldset01" id="btn-check-outlined2" autocomplete="off">
+                                    <img  src="{% static 'assets/img/student-slider/uk-flag.svg' %}" alt=""> <br>
+                                    UK </label> 
+
+                                    <label style="width: 130px;border:1px solid #141e42" class="btn" for="btn-check-outlined5">
+                                    <input type="checkbox" onclick="nextBtnActive()" class="btn-check fieldset01" id="btn-check-outlined5" autocomplete="off">
+                                    <img height="25px" src="{% static 'assets/img/student-slider/ireland-flag.svg' %}" alt=""> <br>
+                                    Ireland </label>
+    
+
+                                    <label style="width: 130px;border:1px solid #141e42" class="btn" for="btn-check-outlined1">
+                                    <input type="checkbox" onclick="nextBtnActive()" class="btn-check fieldset01" id="btn-check-outlined1" autocomplete="off">
+                                    <img  src="{% static 'assets/img/student-slider/usa-flag.svg' %}" alt=""> <br>
+                                    USA </label> 
+                                    
+                                    
+                                    <label style="width: 130px;border:1px solid #141e42" class="btn" for="btn-check-outlined3">
+                                    <input type="checkbox" onclick="nextBtnActive()" class="btn-check fieldset01" id="btn-check-outlined3" autocomplete="off">
+                                    <img height="25px" src="{% static 'assets/img/student-slider/canada-flag.svg' %}" alt=""> <br>
+                                    Canada </label>
+
+                                    <label style="width: 130px;border:1px solid #141e42" class="btn" for="btn-check-outlined4">
+                                    <input type="checkbox" onclick="nextBtnActive()" class="btn-check fieldset01" id="btn-check-outlined4" autocomplete="off">
+                                    <img height="25px" src="{% static 'assets/img/student-slider/australia-flag.svg' %}" alt=""> <br>
+                                    Australia </label>
+                                    
+                                    
+                                    <label style="width: 130px;border:1px solid #141e42" class="btn" for="btn-check-outlined6">
+                                    All 
+                                    <input style="width: 15%;" type="checkbox" onclick="nextBtnActive()" checked class="btn-check fieldset01" id="btn-check-outlined6" autocomplete="off">
+                                    <br>
+                                    <i class="fas fa-globe fa-3x" style="color: #141e42;"></i>
+                                   
+                                    </label>
+                                        
+                                    <!-- <label style="width: 130px;" class="btn btn-outline-primary" for="btn-check-outlined3">
+                                    <input type="checkbox" class="btn-check" id="btn-check-outlined3" autocomplete="off"> Open to all </label>     -->
+                                    <br>
+
+
+                                    <input type="button" id="next1" name="next" class="next action-button" value="Next"/>
+                                </fieldset>
+
+                                <fieldset class="pb-3">
+                                    <h2 class="fs-title pt-4"><b>When</b> would you like to start university?</h2>
+
+                                    <div class="btn-group">
+                                        <label style="width: 130px; border: 1px solid #141e42;" class="btn" for="option7">
+                                        <input type="radio" class="btn-check" name="years" id="option7" autocomplete="off" checked />
+                                        Jan 2023
+                                        </label>
+
+                                        <label style="width: 130px; border: 1px solid #141e42;" class="btn" for="option8">
+                                        <input type="radio" class="btn-check" name="years" id="option8" autocomplete="off" />
+                                        Sept 2023 
+                                        </label>
+
+                                        <label style="width: 130px; border: 1px solid #141e42;" class="btn" for="option8">
+                                        <input type="radio" class="btn-check" name="years" id="option8" autocomplete="off" />
+                                        Year 2024 
+                                        </label>
+
+                                        <label style="width: 130px; border: 1px solid #141e42;" class="btn" for="option10">
+                                        <input type="radio" class="btn-check" name="years" id="option10" autocomplete="off" />
+                                        Year 2025
+                                        </label>
+                                    </div>
+                                    <!-- <br>
+                                    <input type="button" style="border: 1px solid #141e42; color:#141e42" name="previous" class="previous action-button-previous" value="Previous"/> -->
+                                    <input type="button" id="next2" name="next" class="next action-button" value="Next"/>
+                                </fieldset>
+                                
+                                <fieldset class="pb-3">
+                                    <h2 class="fs-title pt-4">Your desired <b>level</b> of study?</h2>
+
+                                    <div class="btn-group">
+                                        <label style="width: 145px; border: 1px solid #141e42;" class="btn" for="option11">
+                                            <input type="radio" class="btn-check" name="options" id="option11" autocomplete="off" />
+                                            Foundation
+                                        </label>
+                                      
+                                        
+                                        <label style="width: 145px; border: 1px solid #141e42;" class="btn" for="option12">
+                                        <input type="radio" class="btn-check" name="options" id="option12" autocomplete="off" checked />
+                                        Undergraduate
+                                        </label>
+                                      
+                                        
+                                        <label style="width: 145px; border: 1px solid #141e42;" class="btn" for="option13">
+                                        <input type="radio" class="btn-check" name="options" id="option13" autocomplete="off" />
+                                        Postgraduate
+                                        </label>
+                                      </div>
+                                                                       
+                                    <br>
+
+                                    <!-- <input type="button" style="border: 1px solid #141e42; color:#141e42" name="previous"  class="previous action-button-previous" value="Previous"/> -->
+                                    <input type="button" id="next3" name="next" class="next action-button" value="Next"/>
+                                </fieldset>
+                                
+                                <fieldset class="pb-3">
+                                    <h2 class="fs-title pt-4">What is your <b>subject</b> interest?</h2>
+                                            
+                                            <div class="mb-3" id="icons">
+                                                <i style="color: #141e42;" class="fas fa-briefcase fa-2x"></i>
+                                            </div>
+
+                                            <select style="border: 1px solid #141e42; color:#141e42; font-weight: bold;" class="btn form-select" aria-label="Default select example" id="subjectSelect"
+                                            onchange="selectIcons()" required> <!-- make arrow icon bold -->
+                                            <option value="Business Studies">Business Studies</option> 
+                                            <option value="Medicine">Medicine</option> 
+                                            <option value="Electrical Engineering">Electrical Engineering</option> 
+                                            <option value="Computer Science">Computer Science</option> 
+                                            <option value="Chemical Engineering">Chemical Engineering</option>
+                                            <option value="Economics">Economics</option> 
+                                            <option value="Social Studies">Social Studies</option> 
+                                            <option value="Arts & Design">Arts & Design</option>
+                                            <option value="Law">Law</option> 
+                                            <option value="Pharmacy">Pharmacy</option> 
+                                            <option value="Finance">Finance</option> 
+                                            <option value="Architecture">Architecture</option> 
+                                            <option value="Finance & Accounting">Finance & Accounting</option> 
+                                            <option value="Nursing">Nursing</option> 
+                                            <option value="International Relations">International Relations</option> 
+                                            <option value="Mechanical Engineering">Mechanical Engineering</option> 
+                                            </select>    
+                                        
+                                    <br>
+                                    <br>
+                                    <!-- <input type="button" style="color:#141e42" name="previous" class="previous action-button-previous" value="Restart"/> -->
+                                    
+                                    <input type="button" name="next" class="next  action-button" value="Submit"/>
+                                    
+                                </fieldset>
+
+                                <fieldset class="pb-3" style="margin: 0; padding:0;width:100%">
+
+                                    <h2 class="fs-title pt-4">A few profiles that you could connect with now</h2>
+
+                                        <div class="container mb-3">
+                                            <div class="col-12 cards-for-mentors" >
+                                            
+                                            <div class="card mentor-card" style="max-width: 20rem;">
+                                            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                            <img src="{% static 'assets/img/student-slider/haya.jpg' %}" height="250px" class="card-img-top"/>
+                                            <img class="slider_card-item_photo_logo" style="top: 45%;" src="{% static 'assets/img/student-slider/uni.png' %}"/>
+                                            </div>
+                                            <div class="card-body">
+                                            <h5 class="card-title text-left font-weight-bold" style="margin-bottom: 0;">Haya</h5>
+                                            <div class="slider_card-item_country" style="padding-top: 0;"> from Pakistan <img
+                                                src="{% static 'assets/img/student-slider/pakistan.png' %}" alt="" />
+                                            </div>
+                                            <p class="text-left mb-0 mt-2">
+                                            Studying at <br> University of
+                                            Central Lancashire
+                                            <div class="slider_card-item_in_country"> in England 
+                                                <img src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                                            </div>
+                                            </p>
+                                            <a href="#!" style="border: 1px solid #141e42; color:#141e42" class="not-active  btn px-4 ">
+                                                Send me a Message</a>
+                                            </div>
+                                            </div>
+                                             
+                                            <div class="card mentor-card" style="max-width: 20rem;">
+                                                <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                                <img src="{% static 'assets/img/student-slider/28.jpg' %}" height="250px" class="card-img-top"/>
+                                                <img class="slider_card-item_photo_logo" style="top: 45%;" src="{% static 'assets/img/student-slider/uni.png' %}"/>
+                                                </div>
+                                                <div class="card-body">
+                                                <h5 class="card-title text-left font-weight-bold" style="margin-bottom: 0;">Ananya</h5>
+                                                <div class="slider_card-item_country" style="padding-top: 0;"> from India <img
+                                                    src="{% static '/img/avatar/india.png' %}" alt="" />
+                                                </div>
+                                                <p class="text-left mb-0 mt-2">
+                                                Studying at <br> University of
+                                                Central Lancashire
+                                                <div class="slider_card-item_in_country"> in England 
+                                                    <img src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                                                </div>
+                                                </p>
+                                                <a href="#!" style="border: 1px solid #141e42; color:#141e42" class="not-active  btn px-4 ">
+                                                    Send me a Message</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="card mentor-card" style="max-width: 20rem;">
+                                                <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                                <img src="{% static 'assets/img/student-slider/8.jpg' %}" height="250px" class="card-img-top"/>
+                                                <img class="slider_card-item_photo_logo" style="top: 45%;" src="{% static 'assets/img/student-slider/uni.png' %}"/>
+                                                </div>
+                                                <div class="card-body">
+                                                <h5 class="card-title text-left font-weight-bold" style="margin-bottom: 0;">Kinza</h5>
+                                                <div class="slider_card-item_country" style="padding-top: 0;"> from Pakistan <img
+                                                    src="{% static 'assets/img/student-slider/pakistan.png' %}" alt="" />
+                                                </div>
+                                                <p class="text-left mb-0 mt-2">
+                                                Studying at <br> University of
+                                                Central Lancashire
+                                                <div class="slider_card-item_in_country"> in England 
+                                                    <img src="{% static 'assets/img/student-slider/england.png' %}" alt="" />
+                                                </div>
+                                                </p>
+                                                <a href="#!" style="border: 1px solid #141e42; color:#141e42" class="not-active  btn px-4 ">
+                                                    Send me a Message</a>
+                                                </div>
+                                            </div>
+
+                                            </div>
+                                        </div>
+                                    
+                                    <!-- <input type="button" style="border: 1px solid #141e42; color:#141e42" name="previous" class="previous action-button-previous" value="Previous"/> -->
+                                    <a class="theme-btn mt-2" href="{% provider_login_url 'google' %}">
+                                    <img class="pb-1" src="/static/images/google-icon.png" alt="Google Icon">
+                                    Signup using Google</a>
+                                    <a class="theme-btn mt-2" href="{% url 'administration:registration' %}">Signup via a form</a>
+                                </fieldset>
+                            </form>
+                            
+                        </div>
+
+                        
+                        <div class="col-12 justify-content-center" ></div>
+                        
+                    </div>
+                    <!-- /.MultiStep Form -->
+
+                </div>
+
+                {% include 'registration/planner_footer.html' %}
+
+                <div>
+                </div>
+         </div>
+   </div>
+</section>
+
+
+
+{% endblock %}
+
+{% block js %}
+
+<script>
+
+document.querySelector('#header').style.display = 'none';
+document.querySelector('.gen-footer').style.display = 'none';
+
+// function nextBtnActive() {
+//     nextBtn = document.querySelector('#next1')
+//     checkBtn = document.querySelector('.btn-check')
+//     checkBtnAll = document.querySelectorAll('.fieldset01')
+
+//     for (var i = 0; i < checkBtnAll.length; i++) {   
+//     if (nextBtn.classList.contains('not-active') && checkBtnAll[i].checked === true) {
+//             nextBtn.classList.remove('not-active');       
+//         } else if (checkBtn.checked === false) {
+//             console.log('All unchecked')
+//             nextBtn.classList.add('not-active');
+//         }    
+//     }   
+
+    
+// }
+
+function selectIcons() {
+    iconDiv = document.querySelector('#icons')
+    selectedSubject = document.querySelector('#subjectSelect').value
+    console.log(selectedSubject)
+    if (selectedSubject == 'Business Studies') {
+           iconDiv.innerHTML = '<i style="color: #141e42;" class="fas fa-briefcase fa-2x"></i>'       
+    } else if (selectedSubject == 'Medicine') { 
+        iconDiv.innerHTML = '<i style="color:#141e42" class="fas fa-user-md fa-2x"></i>'
+    } else if (selectedSubject == 'Electrical Engineering') { 
+        iconDiv.innerHTML = '<i style="color:#141e42" class="fas fa-plug fa-2x"></i>'
+    } else if (selectedSubject == 'Computer Science') { 
+        iconDiv.innerHTML = '<i style="color:#141e42" class="fas fa-desktop fa-2x"></i>'
+    } else if (selectedSubject == 'Chemical Engineering') { 
+        iconDiv.innerHTML = '<i style="color:#141e42" class="fas fa-vial fa-2x"></i>'
+    } else if (selectedSubject == 'Economics') { 
+        iconDiv.innerHTML = '<i style="color:#141e42" class="fas fa-money-check-alt fa-2x"></i>'  
+    } else if (selectedSubject == 'Social Studies') { 
+        iconDiv.innerHTML = '<i style="color:#141e42" class="fas fa-user-friends fa-2x"></i>'  
+    } else if (selectedSubject == 'Arts & Design') { 
+        iconDiv.innerHTML = '<i style="color:#141e42" class="fas fa-pen-square fa-2x"></i>'  
+    } else if (selectedSubject == 'Law') { 
+        iconDiv.innerHTML = '<i style="color:#141e42" class="fas fa-balance-scale fa-2x"></i>'  
+    } else if (selectedSubject == 'Pharmacy') { 
+        iconDiv.innerHTML = '<i style="color:#141e42" class="fas fa-prescription-bottle-alt fa-2x"></i>'  
+    } else if (selectedSubject == 'Finance') { 
+        iconDiv.innerHTML = '<i style="color:#141e42" class="fas fa-money-bill-wave-alt fa-2x"></i>'  
+    } else if (selectedSubject == 'Architecture') { 
+        iconDiv.innerHTML = '<i style="color:#141e42" class="fas fa-university fa-2x"></i>'  
+    } else if (selectedSubject == 'Finance & Accounting') { 
+        iconDiv.innerHTML = '<i style="color:#141e42" class="fas fa-chart-line fa-2x"></i>'  
+    } else if (selectedSubject == 'Nursing') { 
+        iconDiv.innerHTML = '<i style="color:#141e42" class="fas fa-medkit fa-2x"></i>'  
+    } else if (selectedSubject == 'International Relations') { 
+        iconDiv.innerHTML = '<i style="color:#141e42" class="fas fa-globe-asia fa-2x"></i>'  
+    } else if (selectedSubject == 'Mechanical Engineering') { 
+        iconDiv.innerHTML = '<i style="color:#141e42" class="fas fa-space-shuttle fa-2x"></i>'  
+    }
+
+}
+                                   
+//jQuery time
+var current_fs, next_fs, previous_fs; //fieldsets
+var left, opacity, scale; //fieldset properties which we will animate
+var animating; //flag to prevent quick multi-click glitches
+
+$(".next").click(function(){
+	if(animating) return false;
+	animating = true;
+	
+	current_fs = $(this).parent();
+	next_fs = $(this).parent().next();
+	
+	//activate next step on progressbar using the index of next_fs
+	$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+	
+	//show the next fieldset
+	next_fs.show(); 
+	//hide the current fieldset with style
+	current_fs.animate({opacity: 0}, {
+		step: function(now, mx) {
+			//as the opacity of current_fs reduces to 0 - stored in "now"
+			//1. scale current_fs down to 80%
+			scale = 1 - (1 - now) * 0.2;
+			//2. bring next_fs from the right(50%)
+			left = (now * 50)+"%";
+			//3. increase opacity of next_fs to 1 as it moves in
+			opacity = 1 - now;
+			current_fs.css({
+        'transform': 'scale('+scale+')',
+        'position': 'absolute'
+      });
+			next_fs.css({'left': left, 'opacity': opacity});
+		}, 
+		duration: 800, 
+		complete: function(){
+			current_fs.hide();
+			animating = false;
+		}, 
+		//this comes from the custom easing plugin
+		easing: 'easeInOutBack'
+	});
+});
+
+$(".previous").click(function(){
+	if(animating) return false;
+	animating = true;
+	
+	current_fs = $(this).parent();
+	previous_fs = $(this).parent().prev();
+	
+	//de-activate current step on progressbar
+	$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+	
+	//show the previous fieldset
+	previous_fs.show(); 
+	//hide the current fieldset with style
+	current_fs.animate({opacity: 0}, {
+		step: function(now, mx) {
+			//as the opacity of current_fs reduces to 0 - stored in "now"
+			//1. scale previous_fs from 80% to 100%
+			scale = 0.8 + (1 - now) * 0.2;
+			//2. take current_fs to the right(50%) - from 0%
+			left = ((1-now) * 50)+"%";
+			//3. increase opacity of previous_fs to 1 as it moves in
+			opacity = 1 - now;
+			current_fs.css({'left': left});
+			previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
+		}, 
+		duration: 800, 
+		complete: function(){
+			current_fs.hide();
+			animating = false;
+		}, 
+		//this comes from the custom easing plugin
+		easing: 'easeInOutBack'
+	});
+});
+
+$(".submit").click(function(){
+	return false;
+})
+</script>
+{% endblock %}

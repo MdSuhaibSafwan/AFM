@@ -1,0 +1,117 @@
+{% extends 'base/base.html' %}
+{% block title %}Page List{% endblock %}
+{% block content %}
+{% load widget_tweaks %}
+{% load administration_extras %}
+{% load static %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="#">Page List</a></li>
+    </ol>
+</nav>
+<div class="row mr-b-20">
+    <div class="col-12 col-sm-12">
+        <div class="add-new-app">
+            <a href="{% url 'page:create_page' %}" id="add-new-institute">
+                <button class="btn" style="color: rgb(0, 0, 0); font: 1em poppins ;"><span>+</span> Add New Page
+                </button>
+                <i data-feather="clipboard"></i></a>
+        </div>
+    </div>
+</div>
+<div class="list-user">
+    {% if post_list %}
+    <div class="table-responsive list-border">
+        <table class="table table-hover mg-b-0">
+            <thead>
+            <tr class="box-shadow-none">
+                <th>Image</th>
+                <th>Title</th>
+                <th>Sub Title</th>
+                <!--                             <th>Content</th>-->
+                <!--                                <th>Publish</th>-->
+                <th>Status</th>
+                <th class="text-right">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for post in post_list %}
+            <tr>
+                <td>
+                    <div class="az-img-user"><img alt="alex" class="img-fluid" src="{% if post.feature_image %}{{ post.feature_image.url }}
+{% else %} /static/images/default_profile.png {% endif %}"></div>
+                </td>
+                <td><h6><a href="{% url 'blogs:PostDetail' post.slug %}">{{ post.title }}</a></h6></td>
+                <td>
+                    <h7>{{ post.sub_title|getifnone }}</h7>
+                </td>
+                <td>
+                    <form action="{% url 'page:change_status_publish_twfl' post.id %}" id="form-{{post.id}}"
+                          method="post" onsubmit="">
+                        {% csrf_token %}
+                        <div class="custom-control custom-switch">
+                            <input %} %}checked{% 2
+                                   class="custom-control-input" endif id="button-{{post.id}}" if onchange="change_is_active('form-{{post.id}}')"
+                                   post.post_status== type="checkbox" {%>
+                            <label class="custom-control-label" for="button-{{post.id}}">{{post.post_status|getpoststatus}}</label>
+                        </div>
+                    </form>
+                </td>
+                <td class="text-right">
+                    <div class="dropdown">
+                        <button aria-expanded="false" aria-haspopup="true" class="btn more-vertical" data-toggle="dropdown"
+                                id="dropdownMenuButton" type="button">
+                            <i data-feather="more-vertical"></i>
+                        </button>
+                        <div aria-labelledby="dropdownMenuButton" class="dropdown-menu edit-mr">
+                            <a class="dropdown-item" href="{% url 'page:page_detail_edit' post.id %}"><i
+                                    data-feather="edit-2"></i>Edit</a>
+                            <a class="dropdown-item" href="{% url 'page:PostDetail' post.slug %}" target="_blank"><i
+                                    data-feather="eye"></i>view</a>
+                            <a href="{% url 'page:page_delete' post.id  %}" class="dropdown-item"><i data-feather="trash"></i>delete</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-center">No records found</p>
+    {% endif%}
+</div>
+
+<div class="">
+    <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+    <div class="d-flex justify-content-center">
+        <ul class="pagination pagination-circled">
+            {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link"
+                                     href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}"><i
+                    data-feather="arrow-left"></i></a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link"
+                                     href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}"><i
+                    data-feather="arrow-right"></i></a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% endblock content %}
+{% block js %}
+<script>
+    var id;
+    function change_is_active(id){
+        if (confirm('Do you really want to do this action')){
+            $('#'+ id).submit();
+        }
+        else
+        {
+            location.reload();
+        }
+    }
+</script>
+{% endblock %}

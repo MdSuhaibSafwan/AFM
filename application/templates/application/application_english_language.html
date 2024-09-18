@@ -1,0 +1,175 @@
+{% extends 'base/base.html' %}
+{% block title%}English Language-Page{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb breadcrumb-style1">
+    <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="#">Build your CV</a></li>
+  </ol>
+</nav>
+{% include 'application/breadcrumb.html' %}
+  <div class="card">
+    <div class="row">
+      <div class="col-12">
+        <div class="pd-lg-l-40 d-flex flex-column">
+          <form role="form" method="post" enctype="multipart/form-data">
+            <div class="wizard">
+                <div class="content clearfix">
+                  <div class="consent">
+                    <h5>4.
+                    {% if request.user.user_type == 3 %}
+                    {% else %}Applicant's {% endif %}English Language</h5>
+                    <div class="line-2"></div>
+                    <p class="consent-p"></p>
+                    {% crispy form %}
+                    {% crispy form2 %}
+                    <div class="row ">
+                        <div class="col-12">
+                            <div class="app-footer-line"></div>
+                            <div class="step-btn three-btn mg-t-20">
+                                <div>
+                                    <a type="button" class="btn btn-outline-indigo btn-rounded"
+                                       href="{% url 'application:application_education_twfl' app.slug %}"
+                                       role="menuitem"> Previous
+                                    </a>
+                                </div>
+                                <div>
+                                    <a type="button" class="btn btn-outline-indigo btn-rounded"
+                                       href="{% url 'application:application_work_experience_twfl' app.slug %}"
+                                       role="menuitem"> Skip & Continue </a>
+                                    <button class="btn btn-outline-indigo btn-rounded"> Save & Continue
+                                        <span class="iconify"
+                                              data-icon="bi:arrow-right" data-inline="false"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div><!-- az-content-body -->
+  </div>
+{% endblock %}
+{% block js %}
+{% load static %}
+<script>
+$( '#id_certificate_date').datepicker({
+  changeYear: true,
+  dateFormat: "dd/mm/yy",
+}).attr("placeholder", "dd/mm/yyyy");
+
+$('.have_test_booking_date').hide();
+hide_english_test_form();
+hide_test_name_and_date();
+
+// Check if has certificate or test schedule date
+function hide_english_test_form(){
+    $('.english_test_form').hide();
+    hide_test_name_and_date();
+
+    $('#id_certificate_name').removeAttr('required');
+    $('#id_certificate_date').removeAttr('required');
+    $('#id_listening').removeAttr('required');
+    $('#id_reading').removeAttr('required');
+    $('#id_writing').removeAttr('required');
+    $('#id_speaking').removeAttr('required');
+    $('#id_overall').removeAttr('required');
+<!--    $('#id_certificate').removeAttr('required');-->
+
+}
+function show_english_test_form(){
+    $('.english_test_form').show();
+    show_test_name_and_date();
+    $('#id_certificate_name').attr('required', 'required');
+    $('#id_certificate_date').attr('required', 'required');
+    $('#id_listening').attr('required', 'required');
+    $('#id_reading').attr('required', 'required');
+    $('#id_writing').attr('required', 'required');
+    $('#id_speaking').attr('required', 'required');
+    $('#id_overall').attr('required', 'required');
+    $("#id_certificate_name").closest(".form-group").find("label").html('Certificate Name*');
+    $("#id_certificate_date").closest(".form-group").find("label").html('Certificate Date*');
+<!--    $('#id_certificate').attr('required', 'required');-->
+}
+
+function show_test_name_and_date(){
+    $('.test-name').show();
+    $('.test-date').show();
+    $('#id_certificate_name').attr('required', 'required');
+    $('#id_certificate_date').attr('required', 'required');
+    $("#id_certificate_name").closest(".form-group").find("label").html('Test Name*');
+    $("#id_certificate_date").closest(".form-group").find("label").html('Test Date*');
+}
+function hide_test_name_and_date(){
+    $('.test-name').hide();
+    $('.test-date').hide();
+    $('#id_certificate_name').removeAttr('required');
+    $('#id_certificate_date').removeAttr('required');
+
+}
+// check if have_valid_certificate field id checked
+if($('#id_have_valid_certificate_1').is(':checked')){
+    $('.have_test_booking_date').show();
+    $("input[name='have_test_booking_date']").attr('required', 'required');
+    hide_english_test_form();
+
+    // check if have_test_booking_date field id checked
+    if($('#id_have_test_booking_date_2').is(':checked')){
+        show_test_name_and_date();
+    }
+    else{
+        hide_test_name_and_date();
+    }
+
+}
+if($('#id_have_valid_certificate_2').is(':checked')){
+    $('.have_test_booking_date').hide();
+    show_english_test_form();
+}
+
+$('input[name="have_valid_certificate"]').click(function() {
+   if($(this).attr('id') == 'id_have_valid_certificate_2') {
+        $('.have_test_booking_date').hide();
+        $("input[name='have_test_booking_date']").removeAttr('required');
+        $("input[name='have_test_booking_date']").prop('checked', false);
+        show_english_test_form();
+   }
+   else {
+        $('.have_test_booking_date').show();
+        $("input[name='have_test_booking_date']").attr('required', 'required');
+        hide_english_test_form();
+        $('#id_certificate_name').val('');
+        $('#id_certificate_date').val('');
+        $('#id_listening').val('');
+        $('#id_reading').val('');
+        $('#id_writing').val('');
+        $('#id_speaking').val('');
+        $('#id_overall').val('');
+        $('#id_certificate').val('');
+   }
+});
+
+$('input[name="have_test_booking_date"]').click(function() {
+   if($(this).attr('id') == 'id_have_test_booking_date_2') {
+        show_test_name_and_date();
+   }
+   else{
+        hide_english_test_form();
+        $('#id_certificate_name').val('');
+        $('#id_certificate_date').val('');
+        $('#id_listening').val('');
+        $('#id_reading').val('');
+        $('#id_writing').val('');
+        $('#id_speaking').val('');
+        $('#id_overall').val('');
+        $('#id_certificate').val('');
+   }
+});
+</script>
+{% endblock %}

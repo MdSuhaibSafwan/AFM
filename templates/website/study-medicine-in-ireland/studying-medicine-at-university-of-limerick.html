@@ -1,0 +1,95 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}Study Medicine at The University of Limerick, England{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}Study medicine at the University of Limerick in Ireland. Study medicine abroad in the English
+language.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/study-medicine-in-ireland/studying-medicine-at-university-of-limerick/
+{% endblock %}{% endblock %}
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">International Foundation Group</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine_in_ireland' %}">Medical schools in
+                                Ireland</a>
+                            <span> >
+                            </span>University of Limerick
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">University of Limerick</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0"> Medical School in Ireland </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <div class="row">
+                        <div class="col-md-12 col-xl-12">
+                            <article>
+                                <h2>Study Medicine at The University of Limerick</h2>
+                                <p> The University of Limerick (UL) offers a four-year integrated medicine course for
+                                    post-graduate students. The medical programme focuses on teaching students to not
+                                    only become knowledgeable clinicians, but rather to go beyond that and shape
+                                    students into intelligent, empathetic doctors who will go on to practice
+                                    patient-centred, evidence-based medicine. </p>
+                                <p> Teaching at UL takes on a problem-based learning(PBL) approach and incorporates
+                                    lectures, tutorials, workshops and seminars. Additionally, the small-group teaching
+                                    activities during course enhance knowledge and understanding as well as
+                                    communication and teamwork skills. UL also engages students in modern multi-faceted
+                                    approaches for anatomy teaching that utilised advanced technological facilities.
+                                </p>
+                                <p> The three core themes and domains that are focused on during the course are:
+                                    Knowledge of Health and Illness, Clinical and Anatomical Skills and Professional
+                                    Competencies. Students gain early exposure to the clinical environment and patient
+                                    contact and are taught from the beginning of the course about how to reflect and
+                                    improve upon experiences. Clinical placements take place across six different
+                                    medicine teaching hospitals (that focus on different medical and surgical
+                                    specialties) as well as a range of primary care settings. </p>
+                                <p> Students at UL can also undertake Special Study Modules (electives) in the second,
+                                    third and fourth years that allow exploration into areas of interest – these
+                                    electives may be done abroad. </p>
+                                <h3>Get mentored by medical students at The University of Limerick</h3>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> global community of
+                            students by searching for a mentor now </p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,391 @@
+{% extends 'base/base.html' %}
+{% block title %}Education Form-Page{% endblock %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block css %}
+<style>
+    #empty-row{
+        display:none;
+    }
+    #empty-row2{
+        display:none;
+    }
+</style>
+{% endblock %}
+{% block content%}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="#">Build your CV</a></li>
+    </ol>
+</nav>
+{% include 'application/breadcrumb.html' %}
+<form id="msform" role="form" method="post" enctype="multipart/form-data">
+
+    <div class="card education">
+        <div class="row">
+            <div class="col-12">
+                <div class="pd-lg-l-40 d-flex flex-column">
+                    <div class="wizard">
+                        <div class="content clearfix">
+                            <div class="consent">
+                                <h5>3. Academic Information</h5>
+                                <div class="line-2"></div>
+                                <h6>Basic Education Details</h6>
+                                {% crispy basic_education_form %}
+                                <p class="consent-p"></p>
+                                {% csrf_token %}
+                                {{ formset.management_form|crispy}}
+                                {% for form in formset %}
+                                <h6> 
+                                {% if forloop.counter == 1 %}
+                                {% if request.user.user_type == 3 %}Your{% else %}Applicant's{% endif %} Latest Qualification{% else %}Education-{{forloop.counter}} {% endif %}</h6>
+                                {% crispy form %}
+                                {% endfor %}
+                                <div id='empty-row' class='new-form-row'>
+                                    <hr>
+                                    <h6 id='form-head' class=""></h6>
+                                    {% crispy formset.empty_form %}
+                                </div>
+                                <div class="align-right">
+                                    <button type="button" class="btn btn-outline-indigo btn-rounded add-new-form">Add
+                                        Education
+                                    </button>
+                                    <a href="{% url 'application:application_education_twfl' app.slug %}"
+                                       class="btn btn-outline-indigo btn-rounded" id="reset">Reset</a>
+                                    {% if user.application.all.first.academic_qualifications.all.first.country %}
+                                    <button type="submit" class="btn btn-outline-indigo btn-rounded align-right mr-1"
+                                            style="float: right;">Add Training Certificate
+                                    </button>
+                                    {% endif %}
+                                </div>
+
+                                <div class="row ">
+                                    <div class="col-12">
+                                        <div class="app-footer-line"></div>
+                                        <div class="step-btn three-btn mg-t-20">
+                                            <div>
+                                                <a type="button" class="btn btn-outline-indigo btn-rounded"
+                                                   href="{% url 'application:application_personal_information_twfl' app.slug %}"
+                                                   role="menuitem"> Previous
+                                                </a>
+                                            </div>
+                                            <div>
+                                                {% if app.academic_qualifications.all.first.country %}
+                                                <a type="button" class="btn btn-outline-indigo btn-rounded"
+                                                   href="{% url 'application:application_training_twfl' app.slug %}"
+                                                   role="menuitem"> Skip & Continue <span class="iconify"
+                                                          data-icon="bi:arrow-right" data-inline="false"></span></a>
+                                                {% endif %}
+                                                <button class="btn btn-outline-indigo btn-rounded"> Save & Continue
+                                                    <span class="iconify"
+                                                          data-icon="bi:arrow-right" data-inline="false"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% include 'application/qualification_select.html' %}
+                </div>
+            </div>
+        </div><!-- az-content-body -->
+
+</form>
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+<!--$('#id_last_qualification').select2();-->
+<!--$('#id_what_are_you_studying').select2();-->
+ $(document).ready(function() {
+        function updateEmptyFormIDs(element,totalForms){
+        var thisInput = element
+        //get current form input name
+        var currentName = element.attr('name')
+
+        // replace prefix with actual number
+        var newName = currentName.replace(/__prefix__/g, totalForms)
+        thisInput.attr('name', newName)
+        thisInput.attr('id', "id_" + newName)
+
+        // create new form  row id
+        var newFormRow = element.closest(".new-form-row");
+        var newRowID = "row_id_" + newName;
+        newFormRow.attr("id", newRowID);
+
+        // add class for newbasic animations
+        newFormRow.addClass("new-parent-row");
+
+        // update form group id
+        var parentDiv = element.parent();
+        parentDiv.attr("id", "parent_id_" + newName)
+
+        // update label id
+        var inputLabel  = parentDiv.find("label")
+        inputLabel.attr("for", "id_"  + newName)
+
+        return newFormRow
+
+    };
+
+        $('.add-new-form').click(function(e) {
+        e.preventDefault()
+
+        var formId = "id_form-TOTAL_FORMS";
+        var totalForms = parseInt($('#' + formId).val());
+        $('#form-head').html('Education-' + (totalForms + 1));
+
+        var emptyRow = $("#empty-row").clone();
+
+        //remove id from new form
+        emptyRow.attr("id", null)
+
+        if (totalForms<=2){
+            var newFormRow;
+            emptyRow.find("input, select, textarea").each(function() {
+                newFormRow = updateEmptyFormIDs($(this), totalForms)
+            })
+            emptyRow.html(emptyRow.html().replace(/__prefix__/g,totalForms));
+
+            $(".new-form-row:last").after(newFormRow);
+
+            $('#' + 'id_form-TOTAL_FORMS').val(totalForms + 1);
+        }else{
+            $('.add-new-form').addClass('disabled')
+        }
+
+        // New form events
+        is_currently_studying( $("#id_form-"+ totalForms + "-is_currently_studying option").filter(":selected").val(),totalForms);
+        $("#id_form-"+ totalForms + "-is_currently_studying").change({form: totalForms},function(event){
+            var value = $(this).val();
+            is_currently_studying(value, event.data.form);
+        });
+
+        $("#id_form-"+ totalForms + "-specify_qualification_name").select2();
+        $("#id_form-"+ totalForms + "-country").select2();
+        $('.qualification_div').hide();
+        $('.qualification_achieved').each(function(){
+            if($(this).hasClass('is-invalid')){
+                $(this).closest('.qualification_div').show();
+            }
+        })
+        var country = $('#id_form-'+ totalForms + '-country').val();
+        var exclude_data=[];
+        exclude_data.push({id:'',text:'Select Qualification'});
+        if (country){
+        $("#qualification-options option[value='" + country +"']").each(function() {
+                exclude_data.push({id:$(this).text(),text:$(this).text()});
+        });
+        exclude_data.push({id:'Other',text:'Other'});
+        $("#id_form-"+ totalForms + "-specify_qualification_name").select2('destroy').empty().select2({placeholder: "Type and search Qualification",data: exclude_data});
+        }
+
+        // Check if Other qualification field is field
+        if ($('#id_form-'+ totalForms + '-qualification_achieved').val()){
+            if ($('#id_form-'+ totalForms + '-specify_qualification_name').find("option[value='" + $('#id_form-'+ totalForms + '-qualification_achieved').val() + "']").length) {
+                $('#id_form-'+ totalForms + '-specify_qualification_name').val($('#id_form-'+ totalForms + '-qualification_achieved').val()).trigger('change');
+            }
+            else {
+                $('#id_form-'+ totalForms + '-qualification_achieved').closest('.qualification_div').show();
+                $('#id_form-'+ totalForms + '-specify_qualification_name').val('Other').trigger('change'); // Select the option with a value of 'Other'
+            }
+        }
+        // On select country change qualification drop-down
+        $('#id_form-'+ totalForms + '-country').on('select2:select', {form: totalForms},function(event){
+            var country = $(this).val();
+            var exclude_data=[];
+            exclude_data.push({id:'',text:'Select Qualification'});
+            $("#qualification-options option[value='" + country +"']").each(function() {
+                exclude_data.push({id:$(this).text(),text:$(this).text()});
+            });
+            exclude_data.push({id:'Other',text:'Other'});
+            $("#id_form-"+ event.data.form + "-specify_qualification_name").select2('destroy').empty().select2({placeholder: "Type and search Qualification",data: exclude_data,});
+
+        });
+
+        $('#id_form-'+ totalForms + '-specify_qualification_name').on('select2:select', {form: totalForms},function(event) {
+            $('#id_form-'+ event.data.form + '-qualification_achieved').val('')
+            if($(this).val()==='Other'){
+                $(this).closest('.form-row').find('.qualification_div').show();
+                $('#id_form-'+ event.data.form + '-qualification_achieved').attr('required', 'required');
+            }else{
+                $(this).closest('.form-row').find('.qualification_div').hide();
+                $('#id_form-'+ event.data.form + '-qualification_achieved').removeAttr('required');
+            }
+        });
+
+    });
+    });
+
+    function currently_study_check(val) {
+        if (val == 0) {
+            $('.div_last_qualification').show();
+            $('.div_what_are_you_studying').hide();
+            $('#id_what_are_you_studying').val('');
+            $('#id_last_qualification').attr('required', 'required');
+            $('#id_what_are_you_studying').removeAttr('required');
+            $('label[for="id_current_or_last_school_name"]').text('Last school name*');
+
+        }
+        else {
+            $('.div_last_qualification').hide();
+            $('#id_last_qualification').val('');
+            $('.div_what_are_you_studying').show();
+            $('#id_last_qualification').removeAttr('required');
+            $('#id_what_are_you_studying').attr('required', 'required');
+            $('label[for="id_current_or_last_school_name"]').text('Current school name*');
+        }
+
+    }
+    var value = $('#id_currently_studying').val();
+    currently_study_check(value);
+
+    $('#id_currently_studying').change(function () {
+        var value = $(this).val();
+        currently_study_check(value);
+    });
+
+
+    if($('form').length > 1) {
+      $('#reset').hide();
+    }
+    $('.add-new-form').click(function() {
+        $('#reset').show();
+    });
+    // Change Label based on currently studying
+    function is_currently_studying(val,i){
+        if(val == 1){
+                  $("#id_form-" + i + "-specify_qualification_name").closest(".form-group").find("label").html('Please select the qualification level you are currently studying*');
+                  $("#id_form-" + i + "-grades_achieved").closest(".form-group").find("label").html('Grades/Score Predicted*');
+            }
+        else{
+             $("#id_form-" + i + "-specify_qualification_name").closest(".form-group").find("label").html('Qualification Achieved*');
+             $("#id_form-" + i + "-grades_achieved").closest(".form-group").find("label").html('Grades/Score Achieved*');
+        }
+
+    }
+
+    // for pre-field form
+    var formId = "id_form-TOTAL_FORMS";
+    var totalForms = parseInt($('#' + formId).val());
+
+    for (let i = 0; i < totalForms; i++) {
+        is_currently_studying( $("#id_form-"+ i + "-is_currently_studying option").filter(":selected").val(),i);
+        $("#id_form-"+ i + "-is_currently_studying").change({form: i},function(event){
+            var value = $(this).val();
+            is_currently_studying(value, event.data.form);
+        });
+
+        $("#id_form-"+ i + "-specify_qualification_name").select2();
+        $("#id_form-"+ i + "-country").select2();
+        $('.qualification_div').hide();
+        $('.qualification_achieved').each(function(){
+            if($(this).hasClass('is-invalid')){
+                $(this).closest('.qualification_div').show();
+            }
+        })
+        var country = $('#id_form-'+ i + '-country').val();
+        var exclude_data=[];
+        exclude_data.push({id:'',text:'Select Qualification'});
+        if (country){
+        $("#qualification-options option[value='" + country +"']").each(function() {
+                exclude_data.push({id:$(this).text(),text:$(this).text()});
+        });
+        exclude_data.push({id:'Other',text:'Other'});
+        $("#id_form-"+ i + "-specify_qualification_name").select2('destroy').empty().select2({placeholder: "Type and search Qualification",data: exclude_data});
+        }
+
+        // Check if Other qualification field is field
+        if ($('#id_form-'+ i + '-qualification_achieved').val()){
+            if ($('#id_form-'+ i + '-specify_qualification_name').find("option[value='" + $('#id_form-'+ i + '-qualification_achieved').val() + "']").length) {
+                $('#id_form-'+ i + '-specify_qualification_name').val($('#id_form-'+ i + '-qualification_achieved').val()).trigger('change');
+            }
+            else {
+                $('#id_form-'+ i + '-qualification_achieved').closest('.qualification_div').show();
+                $('#id_form-'+ i + '-specify_qualification_name').val('Other').trigger('change'); // Select the option with a value of 'Other'
+            }
+        }
+        // On select country change qualification drop-down
+        $('#id_form-'+ i + '-country').on('select2:select', {form: i},function(event){
+            var country = $(this).val();
+            var exclude_data=[];
+            exclude_data.push({id:'',text:'Select Qualification'});
+            $("#qualification-options option[value='" + country +"']").each(function() {
+                exclude_data.push({id:$(this).text(),text:$(this).text()});
+            });
+            exclude_data.push({id:'Other',text:'Other'});
+            $("#id_form-"+ event.data.form + "-specify_qualification_name").select2('destroy').empty().select2({placeholder: "Type and search Qualification",data: exclude_data,});
+
+        });
+
+        $('#id_form-'+ i + '-specify_qualification_name').on('select2:select', {form: i},function(event) {
+            $('#id_form-'+ event.data.form + '-qualification_achieved').val('')
+            if($(this).val()==='Other'){
+                $(this).closest('.form-row').find('.qualification_div').show();
+                $('#id_form-'+ event.data.form + '-qualification_achieved').attr('required', 'required');
+            }else{
+                $(this).closest('.form-row').find('.qualification_div').hide();
+                $('#id_form-'+ event.data.form + '-qualification_achieved').removeAttr('required');
+            }
+        });
+    }
+
+<!--    // Qualification drop down-->
+
+<!--    $("#id_form-0-specify_qualification_name").select2();-->
+<!--    $("#id_form-0-country").select2();-->
+<!--    $('.qualification_div').hide();-->
+<!--    $('.qualification_achieved').each(function(){-->
+<!--        if($(this).hasClass('is-invalid')){-->
+<!--            $(this).closest('.qualification_div').show();-->
+<!--        }-->
+<!--    })-->
+<!--    var country = $('#id_form-0-country').val();-->
+<!--    var exclude_data=[];-->
+<!--    exclude_data.push({id:'',text:'Select Qualification'});-->
+<!--    if (country){-->
+<!--    $("#qualification-options option[value='" + country +"']").each(function() {-->
+<!--            exclude_data.push({id:$(this).text(),text:$(this).text()});-->
+<!--    });-->
+<!--    exclude_data.push({id:'Other',text:'Other'});-->
+<!--    $("#id_form-0-specify_qualification_name").select2('destroy').empty().select2({placeholder: "Type and search Qualification",data: exclude_data});-->
+<!--    }-->
+
+<!--    // Check if Other qualification field is field-->
+<!--    if ($('#id_form-0-qualification_achieved').val()){-->
+<!--        if ($('#id_form-0-specify_qualification_name').find("option[value='" + $('#id_form-0-qualification_achieved').val() + "']").length) {-->
+<!--            $('#id_form-0-specify_qualification_name').val($('#id_form-0-qualification_achieved').val()).trigger('change');-->
+<!--        }-->
+<!--        else {-->
+<!--            $('#id_form-0-qualification_achieved').closest('.qualification_div').show();-->
+<!--            $('#id_form-0-specify_qualification_name').val('Other').trigger('change'); // Select the option with a value of 'Other'-->
+<!--        }-->
+<!--    }-->
+<!--    // On select country change qualification drop-down-->
+<!--    $('#id_form-0-country').on('select2:select', function (e) {-->
+<!--        var country = $(this).val();-->
+<!--        var exclude_data=[];-->
+<!--        exclude_data.push({id:'',text:'Select Qualification'});-->
+<!--        $("#qualification-options option[value='" + country +"']").each(function() {-->
+<!--            exclude_data.push({id:$(this).text(),text:$(this).text()});-->
+<!--        });-->
+<!--        exclude_data.push({id:'Other',text:'Other'});-->
+<!--        $("#id_form-0-specify_qualification_name").select2('destroy').empty().select2({placeholder: "Type and search Qualification",data: exclude_data,});-->
+
+<!--    });-->
+
+<!--    $('#id_form-0-specify_qualification_name').on('select2:select', function (e) {-->
+<!--        $('#id_form-0-qualification_achieved').val('')-->
+<!--        if($(this).val()==='Other'){-->
+<!--            $(this).closest('.form-row').find('.qualification_div').show();-->
+<!--            $('#id_form-0-qualification_achieved').attr('required', 'required');-->
+<!--        }else{-->
+<!--            $(this).closest('.form-row').find('.qualification_div').hide();-->
+<!--            $('#id_form-0-qualification_achieved').removeAttr('required');-->
+<!--        }-->
+<!--    })-->
+</script>
+{% endblock %}

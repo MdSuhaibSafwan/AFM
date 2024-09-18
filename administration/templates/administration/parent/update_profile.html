@@ -1,0 +1,256 @@
+{% extends 'base/base.html' %}
+{% block title%}Edit Profile{% endblock %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block css%}
+<style>
+.select2{
+width: 100% !important;
+}
+{% if parent_instance.country == '' %}
+    .afm-header-menu ul {
+        display: none;
+    }
+    .afm-header-right {
+        display: none;
+    }
+    .signout ul {
+        display: block;
+    }
+{% endif %}
+</style>
+{% endblock%}
+{% block content %}
+<form action="{% url 'administration:update_profile_pic' user.id %}" class="d-none" method="post"
+      enctype="multipart/form-data" id="ImageformUpload">
+    {% csrf_token %}
+    {{pic_form.x}}{{pic_form.y}}{{pic_form.width}}{{pic_form.height}}
+    <input type="file" id="id_profile_pic" class="update" name="profile_pic" accept="image/*" hidden="true">
+    <div class="modal fade" id="modalCrop">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Crop the photo</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+
+            </div>
+            <div class="modal-body">
+              <img src="" id="image" style="max-width: 100%;">
+            </div>
+            <div class="modal-footer">
+              <div class="btn-group pull-left" role="group">
+                <button type="button" class="btn btn-default js-zoom-in">
+                  <span class="glyphicon glyphicon-zoom-in"></span>
+                </button>
+                <button type="button" class="btn btn-default js-zoom-out">
+                  <span class="glyphicon glyphicon-zoom-out"></span>
+                </button>
+              </div>
+              <button type="button" class="btn btn-outline-indigo btn-rounded mg-r-5" data-dismiss="modal">Cancel</button>
+              <button class="btn btn-outline-indigo btn-rounded js-crop-and-upload">Crop and Upload</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </form>
+    <nav aria-label="brereadcrumb">
+      <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="#">Edit Profile</a></li>
+      </ol>
+    </nav>
+    <form  method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row row-sm mg-b-20">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card card-table-one">
+                <h6 class="card-title"><i data-feather="info"></i> Basic information</h6>
+                <hr>
+                <div class="row row-sm">
+                    <div class="col-xl-12">
+
+                    <div class="row row-sm">
+                    <div class="col-md-6 col-xl-6">
+                        <div class="form-group mg-b-20">
+<!--                            <label class="form-label">Firstname(s) <span class="tx-danger">*</span></label>-->
+                        {{ form.first_name|as_crispy_field}}
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-6">
+                        <div class="form-group mg-b-20">
+<!--                            <label class="form-label">Lastname <span class="tx-danger">*</span></label>-->
+                        {{ form.last_name|as_crispy_field}}
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row row-sm">
+                    <div class="col-md-6 col-xl-6">
+                        <div class="form-group mg-b-20">
+                        {{ form.email|as_crispy_field}}
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-6 phone_field">
+                        <div class="form-group mg-b-20 ">
+                            {{ form2.phone_no|as_crispy_field}}
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row row-sm">
+                    <div class="col-md-12 col-xl-12">
+                        <div class="form-group mg-b-20">
+                            <div class="select2-box mb-2">
+                                {{ form2.address|as_crispy_field}}
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
+                    <div class="row row-sm">
+
+                    <div class="col-md-6 col-xl-6">
+                        <div class="form-group mg-b-20">
+                            {{ form2.city|as_crispy_field}}
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-6">
+                        <div class="form-group mg-b-20">
+                            {{ form2.state|as_crispy_field}}
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="row row-sm">
+
+                    <div class="col-md-6 col-xl-6">
+                        <div class="form-group mg-b-20">
+<!--                            <label class="form-label">Native Language(s) <span class="tx-danger">*</span></label>-->
+                        <!-- <input type="text" name="firstname" class="form-control" placeholder="Enter Native language(s)" required> -->
+                        {{ form2.postcode|as_crispy_field}}
+
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-6">
+                        <div class="form-group mg-b-20">
+<!--                            <label class="form-label">Level of English <span class="tx-danger">*</span></label>-->
+                        <!-- <input type="text" name="firstname" class="form-control" placeholder="Enter Level of english" required> -->
+                        {{ form2.country|as_crispy_field}}
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    <button type="submit" class="btn btn-outline-indigo btn-rounded ">Save</button>
+    </form>
+
+{% endblock %}
+{% block js %}
+{% if parent_instance.country == '' %}
+<script>
+    $("<div class='afm-header-menu signout'><ul class='nav'><li class='nav-item'><a href='{% url 'logout' %}'><svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-log-out'><path d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'></path><polyline points='16 17 21 12 16 7'></polyline><line x1='21' y1='12' x2='9' y2='12'></line></svg></a><a href='{% url 'logout' %}' class='nav-link'> Sign Out</a></li></ul></div>").insertAfter(".afm-header-right");
+</script>
+{% endif %}
+<script>
+    $('#id_country').select2({
+        placeholder: 'Choose country',
+        searchInputPlaceholder: 'Search'
+    });
+
+    // Get country code by IP
+    $.get("https://ipinfo.io", function (response) {
+        if(response){
+            if(response.country){
+                select_default_country_select2('id_country', response.country);
+            }
+        }
+    //    console.log(JSON.stringify(response, null, 4));
+    }, "jsonp");
+
+    // Check default country of select2 drop-down
+    function select_default_country_select2(field_id, country){
+        if ($("#" + field_id).val() == ''){
+            $("#" + field_id).val(country);
+            $("#" + field_id).select2().trigger('change');
+        }
+    }
+
+    // Phone number field with country flags and auto updated user's country
+    var input = document.querySelector("#id_phone_no");
+    if(input){
+        window.intlTelInput(input, {
+            initialCountry: "auto",
+            geoIpLookup: function(success, failure) {
+                $.get("https://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+                  var countryCode = (resp && resp.country) ? resp.country : "us";
+                  success(countryCode);
+                });
+            },
+            hiddenInput: "phone_no",
+            separateDialCode: true,
+            utilsScript: '/static/js/utils.js',
+        });
+    }
+    // One image upload
+    document.getElementById('get_file').onclick = function() {
+    document.getElementById('id_profile_pic').click();
+    };
+
+    $(function () {
+    $("#id_profile_pic").change(function () {
+    if (this.files && this.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+    $("#image").attr("src", e.target.result);
+    console.log('model loading');
+    $("#modalCrop").modal("show");
+    console.log('model yes');
+    }
+    reader.readAsDataURL(this.files[0]);
+    }
+    });
+
+    var $image = $("#image");
+    var cropBoxData;
+    var canvasData;
+    $("#modalCrop").on("shown.bs.modal", function () {
+    $image.cropper({
+    viewMode: 1,
+    aspectRatio: 1/1,
+    minCropBoxWidth: 128,
+    minCropBoxHeight: 128,
+    ready: function () {
+    $image.cropper("setCanvasData", canvasData);
+    $image.cropper("setCropBoxData", cropBoxData);
+    }
+    });
+    }).on("hidden.bs.modal", function () {
+    cropBoxData = $image.cropper("getCropBoxData");
+    canvasData = $image.cropper("getCanvasData");
+    $image.cropper("destroy");
+    });
+
+    $(".js-zoom-in").click(function () {
+    $image.cropper("zoom", 0.1);
+    });
+
+    $(".js-zoom-out").click(function () {
+    $image.cropper("zoom", -0.1);
+    });
+
+    $(".js-crop-and-upload").click(function () {
+    var cropData = $image.cropper("getData");
+    $("#id_x").val(cropData["x"]);
+    $("#id_y").val(cropData["y"]);
+    $("#id_height").val(cropData["height"]);
+    $("#id_width").val(cropData["width"]);
+    $("#modalCrop").modal("hide");
+    // $("#ImageformUpload").submit();
+    });
+    })
+</script>
+{% endblock %}
+

@@ -1,0 +1,49 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title%}Thank you{% endblock %}
+{% block content %}
+
+<style>
+
+    .afm-header-menu ul {
+        display: none;
+    }
+
+    .afm-header-right {
+        display: none;
+    }
+
+    .signout ul {
+        display: block;
+    }
+
+</style>
+
+
+<main>
+    <section class="header_area">
+        <div class="container">
+            <div class="row align-items-center justify-content-center page-404">
+                <div class="col-xl-8 col-md-12">
+                    <div class="right-icon-img-area py-5 flex">
+                        <!-- <img src="{% static 'assets/img/404/404.png' %}" class="img-fluid" alt="404"> -->
+                        <h1 class="text-center"><i data-feather="check-circle"></i> Thank you</h1>
+                        <h5 class="text-center">Thanks {{request.user.first_name}} {{request.user.last_name}},for your registration. We'll be in touch by e-mail soon to notify you on the progress.
+                        </h5>
+                        <br>
+
+                        <h5 class="text-center">In the meantime please add: signup@theapplygroup.com to your safe senders list to avoid our e-mails being sent to your spam folder.    
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block js %}
+<script>
+    $("<div class='afm-header-menu signout'><ul class='nav'><li class='nav-item'><a href='{% url 'logout' %}'><svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-log-out'><path d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'></path><polyline points='16 17 21 12 16 7'></polyline><line x1='21' y1='12' x2='9' y2='12'></line></svg></a><a href='{% url 'logout' %}' class='nav-link'> Sign Out</a></li></ul></div>").insertAfter(".afm-header-right");
+</script>
+{% endblock %}

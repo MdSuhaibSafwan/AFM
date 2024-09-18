@@ -1,0 +1,621 @@
+{% extends 'registration/reg_base.html' %}
+
+<style>
+    a.cky-banner-element {
+        padding: 8px 30px;
+        background: #F8F9FA;
+        color: #858A8F;
+        border: 1px solid #DEE2E6;
+        box-sizing: border-box;
+        border-radius: 2px;
+        cursor: pointer;
+}
+</style>
+
+{% block content %}
+
+    <div class="container pt-5 cookie">
+    
+        
+        <h1 style="font-size: 1rem;color:#262a2e"  class="cookie-policy-h1 text-center">Student Code of Conduct</h1>
+        <p class="text-center">
+            Last Updated: 30-May-2022
+        </p>
+        &nbsp;
+
+        <p>
+            To be read by all Users, considered and agreed to in conjunction with Supeerio’s other Policies and <a style="color: rgb(58, 61, 65); font-weight: 500;" target="_blank" href="{% url 'administration:terms-and-conditions' %}">Terms & Conditions</a>, which will provide context and definitions.
+        </p>
+
+
+        <p>
+            The Student Code of Conduct applies to Supeerio Ltd. and all its subsidiary companies. The subsidiary companies are owned, controlled and operated by Supeerio Ltd with CRN: 1404630 and registered office at: 71-75 Shelton Street, Covent Garden, London, WC2H 9JQ United Kingdom.
+        </p>
+
+        <p>
+            When we mention Supeerio Ltd.  or refer to  ‘We/Our/Us’ in the Student Code of Conduct we are referring to all the relevant subsidiary companies that are responsible for upholding these terms.
+        </p>
+
+        <p>
+            <dt>The relevant Supeerio Ltd companies are;</dt> <br>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                <b style="color:#262a2e;"> The Apply Group Ltd. </b>,(‘TAG’) with CRN: 12938105 has its registered office at: Suite 209, Mayfair Point, 34 South Molton Street, London W1K 5RG, United Kingdom.
+            </dd>
+        </p>
+        <br>
+        <h2 style="font-size: 17px;color:#262a2e"><b>Expectations</b></h2>
+        
+        <p> 
+            The following behaviours/conduct are expected of all our Students to ensure all Tutors/Mentors and Students continue to feel safe and are free to study and communicate in a supportive environment, below is a list of what we expect from our Students:
+        </p>
+
+        <p>
+            <b>1. Be Respectful.</b> Respect is an important part of cultural exchange. Respect is to be shown to all Tutor/Mentors and staff members including but not limited to their: culture, English level, religion, age, gender, or sexual preference. I will use respectful language, physical gestures, and a respectful tone of voice during Tutor/Mentor lessons and while participating in activities.
+        </p>
+
+        <p>
+            <b>2. Communicate clearly at all times.</b> Students and Mentors/Tutors can agree to communicate in whichever language is most appropriate.
+        </p>
+
+        <p>
+            <b>3. Attendance of Booked Appointments.</b>  Attendance is extremely important to your learning success. Our attendance policy applies to all Students and will be enforced equally. As part of our commitment to academic quality and Applicant/Student progress, We will monitor and record student attendance for all appointments. <br>
+            Regular attendance means that Students/Applicants can take full advantage of the learning opportunities available and gain the greatest benefit from the mentoring. Poor attendance not only affects individual student performance and progress but also has a negative impact on class mentors.
+        </p>
+
+        <p>
+            <b>4. Participate in their booked sessions.</b> Students/Applicants are expected to work with the Tutor/Mentor and actively use and practise their skills in this setting. We encourage Students/Applicants to challenge themselves and not be shy or fearful of making mistakes.
+        </p>
+
+        <p>
+            <b>NOTE:</b> Applicants/Students who fail to attend may still be subject to pay in full for the Tutor/Mentor Services.
+        </p>
+
+        <p>
+            <b>5. Respect Online Tutor/Mentoring.</b> No eating or using other devices is allowed unless told otherwise by the Tutor/Mentor for a specific instance. 
+        </p>
+
+        <p>
+            <b>6. Tutor/Mentor Correspondence.</b> Students/Applicants should provide us with current contact details and respond to all Tutor/Mentor correspondence including but not limited to: e-mails, invitations for Tutor/Mentoring lessons etc. 
+        </p>
+
+        <p>
+            <b>7. Appropriate personal presentation:</b> All Students/Applicants are required to show proper attention to personal cleanliness, health, neatness, safety and suitability of clothing and appearance for online lessons. Dress and grooming shall be clean and should not:
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Cause actual distraction from or disturbance in any activity or interfere with the participation of the online lesson
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Create a hazard to the safety of him/herself or others
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Create a health hazard
+            </dd>
+        </p>
+
+        <p>
+            <b>8. No Smoking Substance-Free Environment.</b> There is strictly no smoking, consumption of drugs or alcohol whilst receiving online Tutor/Mentoring. Students/Applicants shall be “fit to learn” when attending and participating in online lessons.
+        </p>
+
+        <p>
+            <b>9. No Cell Phone during the online appointments.</b> To show respect to Tutor/Mentors cell phone use whilst in an online lesson is not allowed (including answering the phone while lessons are taking place, replying to text messages, checking social media sites). Cell phones may only be used as dictionaries as permitted by Tutor/Mentors.
+        </p>
+
+        <p>
+            <b>10. No Violent Language.</b> We prohibit bullying, threatening language, sexual or racial harassment or violence against our staff or Tutor/Mentors. <b>No Harassment of staff or Tutor/Mentors,</b> this includes bullying, sexual or racial harassment.
+        </p>
+
+        <p>
+            <b>11. No Illegal Activity.</b> We will report any violent or illegal activity to the police and the responsible student will be terminated from Our website.
+        </p>
+
+        <p>
+            <b>12. No Weapons.</b> Students/Applicants who are found in possession of weapons whilst participating in online Tutor/Mentoring will be terminated from the online lessons immediately. Any object used in a dangerous manner will also be considered a weapon.
+        </p>
+
+        <p>
+            <b>13. No extreme.</b> view or radical behaviour will be tolerated and will be reported to Our staff.
+        </p>
+
+        <p>
+            <b>14. No Inappropriate Communications.</b> When communicating with potential or hired Tutors/Mentors via any messaging service, all Student/Applicants must behave appropriately, including no obscene, rude or aggressive language/profanities to be used or violent language and the content of such messages must refer to potential mentoring/tutoring services being discussed, strictly for the purposes of considering and making applications to schools or universities.
+        </p>
+
+        <p>
+            <b>15. Services offered my Tutors/Mentors.</b> Please note that Tutors/Mentors may offer their services, and with associated costs, if any, in their absolute discretion only and this includes whether they wish to offer any to Service at all. Please respect any decisions of Services/Pricing that that Mentor/Tutor may set and feel free to accept or decline as you wish in a respectful and professional manner.
+        </p>
+
+        <h1 style="font-size: 1rem;color:#262a2e" id="tutors-coc" class="mt-5 cookie-policy-h1 text-center"><b>Tutor/Mentor Code of Conduct</b></h1>
+        <p class="text-center">
+            Last Updated: 30-May-2022
+        </p>
+        &nbsp;
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Essence Summary</b></h2>
+
+        <p>
+            This document must be read by all potential or existing Mentors/Tutors before they start any Services on Our Website(s) during the registration process. It will outline the behaviours and attitudes that we expect our Tutors/Mentors to adhere to whilst in any communication with any of our Users (inc. Students/Applicants, Parents/Guardians or other stakeholders).
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>General Standards</b></h2>
+
+        <p>
+            Ensure advice, mentoring, tutoring, general guidance or any other related Services agreed to by Students/Applicants  is high-quality, error-free, informed by first-hand knowledge of the Student’s/Applicants’s requirements.
+        </p>
+
+        <p>
+            Be solutions-oriented by raising any Student/Applicant issue immediately to Us, where possible. If possible, identify the cause(s), possible solution(s) and proposed solution(s). 
+        </p>
+
+        <p>
+            Use good judgement aligned with Our values to ensure a strive towards a successful university application journey. Be approachable to all potential and existing Students/Applicants, clients, and partners which enables them to feel comfortable asking questions and providing feedback to you. 
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Effective Communication General Standards</b></h2>
+
+        <p>
+            Show respect and professionalism in all communications to all audiences, in all aspects- tone, volume, setting (inc. timing) and content (gossip-free, solutions-oriented instead of blame oriented, respecting confidentiality)
+        </p>
+
+        <p>
+            Use your communications to build relationships with partners, Students/Applicants and other Tutors/mentors, where possible.
+        </p>
+
+        <p>
+            Use good judgement when speaking about  Students/Applicants, clients, and partners; do not generalise about nationalities, avoid gossip and talk about Student/Applicant issues publicly to others.
+        </p>
+
+        <p>
+            Receive feedback with an open mind and respond to feedback calmly and respectfully. Ensure that the feedback you provide is always constructive and respectfully communicated.
+        </p>
+
+        <p>
+            Ensure any interaction you may have with Students/Applicants, clients, and partners is courteous and respectful. Be mindful of your body language at all times and have a professional demeanour when speaking with Students/Applicants and/or their parents
+        </p>
+
+        <p>
+            Reflect optimism and focus on your communication style and your attitude. 
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Team Contribution General Standards </b></h2>
+
+        <p>
+            Our reputation has been successfully built and maintained through the efforts of our employees and Tutors/Mentors to observe high standards of business conduct. It is important to safeguard the company's reputation and image at all times. 
+        </p>
+
+        <p>
+            You should adhere to these high standards by conducting yourself in a manner that will bring credit to the Company and by avoiding any action which would discredit the Company.
+        </p>
+
+        <p>
+            Whenever you are interacting with  Students/Applicants, partners or vendors (both in-person and online), act in a manner that will inspire public trust in your integrity, impartiality and devotion to the best interests of the company and its customers. 
+        </p>
+
+        <p>
+            Create a culture of support and hold yourself accountable for both successes and failures. Be mindful of using time efficiently when using shared resources.
+        </p>
+
+        <p>
+            Be flexible and adaptable to the changing needs of the Students/Applicants. 
+        </p>
+
+        <p>
+            Support organisational initiatives, and focus your efforts on ensuring those initiatives create the most value for the overall program. Support for these events and participation is appreciated. 
+            Be a role model for your student’s behaviour.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b><u>STAFF & TUTOR/MENTOR STANDARDS</u></b></h2>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Positive Environment</b></h2>
+
+        <p>
+            <dt>We endeavour to maintain a positive work environment for staff. Each member or staff, or Tutor/Mentor plays a role in fostering this environment. The following are examples of some, but not all, conduct that can be considered unacceptable: </dt> <br>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Obtaining employment/freelance promotion by registering on Our platform on the basis of false or misleading information. 
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Violation of Our rules and policies. 
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Failure to follow lawful instructions of Ours. 
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Failure to perform assigned duties or expectations. 
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Irregular attendance, habitual lateness or unexcused absences.  
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Wasting of work materials.  
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Violation of any IT and data security policies.  
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Disclosure of confidential information.  
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Consumption, sale or distribution of alcohol or illegal drugs while working or in a work-related circumstance, 
+            </dd>
+        </p>
+        
+        <h2 style="font-size: 17px;color:#262a2e"><b>Punctuality & Attendance</b></h2>
+
+        <p>
+            Operating effectively takes cooperation and commitment from everyone. Therefore, your attendance and punctuality are very important. Unnecessary absences and lateness are disruptive to your clients and place an unfair burden on your Students/Applicants and Us, which may result in negative reviews/feedback from a Student/Applicant, Parents/your Clients.
+            We do recognise, however, that there are times when absences and tardiness cannot be avoided. In such cases, you are expected to verbally notify your student Student/Applicant and Us as early as possible. 
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Smoking, Alcohol & Drugs </b></h2>
+
+        <p>
+            We operate a no smoking policy. Smoking, including the use of e-cigarettes or vaporizers, is prohibited during online Tutor/Mentoring, We operate a zero-tolerance policy on being under the influence of alcohol or non-prescriptive drugs whilst working or engaging in workplace affairs.  
+        </p>
+
+        <p>
+            Students/Applicants shall be ‘Fit to Work’ whether at the school or at another off site location as a representative of Ours and its services. ‘Fit to Work’ means that an individual is in a physical, mental, and emotional state which enables the individual to perform the essential tasks of their work successfully or in a manner that does not threaten the safety or health of oneself, co-workers, property, or the public at large.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Solicitation & Distribution</b></h2>
+
+        <p>
+            "Working time" is the time when Students/Applicants is engaged or should be engaged; in performing his/her work tasks for Us. Solicitation of any kind by non- Students/Applicants is prohibited at all times.  
+        </p>
+
+        <p>
+            Distribution of advertising material, handbills, printed or written literature of any kind during online lessons is prohibited at all times. Group email messages requesting sponsorship support or selling personal or business items are prohibited. 
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Confidentiality, Company Information & Privacy</b></h2>
+
+        <p>
+            During the course of being a Tutor/Mentor, Tutors/Mentors may become aware of confidential information about Our business activities, including but not limited to information regarding company finances, pricing, products and new product development, software and computer programs, marketing strategies, suppliers, customers and potential customers.  
+        </p>
+
+        <p>
+            A Tutor/Mentor also may become aware of similar confidential information belonging to Us clients. It is extremely important that all such information remains confidential, and particularly not be disclosed to our competitors, if any. Any Tutor/Mentor who improperly copies, removes (whether physically or electronically), uses or discloses confidential information to anyone outside of Our company may be subject to prosecution. 
+        </p>
+
+        <p>
+            All sharing of information is subject to the General Data Protection Regulation as defined in the <a style="color: rgb(58, 61, 65); font-weight: 500;" target="_blank" href="{% url 'administration:privacy-notice' %}">Privacy Policy;</a> please refer to this exhaustive policy when in a position of doubt. 
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Conflict of Interest & Business Ethics</b></h2>
+
+        <p>
+            It is Our guidance that all  Students/Applicants avoid any conflict between their personal interests and those of Ours. The purpose of this is to ensure that Our honesty and integrity, and therefore its reputation, are not compromised. The fundamental principle guiding this section is that no  Student/Applicant should have, or appear to have, personal interests or relationships that actually or potentially conflict with the best interests of the Company. 
+        </p>
+
+        <p>
+            <dt>It is not possible to give an exhaustive list of situations that might involve violations of this guidance. However, the situations that would constitute a conflict in most cases include but are not limited to:</dt> <br>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Holding an interest in or accepting free or discounted goods from any organisation that does, or is seeking to do, business with Us, by any employee who is in a position to directly or indirectly influence either Our decision to do business or the terms upon which business would be done with such organisation. 
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Holding any interest (ownership) in an organisation that competes with Us
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Being employed by (including as a consultant) or serving on the board of any organisation which does, or is seeking to do, business with Us or which competes with Us. 
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Profiting personally, e.g., through commissions, loans, expense reimbursements or other payments, from any organisation seeking to do business with Us.
+            </dd>
+        </p>
+
+        <p>
+            This guidance is not intended to prohibit the acceptance of modest courtesies, openly given and accepted as part of the usual business amenities, for example, occasional business-related meals or promotional items of nominal or minor value. It is your responsibility to report any actual or potential conflict that may exist between you (and your immediate family) and Us. 
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Use of Facilities, Equipment and Property, Including Intellectual Property</b></h2>
+
+        <p>
+            Equipment essential in fulfilling your role as a  Student/Applicant. You are expected to have your own equipment that has the most appropriate security features. 
+        </p>
+
+        <p>
+            Clients, Students/Applicants must not use the platform for their own course work/assignments/writing exercises. The platform is for the sole purpose of providing lessons/mentoring sessions to Students/Applicants for a Service and Tutors/Mentors must not suggest to offer assistance for any other reason.
+        </p>
+
+        <p>
+            Students/Applicants also are prohibited from any unauthorised use of the Our intellectual property, such as audio and videos, print materials and software, blogs, or other documents.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Dress Code</b></h2>
+
+        <p>
+            You are expected to report to work clean and dressed according to the requirements of your position. Generally, the dress code for the  Students/Applicants is smart casual.
+        </p>
+
+        <p>
+            Please dress appropriately and bear in mind the international Mentees that you will teach/mentor and their different cultures.  Students/Applicants should ensure they adhere to Our dress code and be aware of the effect of their appearance on Mentees. They should also be extra sensitive when Tutor/Mentoring any Mentees under the age of 18.
+        </p>
+
+        <p>
+            If you attend an online lesson dressed inappropriately, you may be removed from registering onto Our platforms in the future.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Publicity/Statements to the Media</b></h2>
+
+        <p>
+            All media inquiries regarding the position of the company on any issues must be referred to Us. No  Student/Applicant, unless specifically designated by a company Director are authorised to make those statements on behalf of Us. Any Students/Applicants wishing to write and/or publish an article, paper, or other publication on behalf of the Company must first obtain approval from a company Director.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Leaving the Platform</b></h2>
+
+        <p>
+            Should you decide to leave the platform, we ask that you provide written notification to Us. You will be expected to teach out any remaining lessons you have booked with your Tutees/Mentee.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Physical Contact</b></h2>
+
+        <p>
+            It is Our guidance to advise against any physical contact with Mentees. However, we recognise that there may be circumstances where this is unavoidable, and some exceptions exist, but it is crucial that  Students/Applicants only do so in ways appropriate to their professional role. Please see the <a style="color: rgb(58, 61, 65); font-weight: 500;" target="_blank" href="{% url 'administration:safeguarding' %}">Safeguarding Policy</a> for more details and the possible exceptions regarding physical contact.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Cultural Sensitivity & Discrimination</b></h2>
+
+        <p>
+            Our organisation values the individuality of all our  Students/Applicants, clients, and partners. We are committed to giving all members of our community every opportunity to be the ‘best they can be’. Within our environment of learning and healthy interaction, we do not tolerate any lack of sensitivity, disrespect, bullying or harassment of any kind or any form of discrimination due to age, religion, sex, race, or sexual orientation. These provisions apply to all employment-related interactions including recruitment, selection, promotion, change of position, termination of contract, compensation, training, and in general, all working conditions 
+        </p>
+        
+        <h2 style="font-size: 17px;color:#262a2e"><b><u>PERSONAL COMMUNICATION WITH STUDENTS/APPLICANTS</u></b></h2>
+
+        <p>
+            <dt>All Tutors/Mentors must be aware of the potential dangers of personal contact (i.e. contact beyond what is reasonably expected in performing your agreed Services) with Students/Applicants, and the following advice from child protection/ teaching agencies: 
+            </dt> <br>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                If Students/Applicants try to make direct contact with Tutors/Mentors on their personal email or phone, this should be discouraged and reported to Us.
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Extreme caution should be exercised in connection with internet sites/messaging systems, and inappropriate communication with all individuals under 18, or others with whom you may be in a position of trust, should be avoided. This also extends to taking part or attempting to take part in online gaming with Students/Applicants (or their associates), who may well be underage or unaware that you are an adult. 
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Take care to avoid becoming personally involved in a student’s personal affairs. Remember that  Tutees/Mentees profiles, blog posts on Our platforms can be viewed by anyone, and people working with children should be especially careful about their personal web presence, checking any relevant privacy settings carefully. The legal responsibilities of people working with minors extend past the end of any contract they have with Us.
+            </dd>
+        </p>
+
+        <p>
+            Students/Applicants may be able to find information about the personal lives of Tutors/Mentors that may be inappropriate for minors and may damage the working relationship between themselves.
+        </p>
+
+        <p>
+            By allowing Students/Applicants access to friendship groups, Tutors/Mentors may be inadvertently introducing them to a wider circle of adults, over which Tutors/Mentors have no control, and may facilitate inappropriate contacts.  
+        </p>
+
+        <p>
+            Sexual predators and bullies are known to use the information available on web pages and social networking sites to gain information about children, such as their interests, tastes and location. A Tutor/Mentor who posts information about Students/Applicants (e.g. photos of their summer holiday, names etc.) on a personal web page, including personal profile, public profiles and blog posts on Our platforms may make them vulnerable to inappropriate attention. 
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Mentor/Tutor Guidance</b></h2>
+
+        <p>
+            The onus is on Tutors/Mentors – not the Students/Applicants – to distance themselves from any potentially inappropriate situation. Students/Applicants are clients of Tutors/Mentors. Tutors/Mentors  should not attempt to instigate private contact with Mentees of any age at any time.
+        </p>
+
+        <p>
+            Tutors/Mentors must not give their personal email/postal addresses or telephone number to Students/Applicants, or ask for theirs, during or after any Services they may provide to the Students/Applicants. 
+        </p>
+
+        <p>
+            Tutors/Mentors must use common sense and professional judgement to avoid circumstances that could be perceived to be of an inappropriate nature. 
+        </p>
+
+        <p>
+            Tutors/Mentors must not - by any means or in any circumstances - make, view or access illegal or inappropriate images. Tutors/Mentors must not distribute (by any means) images or information about Students/Applicants of any age. This includes the use of images or details on blogs, social networking sites, messaging systems or any internet sites. 
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b><u>USE OF TECHNOLOGY</u></b></h2>
+
+        <p>
+            This part of the document will outline the behaviours and attitudes that we expect our  Students/Applicants to adhere to.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Use of Social Media</b></h2>
+
+        <p>
+            <dt>We respect the right of any employee/Tutors/Mentors to maintain a blog or web page or to participate in social networking. However, to protect Our interests and ensure employees focus on their job duties, employees/Tutors/Mentors must adhere to the following rules: </dt> <br>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                All rules regarding confidential and proprietary business information apply in full to blogs, web pages, social networking, Twitter and similar sites. 
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Any information that cannot be disclosed through a conversation, a note or an e-mail also cannot be disclosed in a blog, web page, social networking, Twitter or similar site.
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Whether a  Student/Applicant is posting something on their own blog, web page, social networking site or on someone else's, if the employee mentions information involving a  Student/Applicant, client, or partner and also expresses either a political opinion or an opinion regarding the company’s actions, the poster must include a disclaimer. The poster should specifically state that the opinion expressed is his/her personal opinion and not reflective of the company’s position. 
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Any conduct that is impermissible under the law if expressed in any other form or forum is impermissible if expressed through a blog, web page, social networking, or similar site. For example, posted material that is discriminatory, obscene, defamatory, libellous or threatening is forbidden.  
+            </dd>
+        </p>
+
+        <p>
+            Students/Applicants must use their best judgement.  Students/Applicants with any questions should review the guidelines above and/or consult with Us.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Personal Telephone Calls/Messages</b></h2>
+
+        <p>
+            Disruptions during  Students/Applicants time can lead to errors and delays. Therefore, we ask that personal telephone calls and text messaging must be kept to a minimum, and only be made or received after Tutor/Mentoring time, or during breaks between Tutor/Mentoring. 
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b><u>WORKING WITH MINORS</u></b></h2>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Interactions with Minors</b></h2>
+
+        <p>
+            We create an online environment where the welfare of children and young people is of paramount importance. All children have the right to protection from abuse regardless of age, gender, ethnicity, disability, sexuality or beliefs. All  Students/Applicants, either paid or voluntary, should be aware of and adhere to Our <a style="color: rgb(58, 61, 65); font-weight: 500;" target="_blank" href="{% url 'administration:safeguarding' %}"> Safeguarding Policy.</a> 
+        </p>
+
+        <p>
+            All concerns and allegations of abuse will be taken seriously and responded to, recorded and actioned appropriately. We have a commitment to safer recruitment, selection and vetting. 
+        </p>
+
+        <p>
+            All Tutors/Mentors must assume they are in communication with a younger person, below the age of 18, at all times, unless they are informed by the Student/Applicant otherwise.
+        </p>
+        
+        <h2 style="font-size: 17px;color:#262a2e"><b>Responding to a Minor</b></h2>
+
+        <p>
+            Stay calm-sometimes issues are raised which, whilst seemingly complex, are generally safeguarding matters and not necessarily a child protection issue.
+        </p>
+
+        <p>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                These matters should be responded to by offering a supportive response and where necessary or relevant, refer them to a member of the senior management team,
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                When a learner self-discloses a matter that constitutes a potential or alleged situation of abuse, the Tutor/Mentor must ensure there is a safe space (virtually) for the student to talk in confidence. This may mean you need to ensure you are not in a public/group meeting, etc.
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Promises of confidentiality must not be given. Tell the learner that you have a duty to pass on the information, only to those who need to know.
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Listen carefully to what is said
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Do not interview them, but ask what happened, keep questions to a minimum and obtain sufficient facts to understand what is being alleged 
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Allow the child to continue at their own pace
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Ask questions for clarification only and always avoid asking leading questions (questions that suggest a particular answer). Do not make assumptions or offer explanations 
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Remember that an allegation of child abuse may lead to a criminal investigation, so do not attempt to personally investigate any allegations of abuse
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Reassure the child that they have done the right thing in telling you
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Tell them what you will do next and with whom the information will be shared
+            </dd>
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Advice</b></h2>
+
+        <p>
+            Tutors/Mentors must avoid actions/situations that might be misconstrued, bearing in mind that even perfectly innocent actions can sometimes be misinterpreted.
+        </p>
+
+        <p>
+            Staff, Tutors/Mentors should be aware of the effect of their appearance on other Students/Applicants.
+        </p>
+        
+        <h2 style="font-size: 17px;color:#262a2e"><b>Applicants/Mentors Must Not</b></h2>
+
+        <p>
+            
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                <b>Physically meet</b> any Student/Applicant of any age and all communication is to be made via Our platform 
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                <b>Allow themselves</b>  to be drawn into any inappropriate behaviour, or make suggestive or derogatory remarks or gestures in front of children or young people 
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                <b>Show favouritism</b> to any individual or group of individuals 
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                <b>Swear or make racist, sexist or blasphemous remarks</b> within earshot of other  Students/Applicants or Mentees
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                <b>Smoke or consume alcohol,</b> in front of or in the company of Mentees or allow any effects of these practises to affect them in any way 
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                <b>Take a chance,</b> when common sense, policy or practice suggests another more prudent approach  
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                <b>Endanger the well-being</b> of children/young people through action or inaction, whether intentional or not 
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                <b>When communicating</b> with potential or existing Students/Applicants via any messaging service, all Tutors/mentors must behave appropriately, with no obscene, rude or aggressive language/profanities to be used or violent language and the content of such messages must relate to potential mentoring/tutoring Services being discussed, strictly for the purposes of considering and making applications to schools or universities.  
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                <b>No Inappropriate Communications.</b> When communicating with potential or hired Tutors/Mentors via any messaging service, all Student/Applicants must behave appropriately, including no obscene, rude or aggressive language/profanities to be used or violent language and the content of such messages must refer to potential mentoring/tutoring services being discussed, strictly for the purposes of considering  and making applications to schools or universities.  
+            </dd>
+            
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Personal Relationships/Sharing Personal Information</b></h2>
+
+        <p>
+            While we encourage Tutors/mentors to be friendly and welcoming to all potential Students/Applicants, including their Client, it is against our guidance to have any intimate relationship with any User, of any age. 
+        </p>
+
+        <p>
+            If friendships are formed during a Student’s/Applicant’s with us then the Tutor/Mentor should always remember to keep a professional relationship with the Student/Applicant at all times.
+        </p>
+
+        <p>
+            <dt>Please be aware of the potential dangers of personal contact (i.e. contact beyond what is reasonably expected in performing your duties) with Students/Applicants, and the following advice from child protection/ teaching agencies:</dt> <br>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                If Students/Applicants do try to make contact with you (Tutor/Mentor) on your personal email or phone, discourage this and inform senior management as soon as possible
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Exercise extreme caution in connection with internet sites/messaging systems, and avoid inappropriate communication with all individuals under 18 or others with whom you may be in a position of trust.
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                This also extends to taking part or attempting to take part in online gaming with Students/Applicants or their associates, who may well be underage or unaware that you, in your capacity as a Tutor/Mentor are an adult. 
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Take care to avoid becoming personally involved in a Student’s/Applicant’s personal affairs. 
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Remember that your (Tutors/Mentors) public profiles can be viewed by anyone, and people working with children should be especially careful about their personal web presence, checking any relevant privacy settings carefully. 
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                The legal responsibilities of people working with minors extend past the end of any contract they may have with Students/Applicants. 
+            </dd>
+        </p>
+</div>
+    
+
+{% endblock %}

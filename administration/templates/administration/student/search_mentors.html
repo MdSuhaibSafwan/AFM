@@ -1,0 +1,619 @@
+{% extends 'base/base.html' %}
+{% block title %}Search Alumni{% endblock %}
+{% block css %}
+<style>
+form {
+    display: contents;
+}
+div.btn,.filter {
+    margin-right: 5px;
+}
+.facebook-this, .tweet-this{
+    display:contents;
+}
+#empty-row{
+    display:none;
+}
+#empty-row2{
+    display:none;
+}
+.select2-container .select2-selection--single {
+  width: 100%;
+}
+.select2-container--open{
+  z-index: 1051 !important; /* Set the z-index value */
+}
+.modal-open .select2-container {
+  width: auto !important; /* Set the width to auto */
+  min-width: 100% !important; /* Set the min-width to 100% */
+}
+
+
+</style>
+{% endblock %}
+{% block content %}
+{% load administration_extras %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% load social_share %}
+{% if request.user.user_type == 12 %}
+<div class="row mr-b-20 mg-b-10">
+    <div class="col-12 col-sm-12">
+        <div class="all-app-list pro-detail">
+            <nav class="nav nav-pills nav-fill">
+                <a class="nav-item nav-link active" href="#"><h5><i data-feather="award"></i> Search Alumni</h5></a>
+                <a class="nav-item nav-link" href="{% url 'administration:search_students_twfl' %}" data-toggle="tooltip" data-placement="bottom"
+                   title="This feature will come soon">
+                    <h5><i data-feather="book"></i> Search Students currently studying at IFG</h5>
+                </a>
+            </nav>
+        </div>
+    </div>
+</div>
+{% else %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb breadcrumb-style1">
+    <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="#">Search Alumni</a></li>
+  </ol>
+</nav>
+{% endif %}
+<!--<div class="row row-sm mg-b-10 search-filter-box">-->
+<!--  <div class="col-12 col-lg-12">-->
+<!--    <div class="card card-dashboard-twentysix mg-b-10">-->
+<!--      <div class="card-body">-->
+<!--        <div class="d-flex justify-content-lg-between align-items-lg-center table-responsive">-->
+<!--          <div class="filter-div d-flex justify-content-lg-between align-items-lg-center">-->
+<!--            <button class="btn btn-rounded  btn-md btn-indigo filter"><i data-feather="filter"></i> Filters</button>-->
+<!--            <div id="mySelect_studying_in"></div>-->
+<!--            <div id="" class="btn btn-rounded btn-lg btn-indigo">Medicine</div>-->
+<!--          </div>-->
+<!--          <div class="reset-txt-area">-->
+<!--            <a href="{% url 'administration:search_mentors_twfl' %}">Resets Filters</a>-->
+<!--            {% if request.user.user_type == 3 %}/<a-->
+<!--              href="{% url 'administration:default_search_twfl' request.user.slug %}">Default Filters</a>-->
+<!--            {% endif %}-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<div class="row row-sm mg-b-10">
+  <div class="col-md-12 mb-3 mb-md-4">
+      <div class="d-flex justify-content-lg-between align-items-lg-center table-responsive">
+          <div class="filter-div d-flex justify-content-lg-between align-items-lg-center">
+            <strong>Search Alumni using the following filters</strong>
+          </div>
+          <div class="reset-txt-area">
+        <a href="{% url 'administration:search_mentors_twfl' %}" class="btn btn-rounded btn-md btn-outline-indigo"
+        >
+            Resets Filters</a>
+        {% if request.user.user_type == 3 %}
+    <!--            <a href="{% url 'administration:default_search_twfl' request.user.slug %}">Default Filters</a>-->
+        {% endif %}
+      </div>
+      </div>
+  </div>
+  <form id="search-mentor-form">
+<!--    <div class="col-md-12 row mb-5 pr-0">-->
+<!--      <div class="select2-box col-md-6 col-lg-3">-->
+<!--        {% render_field form.keyword placeholder="search by alumni name" class='form-control keyword' %}-->
+<!--      </div>-->
+<!--      <div class="col-sm-1">-->
+<!--          <button type="submit" class="btn btn-indigo btn-block btn-rounded search-icon"><i data-feather="search"></i></button>-->
+<!--      </div>-->
+
+<!--    </div>-->
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="select2-box mb-2">
+        <label>{{form.admin__spoken_languages.label}}</label>
+        {% render_field form.admin__spoken_languages placeholder=form.spoken_languages.label class='form-control language' %}
+        <span class="small">You may select more than one</span>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="select2-box mb-2">
+        <label>{{form.admin__country.label}}</label>
+        {% render_field form.admin__country class='form-control country' %}
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-4">
+      <div class="select2-box mb-2">
+        <label>{{form.studying_in_countries.label}}</label>
+        {% render_field form.studying_in_countries placeholder=form.studying_in_countries.label class='form-control country_studying' %}
+        <span class="small">You may select more than one</span>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-2">
+      <div class="select2-box mb-2">
+        <label>{{form.university_start_year.label}}</label>
+        {% render_field form.university_start_year class='form-control university_start_year' %}
+      </div>
+    </div>
+<!--    <div class="col-sm-12 col-md-6 col-lg-3">-->
+<!--      <div class="select2-box mb-2">-->
+<!--        {% render_field form.programme_level placeholder=form.programme_level.label class='form-control levels' %}-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="col-sm-12 col-md-6 col-lg-3">-->
+<!--      <div class="select2-box mb-2">-->
+<!--        <label>{{form.currently_studying.label}}</label>-->
+<!--          <input class='form-control levels' type="text" value="Medicine" disabled>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--        <div class="col-12 col-md-6 col-lg-1">-->
+<!--          <div class="select2-box mb-2">-->
+<!--            {% render_field form.are_you_graduated placeholder=form.username.label class='form-control are_you_graduated' %}-->
+<!--          </div>-->
+<!--        </div>-->
+<!--    <div class="col-sm-12 col-md-12 col-lg-1">-->
+<!--      <button type="submit" class="btn btn-indigo btn-block btn-rounded"><i data-feather="search"></i></button>-->
+<!--    </div>-->
+  </form>
+</div>
+{% if personal_info_list %}
+{% for x in mentors %}
+    {% for y in personal_info_list %}
+        {% if x.admin.slug == y.admin.user_slug %}
+        <div class="row row-sm mg-b-20 ">
+            <div class="col-12 col-md-12 col-lg-12">
+                <div class="card card-dashboard-twentysix mg-b-10">
+                    <div class="card-body pd-t-15 pd-b-15 pd-l-30 pd-r-30">
+                        <div class="row d-flex align-items-md-center">
+                            <div class="col-md-6 col-lg-4 col-xl-4"> 
+                                <div class="afm-mentor-student-details pd-b-15 pd-t-15">
+                                    <div class="afm-mentor-student-img">
+                                        {% if y.admin.profile_pic %}
+                                        <img src="{{y.admin.profile_pic.url}}" alt="{{y.admin.first_name}}">
+                                        {% else %}
+                                        <img src="{% static 'images/default_profile.png' %}" alt="{{y.admin.first_name}}">
+                                        {% endif %}
+                                    </div>
+                                    <div class="mentor-content d-flex align-items-md-center">
+                                        <div>
+                                            <div class="pd-b-10">
+                                                <h4 class="d-inline text-capitalize">{{y.admin.first_name}} </h4>
+                                                    <span class="d-block mg-t-10">Student of {{y.currently_studying|getsubject}}</span>
+                                            </div>
+                                            <div class="pd-b-5 pd-t-5">
+                                                <span class="tx-medium">From:</span> <span class="country-flags"> {{y.admin.country.name}} <img
+                                                    src="{{y.admin.country.flag}}" alt="{{y.admin.country.name}}"> </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 col-xl-3">
+                                <div class="pd-b-15 pd-t-15 text-center text-md-left">
+                                    <div>
+                                        <div class="pd-b-5 pd-t-5">
+                                            <span class="tx-medium">Spoken Languages:</span> <span>{{y.admin.spoken_languages.all|print_languages}} </span>
+                                        </div>
+                                        <div class="pd-b-5 pd-t-5">
+                                            <span class="tx-medium">Currently Living In:</span> <span class="country-flags"> {{y.admin.currently_living_in.name}} <img
+                                                src="{{y.admin.currently_living_in.flag}}" alt="{{y.admin.currently_living_in.name}}"> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 col-xl-3">
+                                <div class="pd-b-15 pd-t-15  text-center text-md-left">
+                                    <div>
+                                        <div class="pd-b-5 pd-t-5">
+                                            <span class="tx-medium">Studying in:</span> <span class="country-flags"> {{y.studying_in.name}} <img
+                                                src="{{y.studying_in.flag}}" alt="{{y.studying_in.name}}"> </span>
+                                        </div>
+                                        <div class="pd-b-5 pd-t-5">
+                                            <span class="tx-medium">Currently Studying:</span> <span>{{y.currently_studying|getsubject}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-2 col-xl-2 justify-content-center align-items-md-center d-flex">
+                                <div class="uni-logo pd-b-15 pd-t-15">
+                                    <div class="text-center">
+                                        <!--                                                      <h4>University</h4>-->
+                                    </div>
+                                    <div class="text-center">
+                                        {% if x.institute_name %}
+                                        {% with my_string=x.institute_name|slugify %}
+                                        {% with image_url='assets/img/logo/university/'|add:my_string|add:'.png' %}
+                                        {% if image_url|check_if_file_exists %}
+                                        <img src="{% static 'assets/img/logo/university/'|add:my_string|add:'.png' %}"
+                                             alt="{{x.institute_name}}" style="max-height:100px;">
+                                        {% else %}
+                                        <img src="{% static 'img/university/afu-university-icons.png' %}"
+                                             alt="{{x.institute_name}}" style="max-height:100px;">
+                                        {% endif %}
+                                        {% endwith %}
+                                        {% endwith %}
+                                        {% else %}
+                                        <img src="{% static 'img/university/afu-university-icons.png' %}"
+                                             alt="{{x.institute.institute_name}}" style="max-height:100px;">
+                                        {% endif %}
+                                        <p>
+                                            {% if x.institute %}
+                                            {{x.institute.institute_name}}
+                                            {% else %}
+                                            {{x.institute_name}}
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line-3">
+                        <div class="last-edited">
+                          <div class="row">
+                             <div class="col-md-6 col-lg-6 col-xl-6 col-sm-6 text-left pd-l-30">
+                                 <p>
+                                     <i data-feather="user"></i>Alumnus ID :
+                                     <strong class="text-uppercase">{{x.admin.slug}} </strong>
+                                     {% if y.university_start_year %}
+                                     | Left IFG in {{ y.university_start_year|getifnone}}
+                                     {% endif %}
+                                 </p>
+                             </div>
+                             <div class="col-md-6 col-lg-6 col-xl-6 col-sm-6 text-right pd-r-30">
+<!--                                    <a href="https://booking.theapplygroup.com/?mentor-id={{x.admin.slug}}" class="btn btn-rounded btn-md btn-indigo" target="_blank"> Book an Appointment</a>-->
+<!--                                <a class="btn btn-rounded btn-md btn-outline-indigo"-->
+<!--                                   href="{{ x.admin.slug|getmentorprofileurl }}" target="_blank">View Profile</a>-->
+                                 <a href="{% url 'messaging:comment_mentor_public_profile_twfl' x.admin.slug %}"
+                                       class="btn btn-rounded btn-md btn-indigo"> Send a Message</a>
+                             </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+{% else %}
+<div style="text-align:center;">
+  <p>Please broaden your search criteria for a great choice of potential mentors.</p>
+</div>
+{% endif %}
+
+<div class="">
+  <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+  <div class="d-flex justify-content-center">
+    <ul class="pagination pagination-circled">
+      {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link"
+          href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}"><i
+            data-feather="arrow-left"></i></a></li>
+      {% endif %}
+      {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link"
+          href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}"><i
+            data-feather="arrow-right"></i></a></li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+
+
+
+
+{% endblock %}
+
+
+{% block js %}
+<script>
+
+  $('#id_native_languages').select2({
+    placeholder: 'Select Language',
+    searchInputPlaceholder: 'Search'
+  });
+  $('#id_currently_living_in').select2({
+    placeholder: 'Select Country',
+    searchInputPlaceholder: 'Search'
+  });
+  $('#id_currently_studying_course').select2({
+    placeholder: 'Select Course',
+    searchInputPlaceholder: 'Search'
+  });
+  $('#id_admin__spoken_languages').select2({
+    placeholder: 'Select Language',
+    searchInputPlaceholder: 'Search'
+  });
+  $('#id_admin__country').select2({
+    placeholder: 'Select Country',
+    searchInputPlaceholder: 'Search',
+    allowClear: true,
+  });
+  $('#id_studying_in').select2({
+    placeholder: 'Select Country',
+    searchInputPlaceholder: 'Search'
+  });
+  $('#id_currently_studying').select2({
+    placeholder: 'Subject Interest',
+    searchInputPlaceholder: 'Search',
+  });
+  $('#id_programme_level').select2({
+    placeholder: 'Programme Level',
+    minimumResultsForSearch: -1
+  });
+  $('#id_are_you_graduated').select2({
+    placeholder: 'Select Mentor',
+    minimumResultsForSearch: -1
+  });
+  $('#id_university_start_year').select2({
+    placeholder: 'Select Year',
+    searchInputPlaceholder: 'Search',
+  });
+  $('#id_studying_in_countries').select2({ placeholder: "Select Country", });
+
+  // Additional code for adding placeholder in search box of select2
+  (function ($) {
+    var Defaults = $.fn.select2.amd.require('select2/defaults');
+
+    $.extend(Defaults.defaults, {
+      searchInputPlaceholder: ''
+    });
+
+    var SearchDropdown = $.fn.select2.amd.require('select2/dropdown/search');
+
+    var _renderSearchDropdown = SearchDropdown.prototype.render;
+
+    SearchDropdown.prototype.render = function (decorated) {
+
+      // invoke parent method
+      var $rendered = _renderSearchDropdown.apply(this, Array.prototype.slice.apply(arguments));
+
+      this.$search.attr('placeholder', this.options.get('searchInputPlaceholder'));
+
+      return $rendered;
+    };
+
+  })(window.jQuery);
+</script>
+<script>
+  $(function () {
+    'use strict'
+
+    // Toggle Switches
+    $('.az-toggle').on('click', function () {
+      $(this).toggleClass('on');
+    })
+  });
+
+// Mentor link
+$(document).ready(function() {
+  $('a.mentor-link').each(function(index, value) {
+    link = $(this).attr("href");
+    $(this).closest('.profile-share-via').closest('.facebook-this').find('a').hide();
+  });
+});
+</script>
+<script>
+  // single value
+  var test0 = $('.language');
+  test0.on("select2:select", function (event) {
+    var value = $(event.currentTarget).find("option:selected").text();
+
+    $('#mySelect_spoken_languages').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removelnge"> x</span>');
+    $('.removelnge').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".language").select2('val', 'All');
+    });
+
+    //$('#mySelect').text( "<label class='btn btn-rounded btn-lg btn-indigo'>" + value +"</label>");
+  });
+
+  if ($('#id_spoken_languages').val() != '') {
+    var value = $('#id_spoken_languages').find("option:selected").text();
+    var element = $('#id_spoken_languages').find("option:selected");
+    $('#mySelect_spoken_languages').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removelnge"> x</span>');
+    $('.removelnge').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".language").select2('val', 'All');
+    });
+  }
+
+  var test1 = $('.country');
+  test1.on("select2:select", function (event) {
+    var value = $(event.currentTarget).find("option:selected").text();
+
+    $('#mySelect_studying_in').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removecountry"> x</span>');
+    $('.removecountry').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".country").select2('val', 'All');
+
+    });
+    //$('#mySelect').text( "<label class='btn btn-rounded btn-lg btn-indigo'>" + value +"</label>");
+    console.log(value);
+  });
+  if ($('#id_admin__country').val() != '') {
+    var value = $('#id_admin__country').find("option:selected").text();
+    var element = $('#id_admin__country').find("option:selected");
+    $('#mySelect_studying_in').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removecountry"> x</span>');
+    $('.removecountry').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".country").select2('val', 'All');
+    });
+  }
+
+  var test2 = $('.course');
+  test2.on("select2:select", function (event) {
+    var value = $(event.currentTarget).find("option:selected").text();
+
+    $('#mySelect_subject').text(value + ' ').addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removecrse"> x</span>');
+    $('.removecrse').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".course").select2('val', 'All');
+    });
+    //$('#mySelect').text( "<label class='btn btn-rounded btn-lg btn-indigo'>" + value +"</label>");
+    console.log(value);
+  });
+  if ($('#id_currently_studying').val() != '') {
+    var value = $('#id_currently_studying').find("option:selected").text();
+    var element = $('#id_currently_studying').find("option:selected");
+    $('#mySelect_subject').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removecrse"> x</span>');
+    $('.removecrse').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".course").select2('val', 'All');
+    });
+  }
+
+  var test2 = $('.levels');
+  test2.on("select2:select", function (event) {
+    var value = $(event.currentTarget).find("option:selected").text();
+
+    $('#mySelect_level').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removelevel"> x</span>');
+    $('.removelevel').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".levels").select2('val', 'All');
+    });
+    //$('#mySelect').text( "<label class='btn btn-rounded btn-lg btn-indigo'>" + value +"</label>");
+    console.log(value);
+  });
+
+  if ($('#id_programme_level').val() != '') {
+    var value = $('#id_programme_level').find("option:selected").text();
+    var element = $('#id_programme_level').find("option:selected");
+    $('#mySelect_level').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="removelevel"> x</span>');
+    $('.removelevel').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".levels").select2('val', 'All');
+    });
+  }
+
+  var test2 = $('.country_studying');
+  test2.on("select2:select", function (event) {
+    var value = $(event.currentTarget).find("option:selected").text();
+
+    $('#mySelect_country_studying').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="remove_country_studying"> x</span>');
+    $('.remove_country_studying').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".country_studying").select2('val', 'All');
+    });
+    //$('#mySelect').text( "<label class='btn btn-rounded btn-lg btn-indigo'>" + value +"</label>");
+    console.log(value);
+  });
+
+  if ($('#id_studying_in').val() != '') {
+    var value = $('#id_studying_in').find("option:selected").text();
+    var element = $('#id_studying_in').find("option:selected");
+    $('#mySelect_country_studying').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="remove_country_studying"> x</span>');
+    $('.remove_country_studying').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".country_studying").select2('val', 'All');
+    });
+  }
+
+  var test2 = $('.are_you_graduated');
+  test2.on("select2:select", function (event) {
+    var value = $(event.currentTarget).find("option:selected").text();
+
+    $('#mySelect4').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="remove_are_you_graduated"> x</span>');
+    $('.remove_are_you_graduated').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".are_you_graduated").select2('val', 'All');
+    });
+    //$('#mySelect').text( "<label class='btn btn-rounded btn-lg btn-indigo'>" + value +"</label>");
+    console.log(value);
+  });
+
+  if ($('#id_are_you_graduated').val() != '') {
+    var value = $('#id_are_you_graduated').find("option:selected").text();
+    var element = $('#id_are_you_graduated').find("option:selected");
+    $('#mySelect4').text(value).addClass('btn btn-rounded btn-lg btn-indigo').append('<span class="remove_are_you_graduated"> x</span>');
+    $('.remove_are_you_graduated').click(function (e) {
+      e.preventDefault();
+      $(this).closest('.btn').empty().removeClass('btn btn-rounded btn-lg btn-indigo');
+      $(".are_you_graduated").select2('val', 'All');
+    });
+  }
+
+$('#search-mentor-form select').change(function(){
+    $('#search-mentor-form').submit();
+});
+</script>
+<script type="text/javascript">
+ $(document).ready(function() {
+        function updateEmptyFormIDs(element,totalForms){
+        var thisInput = element
+        //get current form input name
+        var currentName = element.attr('name')
+
+        // replace prefix with actual number
+        var newName = currentName.replace(/__prefix__/g, totalForms)
+        thisInput.attr('name', newName)
+        thisInput.attr('id', "id_" + newName)
+
+        // create new form  row id
+        var newFormRow = element.closest(".new-form-row");
+        var newRowID = "row_id_" + newName;
+        newFormRow.attr("id", newRowID);
+
+        // add class for newbasic animations
+        newFormRow.addClass("new-parent-row");
+
+        // update form group id
+        var parentDiv = element.parent();
+        parentDiv.attr("id", "parent_id_" + newName)
+
+        // update label id
+        var inputLabel  = parentDiv.find("label")
+        inputLabel.attr("for", "id_"  + newName)
+
+        return newFormRow
+
+    };
+
+        $('.add-new-form').click(function(e) {
+        e.preventDefault()
+
+        var formId = "id_form-TOTAL_FORMS";
+        var totalForms = parseInt($('#' + formId).val());
+<!--        $('#form-head').html('Question-' + (totalForms + 1));-->
+
+        var emptyRow = $("#empty-row").clone();
+
+        // remove id from new form
+        emptyRow.attr("id", null)
+        var newFormRow;
+        emptyRow.find("input, select, textarea").each(function() {
+            newFormRow = updateEmptyFormIDs($(this), totalForms)
+        })
+        emptyRow.html(emptyRow.html().replace(/__prefix__/g,totalForms));
+
+        $(".new-form-row:last").after(newFormRow);
+
+        $('#' + 'id_form-TOTAL_FORMS').val(totalForms + 1);
+        });
+
+        // for pre-field form
+        var formId = "id_form-TOTAL_FORMS";
+        var totalForms = parseInt($('#' + formId).val());
+
+        for (let i = 0; i < totalForms; i++) {
+            if(i == 0){ $("#id_form-"+ i + "-q1").attr("placeholder", "Write your 1st question here*"); }
+            else if(i == 1){ $("#id_form-"+ i + "-q1").attr("placeholder", "Write your 2nd question here*"); }
+            else if(i == 2){ $("#id_form-"+ i + "-q1").attr("placeholder", "Write your 3rd question here*"); }
+            else{ $("#id_form-"+ i + "-q1").attr("placeholder", "Write your question here"); }
+            if (i<3){
+                  $("#id_form-"+ i + "-q1").attr("required", "required");
+            }
+        }
+})
+
+</script>
+{% endblock %}

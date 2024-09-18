@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+{% block title%}Institute Registration-Page{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item">Institute Registration Page</li>
+    </ol>
+</nav>
+<form role="form" method="post" enctype="multipart/form-data">
+    <div class="row row-sm mg-b-20">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card">
+                {% csrf_token %}
+
+                <div class="card-body">
+                    {{ form|crispy }}
+                    {{ form2|crispy }}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-outline-indigo btn-rounded">Sign Up</button>
+
+</form>
+
+
+{% endblock %}
+{% block js %}
+
+<script>
+    $('#id_countries_available').select2();
+    $('#id_country').select2({
+        placeholder: 'Choose country',
+        searchInputPlaceholder: 'Search'
+      });
+
+</script>
+{% endblock %}

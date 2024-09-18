@@ -1,0 +1,157 @@
+{% extends 'base/base.html' %}
+{% block title %}Blog List{% endblock %}
+{% block content %}
+{% load widget_tweaks %}
+{% load administration_extras %}
+{% load static %}
+    <div class="az-content pd-y-20">
+        <div class="container">
+           <div class="az-content-body">
+              <nav aria-label="breadcrumb">
+                 <ol class="breadcrumb breadcrumb-style1">
+                    <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="#">Blog List</a></li>
+                 </ol>
+              </nav>
+              <div class="list-user">
+                  {% if post_list %}
+                 <div class="table-responsive list-border">
+                    <table class="table table-hover mg-b-0">
+                       <thead>
+                          <tr class="box-shadow-none">
+                             <th>Image</th>
+                             <th>Title</th>
+                             <th>Sub Title</th>
+<!--                             <th>Content</th>-->
+                              <th>Author</th>
+<!--                                <th>Publish</th>-->
+                             <th>Status</th>
+                              <th class="text-right">Action</th>
+                          </tr>
+                       </thead>
+                       <tbody>
+                        {% for post in post_list %}  
+                          <tr>
+                             <td>
+                                <div class="az-img-user"> <img src="{% if post.feature_image %}{{ post.feature_image.url }}
+{% else %} /static/images/default_profile.png {% endif %}" alt="alex" class="img-fluid"></div>
+                             </td>
+                             <td><h6><a href="{% url 'blogs:PostDetail' post.slug %}">{{ post.title }}</a></h6></td>
+                             <td><h7>{{ post.sub_title|getifnone }}</h7></td>
+<!--                              <td>{{post.content|safe|slice:":50"}}-->
+<!--                                <a href="{% url 'blogs:PostDetail' post.slug %}" style="font-size: 10px;color:#FF0000" target="_blank">.......read more</a>-->
+<!--                                </td>-->
+
+                              <td><strong><a href="{% url 'administration:mentor_profile' post.author.admin.slug %}">{{ post.author.admin.first_name}} {{ post.author.admin.last_name}}</a></strong></td>
+<!--                             <td>{{post.post_status|getpoststatus}}</td>-->
+                              <td>
+<!--                                <div class="on-off-toggle">-->
+<!--                                    <label for="bopis" class="on-off-toggle__slider"></label><input class="on-off-toggle__input" type="checkbox" id="bopis" />-->
+<!--                                   -->
+<!--                                   -->
+<!--                                </div>-->
+                                 <form method="post" action="{% url 'blogs:change_status_publish_twfl' post.id %}" id="form-{{post.id}}" onsubmit="">
+                                  {% csrf_token %}
+                                  <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="button-{{post.id}}" onchange="change_is_active('form-{{post.id}}')" {% if post.post_status == 2 %}checked{% endif %} >
+                                    <label class="custom-control-label" for="button-{{post.id}}" >{{post.post_status|getpoststatus}}</label>
+                                  </div>
+                                  </form>
+<!--                                 <a href="#" data-toggle="modal" data-target="#detail{{post.id}}"><button class="btn btn-rounded btn-block btn-md btn-indigo">Send me a message</button></a>-->
+
+
+
+                                    <!-- Modal -->
+
+<!--                                    <div class="modal fade" id="detail{{post.id}}" tabindex="-1"-->
+<!--                                         role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">-->
+<!--                                        <div class="modal-dialog modal-dialog-centered" role="document">-->
+<!--                                            <div class="modal-content">-->
+<!--                                                <div class="modal-header">-->
+<!--                                                    <h5 class="modal-title" id="exampleModalLongTitle">-->
+<!--                                                        Confirmation</h5>-->
+<!--                                                    <button type="button" class="close" data-dismiss="modal"-->
+<!--                                                            aria-label="Close">-->
+<!--                                                        <span aria-hidden="true">&times;</span>-->
+<!--                                                    </button>-->
+<!--                                                </div>-->
+<!--                                                <div class="modal-body">-->
+
+<!--                                                    <p>Do you really want to chat with this mentor !! you can chat with only 3 of them?</p>-->
+
+<!--                                                   <form method="POST" action="{% url 'administration:search_mentors_twfl' %}" >-->
+<!--                                                        {% csrf_token %}-->
+<!--                                                        <input type="hidden" name="mentor_id" value="{{ x.admin.id }}">-->
+<!--                                                        <div class="modal-btn">-->
+<!--                                                                                                                  <button type="button" class="btn btn-rounded btn-indigo reject" data-dismiss="modal">Close</button>-->
+
+<!--                                                            <button type="submit" class="btn btn-rounded btn-indigo">-->
+<!--                                                                Confirm-->
+<!--                                                            </button>-->
+<!--                                                        </div>-->
+<!--                                                    </form>-->
+
+<!--                                                </div>-->
+
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+
+                             </td>
+
+                              <td class="text-right">
+                              <div class="dropdown">
+                                 <button class="btn more-vertical" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 <i data-feather="more-vertical"></i>
+                                 </button>
+                                 <div class="dropdown-menu edit-mr" aria-labelledby="dropdownMenuButton">
+                                    <a href="{% url 'blogs:post_detail_edit' post.id post.author.admin.slug %}" class="dropdown-item"><i data-feather="edit-2"></i>Edit</a>
+                                    <a href="{% url 'blogs:PostDetail' post.slug %}" class="dropdown-item" target="_blank"><i data-feather="eye"></i>view</a>
+<!--                                    <a href="{% url 'blogs:post_delete' post.id  %}" class="dropdown-item"><i data-feather="trash"></i>delete</a>-->
+                                 </div>
+                              </div>
+                           </td>
+                          </tr>
+                        {% endfor %}  
+                       </tbody>
+                    </table>
+                 </div>
+                  {% else %}
+                  No records found
+                  {% endif%}
+              </div>
+           </div>
+        </div>
+    </div>
+    <div class="">
+      <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+      <div class="d-flex justify-content-center">
+        <ul class="pagination pagination-circled">
+          {% if page_obj.has_previous %}
+          <li class="page-item"><a class="page-link"
+              href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}"><i
+                data-feather="arrow-left"></i></a></li>
+          {% endif %}
+          {% if page_obj.has_next %}
+          <li class="page-item"><a class="page-link"
+              href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}"><i
+                data-feather="arrow-right"></i></a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+{% endblock content %}
+{% block js %}
+<script>
+    var id;
+    function change_is_active(id){
+        if (confirm('Do you really want to do this action')){
+            $('#'+ id).submit();
+        }
+        else
+        {
+            location.reload();
+        }
+    }
+</script>
+{% endblock %}

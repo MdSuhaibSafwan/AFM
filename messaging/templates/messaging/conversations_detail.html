@@ -1,0 +1,100 @@
+{% extends 'base/base.html' %}
+{% block title %}Conversations{% endblock %}
+{% load administration_extras %}
+{% load static %}
+{% load widget_tweaks %}
+{% block css %}
+<style>
+	form {
+		display: contents;
+	}
+</style>
+{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb breadcrumb-style1">
+		<li class="breadcrumb-item">
+			<a href="{% url 'administration:dashboard' %}">Dashboard</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="{% url 'messaging:conversations' %}">Conversation</a> &nbsp; <span class="badge badge-primary">{{count}} Messages</span>
+		</li>
+	</ol>
+</nav>
+
+
+<!-- <div class="az-content az-content-app pd-b-0 height"> -->
+<div class="">
+	<div class="container">
+		<div class="card">
+			<div class="az-content-body az-content-body-chat d-block ">
+				<!-- Chat Header -->
+				<div style="flex-shrink: 0;
+					height: 56px;
+					display: flex;
+					align-items: center;
+					justify-content: flex-start;
+					padding: 10px 20px 10px;
+					border-bottom: 1px solid #cdd4e0;">
+					<div class="az-img-user">
+						<img id='my_profile_pic' src="{% static 'images/default_profile.png' %}" alt="">
+					</div>
+					<div class="az-chat-msg-name">
+						
+						<h6 class="text-capitalize">{{student.first_name}} {{student.last_name}}</h6>
+						<small>Student</small>
+					
+					</div>
+				</div>
+
+				<!-- az-Chat-Body -->
+				<div id="azChatBody" class="az-chat-body az-chat-body-inner">
+					<div class="content-inner">
+						{% for message in conversations %}
+						<div class="media {% if message.sender.user_type == 4 %}flex-row-reverse{% else %}reverse{% endif %}
+                   {% if not message.read %} unread-msg{% endif %}" {% if not message.read %}data-id="{{ message.id }}"
+							{% endif %}>
+							<div class="media-body">
+								<div class="az-msg-wrapper">
+
+									{{ message.comment|safe }}
+
+									{% comment %}
+									{% if message.read %}
+									<i data-feather="check" class="fs-blue fs-dark"></i>
+									<i data-feather="check" class="fs-blue fs-dark right-0"></i>
+									{% else %}
+									<i data-feather="check" class="fs-dark"></i>
+									<i data-feather="check" class="fs-dark right-0"></i>
+									{% endif %}
+									{% endcomment %}
+
+
+									<br>
+									<small>&bull; {{message.sender.first_name}} {{message.sender.last_name}}</small>
+								</div>
+								<div style="background-color:aliceblue;">
+									<span>{{message.created_at|date:"d/m/Y"}} {{message.created_at|time:"h:i a"}} </span>
+								</div>
+
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+					<!-- content-inner -->
+				</div>
+			</div>
+			<!-- az-content-body -->
+		</div>
+
+	</div>
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+</script>
+{% endblock %}

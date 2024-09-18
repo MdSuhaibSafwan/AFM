@@ -1,0 +1,510 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} User Profile {% endblock %}
+{% load administration_extras %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% block css%}
+<link rel="stylesheet" href="{% static 'css/dropzone.css' %}">
+<style>
+    .preview_div img{
+        height: 200px;
+        width: 200px;
+        object-fit: contain;
+    }
+
+    .preview_profile_pic {
+      overflow: hidden;
+      width: 200px !important;
+      height: auto;
+      margin: 0 auto;
+    }
+    .saved_preview{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+</style>
+{% endblock%}
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-2">
+    <ol class="breadcrumb breadcrumb-style1 d-inline-block">
+      <li class="breadcrumb-item d-inline-block"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+      <li class="breadcrumb-item d-inline-block"><a href="{% url 'administration:list_students_twfl' %}">Back</a></li>
+    </ol>
+    <div class="float-right gs-edit">
+        <a href=""
+           class="{% if student_info.profile_status %}
+           btn btn-danger btn-rounded
+           {% else %}btn btn-indigo btn-rounded{% endif %}"
+           data-toggle="modal" data-target="#activate-mentor">
+            {% if student_info.profile_status %}
+            <i data-feather="x-circle"></i> Deactivate
+            {% else %}
+            <i data-feather="check-circle"></i>Approve{% endif %}
+        </a>
+    </div>
+
+    <!-- Modal for activate/deactivate mentor-->
+    <div class="modal fade text-left" id="activate-mentor" tabindex="-1"
+                             role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="">
+                        Confirm</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post"
+                      action="{% url 'administration:approve_student_twfl' student_info.admin.slug %}">
+                  {% csrf_token %}
+                    <div class="modal-body">
+                        <h5>Are you sure you want to
+                            {% if student_info.profile_status %}deactivate{% else %}activate{% endif %} this student?</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-rounded btn-danger reject"
+                                data-dismiss="modal">Close
+                        </button>
+                        <button type="submit" class="btn btn-rounded btn-indigo">
+                            Confirm
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</nav>
+<div class="gs-profile">
+    <div class="row row-sm mg-b-20">
+        <div class="col-xl-12 col-md-12 col-sm-12">
+            <div class="card mg-b-10">
+                <div class="card-body">
+                    <div class="">
+                        <div class="">
+                            <div class="row">
+                                <div class="col-xl-7 col-md-7 col-sm-12 pl-md-0">
+                                    <div class="border-right">
+                                        <div class="afm-mentor-student-details pd-b-15 pd-t-15">
+                                                <div class="afm-mentor-student-img">
+                                                    {% if student_personal_info.admin.profile_pic %}
+                                                    <img src="{{student_personal_info.admin.profile_pic.url}}" alt="">
+                                                    {% else %}
+                                                    <img src="{% static 'images/default_profile.png' %}" alt="">
+                                                    {% endif %}
+                                                </div>
+
+                                                <div class="mentor-content">
+                                                <div class="">
+                                                    <h4>{{student_personal_info.admin.first_name}} {{student_personal_info.admin.last_name}}</h4>
+                                                    <span>{{student_personal_info.get_area_of_study_display}}</span>
+                                                </div>
+
+                                                <br>
+                                                
+                                                <div>
+                                                    <span class="tx-medium">Student ID:</span>
+                                                    <span>{{student_info.admin.slug}}</span>
+                                                </div>
+                                                
+                                                <div>
+                                                    <span class="tx-medium">Email:</span>
+                                                    <span>{{student_info.admin.email}}</span>
+                                                </div>
+
+                                                <div>
+                                                    <span class="tx-medium">Phone Number:</span>
+                                                    <span>{{student_personal_info.admin.phone|getifnone}}</span>
+                                                </div>
+
+                                                <div>
+                                                    <span class="tx-medium">Date Of Birth:</span>
+                                                    <span>{{student_personal_info.admin.date_of_birth|date:"d/m/Y"|getifnone}}</span>
+                                                </div>
+                                                <div>
+                                                    <span class="tx-medium">Spoken Language(s):</span>
+                                                    <span>{{student_personal_info.admin.spoken_languages.all|print_languages}}</span>
+                                                </div>
+
+                                                <div>
+                                                    <span class="tx-medium">Originally From:</span> <span
+                                                        class="country-flags">{{student_personal_info.admin.country.name}}<img
+                                                            src="{{student_personal_info.admin.country.flag}}" alt="{{student_personal_info.admin.country.name}}"></span>
+                                                </div>
+                                                
+                                                <div>
+                                                    <span class="tx-medium">Currently Living In :</span><span
+                                                        class="country-flags">{{student_personal_info.admin.currently_living_in.name}} <img
+                                                            src="{{student_personal_info.admin.currently_living_in.flag}}" alt="{{student_personal_info.admin.currently_living_in.name}}"></span>
+                                                </div>
+
+                                                <div>
+                                                    <span class="tx-medium">Area of Study:</span>
+                                                    <span>{{student_personal_info.get_area_of_study_display}}</span>
+                                                </div>
+
+                                                <div>
+                                                    <span class="tx-medium">Programme Level:</span>
+                                                    <span>{{student_personal_info.get_programme_level_display}}</span>
+                                                </div>
+
+                                                <div>
+                                                    <span class="tx-medium">Level of English:</span>
+                                                    <span>{{student_personal_info.get_level_of_english_display}}</span>
+                                                </div>
+                        
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-5 col-md-5 col-sm-12">
+                                    <div class="about-me">
+                                        <h5>About me</h5>
+                                        <p> 
+                                        {% if student_personal_info.admin.about_me %}{{student_personal_info.admin.about_me}}
+                                        {% else %} -- {% endif %}</p>
+                                        <hr>
+                                        <h5>Hobbies & Interests</h5>
+                                        <p> 
+                                        {% if student_personal_info.admin.hobbies.all %}
+                                        {% for h in student_personal_info.admin.hobbies.all%}{{h}},{% endfor %}
+                                        {% else %} -- {% endif %}</p>
+
+                                    </div>                 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</div>
+
+
+
+<div class="gs-profile">
+    <div class="row row-sm mg-b-20">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card card-table-one mg-b-10">
+                <h6 class="card-title"><i data-feather="info"></i> Basic Information</h6>
+                <hr>
+                <div class="card-body">
+                    <div class="basic-detail">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="border-right">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Name:</b></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p class="text-capitalize">{{student_personal_info.admin.first_name}}
+                                                {{student_personal_info.admin.last_name}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Currently living in:</b></p>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <span class="country-flags">{{student_personal_info.admin.currently_living_in.name}} ~ <img
+                                                    src="{{student_personal_info.admin.currently_living_in.flag}}"
+                                                    alt=""></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Country you hold a passport:</b></p>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <span class="country-flags">{{student_personal_info.admin.country.name}} ~ <img
+                                                    src="{{student_personal_info.admin.country.flag}}"
+                                                    alt=""></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Your Student Id:</b></p>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <p class="text-uppercase">{{student_info.admin.slug}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Email:</b></p>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <p class='text-nowrap'>{{student_info.admin.email}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>Date of Birth:</b></p>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{student_personal_info.admin.date_of_birth|date:"d/m/Y"}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>Gender:</b></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{student_personal_info.admin.gender|getgender}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>Your Phone Number:</b></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{student_personal_info.admin.phone|getifnone}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>Spoken Languages:</b></p>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>
+                                            {{ student_personal_info.admin.spoken_languages.all|print_languages }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>What is your level of English?:</b></p>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{student_personal_info.level_of_english|getenglish_level}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>How did you hear about us?:</b></p>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{student_info.admin.how_did_you_hear_about_us|getifnone}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-sm mg-b-20">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card card-table-one mg-b-10">
+                <h6 class="card-title"><i data-feather="book"></i> Education Information</h6>
+                <hr>
+                <div class="card-body">
+                    <div class="basic-detail">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="border-right">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Are you currently studying?:</b></p>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <p>{{student_personal_info.currently_studying|getstudystatus}}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Desired Study Destination(s):</b></p>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <p>{{ student_personal_info.study_destination|print_study_destination }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Subject Interest:</b></p>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <p class='text-nowrap'>
+                                                {{student_personal_info.area_of_study|getsubject}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Desired Programme level:</b></p>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <p class='text-nowrap'>
+                                                {{student_personal_info.programme_level|getprogramme_level}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>
+                                            <b>
+                                                {% if student_personal_info.currently_studying == 1 %}
+                                                Current school name:
+                                                {% else %}
+                                                Last school name:
+                                                {% endif %}
+                                            </b>
+                                        </p>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{student_personal_info.current_or_last_school_name|getifnone}}</p>
+                                    </div>
+                                </div>
+                                {% if student_personal_info.currently_studying == 1 %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>At what level are you currently studying?:</b></p>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{student_personal_info.what_are_you_studying|getifnone}}</p>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>What is your most recent qualification?:</b></p>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p>{{student_personal_info.last_qualification|getifnone}}</p>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>Which year would you like to start?:</b></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{student_personal_info.intake_year}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="feature_image_modal_crop" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Crop the photo
+                </h5>
+<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                    <span aria-hidden="true">&times;</span>-->
+<!--                </button>-->
+            </div>
+            <div class="modal-body">
+                <img src="" id="profile_pic" style="max-width: 100%;">
+            </div>
+            <div class="modal-footer">
+<!--                <div class="btn-group pull-left" role="group">-->
+<!--                    <button type="button" class="btn btn-outline-indigo btn-rounded rotateL">-->
+<!--                        <i data-feather="rotate-ccw"></i>-->
+<!--                            Rotate-->
+<!--                    </button>-->
+                    <button type="button" class="btn btn-outline-indigo btn-rounded js-zoom-in-one">
+<!--                        <i data-feather="zoom-in"></i>-->Zoom-In
+                    </button>
+                    <button type="button" class="btn btn-outline-indigo btn-rounded js-zoom-out-one">
+<!--                        <i data-feather="zoom-out"></i>-->Zoom-Out
+                    </button>
+<!--                </div>-->
+
+                <button type="button" class="btn btn-outline-indigo btn-rounded js-crop-and-upload-one">
+                    Crop
+                </button>
+                <button type="button" class="btn btn-outline-indigo btn-rounded cancel_btn" data-dismiss="modal">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mentor_update_about_me_field" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <form method="post" action="{% url 'administration:mentor_update_about_me_field_twfl' student_info.admin.slug %}">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        Update About Me
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    {% csrf_token %}
+                    {{ form2|crispy }}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-outline-indigo btn-rounded">
+                        Submit
+                    </button>
+                    <button type="button" class="btn btn-outline-indigo btn-rounded cancel_btn" data-dismiss="modal">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+
+{% block js %}
+<script src="{% static 'administration/js/new_mentor_update_profile.js' %}"></script>
+<script>
+$("input[type=checkbox]").change(function(){
+    if($('#id_photo_consent').is(':checked')) {
+       $('#upload-photo-button').removeClass('not-active');
+    }
+    else{
+         $('#upload-photo-button').addClass('not-active');
+    }
+});
+</script>
+{% endblock %}

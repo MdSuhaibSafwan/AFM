@@ -1,0 +1,136 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}Applying for Medical School in Canada | International Foundation Group{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}Canadian medical students studying medicine in Canada can assist with your application to
+Canadian medical schools{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/study-medicine-in-canada/
+{% endblock %}{% endblock %}
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">International Foundation Group</a>
+                            <span>
+                                <span> >
+                                </span>
+                                <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                                <span> >
+                                </span>
+                            </span>Study medicine in Canada
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">Study medicine in Canada </h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Connect directly with existing students who
+                            are at medical schools in Canada. </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12">
+                    <div class="right-icon-img-area parent-img">
+                        <img src="{% static 'assets/img/flag-img/canada-flag.png' %}"
+                           class="img-fluid" alt="Medical Admission Blogs" title="Medical Admission Blogs" width="400" height="250" loading="lazy">
+                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <h2>Study Medicine in Canada</h2>
+                        <p>There are 17 different medical schools across Canada and that offer 3-to-5-year medical
+                            courses to graduate students who have completed a Pre-Med undergraduate degree.</p>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-12 col-sm-12">
+                                <ul class="grade-li medicine-in-aus">
+                                    <li>University of Alberta</li>
+                                    <li>University of Calgary</li>
+                                    <li>University of British Columbia</li>
+                                    <li>University of Manitoba</li>
+                                    <li>Memorial University of Newfoundland</li>
+                                    <li>Dalhousie University </li>
+                                </ul>
+                            </div>
+                            <div class=" col-lg-4 col-md-12 col-sm-12">
+                                <ul class="grade-li medicine-in-aus">
+                                    <li>McMaster University</li>
+                                    <li>Northern Ontario </li>
+                                    <li>Queen’s University</li>
+                                    <li>Western University of Schulich</li>
+                                    <li>University of Ottawa</li>
+                                    <li>University of Toronto </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-md-12 col-sm-12">
+                                <ul class="grade-li medicine-in-aus">
+                                    <li>Université Laval</li>
+                                    <li>McGill University </li>
+                                    <li>Université de Montréal</li>
+                                    <li>Université de Sherbrooke </li>
+                                    <li>University of Saskatchewan</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p>Note that only a handful of Canadian medical schools accept a limited number of international
+                            students. Upon completion of the medical programme, you will go on to begin a residency
+                            training program in a specialty of your choice – this can last anywhere between 2-6 years
+                            depending on the specialty chosen.</p>
+                    </article>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <p>
+                            <strong>Entry Requirements</strong>
+                        </p>
+                        <ul class="grade-li">
+                            <li>Applicants must have first completed a pre-Med undergraduate degree (in subjects such as
+                                biology, chemistry, physics, neuroscience, behavioural science, etc.). Check medical
+                                school websites for specific requirements about previous degrees. </li>
+                            <li>A minimum GPA for admission which varies by medical school. Applicant should check
+                                medical schools website for GPA requirements. </li>
+                            <li>Applicants must sit and score highly in the Medical College Admission Test (MCAT) which
+                                tests scientific knowledge as well as skills such as problem-solving, reasoning and
+                                critical analysis. </li>
+                            <li>Check the medical school websites to find out how to submit an application since this
+                                varies across the Canadian institutions. </li>
+                            <li>An interview will most likely be required at some stage (if offered). </li>
+                            <li>International applicants must take a verifiable English fluency test if English is not
+                                their first language. </li>
+                        </ul>
+                        <p>Fees vary greatly across Canadian medical schools therefore their websites should be checked
+                            for specific figures regarding the tuition fee for Home students and International students.
+                            Scholarships are available that applicants may be eligible to apply for. </p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> global community of
+                            students by searching for a mentor now </p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

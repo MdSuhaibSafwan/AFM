@@ -1,0 +1,110 @@
+{% extends 'base/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% load administration_extras %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb breadcrumb-style1">
+    <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="#">Total Contact Enquiries</a></li>
+  </ol>
+</nav>
+<form>
+    <div class="row row-sm mg-b-10">
+      <div class="col-sm-12 col-md-6 col-lg-2">
+        <div class="select2-box mb-2">
+          {% render_field form.i_am_a placeholder=form.i_am_a.label class='form-control' %}
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-3">
+        <div class="select2-box mb-2">
+          {% render_field form.name placeholder=form.name.label class='form-control' %}
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-3">
+        <div class="select2-box mb-2">
+          {% render_field form.email placeholder=form.email.label class='form-control' %}
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-3">
+        <div class="select2-box mb-2">
+          {% render_field form.country placeholder=form.country.label class='form-control' %}
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-1">
+        <button type="submit" class="btn btn-indigo btn-block btn-rounded"><i data-feather="search"></i></button>
+      </div>
+  </div>
+</form>
+<div class="row row-sm mg-b-20">
+  <div class="col-sm-12 col-lg-12">
+    <div class="card card-table-one">
+      <h6 class="card-title">List of Contact Enquiries</h6>
+      <hr>
+      <div class="table-responsive">
+        {% if list %}
+        <table class="table table-hover mg-b-0">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>I am a</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Country</th>
+              <th>Subject</th>
+              <th>Message</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for x in list %}
+              <tr>
+                <td><strong>{{ x.name|getifnone }}</strong></td>
+                <td><strong>{{ x.i_am_a|getiamachoice }}</strong></td>
+                <td>{{ x.email|getifnone }}</td>
+                <td>{{ x.phone_no }}</td>
+                <td>{{ x.country.name|getifnone }}</td>
+                <td>{{ x.subject|getifnone }}</td>
+                <td>{{ x.message|getifnone }}</td>
+              </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+          <div style="text-align:center;"><p>No Institute Leads Available !!!!</p></div>
+        {% endif%}
+      </div><!-- table-responsive -->
+    </div>
+  </div>
+</div>
+<!-- Pagination -->
+<div class="">
+  <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+  <div class="d-flex justify-content-center">
+    <ul class="pagination pagination-circled">
+      {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link"
+          href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}"><i
+            data-feather="arrow-left"></i></a></li>
+      {% endif %}
+      {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link"
+          href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}"><i
+            data-feather="arrow-right"></i></a></li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+  $('#id_i_am_a').select2({
+    placeholder: 'Select User Type',
+    searchInputPlaceholder: 'Search'
+  });
+  $('#id_country').select2({
+    placeholder: 'Select Country',
+    searchInputPlaceholder: 'Search'
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}Medical Course at Newcastle University School of Medicine{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %} To earn a degree from a reputed University is a matter of pride, a post graduate degree from
+Newcastle University School of Medicine provides you the same.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%} https://applyformedicine.com/uk-medical-schools/studying-medicine-at-newcastle-university/
+{% endblock %}{% endblock %}
+ {% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">International Foundation Group</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:uk_medical_schools' %}">UK Medical Schools</a>
+                            <span> >
+                            </span>Newcastle University
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">Newcastle University</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in England</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="right-icon-img-area">
+                        <div>
+                            <p style="text-align: right; margin-bottom: 0px;">
+                                <span>*</span>
+                            </p>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>Fees (International/Non-EU students): </td>
+                                        <td>£33,600 pa</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Interview Style: </td>
+                                        <td>MMI</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Course Structure: </td>
+                                        <td>integrated</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <h2>Study Medicine at Newcastle University</h2>
+                        <p>Newcastle offers a five-year, integrated medical course. The teaching incorporates lectures,
+                            tutorials, labs and workshops and students receive early clinical exposure.</p>
+                        <p>In the first and second year, students learn the fundamentals of medical science,
+                            professionalism and ethics. Students also receiving training in basic clinical skills and
+                            are taught in a case-based learning manner to allow students to integrate the
+                            knowledge across their modules to establish all-encompassing clinical contexts as part of
+                            their understanding. Education in these years are primarily campus-based.</p>
+                        <p>From the third to fifth year, clinical education expands through a multitude of placements
+                            across different primary and secondary healthcare settings. During the latter years students
+                            also take part in Student-Selected Components (SSCs), assistantships and clerkships as part
+                            of training in preparation for future practice in the Foundation practice. There is also an
+                            elective period during the final years of the course to allow students a chance to explore
+                            Medicine in anew setting.</p>
+                        <p>Student also have the opportunity to intercalate to obtain a BSc or Master’s degree. There is
+                            pronounced research-focus at Newcastle throughout the medical education and opportunities to
+                            get involved in research through projects or the Master’s intercalated degree.</p>
+                        <h3>Get mentored by medical students at Newcastle University</h3>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <p> * Please confirm all relevant information on this page with your medical school application mentor </p>
+    </div>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> global community of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

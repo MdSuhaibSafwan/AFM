@@ -1,0 +1,50 @@
+{% load static %}
+<script src="{% static 'assets/js/feather.js' %}"></script>
+<script src="{% static 'assets/js/jquery.js' %}"></script>
+<script src="{% static 'assets/js/plugins.js' %}"></script>
+<script src="{% static 'assets/js/functions.js' %}"></script>
+<script>
+   $(document).ready(function() {
+       $('.language-dropdown').select2({
+         placeholder: "What is your Native Language?",
+         width: 'resolve'
+       });
+       function formatState (state) {
+           if (!state.id) {
+           return state.text;
+           }
+           var baseUrl = "{% static 'assets/img/input";
+           var $state = $(
+           '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
+           );
+           return $state;
+       };
+       $('.country-dropdown').select2({
+         placeholder: "Where do you want to Study?",
+         width: 'resolve',
+         templateResult: formatState
+       });
+       $('#id_country').select2({
+         placeholder: "Search country",
+       });
+       $('#id_phone_no_0').select2({
+         placeholder: "Search country",
+       });
+   });
+   feather.replace()
+</script>
+<script src="{% static 'assets/js/select2.js' %}"></script>
+<script>
+   $(function() {
+     $(':submit').dblclick(false);
+   });
+
+   $(window).scroll(function(){
+        if ($(window).scrollTop() >= 100) {
+            $('.sticky-header').addClass('visible-title');
+        }
+        else  {
+            $('.sticky-header').removeClass('visible-title');
+        }
+   });
+</script>

@@ -1,0 +1,122 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% block title1 %}{% block title2%}Study Medicine at the Karolinska Institute, Sweden{% endblock %}{% endblock %}
+{% block meta-content1 %}{% block meta-content2 %}Contact medical students to assist with your application to study medicine in Sweden.
+{% endblock %}{% endblock %}
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/medical-schools-in-europe/studying-medicine-at-karolinska-institute/
+{% endblock %}{% endblock %}
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">International Foundation Group</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine_in_europe' %}">Medical Schools In
+                                Europe</a>
+                            <span> >
+                            </span>Karolinska Institute, Sweden
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">Karolinska Institute, Sweden</h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Medical School in Sweden</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area pt-5 pb-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12">
+                    <article>
+                        <h2>Study Medicine at the Karolinska Institute, Sweden</h2>
+                        <p>Interested in studying medicine at one of the leading medical universities in the world?Then
+                            Karolinska Institute is where you should head towards!</p>
+                        <p>Karolinska Institute is nicely located in Solna (and another campus in Huddinge) justoutside
+                            Stockholm city center. Admission to the medical program is held twice a year,with 150-200
+                            students admitted each semester.</p>
+                        <p>From September 2021, the medical education in Sweden is changing to a 6-year program,and a
+                            practice license will be received upon graduation. Previously the program has been5,5 years
+                            plus 1,5-2 years internship in order to receive a license. The work ofimplementing the new
+                            curriculum is currently being conducted and will be announced laterthis spring. However,
+                            students are exposed to clinical work and to patients early in theeducation, already in the
+                            pre-clinical years. Later in the clinical years, students willbe placed at one of the four
+                            major hospitals in Stockholm for internal medicine,surgery, psychiatry, obstetrics etc. The
+                            current curriculum also includes a masterthesis.</p>
+                        <p>The medical program is exclusively taught in Swedish, so you need to have a sufficientlevel
+                            of Swedish (approximately C1) in order to apply, so that you are be ablecommunicate with
+                            patients and colleagues, as well as keeping up with your theoreticalstudies.</p>
+                        <p>If you are a citizen of an EU/ESS country, you are exempted from tuitions fees. In
+                            othercases, the current (5,5 year program) tuition fee is roughly €142000 in total.
+                            Livingcosts in Stockholm are pretty equal to other larger European capitals.
+                            Karolinska Institute offers housing the first year of studies for all international students.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-content-area pb-2 pt-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-xl-8">
+                    <article>
+                        <h3>Get mentored by medical students at the Karolinska Institute in Sweden</h3>
+                        <p>
+                            <em>There are three different ways to get accepted to the medical program at
+                                Karolinska Institute – grades, SweSAT (Högskoleprovet) or PIL (IQ test and interviews).
+                                Toclarify, you do not have to succeed in all of these three, so if you have top gradesin
+                                natural science subjects in your home country, and are willing to study Swedishyou
+                                should definitely consider applying!</em>
+                        </p>
+                        <p class="mb-5">
+                            <em> -by <strong>Julie, </strong>
+                                <a href="{% url 'administration:study_medicine_in_europe' %}"
+                                    class="afm-link">studying medicine in Europe</a> at the Karolinska Institute in
+                                Sweden</em>
+                        </p>
+                    </article>
+                </div>
+                <div class="col-md-4 col-xl-4">
+                    <div class="afm-student-img">
+                        <img src="{% static 'website/img/content-img/medical-student-at-the-karolinska-institute-in-sweden.jpg' %}"
+                            class="img-fluid rounded-circle"
+                            alt="medical-student-at-the-karolinska-institute-in-sweden" title="medical-student-at-the-karolinska-institute-in-sweden" width="290" height="290" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> globalcommunity of
+                            students by searching for a mentor now</p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:contact_us' %}" class="theme-btn">Join
+                                Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </section>
+</main>
+{% endblock %}

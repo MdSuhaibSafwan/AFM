@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Application Submitted{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="#">CV Status</a></li>
+    </ol>
+</nav>
+<div class="row d-lg-flex">
+    <div class="col-xl-8 col-md-12 col-sm-12 mb-3 m-auto">
+        <div class="card h-100">
+            <div class="text-center p-0 p-md-5 resume-radio">
+                <h2 class="mb-3">Share your anonymised CV/Resume</h2>
+                <img src="{% static 'assets/img/content-img/medical-admission-blogs.png' %}" alt="Medical Admission"
+                     class="img-fluid" width="200" height="200">
+                <p class="pt-3">Why not let suitable institutions from around the world view your anonymised CV/Resume
+                    so they can connect with you directly? This will allow you to discuss:</p>
+                <ul class="text-bold">
+                    <li><b>Scholarship Opportunities</b></li>
+                    <li><b>Application and Interview Process</b></li>
+                    <li><b>Internships Options to enhance your career</b></li>
+                </ul>
+                <br>
+                {% if app.would_you_be_interested_in_sharing_your_details_with_institute %}
+                <a href="{% url 'application:cv_pdf' app.slug %}"
+                       class="btn btn-indigo rounded-pill mt-3" >Download your CV</a>
+                {% else %}
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% crispy form %}
+                    <button type="submit"
+                       class="btn btn-indigo rounded-pill mt-3" >Download your CV</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

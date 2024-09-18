@@ -1,0 +1,234 @@
+{% extends 'base/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% load administration_extras %}
+{% load static %}
+{% load widget_tweaks %}
+{% block css %}
+<style>
+  form {
+    display: contents;
+  }
+
+  .list-user .table th,
+  .list-user .table td {
+    padding: 15px 15px;
+    line-height: 1.462;
+  }
+
+  .list-user .table tbody tr {
+    background-color: #fff;
+  }
+
+  .list-user .table tr {
+    box-shadow: 0px 5px 18px -7px rgb(0 0 0 / 10%);
+  }
+
+  .list-user table {
+    border-collapse: separate;
+    border-spacing: 0 1em;
+  }
+
+  .list-border {
+    border-top: 1px solid #bebebe;
+  }
+
+  .list-user .table th,
+  .list-user .table td {
+    border-top: 0;
+  }
+
+  .box-shadow-none {
+    box-shadow: none !important;
+  }
+
+  .list-user .table thead th {
+    border-bottom: 0;
+  }
+
+  .list-user .table thead th {
+    color: #6b6a6a;
+    font-weight: unset;
+
+  }
+
+  .table th,
+  .table td {
+    vertical-align: middle;
+  }
+
+  .btn.btn-outline-indigo.btn-rounded svg.feather {
+    color: #141e42;
+  }
+
+  .btn-outline-indigo:hover svg.feather {
+    color: #fff !important;
+  }
+
+  .uni-list-img {
+    display: block;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+
+  }
+
+  .uni-list-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 100%;
+    box-shadow: -1px 6px 18px -7px rgb(0 0 0 / 25%);
+  }
+
+  @media only screen and (min-width: 768px) {
+    .uni_detail_profile {
+      padding: 10px 50px;
+    }
+
+    .list-user .table thead th {
+      font-size: 17px;
+    }
+
+  }
+</style>
+{% endblock %}
+{% block content %}
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb breadcrumb-style1">
+    <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item">Institute List</li>
+  </ol>
+
+</nav>
+<div class="row mr-b-20">
+  <div class="col-12 col-sm-12">
+    <div class="add-new-app">
+
+      <a href="{% url 'administration:institute_registration_twfl' %}" id="add-new-institute">
+        <button type="submit" class="btn" style="color: rgb(0, 0, 0); font: 1em
+          poppins ;">
+          <span>+</span> Register New Institute
+        </button>
+        <i data-feather="clipboard"></i></a>
+    </div>
+  </div>
+</div>
+<form action="">
+  <div class="row row-sm mg-b-20">
+    <div class="col-sm-12 col-lg-12">
+      <div class="list-user">
+        <div class="table-responsive list-border">
+          {% if institutes %}
+          <table class="table mg-b-0">
+            <thead>
+              <tr class="box-shadow-none">
+                <th>logo</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Country</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for x in institutes %}
+              <tr>
+                <td>
+                  <div href="#" class="uni-list-img">
+                    {% if x.admin.profile_pic %}
+                    <img src="{{x.admin.profile_pic.url}}" alt="">
+                    {% else %}
+                    no image found
+                    {% endif %}
+                  </div>
+                </td>
+                <td>
+                  {{x.admin.email}}</td>
+                <td>
+                  <form method="post" id="form-{{x.admin.id}}" onsubmit="">
+                    {% csrf_token %}
+                    <div class="custom-control custom-switch">
+                      <input type="hidden" name="admin_id" value="{{x.admin.id}}">
+                      <input type="checkbox" class="custom-control-input" id="button-{{x.admin.id}}"
+                        onchange="change_is_active('form-{{x.admin.id}}')" {% if x.admin.is_active %}checked{% endif %}>
+                      <label class="custom-control-label" for="button-{{x.admin.id}}">
+                        {% if x.admin.is_active %}Active {% else %}Not Active {% endif %}</label>
+                    </div>
+                  </form>
+                </td>
+                <td>
+                  <span class="country-flags">{{x.country.name|getifnone}}</span>
+                </td>
+                <td>
+                  <a class="btn btn-sm btn-outline-indigo btn-rounded"
+                     href="{% url 'administration:institute_information' x.admin.slug %}">
+                    <i data-feather="clipboard"></i>View</a>
+                  <a class="btn btn-outline-indigo btn-rounded"
+                    href="{% url 'administration:institute_information_edit' x.admin.pk %}"><i
+                      data-feather="edit"></i>Edit</a>
+                  <a href="#" class="btn btn-danger btn-rounded" data-toggle="modal"
+                    data-target="#delete{{x.id}}"><i data-feather="trash"></i>Delete</a>
+                </td>
+              </tr>
+              <tr></tr>
+              <div class="modal fade" id="delete{{x.id}}" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Delete Institute</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <form method="post"
+                                action="{% url 'administration:delete_user_twfl' x.admin.slug %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="redirect" value="{{request.path}}">
+                        <div class="modal-body">
+                          are you sure, do you want do delete ?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-indigo btn-rounded"
+                            data-dismiss="modal">cancel</button>
+                          <button type="submit" class="btn btn-outline-indigo btn-rounded">Confirm</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <div class="container text-center">
+            <p>No Institute Available !!!!</p>
+          </div>
+          {% endif%}
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+{% endblock %}
+{% block js %}
+<script>
+  $('#id_admin__spoken_languages').select2();
+  var id;
+  function change_is_active(id) {
+    if (confirm('Do you really want to do this action')) {
+      $('#' + id).submit();
+    }
+    else{
+        location.reload();
+    }
+  }
+
+  jQuery(document).ready(function ($) {
+    $(".clickable-row").click(function () {
+      window.location = $(this).data("href");
+    });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,174 @@
+{% load static %}
+{% load administration_extras %}
+<div class="floating-menu-area">
+    <div class="container">
+      <ul class="floating-menu">
+        {% if user.user_type == 9 or user.user_type == 5 or user.user_type == 3 %}
+        {% else %}
+        <li class="">
+            <a href="{% url 'administration:dashboard' %}" ><i data-feather="grid"></i>
+            <p>Dashboard</p></a>
+        </li>
+        {% endif %}
+        {% if user.user_type == 2 %}
+        <li>
+          <a href="{% url 'administration:institute_mentors_twfl' %}" class="nav-link"><i data-feather="users"></i>
+          <p>Alumni at {{user.institute.institute_name}}</p></a>
+        </li>
+        <li>
+          <a href="{% url 'administration:how_it_work_twfl' %}"><i data-feather="user"></i>
+          <p>How it Works</p></a>
+        </li>
+        <li>
+          <a href="{% url 'logout' %}"><i data-feather="log-out"></i>
+          <p>Sign Out</p></a>
+        </li>
+        <li>
+          <a href="#"><button class="btn btn-rounded btn-indigo">ApplyPool <span class="register-mark"> &#174; </span></button></a>
+        </li>
+        {% endif %}
+        {% if user.user_type == 3 or user.user_type == 5 %}
+        {% if not user.application.all.first.academic_qualifications.all.first.country %}
+        {% else %}
+        <li>
+          <a href="{% url 'administration:search_mentors_twfl' %}"><i data-feather="search"></i>
+          <p>Alumni</p></a>
+        </li>
+        {% endif %}
+        {% endif %}
+        {% if user.user_type == 3 or user.user_type == 5 or user.user_type == 4 %}
+        <li>
+          <a href="{% url 'bookings:appointment' %}"><i data-feather="bookmark"></i>
+          <p>Appointments</p></a>
+        </li>
+        {% endif %}
+        {% if user.user_type == 3 %}
+        <li>
+          <a href="{% url 'application:application_consent_twfl' user.application.all.first.slug %}"><i data-feather="clipboard"></i>
+          <p>Build CV</p></a>
+        </li>
+        {% endif %}
+        {% if user.user_type == 4 %}
+<!--        <li>-->
+<!--          <a href="{% url 'blogs:blogs_list' %}"><i data-feather="clipboard"></i>-->
+<!--          <p>My Blogs</p></a>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <a href="{% url 'administration:upload_public_information_twfl' %}" ><i data-feather="edit"></i>-->
+<!--          <p>Edit My Profile</p></a>-->
+<!--        </li>-->
+        {% if user.slug == special_mentor_slug %}
+        <li>
+          <a href="{% url 'administration:search_students_twfl' %}"><i data-feather="search"></i>
+          <p>Students</p></a>
+        </li>
+        {% endif %}
+        {% if user.mentor.profile_status %}
+<!--        <li>-->
+<!--          <a href="{{ user.slug|getmentorprofileurl }}" target="_blank"><i data-feather="user"></i>-->
+<!--          <p>My Profile</p></a>-->
+<!--        </li>-->
+        {% endif %}
+        {% endif %}
+        {% if user.user_type == 5 %}
+<!--        <li>-->
+<!--          <a href="{% url 'application:submitted_applications_twfl' %}"><i data-feather="clipboard"></i>-->
+<!--          <p>My Applications</p></a>-->
+<!--        </li>-->
+        {% endif %}
+        {% if user.user_type == 4 or user.user_type == 0 or user.user_type == 1 or user.user_type == 3 or user.user_type == 5 or user.user_type == 11 or user.user_type == 12 %}
+        <li class="chat-link">
+          <a href="{% url 'messaging:comment_list_user_twfl' %}">
+            <i class="new">{% live_unread_comments %}</i>
+            <i data-feather="message-square"></i>
+            <p>Messages</p>
+          </a>
+        </li>
+        {% endif %}
+        <li class="dropdown az-profile-menu"><a href="#"><i data-feather="menu"></i>
+          <p>More</p></a>  
+          <div class="dropdown-menu">
+            <div class="az-dropdown-header">
+              <a href="#" class="afm-header-arrow"><i data-feather="arrow-left"></i></a>
+            </div>
+            <div class="afm-header-profile">
+              <div class="az-img-user">
+                {% if user.user_type == 4 %}
+                  {% if current_pi_user.profile_pic %}
+                  <img src="{{current_pi_user.profile_pic.url}}" alt="{{user.first_name}}">
+                  {% else %}
+                  <img src="{% static 'images\default_profile.png' %}" alt="{{user.first_name}}">
+                  {% endif %}
+                {% else %}
+                  {% if user.profile_pic %}
+                  <img src="{{user.profile_pic.url}}" alt="{{user.first_name}}">
+                  {% else %}
+                    {% if user.user_type == 0 %}
+                    <img src="{% static 'img/university/afu-university-icons.png' %}" alt="{{user.get_first_name}}">
+                    {% else %}
+                    <img src="{% static 'images/default_profile.png' %}" alt="{{user.get_first_name}}">
+                    {% endif %}
+                  {% endif %}
+                {% endif %}
+              </div><!-- az-img-user -->
+              <h6 class="text-capitalize">{{user.first_name}} {{user.last_name}}</h6>
+              <span>Your {{user.user_type|getuser}} ID: <span class="text-uppercase d-inline">{{user.slug}}</span></span>
+            </div><!-- afm-header-profile -->
+            
+            {% if user.user_type == 3 %}
+            {% endif %}
+            
+            {% if user.user_type == 4 %}
+            <a href="{% url 'administration:upload_public_information_twfl' %}" class="dropdown-item"><i data-feather="edit"></i>Edit
+                Profile</a>
+            {% if user.mentor.profile_status %}
+            <h5 class="pl-3 pt-3"><i data-feather="share-2"></i>Press & Hold the link below to Share</h5>
+            <a href="{{ user.slug|getmentorprofileurl }}" class="dropdown-item pl-5" target="_blank"><i data-feather="link">
+            </i>Share my public profile</a>
+            <a href="https://booking.theapplygroup.com/?mentor-id={{user.slug}}" class="dropdown-item pl-5">
+              <i data-feather="link" target="_blank"></i>Share my Availability Calender</a>
+            {% endif %}
+            {% endif %}
+            {% if user.user_type == 5 %}
+            <a href="{% url 'administration:parent_profile_twfl' request.user.slug %}" class="dropdown-item"><i
+              data-feather="user"></i>My Profile</a>
+            {% endif %}
+<!--            <a href="{% url 'faqs:list-faq' %}" class="dropdown-item"><i data-feather="edit"></i>FAQs</a>-->
+            <a href="{% url 'feedback:feedback-create' %}" class="dropdown-item"><i data-feather="lock"></i>Feedback</a>
+            <a href="{% url 'administration:tech_support_twfl' %}" class="dropdown-item"><i
+              data-feather="settings"></i>Help</a>
+            <a href="{% url 'password_change' %}" class="dropdown-item" data-toggle="modal"
+            data-target="#exampleModalCenter"><i data-feather="lock"></i>Change Password </a>
+            <a href="{% url 'logout' %}" class="dropdown-item"><i data-feather="log-out"></i>Sign Out</a>
+            <div class="container">
+              <div class="row justify-content-center mt-4">
+                  <ul class="floating-border list-icon list-icon-check col-md-12 col-lg-10 col-xl-5 m-md-0 p-md-0 px-1 mx-1">
+                   <li class="mr-1 pr-1"> <a href="{% url 'administration:terms_and_conditions' %}" target="_blank">Terms & Conditions</a> </li>
+                   <li class="mr-1 pr-1"> <a href="{% url 'administration:privacy_notice' %}" target="_blank">Privacy Notice</a> </li>
+                   <li class="mr-1 pr-1"> <a href="{% url 'administration:cookies_policy' %}" target="_blank">Cookie Policy</a> </li>
+                   <li class="mr-1 pr-1"> <a href="{% url 'administration:safeguarding_policy' %}" target="_blank">Safeguarding Policy</a> </li>
+                   <li class="mr-1 pr-1"> <a href="{% url 'administration:online_safety' %}" target="_blank">Online Safety</a> </li>
+                   <li class="mr-1 pr-1"> <a href="{% url 'administration:codes_of_conduct' %}" target="_blank">Codes of Conduct</a> </li>
+                  </ul>
+              </div>
+            </div>
+            <div class="container text-center mt-5 floating-bottom">
+              <span>&copy; 2020 - 2022 Copyright The Apply Group Ltd. All Rights Reserved.</span>
+            </div><!-- container -->
+          </div><!-- dropdown-menu -->
+        </li>
+      </ul>
+    </div>
+</div>
+
+<!--Toaster for url-->
+<div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;" >
+  <div class="toast" style="position: absolute; top: 0; right: 0;">
+    <div class="toast-header">
+      <strong class="mr-auto">Copied</strong>
+    </div>
+    <div class="toast-body">
+      URL copied to clipboard.
+    </div>
+  </div>
+</div>

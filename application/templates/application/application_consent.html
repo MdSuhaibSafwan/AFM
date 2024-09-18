@@ -1,0 +1,329 @@
+{% extends 'base/base.html' %}
+{% block title%}Application Consent-Page{% endblock %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block css %}
+<style>
+    #empty-row{
+        display:none;
+        }
+</style>
+{% endblock%}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="#">Build your CV</a></li>
+    </ol>
+</nav>
+{% include 'application/breadcrumb.html' %}
+<div class="card">
+    <div class="row">
+        <div class="col-12">
+            <div class="pd-lg-l-40 d-flex flex-column">
+                <form action="" method="POST">
+                    <div class="wizard">
+                        <div class="content clearfix">
+                            <div class="consent">
+                                <h5>1. About</h5>
+                                <div class="line-2"></div>
+<!--                                <p class="consent-p">Our unique single application system allows you to apply to your-->
+<!--                                    selected universities and also be found by other universities around the world. This-->
+<!--                                    application form usually takes just 45 minutes to complete.</p>-->
+
+<!--                                <p class="consent-p">Please complete pages 1, 2 and 3 to tell us more about you before-->
+<!--                                    you can connect with Alumni.</p>-->
+<!--                                <div class="text-center d-block document mb-2"><img src="{% static 'assets/img/content-img/apply-directly.png' %}"-->
+<!--                                class="" alt="Connect directly">-->
+<!--                                <h5 class="consent-p text-center d-block">You are about 5 minutes away of having your CV</h5>-->
+<!--                                </div>-->
+<!--                                <div class="document">-->
+<!--                                    <strong>Please have the following documents ready to speed up the application-->
+<!--                                        process:</strong>-->
+<!--                                    <p>1. Applicant's Passport</p>-->
+<!--                                    <p>2. Applicant's academic achievements</p>-->
+<!--                                    <p>3. Applicant's IELTS score</p>-->
+<!--                                    <p>4. Draft Personal Statement</p>-->
+<!--                                    <p>5. Referee contact details</p>-->
+<!--                                </div>-->
+                                <!--                      <p class="consent-p">Your <span>Mentor</span> will be able to assist you to complete this form. Please can you <span>select your desired mentor</span> from the following list:</p>-->
+<!--                                <br>-->
+                                {% if request.user.user_type == 5 %}
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" required
+                                           {% if app.consent_as_parent %}checked{% endif %}>
+                                    <p class="form-check-label" for="exampleCheck1">
+                                        I am the legal parent/guardian of this potential applicant.
+                                    </p>
+                                </div>
+                                {% endif %}
+
+                                {% crispy form %}
+
+<!--                                <p>Please select the Institute where you wish to apply</p>-->
+
+<!--                                {{ formset.management_form|crispy }}-->
+<!--                                {% for form in formset %}-->
+<!--                                <div class="line-2"></div>-->
+<!--                                {% crispy form %}-->
+<!--                                {% endfor %}-->
+<!--                                <div id='empty-row' class='new-form-row'>-->
+<!--                                    <h5 class="card-title" id='form-head'></h5>-->
+<!--                                    {% crispy formset.empty_form %}-->
+<!--                                </div>-->
+                                <div class="row ">
+                                    <div class="col-12">
+                                        <div class="app-footer-line"></div>
+                                        <div class="step-btn mg-t-20">
+                                            {% if app.academic_qualifications.all.first.country %}
+                                            <a type="button" class="btn btn-rounded btn-sm btn-indigo completed"
+                                               href="{% url 'application:application_personal_information_twfl' app.slug %}"
+                                               role="menuitem"> Skip & Continue <span class="iconify"
+                            data-icon="bi:arrow-right" data-inline="false"></span></a>
+                                            {% endif %}
+                                            <button class="btn btn-outline-indigo btn-rounded completed">
+                                                Save &amp; Continue <span class="iconify"
+                            data-icon="bi:arrow-right" data-inline="false"></span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div><!-- az-content-body -->
+{% endblock %}
+{% block js %}
+<script>
+<!--$('#id_exclude_institutes').select2({ placeholder: "Type and search Institutes", });-->
+<!--$('#id_selected_institutes').select2();-->
+<!--$('#id_study_destination_country').select2({ placeholder: "Type and search destination", });-->
+<!--$('#id_program_level').select2();-->
+<!--$('#id_intake_month').select2();-->
+<!--$('#id_intake_year').select2();-->
+<!--$('#id_form-0-institute').select2();-->
+<!--$('#id_form-1-institute').select2();-->
+<!--$('#id_form-2-institute').select2();-->
+<!--$('#id_fees_affordability').select2();-->
+<!--$('#id_scholarship_option').select2();-->
+</script>
+
+<script type="text/javascript">
+<!--    $(document).ready(function() {-->
+<!--        function updateEmptyFormIDs(element,totalForms){-->
+<!--        var thisInput = element-->
+<!--        //get current form input name-->
+<!--        var currentName = element.attr('name')-->
+<!--        // replace prefix with actual number-->
+<!--        var newName = currentName.replace(/__prefix__/g, totalForms)-->
+<!--        thisInput.attr('name', newName)-->
+<!--        thisInput.attr('id', "id_" + newName)-->
+<!--        // creat new form  row id-->
+<!--        var newFormRow = element.closest(".new-form-row");-->
+<!--        var newRowID = "row_id_" + newName;-->
+<!--        newFormRow.attr("id", newRowID);-->
+<!--        // add clas fopr newbasic animations-->
+<!--        newFormRow.addClass("new-parent-row");-->
+<!--        // update form group id-->
+<!--        var parentDiv = element.parent();-->
+<!--        parentDiv.attr("id", "parent_id_" + newName)-->
+<!--        // update label id-->
+<!--        var inputLabel  = parentDiv.find("label")-->
+<!--        inputLabel.attr("for", "id_"  + newName)-->
+<!--        return newFormRow-->
+<!--    };-->
+<!--        $('.add-new-form').click(function(e) {-->
+<!--        e.preventDefault()-->
+<!--        var formId = "id_form-TOTAL_FORMS";-->
+<!--        var totalForms = parseInt($('#' + formId).val());-->
+<!--        var str;-->
+<!--        if (totalForms==0){-->
+<!--            str='First';-->
+<!--        }-->
+<!--        else if(totalForms==1){-->
+<!--             str='Second';-->
+<!--        }-->
+<!--        else if(totalForms==2){-->
+<!--             str='Third and finale';-->
+<!--        }-->
+<!--        else{-->
+<!--        str = totalForms + 1;-->
+<!--        }-->
+<!--&lt;!&ndash;        $('#form-head').html('Institute -' + (totalForms + 1));&ndash;&gt;-->
+<!--        $('#form-head').html(str + ' Institute');-->
+<!--        var emptyRow = $("#empty-row").clone();-->
+<!--        //remove id from new form-->
+<!--        emptyRow.attr("id", null)-->
+<!--        if (totalForms<=2){-->
+<!--            var newFormRow;-->
+<!--            emptyRow.find("input, select, textarea").each(function() {-->
+<!--                newFormRow = updateEmptyFormIDs($(this), totalForms)-->
+<!--            })-->
+<!--            $(".new-form-row:last").after(newFormRow);-->
+<!--            $('#' + 'id_form-TOTAL_FORMS').val(totalForms + 1);-->
+<!--        }else{-->
+<!--            $('.add-new-form').addClass('disabled')-->
+<!--        }-->
+<!--    })-->
+<!--    })-->
+
+<!--// Clear Institute-->
+<!--function clear_direct_application_form(instance, fieldInstitute, instituteFieldId, courseFieldId){-->
+<!--      alert(instance + " " + instituteFieldId);-->
+<!--      if(fieldInstitute){-->
+<!--      changeConfirmation = confirm("Do you really want to clear Institute ?, You may lost personal statement(s) ( If you have filled it already) for selected institute(s).");-->
+<!--      if (changeConfirmation) {-->
+<!--          $.ajax(-->
+<!--          {-->
+<!--              type:"GET",-->
+<!--              url: "{% url 'application:clear_direct_application' %}",-->
+<!--              data:{-->
+<!--                instance:instance,-->
+<!--              },-->
+<!--              success: function(response)-->
+<!--              {-->
+<!--                var is_cleared = JSON.parse(response["is_cleared"]);-->
+<!--                alert(is_cleared);-->
+<!--              }-->
+
+<!--          })-->
+<!--      }-->
+<!--      }-->
+<!--      $("#" + instituteFieldId).val(null).trigger('change');-->
+<!--      $("#" + courseFieldId).val("");-->
+<!--}-->
+
+<!--$(document).ready(function() {-->
+
+<!--// Institute Select-->
+<!--function add_options(id, instance){-->
+<!--    var s = '<option value="">Select Institute</option>';-->
+<!--    var s;-->
+<!--    for (var i = 0; i < instance.length; i++) {-->
+<!--        var selected = '';-->
+<!--        if ($(id).val() == instance[i].pk){-->
+<!--            selected = 'selected';-->
+<!--            }-->
+<!--        s += '<option value="' + instance[i].pk + '" '+ selected +'>' + instance[i].fields['institute_name'] + '</option>';-->
+<!--    }-->
+<!--    $(id).html(s);-->
+<!--}-->
+
+<!-- changeConfirmation = false;-->
+<!-- var country = $('#id_study_destination_country').val();-->
+<!-- if (country !== ''){-->
+<!--      $.ajax(-->
+<!--      {-->
+<!--          type:"GET",-->
+<!--          url: "{% url 'application:get_institute_consent' %}",-->
+<!--          data:{-->
+<!--            country: JSON.stringify(country),-->
+<!--            app:'',-->
+<!--&lt;!&ndash;            changeConfirmation:changeConfirmation,&ndash;&gt;-->
+<!--          },-->
+<!--          success: function(response)-->
+<!--          {-->
+<!--            var instance = JSON.parse(response["country"]);-->
+<!--            if(instance.length == 0){-->
+
+<!--                var s = '<option value="">No Institutes available !</option>';-->
+<!--                var s;-->
+<!--                $("#id_form-0-institute").html(s);-->
+<!--                $("#id_form-1-institute").html(s);-->
+<!--                $("#id_form-2-institute").html(s);-->
+<!--                $("#div_id_exclude_institutes").hide();-->
+<!--                $("#div_id_exclude_institutes_other").show();-->
+
+<!--            }else{-->
+<!--                var fields = instance[0]["fields"];-->
+<!--                add_options("#id_form-0-institute", instance);-->
+<!--                add_options("#id_form-1-institute", instance);-->
+<!--                add_options("#id_form-2-institute", instance);-->
+<!--                add_options("#id_form-__prefix__-institute", instance);-->
+<!--                var exclude_data=[];-->
+<!--                for (var i = 0; i < instance.length; i++) {-->
+<!--                    exclude_data.push({id:instance[i].pk,text:instance[i].fields['institute_name']});-->
+<!--                }-->
+<!--                obj = $("#id_exclude_institutes").val();-->
+<!--                var exclude_institutes_array =[];-->
+<!--                for( var i in obj ) {-->
+<!--                    if (obj.hasOwnProperty(i)){-->
+<!--                       exclude_institutes_array.push(obj[i]);-->
+<!--                       $('#id_form-0-institute option[value="' + obj[i] + '"]').detach();-->
+<!--                    }-->
+<!--                }-->
+<!--                $("#div_id_exclude_institutes_other").hide();-->
+<!--                $("#div_id_exclude_institutes").show();-->
+<!--            }-->
+<!--            $("#id_exclude_institutes").select2('destroy').empty().select2({placeholder: "Type and search Institutes",data: exclude_data});-->
+<!--            $("#id_exclude_institutes").val(exclude_institutes_array).trigger("change");-->
+<!--          }-->
+<!--      })-->
+<!--      }-->
+
+<!--    function add_institute_option(country){-->
+<!--          $.ajax(-->
+<!--          {-->
+<!--              type:"GET",-->
+<!--              url: "{% url 'application:get_institute_consent' %}",-->
+<!--              data:{-->
+<!--                country: JSON.stringify(country),-->
+<!--                app:{{app.id}},-->
+<!--              },-->
+<!--              success: function(response)-->
+<!--              {-->
+<!--                var instance = JSON.parse(response["country"]);-->
+<!--                var exclude_data=[];-->
+<!--                if(instance.length == 0){-->
+
+<!--                    var s = '<option value="">No Institutes available !</option>';-->
+<!--                    $("#div_id_exclude_institutes").hide();-->
+<!--                    $("#div_id_exclude_institutes_other").show();-->
+<!--                }-->
+<!--                else{-->
+<!--                    var s;-->
+<!--                    s += '<option value="">Select Institute</option>';-->
+<!--                    for (var i = 0; i < instance.length; i++) {-->
+<!--                        s += '<option value="' + instance[i].pk + '">' + instance[i].fields['institute_name'] + '</option>';-->
+<!--                        exclude_data.push({id:instance[i].pk,text:instance[i].fields['institute_name']});-->
+<!--                    }-->
+<!--                    $("#div_id_exclude_institutes_other").hide();-->
+<!--                    $("#div_id_exclude_institutes").show();-->
+<!--                }-->
+<!--                $(".institute-select select").html(s);-->
+<!--                $("#id_exclude_institutes").select2('destroy').empty().select2({placeholder: "Type and search Institutes",data: exclude_data});-->
+<!--              }-->
+<!--          })-->
+<!--          if (changeConfirmation){-->
+<!--                location.reload();-->
+<!--          }-->
+<!--    }-->
+<!--    $('#id_study_destination_country').on('select2:select', function (e) {-->
+<!--        var country = $(this).val();-->
+<!--        add_institute_option(country);-->
+<!--    });-->
+<!--    $('#id_study_destination_country').on('select2:unselect', function (e) {-->
+<!--        var country = $(this).val();-->
+<!--        add_institute_option(country);-->
+<!--    });-->
+
+<!--    $('#id_exclude_institutes').on('select2:select', function removeDropdown(e) {-->
+<!--        $('#id_form-0-institute option[value="' + $(this).val() + '"]').detach();-->
+<!--    });-->
+
+<!--    $('#id_study_destination_country').on('change', function (e) {-->
+<!--        $('#id_exclude_institutes_other').val('');-->
+<!--    });-->
+<!--    var newOption = new Option($('#id_exclude_institutes').attr('data-text'), $('#id_exclude_institutes').val(), false, false);-->
+<!--    $('#id_form-0-institute').append(newOption).trigger('change');-->
+<!--    $('#id_exclude_institutes').on('select2:unselecting', function updateDropdown(e) {-->
+<!--        var newOption = new Option(e.params.args.data.text, $(this).val(), false, false);-->
+<!--        $('#id_form-0-institute').append(newOption).trigger('change');-->
+<!--    });-->
+<!--});-->
+
+</script>
+{% endblock %}

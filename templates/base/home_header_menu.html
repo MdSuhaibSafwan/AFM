@@ -1,0 +1,18 @@
+{% load static %}
+{% load notifications_tags %}
+{% load administration_extras %}
+<div class="afm-header">
+  <!-- <div class="ribbon"><span>Beta</span></div> -->
+  <div class="container-fluid">
+    <div class="afm-header-left">
+        <a href="/" class="afm-logo"><span></span>
+          <img src="{% static 'assets/img/logo/logo.png' %}" alt="IFG-logo">
+        </a>
+      <a href="#" id="azMenuShow" class="afm-header-menu-icon d-none d-lg-none d-xl-none d-lg-none"><span></span></a>
+    </div>
+    <!-- afm-header-left -->
+    <div class="afm-header-menu">
+        <a href="{% url 'login' %}" class="dropdown-item"><b><i data-feather="log-out"></i>Login</b></a>    
+    </div>
+  </div>
+</div>

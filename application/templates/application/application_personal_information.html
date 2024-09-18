@@ -1,0 +1,103 @@
+{% extends 'base/base.html' %}
+{% block title%}Personal Information-Page{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb breadcrumb-style1">
+    <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="#">Build your CV</a></li>
+  </ol>
+</nav>
+{% include 'application/breadcrumb.html' %}
+<div class="card">
+  <div class="row">
+    <div class="col-12">
+      <div class="pd-lg-l-40 d-flex flex-column">
+        <form role="form" method="post" enctype="multipart/form-data">
+          <div class="wizard">
+
+            <div class="content clearfix">
+              <div class="consent">
+
+                <h5>2. Personal Information</h5>
+                <div class="line-2"></div>
+                <p class="consent-p"></p>
+                {% crispy basic_info_form %}
+
+                <h5>Address Information</h5>
+                <div class="line-2"></div>
+                {% crispy address_form %}
+
+                <div class="row ">
+                  <div class="col-12">
+                    <div class="app-footer-line"></div>
+                    <div class="step-btn three-btn mg-t-20">
+                      <div>
+                        <a type="button" class="btn btn-outline-indigo btn-rounded"
+                        href="{% url 'application:application_consent_twfl' app.slug %}" role="menuitem">
+                          <span class="iconify"
+                            data-icon="bi:arrow-left" data-inline="false"></span> Previous
+                        </a>
+                      </div>
+                      <div>
+                      {% if app.academic_qualifications.all.first.country %}
+                      <a type="button" class="btn btn-outline-indigo btn-rounded"
+                        href="{% url 'application:application_education_twfl' app.slug %}" role="menuitem">
+                        Skip & Continue <span class="iconify"
+                                              data-icon="bi:arrow-right" data-inline="false"></span>
+                      </a>
+                      {% endif %}
+                      <button class="btn btn-outline-indigo btn-rounded"> Save & Continue <span class="iconify"
+                            data-icon="bi:arrow-right" data-inline="false"></span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div><!-- az-content-body -->
+
+{% endblock %}
+
+{% block js %}
+{% load static %}
+<script>
+
+<!--  $('#id_native_languages').select2();-->
+<!--  $('#id_country').select2({-->
+<!--    placeholder: 'Choose Country',-->
+<!--    searchInputPlaceholder: 'Search'-->
+<!--  });-->
+  $('select').select2();
+  $( '#id_date_of_birth').datepicker({
+
+          changeYear: true,
+          dateFormat: "dd/mm/yy",
+          maxDate: '-15yr'
+
+        }).attr("placeholder", "dd/mm/yyyy");
+// Phone number field with country flags and auto updated user's country
+var input = document.querySelector("#id_mobile_number");
+if(input){
+    window.intlTelInput(input, {
+        initialCountry: "auto",
+        geoIpLookup: function(success, failure) {
+            $.get("https://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+              var countryCode = (resp && resp.country) ? resp.country : "us";
+              success(countryCode);
+            });
+        },
+        hiddenInput: "mobile_number",
+        separateDialCode: true,
+        utilsScript: '/static/js/utils.js',
+    });
+}
+
+</script>
+{% endblock %}

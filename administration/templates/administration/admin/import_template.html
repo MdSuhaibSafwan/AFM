@@ -1,0 +1,162 @@
+{% extends 'base/base.html' %}
+{% block title%}Import Users{% endblock %}
+{% load administration_extras %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">
+                Dashboard</a></li>
+        <li class="breadcrumb-item">
+            Import Users</li>
+    </ol>
+</nav>
+<form method="post" enctype="multipart/form-data">
+    <div class="row row-sm mg-b-20">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    {% csrf_token %}
+                    <label>Upload the .csv file here: </label>
+                    <input type="file" name="file" accept=".csv" required>
+                    <button type="submit" class="btn btn-indigo btn-rounded">Import Data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+<form>
+    <div class="row row-sm mg-b-10">
+      <div class="col-sm-12 col-md-6 col-lg-2">
+        <div class="select2-box mb-2">
+          {% render_field form.first_name placeholder=form.first_name.label class='form-control' %}
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-2">
+        <div class="select2-box mb-2">
+          {% render_field form.last_name placeholder=form.last_name.label class='form-control' %}
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-3">
+        <div class="select2-box mb-2">
+          {% render_field form.email placeholder=form.email.label class='form-control' %}
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-1">
+        <button type="submit" class="btn btn-indigo btn-block btn-rounded"><i data-feather="search"></i></button>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <a class="btn btn-rounded  btn-md btn-indigo {% if not users_to_import_exists %}disabled{% endif %}"
+           data-toggle="modal" data-target="#import-users"
+           href="{% url 'administration:import_user_twfl' %}"><i data-feather="download"></i>
+            {% if not users_to_import_exists %}No Data to Import Users{% else %}Import Users{% endif %}</a>
+      </div>
+  </div>
+</form>
+<div class="row row-sm mg-b-20">
+  <div class="col-sm-12 col-lg-12">
+    <div class="card card-table-one">
+      <h6 class="card-title">List of Imported Data</h6>
+      <hr>
+      <div class="table-responsive">
+        {% if users_to_import %}
+        <table class="table table-hover mg-b-0">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>User Type</th>
+              <th>Email</th>
+              <th>Date of Birth</th>
+              <th>Nationality</th>
+              <th>Languages</th>
+              <th>Currently Studying Course</th>
+              <th>Course Studied</th>
+              <th>Phone Number</th>
+              <th>Is Imported as User?</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for x in users_to_import %}
+              <tr>
+                <td><strong>{{ x.first_name|getifnone }} {{ x.last_name|getifnone }}</strong></td>
+                <td>{{ x.user_type|getifnone }}</td>
+                <td>{{ x.email|getifnone }}</td>
+                <td>{{ x.date_of_birth|getifnone }}</td>
+                <td>{{ x.nationality|getifnone }}</td>
+                <td>{{ x.languages|getifnone }}</td>
+                <td>{{ x.currently_studying_course|getifnone }}</td>
+                <td>{{ x.course_studied|getifnone }}</td>
+                <td>{{ x.phone|getifnone  }}</td>
+                <td>
+                    {% if x.is_imported %}
+                      <span class="badge badge-pill badge-success"><i data-feather="check"></i></span>
+                    {% else %}
+                      <span class="badge badge-pill badge-light"><i data-feather="x"></i></span>
+                    {% endif %}
+                </td>
+              </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+          <div style="text-align:center;">
+              <p>No Imported Data Available !!!!</p>
+          </div>
+
+        {% endif%}
+      </div><!-- table-responsive -->
+    </div>
+  </div>
+</div>
+<!-- Pagination -->
+<div class="">
+  <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+  <div class="d-flex justify-content-center">
+    <ul class="pagination pagination-circled">
+      {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link"
+          href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}"><i
+            data-feather="arrow-left"></i></a></li>
+      {% endif %}
+      {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link"
+          href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}"><i
+            data-feather="arrow-right"></i></a></li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+<!-- Modal for convert users -->
+<div class="modal fade text-left" id="import-users" tabindex="-1"
+                             role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="">
+                        Confirm</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post"
+                      action="{% url 'administration:import_user_twfl' %}">
+                  {% csrf_token %}
+                    <div class="modal-body">
+                        <h5>Are you sure you want to convert the imported data to Users?</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-rounded btn-indigo reject"
+                                data-dismiss="modal">Close
+                        </button>
+                        <button type="submit" class="btn btn-rounded btn-indigo">
+                            Confirm
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

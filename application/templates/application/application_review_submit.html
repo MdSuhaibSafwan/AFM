@@ -1,0 +1,797 @@
+{% extends 'base/base.html' %}
+{% block title%}Review & Submit - Page{% endblock %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load administration_extras %}
+{% block css %}
+<style>
+    .not-active {
+        cursor: not-allowed;
+        pointer-events: none;
+        opacity: 0.5;
+
+    }
+    .select2-container{
+        width:100% !important;
+        z-index: 9999;
+    }
+    .mentor-profile-dropdown img{
+        width: auto;
+        height: 40px;
+        border-radius: 50%;
+        border: 3px solid #F5F8FF;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb breadcrumb-style1">
+    <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="#">Build your CV</a></li>
+  </ol>
+</nav>
+{% include 'application/breadcrumb.html' %}
+<div class="card">
+    <div class="row">
+        <div class="col-12">
+            <div class="pd-lg-l-40 d-flex flex-column">
+                <div class="wizard">
+                    <div class="content clearfix">
+                        <section>
+                            <div class="review-app">
+                                <div class="submit-review">
+                                    <h3>Review & Submit</h3>
+                                </div>
+                                <div class="consent-review">
+                                    <div class="consent-review2">
+                                        <h4>1. About </h4>
+                                    </div>
+                                    {% if basic_info.about_me %}
+                                    <div class="row consent-profile">
+                                        <div class="col-sm-12 col-lg-8 col-md-8">
+                                            <div class="uni-1">
+                                                <ul class="spoken-eng">
+<!--                                                    <li>Course/Subject Interest:-->
+<!--                                                        <span>{{consent_additional.subject|getsubject}}</span>-->
+<!--                                                    </li>-->
+<!--                                                    <li>Programme/Course name:-->
+<!--                                                        <span>{{consent_additional.program_level|getpost}}</span>-->
+<!--                                                    </li>-->
+<!--                                                    <li>Desire Course: <span>{{consent_additional.desire_course|getifnone}}</span>-->
+<!--                                                    <li>Intake month/year:-->
+<!--                                                        <span>{{consent_additional.intake_month|getmonth}}-{{consent_additional.intake_year|getifnone}}</span>-->
+<!--                                                    </li>-->
+<!--                                                    <li>Study Destination(s): <span>{{consent_additional.study_destination_country|print_study_destination}}</span>-->
+<!--                                                    </li>-->
+<!--                                                    <li>What is your tuition fee budget per academic year? (in GBP)*:-->
+<!--                                                        <span>{{consent_additional.fees_affordability}}</span>-->
+<!--                                                    </li>-->
+<!--                                                    <li>Would you like to be considered for a scholarship? (if available):-->
+<!--                                                        <span>{{consent_additional.scholarship_option|getyesnostatus}}</span>-->
+<!--                                                    </li>-->
+<!--                                                    <li>What is your level of English?:-->
+<!--                                                        <span>{{consent_additional.level_of_english|getenglish_level}}</span>-->
+<!--                                                    </li>-->
+<!--                                                    <li>Institute Name(s):-->
+<!--                                                        <span>-->
+<!--                                                            {% for i in direct_applications %}-->
+<!--                                                            {{forloop.counter}}. {{i.institute.institute_name}}-->
+<!--                                                            {% if forloop.counter < direct_applications.count %}, <br>-->
+<!--                                                                {% endif %} {% empty %} &#45;&#45; {% endfor%} </span>-->
+<!--                                                    </li>-->
+<!--                                                    <li>Are there any institutions that you do not wish to apply to?:-->
+<!--                                                        <span>-->
+<!--                                                            {% if app.exclude_institutes.all.count %}-->
+<!--                                                            {% for i in app.exclude_institutes.all  %}-->
+<!--                                                            {{forloop.counter}}.{{i}}-->
+<!--                                                            {% if forloop.counter < app.exclude_institutes.all.count %}, <br>-->
+<!--                                                                {% endif %} {% empty %} &#45;&#45; {% endfor%}-->
+<!--                                                            {% else %}-->
+<!--                                                                {{ app.exclude_institutes_other|getifnone }}-->
+<!--                                                            {% endif %}-->
+<!--                                                        </span>-->
+<!--                                                    </li>-->
+                                                    <li>About me: <span>{{basic_info.about_me|getifnone }}</span>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <p style="color:red">No information provided.</p>
+                                    <hr>
+                                    {% endif %}
+                                </div>
+                                <div class="consent-review">
+                                    <div class="consent-review2">
+                                        <h4>2.1 Personal Information </h4>
+                                        <span>
+                                            <button class="btn ">
+                                                <a href="{% url 'application:application_personal_information_twfl' app.slug  %}">
+                                                    Edit <i data-feather="edit"></i>
+                                                </a>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    {% if basic_info.title %}
+                                    <div class="row consent-profile">
+                                        <div class="col-sm-12 col-lg-12 col-md-12">
+                                            <div class="uni-1">
+                                                <ul class="spoken-eng">
+                                                    <!-- <li>Application Type: <span>{{basic_info.title}}</span></li> -->
+                                                    <li>Full name:
+                                                        <span>{{basic_info.title|capfirst}}. {{basic_info.first_name}} {{basic_info.surname}}</span>
+                                                    </li>
+                                                    <li>Date of Birth:
+                                                        <span>{{basic_info.date_of_birth|date:"d/m/Y"}}</span></li>
+                                                    <li>Email: <span>{{basic_info.email}}</span></li>
+                                                    <li>Mobile No: <span>{{basic_info.mobile_number}}</span></li>
+                                                    <li>Nationality: <span>{{basic_info.nationality.name}}</span></li>
+                                                    <li>Currently living in: <span>{{basic_info.currently_living_in.name}}</span></li>
+                                                    <li>Gender: <span>{{basic_info.gender|getgender}}</span></li>
+                                                    <li>Native Language(s): <span>{{basic_info.native_languages.all|print_languages}}</span>
+                                                    </li>
+                                                    <li>Marital Status:
+                                                        <span>{{basic_info.marital_status|getmarital}}</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <p style="color:red">No information provided.</p>
+                                    <hr>
+                                    {% endif %}
+                                </div>
+                                <div class="consent-review">
+                                    <div class="consent-review2">
+                                        <h4>2.2 Address Information </h4>
+                                        <span><button class="btn "><a
+                                                href="{% url 'application:application_personal_information_twfl' app.slug  %}">Edit
+                                                    <i data-feather="edit"></i></a></button></span>
+                                    </div>
+                                    {% if address.address_line_1 %}
+                                    <div class="row consent-profile">
+                                        <div class="col-sm-12 col-lg-12 col-md-12">
+                                            <div class="uni-1">
+                                                <ul class="spoken-eng">
+                                                    <li>Address Line 1: <span>{{address.address_line_1|getifnone}}</span></li>
+                                                    <li>Address Line 2: <span>{{address.address_line_2|getifnone}}</span></li>
+                                                    <li>City: <span>{{address.city|getifnone}}</span></li>
+                                                    <li>State: <span>{{address.state|getifnone}}</span></li>
+                                                    <li>Postcode: <span>{{address.postcode|getifnone}}</span></li>
+                                                    <li>Country: <span>{{address.country.name}}</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <p style="color:red">No information provided.</p>
+                                    <hr>
+                                    {% endif %}
+                                </div>
+                                <div class="consent-review">
+                                    <div class="consent-review2">
+                                        <h4>3. Education History </h4>
+                                        <span><button class="btn "><a
+                                                href="{% url 'application:application_education_twfl' app.slug  %}">Edit
+                                                    <i data-feather="edit"></i></a></button></span>
+                                    </div>
+
+                                    {% if educations.first.institute_name %}
+                                    <div class="row consent-profile">
+                                        <div class="col-sm-12 col-lg-12 col-md-12">
+                                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active"
+                                                       id="pills-home-tab-basic-educations"
+                                                       data-toggle="pill"
+                                                       href="#pills-home-basic-educations" role="tab"
+                                                       aria-controls="pills-home-basic-educations"
+                                                       aria-selected="true">Basic Education</a>
+                                                </li>
+                                                {% for education in educations %}
+                                                <li class="nav-item">
+                                                    <a class="nav-link"
+                                                       id="pills-home-tab-educations-{{ forloop.counter}}"
+                                                       data-toggle="pill"
+                                                       href="#pills-home-educations-{{ forloop.counter}}" role="tab"
+                                                       aria-controls="pills-home-educations-{{ forloop.counter}}"
+                                                       aria-selected="true">Education-{{forloop.counter}} </a>
+                                                </li>
+                                                {% endfor %}
+
+                                            </ul>
+
+                                            <div class="tab-content" id="pills-tabContent">
+                                                <div class="tab-pane fade show active"
+                                                     id="pills-home-basic-educations" role="tabpanel"
+                                                     aria-labelledby="pills-home-tab">
+                                                    <div class="uni-1">
+                                                        <ul class="spoken-eng">
+                                                            <li>Are you currently studying?:
+                                                                <span>{{basic_info.currently_studying|getyesnostatus}}</span>
+                                                            </li>
+                                                            {% if basic_info.currently_studying == 1 %}
+                                                            <li>At what level are you currently studying?:
+                                                                <span>{{basic_info.what_are_you_studying|getifnone}}</span>
+                                                            </li>
+                                                            {% else %}
+                                                            <li>What is your most recent qualification?:
+                                                                <span>{{basic_info.last_qualification|getifnone}}</span>
+                                                            </li>
+                                                            {% endif %}
+                                                            <li>{% if basic_info.currently_studying == 1 %}
+                                                                Current school name:
+                                                                {% else %}
+                                                                Last school name:
+                                                                {% endif %}
+                                                                <span>{{basic_info.current_or_last_school_name|getifnone}}</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                {% for education in educations %}
+                                                <div class="tab-pane fade show"
+                                                     id="pills-home-educations-{{ forloop.counter}}" role="tabpanel"
+                                                     aria-labelledby="pills-home-tab">
+                                                    <div class="uni-1">
+                                                        <ul class="spoken-eng">
+                                                            <li>Country:
+                                                                <span>{{education.country.name}}</span>
+                                                            </li>
+                                                            <li>Institute Name:
+                                                                <span>{{education.institute_name}}</span>
+                                                            </li>
+                                                            <li> 
+                                                                {% if education.is_currently_studying == 1 %}
+                                                                Currently Studying:
+                                                                {% else %}
+                                                                Qualification Achieved:
+                                                                {% endif %}
+                                                                <span>{{education.qualification_achieved}}</span>
+                                                            </li>
+                                                            <li> 
+                                                                {% if education.is_currently_studying == 1 %}
+                                                                 Grades Predicted:
+                                                                {% else %}
+                                                                 Grades Achieved:
+                                                                {% endif %}
+                                                                <span>{{education.grades_achieved}}</span>
+                                                            </li>
+                                                            <li>Course Duration:
+                                                                <span>{{education.course_duration_from_month|getmonth}}
+                                                                    {{education.course_duration_from_year|getifnone}} to
+                                                                    {{education.course_duration_to_month|getmonth}}
+                                                                    {{education.course_duration_to_year|getifnone}}</span>
+                                                            </li>
+                                                            <li>Institute Email:
+                                                                <span> 
+                                                                {% if education.institute_email %}{{education.institute_email}}
+                                                                {% else %}--{% endif %}</span>
+                                                            </li>
+                                                            <li>Institute Address:
+                                                                <span>{{education.institute_address|getifnone}}</span>
+                                                            </li>
+                                                            <li>Institute Website:
+                                                               {% if education.institute_website %}
+                                                                <a href="{{education.institute_website}}" target="_blank">Visit</a> {{education.institute_website}}
+                                                                {% else %}
+                                                                --
+                                                                {% endif %}
+                                                            </li>
+                                                            <li>Certificate:
+                                                                <span>{{education.certificate_doc_url}}</span>
+                                                                {% if education.certificate_doc_url%}
+                                                                <a href="{{education.certificate_doc_url.url}}"
+                                                                   target="_blank">View</a>
+                                                                {% else %}--
+                                                                {% endif %}
+                                                            </li>
+                                                            <li>Transcips:
+                                                                <span>{{education.transcripts_doc_url}}</span>
+                                                                {% if education.transcripts_doc_url %}
+                                                                <a href="{{education.transcripts_doc_url.url}}"
+                                                                   target="_blank">View</a>
+                                                                {% else %}--
+                                                                {% endif %}
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <p style="color:red">No information provided.</p>
+                                    <hr>
+                                    {% endif %}
+                                </div>
+
+                                <div class="consent-review">
+                                    <div class="consent-review2">
+                                        <h4>4. English Language </h4>
+                                        <span><button class="btn "><a
+                                                href="{% url 'application:application_english_language_twfl' app.slug  %}">Edit
+                                                    <i data-feather="edit"></i></a></button></span>
+                                    </div>
+                                    {% if english_lan.have_valid_certificate or english_lan.have_valid_certificate == 0 %}
+                                    <div class="row consent-profile">
+                                        <div class="col-sm-12 col-lg-12 col-md-12">
+                                            <div class="uni-1">
+                                                <ul class="spoken-eng">
+                                                    <li>{% if user.user_type == 3 %}
+                                                        Do you have a valid English language test certificate in place?:
+                                                        {% else %}
+                                                        Do the Applicant have a valid English language test certificate in place?
+                                                        {% endif %}
+                                                        <span>{{english_lan.have_valid_certificate|getyesnostatus}}
+                                                        </span>
+                                                    </li>
+                                                    {% if english_lan.have_valid_certificate == 0 %}
+                                                        <li>{% if user.user_type == 3 %}
+                                                            Do you have a test booking date in the future?:
+                                                            {% else %}
+                                                            Does the Applicant have a test booking date in the future?:
+                                                            {% endif %}
+                                                            <span>{{english_lan.have_test_booking_date|getyesnostatus}}
+                                                            </span>
+                                                        </li>
+                                                        {% if english_lan.have_test_booking_date == 1 %}
+                                                            <li>Test Name: <span>{{english_lan.certificate_name}}</span>
+                                                            </li>
+                                                            <li>Test Date: <span>{{english_lan.certificate_date|date:"d/m/Y"}}</span>
+                                                            </li>
+                                                        {% endif %}
+                                                    {% else %}
+                                                    <li>Certificate Name: <span>{{english_lan.certificate_name}}</span>
+                                                    </li>
+                                                    <li>Certificate Date: <span>{{english_lan.certificate_date|date:"d/m/Y"}}</span>
+                                                    </li>
+                                                    <li>Listening Score: <span>{{english_lan.listening}}</span></li>
+                                                    <li>Reading Score: <span>{{english_lan.reading}}</span></li>
+                                                    <li>Writing Score: <span>{{english_lan.writing}}</span></li>
+                                                    <li>Speaking Score: <span>{{english_lan.speaking}}</span></li>
+                                                    <li>Overall: <span>{{english_lan.overall}}</span></li>
+                                                    <!-- <li>Score: <span>{{english_lan.score}}</span></li> -->
+                                                    <li>English Language Certificate:
+                                                        {% if english_lan.certificate %}
+                                                        <a href="{{english_lan.certificate.url}}"
+                                                           target="_blank">View</a>
+                                                        {% else %}
+                                                        --
+                                                        {% endif %}
+                                                    </li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <p style="">No information provided.</p>
+                                    <hr>
+                                    {% endif %}
+                                </div>
+
+                                <div class="consent-review">
+                                    <div class="consent-review2">
+                                        <h4>5. Work Experience History (Optional) </h4>
+                                        <span><button class="btn "><a
+                                                href="{% url 'application:application_work_experience_twfl' app.slug  %}">Edit
+                                                    <i data-feather="edit"></i></a></button></span>
+                                    </div>
+                                    {% if experience.first.company_employer_name %}
+                                    <div class="row consent-profile">
+                                        <div class="col-sm-12 col-lg-12 col-md-12">
+                                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                                {% for exp in experience %}
+                                                <li class="nav-item">
+                                                    <a class="nav-link {% if forloop.counter == 1 %}active{% endif %}"
+                                                       id="pills-home-tab-experience-{{ forloop.counter}}"
+                                                       data-toggle="pill"
+                                                       href="#pills-home-experience-{{ forloop.counter}}" role="tab"
+                                                       aria-controls="pills-home-experience-{{ forloop.counter}}"
+                                                       aria-selected="true">Work Experience-{{forloop.counter}} </a>
+                                                </li>
+                                                {% endfor %}
+
+                                            </ul>
+
+                                            <div class="tab-content" id="pills-tabContent">
+                                                {% for exp in experience %}
+
+                                                <div class="tab-pane fade show {% if forloop.counter == 1 %}active{% endif %}"
+                                                     id="pills-home-experience-{{ forloop.counter}}" role="tabpanel"
+                                                     aria-labelledby="pills-home-tab">
+                                                    <div class="uni-1">
+                                                        <ul class="spoken-eng">
+
+                                                            <li>Company or Employer Name:
+                                                                <span>{{exp.company_employer_name}}</span>
+                                                            </li>
+                                                            <li>Position:
+                                                                <span>{{exp.position|getifnone}}</span>
+                                                            </li>
+                                                            <li>Duration:
+                                                                <span>{{exp.duration_from_month|getmonth}} {{exp.duration_from_year|getifnone}}
+                                                                    to
+                                                                    {{exp.duration_to_month|getmonth}} {{exp.duration_to_year|getifnone}}</span>
+                                                            </li>
+                                                            <li>Company Email: <span>{{exp.company_email|getifnone}}</span></li>
+                                                            <li>Company Phone: <span> 
+                                                            {% if exp.company_phone %}{{exp.company_phone}} {% else%} -- {% endif %}</span></li>
+                                                            <li>Website: <span> 
+                                                            {% if exp.website %}<a hexp="{{exp.website}}"
+                                                                                   target="_blank">Visit</a> ({{exp.website}}) {% else %}--{% endif %}</span>
+                                                            </li>
+                                                            <li>Brief Description: <span> 
+                                                            {% if exp.brief_description %}{{exp.brief_description}} {% else%} -- {% endif %}</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <p>No information provided.</p>
+                                    <hr>
+                                    {% endif %}
+                                </div>
+
+                                <div class="consent-review">
+                                    <div class="consent-review2">
+                                        <h4>6. Reference(Optional) </h4>
+                                        <span><button class="btn "><a
+                                                href="{% url 'application:application_references_twfl' app.slug  %}">Edit
+                                                    <i data-feather="edit"></i></a></button></span>
+                                    </div>
+                                    {% if reference.first.referee_name %}
+                                    <div class="row consent-profile">
+                                        <div class="col-sm-12 col-lg-12 col-md-12">
+                                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                                {% for ref in reference %}
+                                                <li class="nav-item">
+                                                    <a class="nav-link {% if forloop.counter == 1 %}active{% endif %}"
+                                                       id="pills-home-tab-reference-{{ forloop.counter}}"
+                                                       data-toggle="pill"
+                                                       href="#pills-home-reference-{{ forloop.counter}}" role="tab"
+                                                       aria-controls="pills-home-reference-{{ forloop.counter}}"
+                                                       aria-selected="true">Reference-{{forloop.counter}} </a>
+                                                </li>
+                                                {% endfor %}
+
+                                            </ul>
+
+                                            <div class="tab-content" id="pills-tabContent">
+                                                {% for ref in reference %}
+                                                <div class="tab-pane fade show {% if forloop.counter == 1 %}active{% endif %}"
+                                                     id="pills-home-reference-{{ forloop.counter}}" role="tabpanel"
+                                                     aria-labelledby="pills-home-tab">
+                                                    <div class="uni-1">
+                                                        <ul class="spoken-eng">
+                                                            <li>Referee Name: <span>{{ref.referee_name}}</span></li>
+                                                            <li>Company/School Name: <span>{{ref.company_or_school}}</span></li>
+                                                            <li>Position: <span>{{ref.position}}</span></li>
+                                                            <li>Email: <span>{{ref.email}}</span></li>
+                                                            <li>Phone: <span> 
+                                                            {% if ref.phone %}{{ref.phone}} {% else%} -- {% endif %}
+                                                            </span></li>
+                                                            <li>Referee's Website: <span>
+                                                            {% if ref.website %}
+                                                                <a href="{{ref.website}}" target="_blank">Visit</a> ({{ref.website}}) {% else %}--{% endif %}</span>
+                                                            </li>
+                                                            <li>Country: <span>{{ref.country.name|getifnone}}</span></li>
+                                                            <li>Duration:
+                                                                <span>{{ref.duration_from_month|getmonth}} {{ref.duration_from_year|getifnone}}
+                                                                    to
+                                                                    {{ref.duration_to_month|getmonth}} {{ref.duration_to_year|getifnone}}</span>
+                                                            </li>
+                                                            <li>Reference Photocopy:
+                                                                {% if ref.reference_upload %}
+                                                                <a href="{{ref.reference_upload.url}}"
+                                                                   target="_blank">View</a>
+                                                                {% else %}
+                                                                        --
+                                                                {% endif %}
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <p>No information provided.</p>
+                                    <hr>
+                                    {% endif %}
+                                </div>
+<!--                                <div class="consent-review">-->
+<!--                                    <div class="consent-review2">-->
+<!--                                        <h4>7. Personal Statement:</h4>-->
+<!--                                        <span><button class="btn "><a-->
+<!--                                                href="{% url 'application:application_personal_statement_twfl' app.slug  %}">Edit-->
+<!--                                                    <i data-feather="edit"></i></a></button></span>-->
+<!--                                    </div>-->
+<!--                                    {% if common_personal_statement.question_1 %}-->
+<!--                                    <div class="row consent-profile">-->
+<!--                                        <div class="col-sm-12 col-lg-12 col-md-12">-->
+<!--                                            <div class="uni-1">-->
+<!--                                                <ul class="spoken-eng">-->
+<!--                                                    <li>This personal statement will be viewed by universities so they can discover more about you.-->
+<!--                                                        Please be advised not to include any personal contact details or names of any specific universities: <span>{{common_personal_statement.question_1}}</span>-->
+<!--                                                    </li>-->
+<!--                                                    <li>Why have you interested in this particular course or subject?: <span>{{common_personal_statement.question_2}}</span>-->
+<!--                                                    </li>-->
+<!--                                                    <li>{% if request.user.user_type == 3 %}-->
+<!--                                                        Tell us more about your interests, hobbies, and other experiences and activities you’ve participated in, which you think will help you to succeed in your studies with us.:-->
+<!--                                                        {% else %}-->
+<!--                                                        Tell us more about the Applicant's interests, hobbies, and other experiences and activities he/she has participated in, which you think will help his/her to succeed in their studies with us.:-->
+<!--                                                        {% endif %}-->
+<!--                                                        <span>{{common_personal_statement.question_3}}</span>-->
+<!--                                                    </li>-->
+<!--                                                    <li>Other Information: <span>{{common_personal_statement.other_information|getifnone}}</span>-->
+<!--                                                    </li>-->
+<!--                                                </ul>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    {% else %}-->
+<!--                                    <p style="color:red">No information provided.</p>-->
+<!--                                    <hr>-->
+<!--                                    {% endif %}-->
+<!--                                </div>-->
+<!--                                <div class="consent-review">-->
+<!--                                    <div class="consent-review2">-->
+<!--                                        <h4>8.1 Visa History </h4>-->
+<!--                                        <span>-->
+<!--                                            <button class="btn "><a-->
+<!--                                                href="{% url 'application:application_visa_history_twfl' app.slug  %}">Edit-->
+<!--                                                    <i data-feather="edit"></i></a>-->
+<!--                                            </button>-->
+<!--                                        </span>-->
+<!--                                    </div>-->
+<!--                                    {% if visa.first.have_you_studied_in_the_uk_before or visa.first.have_you_studied_in_the_uk_before == 0 %}-->
+<!--                                    <div class="row consent-profile">-->
+<!--                                        <div class="col-sm-12 col-lg-12 col-md-12">-->
+<!--                                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">-->
+<!--                                                {% for study_destination_visa in visa %}-->
+<!--                                                <li class="nav-item">-->
+<!--                                                    <a class="nav-link {% if forloop.counter == 1 %}active{% endif %}"-->
+<!--                                                       id="pills-home-tab-visa-{{ forloop.counter}}"-->
+<!--                                                       data-toggle="pill"-->
+<!--                                                       href="#pills-home-visa-{{ forloop.counter}}" role="tab"-->
+<!--                                                       aria-controls="pills-home-visa-{{ forloop.counter}}"-->
+<!--                                                       aria-selected="true">{{study_destination_visa.study_destination_country.code|getifneedtheartical}}{{study_destination_visa.study_destination_country.name}} </a>-->
+<!--                                                </li>-->
+<!--                                                {% endfor %}-->
+<!--                                            </ul>-->
+<!--                                            <div class="tab-content" id="pills-tabContent">-->
+<!--                                                {% for study_destination_visa in visa %}-->
+<!--                                                <div class="tab-pane fade show {% if forloop.counter == 1 %}active{% endif %}"-->
+<!--                                                     id="pills-home-visa-{{ forloop.counter}}" role="tabpanel"-->
+<!--                                                     aria-labelledby="pills-home-tab">-->
+<!--                                                    <div class="uni-1">-->
+<!--                                                        <ul class="spoken-eng">-->
+<!--                                                            <li>-->
+<!--                                                                {% if request.user.user_type == 3 %}Have you{% else %}Has the Applicant{% endif %} Studied in{{ study_destination_visa.study_destination_country|getifneedtheartical }}-->
+<!--                                                                {{study_destination_visa.study_destination_country.name}} Before?-->
+<!--                                                                <span>{{study_destination_visa.have_you_studied_in_the_uk_before|getyesnostatus}}</span>-->
+<!--                                                            </li>-->
+<!--                                                            {% if study_destination_visa.have_you_studied_in_the_uk_before == 1 %}-->
+<!--                                                            <li>Visa Duration: <span>{{study_destination_visa.visa_duration_from_month|getmonth}}-->
+<!--                                                                    {{study_destination_visa.visa_duration_from_year|getifnone}} to-->
+<!--                                                                    {{study_destination_visa.visa_duration_to_month|getmonth}}-->
+<!--                                                                    {{study_destination_visa.visa_duration_to_year|getifnone}}</span>-->
+<!--                                                            </li>-->
+<!--                                                            {% endif %}-->
+<!--                                                            <li>-->
+<!--                                                                {% if request.user.user_type == 3 %}Have you{% else %}Has the Applicant{% endif %} ever been refused entry into {{ study_destination_visa.study_destination_country|getifneedtheartical }}-->
+<!--                                                                {{study_destination_visa.study_destination_country.name}}?-->
+<!--                                                                <span>{{study_destination_visa.have_you_ever_been_refuse_entry_in_to_the_uk|getyesnostatus}}</span>-->
+<!--                                                            </li>-->
+<!--                                                            <li>-->
+<!--                                                                {% if request.user.user_type == 3 %}Have you{% else %}Has the Applicant{% endif %} ever been deported from {{ study_destination_visa.country|getifneedtheartical }}-->
+<!--                                                                {{study_destination_visa.study_destination_country.name}}?-->
+<!--                                                                <span>{{study_destination_visa.have_you_ever_been_deported_from_the_uk|getyesnostatus}}</span>-->
+<!--                                                            </li>-->
+<!--                                                        </ul>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                                {% endfor %}-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    {% else %}-->
+<!--                                    <p style="color:red">No information provided.</p>-->
+<!--                                    <hr>-->
+<!--                                    {% endif %}-->
+<!--                                </div>-->
+<!--                                <div class="consent-review">-->
+<!--                                    <div class="consent-review2">-->
+<!--                                        <h4>8.2 Passport Information </h4>-->
+<!--                                        <span><button class="btn "><a-->
+<!--                                                href="{% url 'application:application_personal_information_twfl' app.slug  %}">Edit-->
+<!--                                                    <i data-feather="edit"></i></a></button></span>-->
+<!--                                    </div>-->
+<!--                                    {% if passport.passport_number %}-->
+<!--                                    <div class="row consent-profile">-->
+<!--                                        <div class="col-sm-12 col-lg-12 col-md-12">-->
+<!--                                            <div class="uni-1">-->
+<!--                                                <ul class="spoken-eng">-->
+<!--                                                    <li>Passport Number: <span>{{passport.passport_number}}</span></li>-->
+<!--                                                    <li>Issuing Date: <span>{{passport.issue_date|date:"d/m/Y"}}</span>-->
+<!--                                                    </li>-->
+<!--                                                    <li>Expiry Date: <span>{{passport.expiry_date|date:"d/m/Y"}}</span>-->
+<!--                                                    </li>-->
+<!--                                                    <li>Issuing Authority: <span>{{passport.issuing_authority}}</span>-->
+<!--                                                    </li>-->
+<!--                                                    <li>Place Of Birth: <span>{{passport.place_of_birth}}</span></li>-->
+<!--                                                    <li>Current Passport:-->
+<!--                                                        {% if passport.passport %}-->
+<!--                                                        <a href="{{passport.passport.url}}" target="_blank">View</a>-->
+<!--                                                        {% else %}-->
+<!--                                                        &#45;&#45;-->
+<!--                                                        {% endif %}-->
+<!--                                                    </li>-->
+<!--                                                </ul>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    {% else %}-->
+<!--                                    <p style="color:red">No information provided.</p>-->
+<!--                                    <hr>-->
+<!--                                    {% endif %}-->
+<!--                                </div>-->
+<!--                                <div class="consent-review">-->
+<!--                                    <div class="consent-review2">-->
+<!--                                        <h4>9. Additional Information / Requirement </h4>-->
+<!--                                        <span><button class="btn "><a-->
+<!--                                                href="{% url 'application:application_additional_information_twfl' app.slug %}">Edit-->
+<!--                                                    <i data-feather="edit"></i></a></button></span>-->
+<!--                                    </div>-->
+<!--                                    {% if consent_additional.health_conditions %}-->
+<!--                                    <div class="row consent-profile">-->
+<!--                                        <div class="col-sm-12 col-lg-12 col-md-12">-->
+<!--                                            <div class="uni-1">-->
+<!--                                                <ul class="spoken-eng">-->
+<!--                                                    <li>-->
+<!--                                                    {% if request.user.user_type == 3 %}Do you{% else %}Does the Applicant{% endif %} have any learning disabilities or difficulties?:-->
+<!--                                                        <span>{{ consent_additional.learning_disabilities_or_difficulties|getyesnostatus }}</span>-->
+<!--                                                    </li>-->
+<!--                                                    {% if consent_additional.learning_disabilities_or_difficulties == 1 %}-->
+<!--                                                     <li>Details :-->
+<!--                                                        <span>{{consent_additional.disabilities_text|getifnone}}</span>-->
+<!--                                                    </li>-->
+<!--                                                    {% endif %}-->
+<!--                                                    <li>-->
+<!--                                                    {% if request.user.user_type == 3 %}Do you{% else %}Does the Applicant{% endif %} have any health conditions?:-->
+<!--                                                        <span>{{consent_additional.health_conditions|gethealthstatus}}</span>-->
+<!--                                                    </li>-->
+<!--                                                    {% if consent_additional.health_conditions == '1' %}-->
+<!--                                                     <li>Details :-->
+<!--                                                        <span>{{consent_additional.health_conditions_text|getifnone}}</span>-->
+<!--                                                    </li>-->
+<!--                                                    {% endif %}-->
+<!--                                                    <li>-->
+<!--                                                    {% if request.user.user_type == 3 %}Do you{% else %}Does the Applicant{% endif %} have any criminal records?:-->
+<!--                                                        <span>{{consent_additional.criminal_records|getyesnostatus}}</span>-->
+<!--                                                    </li>-->
+<!--                                                    {% if consent_additional.criminal_records == 1 %}-->
+<!--                                                     <li>Details :-->
+<!--                                                        <span>{{consent_additional.records|getifnone}}</span>-->
+<!--                                                    </li>-->
+<!--                                                    {% endif %}-->
+<!--                                                    {% if consent_additional.others %}-->
+<!--                                                    <li>Other:<span>{{consent_additional.others}}</span></li>-->
+<!--                                                    {% endif %}-->
+<!--                                                    <li>What is your ethnic origin? (if known):-->
+<!--                                                        <span>{{ consent_additional.ethnic_origin|getifnone }}</span>-->
+<!--                                                    </li>-->
+<!--                                                    <li>What is your religion or belief? (if any):-->
+<!--                                                        <span>{{ consent_additional.religion_or_belief|getifnone }}</span>-->
+<!--                                                    </li>-->
+<!--                                                    <li>What is your sexual orientation? (optional):-->
+<!--                                                        <span>{{ consent_additional.sexual_orientation|getifnone }}</span>-->
+<!--                                                    </li>-->
+<!--                                                    <li>Next Kin Name: <span>{{basic_info.next_of_kin_name}}</span></li>-->
+<!--                                                    <li>Kin Relation with Student:-->
+<!--                                                        <span>{{basic_info.relationship_to_student}}</span>-->
+<!--                                                    </li>-->
+<!--                                                    <li>Kin Email: <span>{{basic_info.next_of_kin_email}}</span></li>-->
+<!--                                                    <li>Kin Phone No: <span>-->
+<!--                                                    {% if basic_info.next_of_kin_phone %}{{basic_info.next_of_kin_phone}} {% else %} &#45;&#45; {% endif %}</span></li>-->
+<!--                                                </ul>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    {% else %}-->
+<!--                                    <p style="color:red">No information provided.</p>-->
+<!--                                    <hr>-->
+<!--                                    {% endif %}-->
+<!--                                </div>-->
+                        </section>
+                          <form role="form" method="post" enctype="multipart/form-data" class="consent-review">
+                            {% csrf_token %}
+                            <input type="hidden" value="" name="link" id="link">
+                            <label class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1" required {% if app.consent_terms_condition %}checked{% endif %} >
+                                <p class="form-check-label" for="exampleCheck1">
+                                    {% if request.user.user_type == 3 %}
+                                    I have read, understood and agreed to the
+                                    <a href="{% url 'administration:terms_and_conditions' %}"
+                                       target="_blank">Terms and Conditions</a>. I consent to the use of my personal
+                                    information as set out under these Terms and as per the GDPR compliance and
+                                    <a href="{% url 'administration:privacy_notice' %}" target="_blank">Privacy Notice</a>
+                                    in place. I declare that the
+                                    information provided by me in the application is true and correct to the best of my
+                                    knowledge. I understand that any false information in support of a course
+                                    application, and that where fraudulent documents are detected, the application will
+                                    be rejected, any offer of enrolment will be withdrawn.
+                                    {% else %}
+                                    I have read, understood and agree to the
+                                    <a href="{% url 'administration:terms_and_conditions' %}"
+                                       target="_blank">Terms and Conditions</a>. I confirm that I have full permission
+                                    to submit this application on behalf of the Applicant. I consent to the use of the
+                                    Applicant's information as set out under these Terms and as per the GDPR compliance
+                                    and <a href="{% url 'administration:privacy_notice' %}" target="_blank">Privacy Notice</a>
+                                    in place. I declare that the information provided by me in the application is true
+                                    and correct to the best of my knowledge. I understand that any false information in
+                                    support of a course application, and that where fraudulent documents are detected,
+                                    the application will be rejected, any offer of enrolment will be withdrawn.
+                                    {% endif %}
+                                </p>
+                            </label>
+                            <div class="row ">
+                                <div class="col-12">
+                                    <div class="step-btn mg-t-20">
+                                        {% if clear %}
+                                        <button id="Button"
+                                                class="btn btn-rounded btn-sm btn-indigo save-continue"
+                                                style="color:#fff;" {% if not app.consent_terms_condition %}disabled="disabled"{% endif %}> Confirm & Submit
+                                        </button>
+                                        {% else %}
+                                        <button class="btn btn-rounded btn-sm btn-indigo save-continue dummy not-active"
+                                                style="color:#fff;" onclick="return false"> Confirm & Submit
+                                        </button>
+
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- az-content-body -->
+{% endblock %}
+
+{% block js %}
+<script>
+$(document).ready(function(){
+  function setMentorlist (mentor) {
+	  if (!mentor.id) { return mentor.text; }
+		var $mentor = $('<span class="mentor-profile-dropdown">' + mentor.text + '</span>');
+		return $mentor;
+	};
+	$("#id_mentor").select2({
+		placeholder: "Search Alumni", //placeholder
+		templateResult: setMentorlist,
+		templateSelection: setMentorlist
+	});
+})
+document.getElementById('link').value = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+    $("#exampleCheck1").change(function () { 
+        var $this = $('#Button');
+            if ($this.attr('disabled')) $this.removeAttr('disabled');
+            else $this.attr('disabled', 'disabled');
+        }
+    );
+</script>
+{% endblock %}

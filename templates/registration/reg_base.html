@@ -1,0 +1,111 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="hbnBW2usQsGaRNAaEbs_pbGWA3Y_aOoNsU_IwFXmkog" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IFG - Connect with our students and alumni: {% block title1 %}{% endblock %}</title>
+    <meta name="description" content="{% block meta-content1 %}{% endblock %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:url" content="{% block canonical-link1 %}{% endblock %}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{% block title2 %}{% endblock %}" />
+    <meta property="og:description" content="{% block meta-content2 %}{% endblock %}" />
+    <meta property="og:image" content="{% static 'website/img/footer/tag-logo-1130x540.png' %}" />
+    <meta name="theme-color" content="#141e42" />
+    <link rel="canonical" href="{% block canonical-link2 %}{% endblock %}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/logo/favicon.png' %}">
+    {% include 'registration/reg_css.html' %}
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J12SNYZ3PG"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-J12SNYZ3PG');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TZ6CKNW8');</script>
+    <!-- End Google Tag Manager -->
+
+    {% block stylings %}{% endblock stylings %}
+    {% block css %}{% endblock css %}
+    {% block extra-heads %}{% endblock extra-heads %}
+
+
+    <!-- Start cookieyes banner -->
+<!--    <script id="cookieyes" type="text/javascript"-->
+<!--            src="https://cdn-cookieyes.com/client_data/3c24006de3b1eab447f6de95/script.js"></script>-->
+    <!-- End cookieyes banner -->
+    
+
+    <!-- Hotjar Tracking Code for IFG ApplyPal -->
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:5005270,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+
+
+<!--    <link href="{% static 'gdpr-cookie-consent/css/gdpr-cookie-consent.css' %}" rel="stylesheet"/>-->
+</head>
+<body class="afm-how-work">
+    
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TZ6CKNW8"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+   
+    {% include 'registration/reg_menu.html' %}
+   
+    <!--- Messages ----->
+   {% if messages %}
+    <div class="mt-5 text-center h5 font-weight-normal message-alert-box">
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+            <div class="alert alert-danger">{{ message }}</div>
+            {% endif %}
+
+            {% if message.tags == 'success' %}
+            <div class="alert alert-success">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    </div>
+   {% endif %}
+   {% block content %} {% endblock %}
+   {% include 'registration/reg_footer.html' %}
+</body>
+
+<a id="scrollTop"><i data-feather="arrow-up"></i></a>
+
+{% include 'registration/reg_js.html' %}
+{% block js %}{% endblock %}
+<script>
+feather.replace();
+$(function(){
+    var current = window.location.pathname;
+    $('.menu-outline li a').each(function(){
+        var $this = $(this);
+        if($this.attr('href')== current){
+            $this.parent().addClass('current');
+        }
+    });
+});
+</script>
+<!--<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>-->
+<!--{% include "gdpr_cookie_consent/includes/cookie_consent.html" %}-->
+</html>

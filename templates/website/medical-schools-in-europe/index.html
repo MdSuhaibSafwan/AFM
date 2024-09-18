@@ -1,0 +1,108 @@
+{% extends 'registration/reg_base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title1 %}{% block title2%}Study medicine at medical schools in Europe | International Foundation Group{% endblock %}{% endblock %}
+
+{% block meta-content1 %}{% block meta-content2 %}There are a large number of medical schools in Europe that teach medicine, dentistry, pharmacy
+and physiotherapy in English and are reconciled worldwide.
+{% endblock %}{% endblock %}
+
+{% block canonical-link1 %}{% block canonical-link2%}
+https://applyformedicine.com/medical-schools-in-europe/
+{% endblock %}{% endblock %}
+{% block content %}
+<main>
+    <section class="header_area bg-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site-breadcrub">
+                        <p>
+                            <a href="/">International Foundation Group</a>
+                            <span> >
+                            </span>
+                            <a href="{% url 'administration:study_medicine' %}">Study Medicine</a>
+                            <span> >
+                            </span>Medical Schools In Europe
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12">
+                    <div class="header-inner-wrapper">
+                        <h1 data-animate="fadeInUp" data-animate-delay="5">Universities in Europe that offer medicine
+                            in English </h1>
+                        <p data-animate="fadeInUp" data-animate-delay="0">Connect with mentors currently studying
+                            medicineat European medical schools. </p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12">
+                    <div class="right-icon-img-area parent-img">
+                        <img src="{% static 'assets/img/flag-img/europe-flag.png' %}"
+                           class="img-fluid" alt="Medical Admission Blogs" title="Medical Admission Blogs" width="400" height="250" loading="lazy">
+                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 col-lg-12">
+                    <!-- <p>Further European medical schools (outside the UK) will soon be added to this page. In the meantime, here is some information from current students currently studying medicine in mainland Europe. </p> -->
+                    <article>
+                        <p> Medical universities in Europe are accredited and internationally recognized, always
+                            strivingto give you the knowledge and experience. Another advantage is that all universities
+                            have similar outlines of the curriculum and the set-up of the degree, making sure that their
+                            students don’t lack in any aspect. The first years are usually the preclinical years,
+                            covering the basic knowledge and concepts before students are ready to move on to the
+                            clinics. Once in the clinics,students enter the hospitals, where they are taught by
+                            practicing doctors and are giving practical training too. All universities focus heavily on
+                            practical teaching. Some universities will even provide you with resources to learn the
+                            local
+                            language to make your interaction with patients easier! And while you are studying for your
+                            degree, you live in the country andexperience it in a way no holiday can ever match. You get
+                            to experience a different culture, itspeople and their language and their food. You also get
+                            to create international contacts and whoknows; maybe they’ll come in handy for you in your
+                            future. Living and studying in another country only adds to your life experience. You learn
+                            to grow independent, while handling living and studying. </p>
+                    </article>
+                    <p>
+                        <a href="{% url 'administration:studying_medicine_at_medical_university_sofia' %}">
+                            Medical University Sofia</a>
+                    </p>
+                    <p>
+                        <a
+                            href="{% url 'administration:studying_medicine_at_the_medical_university_of_silesia' %}">
+                            The Medical University of Silesia, Katowice, Poland</a>
+                    </p>
+                    <p>
+                        <a href="{% url 'administration:studying_medicine_at_karolinska_institute' %}">
+                            Karolinska Institute, Sweden</a>
+                    </p>
+                    <p>
+                        <a href="{% url 'administration:studying_medicine_at_charles_university' %}"> Charles
+                            University in Prague</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="afm-join-area bg-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 align-items-center justify-content-center d-flex">
+                    <div class="get-start-content">
+                        <h4>Get Started now!</h4>
+                        <p>Start your application journey to university and join a fast-growing<br> global community
+                            of students by searching for a mentor now </p>
+                        <div class="mt-5">
+                            <a href="{% url 'administration:registration' %}" class="theme-btn">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

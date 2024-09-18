@@ -1,0 +1,141 @@
+{% extends 'base/base.html' %}
+{% block title %}Reported Users{% endblock %}
+{% load administration_extras %}
+{% load static %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item">
+            <a href="{% url 'administration:dashboard' %}">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="#">Total Reported Users</a>
+        </li>
+    </ol>
+</nav>
+<div class="row row-sm mg-b-20">
+    <div class="col-sm-12 col-lg-12">
+        <div class="card card-table-one">
+            <h6 class="card-title">List of Reported Users</h6>
+            <hr>
+            <div class="table-responsive">
+                {% if page_obj %}
+                <table class="table table-hover mg-b-0">
+                    <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Reported By</th>
+                        <th>Why do you wish to report this message?</th>
+                        <th>Message</th>
+                        <th>Reported on</th>
+                        <th>Last updated on</th>
+                        <th>Active/Inactive</th>
+                        <th>Delete record</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in page_obj %}
+                    <tr>
+                        <td>
+                            <strong>{{i.reported_user.first_name}}
+                                {{i.reported_user.last_name}}</strong> ( {{i.reported_user.user_type|getuser}} )
+                        </td>
+                        <td>
+                            <strong>{{i.report_by_user.first_name}}
+                                {{i.report_by_user.last_name}}</strong> ( {{i.report_by_user.user_type|getuser}} )
+                        </td>
+                        <td>
+                            {{i.reason_to_report|getifnone}}
+                        </td>
+                        <td>{{i.message|getifnone}}</td>
+                        <td>{{i.created_at|date:"d/m/Y"}}</td>
+                        <td>{{i.updated_at|date:"d/m/Y"}}</td>
+                        <td>
+                            <form method="post" id="form-{{i.id}}" onsubmit="">
+                                {% csrf_token %}
+                              <div class="custom-control custom-switch">
+                                <input type="hidden" name="record_id" value="{{i.id}}">
+                                <input type="checkbox" class="custom-control-input" id="button-{{i.id}}"
+                                  onchange="change_is_active('form-{{i.id}}')" {% if i.is_removed %} checked{% endif %}>
+                                <label class="custom-control-label" for="button-{{i.id}}">
+                                  {% if i.is_removed %}
+                                  Active{% else %}
+                                  Not Active{% endif %}
+                                </label>
+                              </div>
+                            </form>
+                        </td>
+                        <td>
+                          <a href="#" class="btn btn-danger btn-rounded" data-toggle="modal"
+                            data-target="#delete{{i.id}}"><i data-feather="trash"></i>Delete</a>
+                        </td>
+                    </tr>
+                    <div class="modal fade" id="delete{{i.id}}" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Delete Record</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <form method="post"
+                                        action="{% url 'messaging:delete_report_record_twfl' i.id %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="redirect" value="{{request.path}}">
+                                <div class="modal-body">
+                                  Are you sure, you want do delete this record ?
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-outline-indigo btn-rounded"
+                                    data-dismiss="modal">cancel</button>
+                                  <button type="submit" class="btn btn-outline-indigo btn-rounded">Confirm</button>
+                                </div>
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <div style="text-align:center;">
+                    <p>No user is reported yet !!!!</p>
+                </div>
+                {% endif%}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="">
+  <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+  <div class="d-flex justify-content-center">
+    <ul class="pagination pagination-circled">
+      {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link"
+          href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}"><i
+            data-feather="arrow-left"></i></a></li>
+      {% endif %}
+      {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link"
+          href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}"><i
+            data-feather="arrow-right"></i></a></li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+  var id;
+  function change_is_active(id) {
+    if (confirm('Do you really want to do this action')) {
+      $('#' + id).submit();
+    }
+    else{
+        location.reload();
+    }
+  }
+</script>
+{% endblock %}

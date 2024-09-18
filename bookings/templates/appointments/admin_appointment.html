@@ -1,0 +1,123 @@
+{% extends 'base/base.html' %}
+{% load duration_filter %}
+{% block title %}Dashboard{% endblock %}
+{% load administration_extras %}
+{% load static %}
+{% load widget_tweaks %}
+{% load time_filter %}
+
+{% block css %}
+
+<style>
+    input[name="time"]:checked + label {
+            background-color: #141e42;
+            color: white !important;
+        }
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="#">New Appointment</a></li>
+    </ol>
+</nav>
+
+<form method="POST" class="form-group">
+    {% csrf_token %}
+    {% if form.errors %}
+    <ul class="user-msg error">
+        {% for field in form %}
+        {% for error in field.errors %}
+        <li>
+            {% if field != '__all__'  %}
+            <strong>{{ field.label }}:</strong>
+            {% endif %}
+            {{ error }}
+        </li>
+        {% endfor %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="row">
+        {% for field in form %}
+        <div class='col-6 mb-2'>
+            {{field.label_tag}}
+            {{field}}
+        </div>
+        {% endfor %}
+    </div>
+    <input type="submit" value="Create" class="btn btn-az-primary mt-2">
+</form>
+
+{% endblock %}
+
+{% block js %}
+
+<script src="{% static 'assets/plugin/datapicker/js/bootstrap-datepicker.min.js' %}"></script>
+
+<script>
+
+        $("#id_date").datepicker({
+            todayHighlight: true
+        }).datepicker('update', new Date()).on('changeDate', function (e) {
+            // var url = $("#timeslotform").attr("data-url");  // get the url of the `load_cities` view
+            var date = e.date.getFullYear() + '-' + (e.date.getMonth() + 1) + '-' + e.date.getDate(); // get the selected country ID from the HTML input
+            //
+            // document.querySelector(".times-label").classList.remove('hidden');
+            //
+            // var myNewDate = new Date(date)
+            // var formatedDate = myNewDate.toLocaleDateString('en-US', {
+            //     year: 'numeric',
+            //     month: 'short',
+            //     day: 'numeric'
+            // });
+            //
+            // sessionStorage.setItem("date", formatedDate);
+            // datePara = document.querySelector('#datePara')
+            // if (datePara.innerHTML == '') {
+            //     datePara.innerHTML += sessionStorage.getItem("date");
+            //     localStorage.clear();
+            // } else {
+            //     datePara.innerHTML = '';
+            //     datePara.innerHTML += sessionStorage.getItem("date");
+            //     localStorage.clear();
+            // }
+            // document.getElementById('date').value = date
+            console.log("Umer--->", date, " ---> ")
+            newid = '#id_slot';
+            $(newid).empty();
+            var provider = $("#id_provider_id").val();
+            var duration = $("#id_duration_minutes").val();
+            // var provider = $("input[name=provider]").val();
+            // var duration = $("input[name=duration]").val();
+            $.ajax({                       // initialize an AJAX request
+                url: '/booking/get-slot',                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                data: {
+                    'date': date,       // add the country id to the GET parameters
+                    'user': provider,
+                    'duration': duration,
+                },
+                success: function (response) {
+                    var div = document.getElementById('id_time')
+                    div.innerHTML = ""
+                    for (var q = 0; q < response.instance.length; q++) {
+                        for (var i = 0; i < response.instance[q].length; i++) {
+                            div.innerHTML += "<div class='custom-form-group time-row-bg text-center bg-black-1'> <input type='radio' required onchange='settime(this)' name='time' class='mr-3 inp-time' id='" + response.instance[q][i] + "' value='" + response.instance[q][i] + "' style='margin-right:10px;'> <label style='font-size:18px;color: #141e42;' for='" + response.instance[q][i] + "'> <span class='text text-light-blue w-100'>" + response.instance[q][i] + "</span> </label> </div>"
+                        }
+                    }
+                }
+            });
+        });
+
+
+    function settime(value) {
+        document.getElementById('id_time').value = value.value;
+    }
+
+</script>
+
+{% endblock %}

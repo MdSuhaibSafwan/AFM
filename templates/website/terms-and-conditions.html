@@ -1,0 +1,456 @@
+{% extends 'registration/reg_base.html' %}
+
+<style>
+    a.cky-banner-element {
+        padding: 8px 30px;
+        background: #F8F9FA;
+        color: #858A8F;
+        border: 1px solid #DEE2E6;
+        box-sizing: border-box;
+        border-radius: 2px;
+        cursor: pointer;
+}
+
+</style>
+<!-- TODO: Indent text on bullet points -->
+{% block content %}
+
+    <div class="container pt-5 cookie">
+    
+        
+        <h1 style="font-size: 1rem;color:#262a2e" class="cookie-policy-h1 text-center"><b>Terms & Conditions for Students and Tutors/Alumni</b> </h1>
+        <p class="text-center mt-1">
+
+            <!-- Auto update "last update" Dates -->
+            
+            Last Updated: 30-May-2022
+        </p>
+        &nbsp;
+
+        <p>These Terms and Conditions apply to <b style="color:#262a2e;"> Supeerio Ltd. </b> and all its subsidiary companies. The subsidiary companies are owned, controlled and operated by Supeerio Ltd with CRN: 1404630 and registered office at: 71-75 Shelton Street, Covent Garden, London, WC2H 9JQ United Kingdom. </p>
+
+        <p>When we mention Supeerio Ltd.  or refer to  ‘We/Our/Us’ in these Terms and Conditions we are referring to all the relevant subsidiary companies that are responsible for upholding these terms.
+        </p>
+        
+        <p>
+            <dt>The relevant Supeerio Ltd companies are;</dt> <br>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                <b style="color:#262a2e;"> The Apply Group Ltd. </b>,(‘TAG’) with CRN: 12938105 has its registered office at: Suite 209, Mayfair Point, 34 South Molton Street, London W1K 5RG, United Kingdom.
+            </dd>
+        </p>
+
+        <p>
+            We are an online student marketplace that helps Student(s) to find and communicate with Tutors/Alumni) which they deem suitable at their discretion and for Tutors/Alumni to discuss and market their tutoring/mentoring services, with a focus on university/school admission and enrolment. Tutors/Alumni are existing university students who will also be connected to potential employers who may also discuss employment opportunities, if suitable.
+        </p>
+
+        <p>
+            Once Student(s) have found a suitable Tutors/Alumni, they may book appointment(s) (‘Discovery Call’) to enable the Tutors/Alumni to discuss and deliver their services.
+        </p>
+
+        <p>
+            Delivery of Services, and payment, if any, between Tutors/Alumni & Student shall be discussed and agreed strictly and exclusively between Users only and made via an appointment booking/payment software owned by Supeerio Ltd.
+        </p>
+
+        <p>
+            All of these Terms and Conditions shall apply to Student(s) and Tutors/Alumni, unless they specifically state otherwise.
+        </p>
+
+        <p>
+            By registering on, or using, our Website the user agrees to be bound by these terms and conditions. These terms and conditions are legally binding – every User should read them fully before agreeing to them. (Please print or save these terms for future use as We will not keep a file copy specifically for the User and We cannot guarantee that they will remain accessible on the Website in future.) If a User does not wish to be bound by these terms, they should not use the Website.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Waiver</b></h2>
+        <p>
+            Every effort has, is and will be taken to ensure that the information contained in this site is correct and up to date. The information may, however, become incomplete, inaccurate or out of date. To the full extent permitted by Law, but subject to the terms and conditions of sale referred to below, we disclaim all warranties and representations (whether implied or expressed) as to the accuracy of any information contained on this site.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Further Definitions</b></h2>
+        For the purposes of these Terms & Conditions, the following definitions apply: 
+        <br>
+        <br>
+        <p>
+           <b>Services.</b> "Service(s)" means the range of services (relevant to a potential University Application, such as tutoring, mentoring, general advice and guidance and preparing for an application) which are discussed, agreed between Users and available for free, or for a payment, made by Students to Alumni/Tutors registered on our Websites in accordance with the Terms & Conditions. Tutors/Mentors may offer their Services in their absolute discretion only and this includes whether they wish to offer a User any Service at all.
+        </p>
+
+        <p>
+            <b>User.</b> "User" means a person who uses our Website (whether or not they have registered an account with us).
+        </p>
+        
+        <p>
+            <b>Tutors/Mentors.</b> "Tutors/Mentors" means a User who has registered a Tutor/Mentor on any of the Website(s), and has agreed to our <a style="color: rgb(58, 61, 65); font-weight: 500;" target="_blank" href="{% url 'administration:codes-of-conduct' %}#tutors-coc">Tutors/Mentors Code of Conduct</a>. Such Tutors/Mentors are Self Employed and promoting their personal brand of Services.
+        </p>
+
+        <p>
+            <b>Students.</b> "Student" means a User who has registered an student account on the Website and has agreed to our <a style="color: rgb(58, 61, 65); font-weight: 500;" target="_blank" href="{% url 'administration:codes-of-conduct' %}"> Student Code of Conduct</a>. The Applicant must be at least 18 years old. Where the Student/Applicant is under 18 years old, the Student, for purposes of these terms, will be their Parent/Guardian.
+            We can not be responsible for any dispute(s) between an Applicant/Student the age of 18 and a Parent/Guardian.
+            
+        </p>
+
+        <p>
+            <b>Parent/Guardian.</b> "Parent/Guardian" means a person who is the natural parent or legal guardian of the Student/Applicant or other person who has the primary responsibility for the care and upbringing of the student.
+        </p>
+
+        <p>
+            <b>Client.</b> A Student/Applicant and/or Parent/Guardian that has booked a Service (free or paid) with a Tutor/Mentor, is, for purposes of Our Terms and Policies, considered a client of this Tutor/Mentor.
+        </p>
+
+        <p>
+            <b>Staff.</b> An employee of Ours, that is formally employed with a signed contract of employment with Supeerio and is not self-employed. 
+        </p>
+
+        <p>
+            <b>Website.</b> Our worldwide group web page is <a <a style="color: rgb(58, 61, 65); font-weight: 500;" target="_blank" href="https://www.theapplygroup.com">https://www.supeerio.com</a> and all its web domains.
+ 
+        </p>
+
+        <p>
+            <b>Data Protection Legislation.</b> means the UK Data Protection Legislation, Regulation (EU) 2016/679 of the European Parliament and of the Council (GDPR) and any European Union legislation relating to Personal Data and all other legislation and regulatory requirements in force from time to time which apply to a party relating to the use of Personal Data (including, without limitation, the privacy of electronic communications). 
+        </p>
+
+        <p>
+            <b>UK Data Protection Legislation.</b> means all applicable data protection and privacy legislation in force from time to time in the UK including the UK GDPR; the Data Protection Act 2018; the Privacy and Electronic Communications Directive 2002/58/EC (as updated by Directive 2009/136/EC) and the Privacy and Electronic Communications Regulations 2003 (SI 2003/2426) as amended from time to time, including, where applicable, the mandatory guidance and codes of practice issued by the United Kingdom’s Information Commissioner’s Office. 
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Assignment</b></h2>
+
+        <p>
+            All Users hereby agree that we may assign, transfer, sub-contract or otherwise deal with our rights and/or obligations under these Terms and Conditions.
+        </p>
+
+        <p>
+            All Users may not, without our prior written consent from Us , assign, transfer, sub-contract or otherwise deal with any of your rights and/or obligations under these terms and conditions.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Use of the Website</b></h2>
+
+        <p>
+            The content of this website and its subsidiaries are owned by or licensed to Us. Users may not copy, reproduce, modify, or re-sell, any part of this site without explicit permission from Us. Users may view or print individual pages only for their own personal use.
+        </p>
+
+        <p>
+            We may remove a Tutor/Mentor profile if Users do not respond to an enquiry from a Student/Applicant(s) within 14 days. If Tutors/Mentors respond to feedback from a Student/Applicant(s) posted on the Website, Users agree they will hold themselves to the highest standard of professional conduct and will not disclose personal or private information regarding a Student/Applicant(s) or regarding discussions with a Student/Applicant(s).
+        </p>
+
+        <p>
+            We may suspend, alter, restrict or terminate access to Websites to Users at any time and for whatever reason and these decisions shall remain the sole discretion of Us.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Limitation of liability</b></h2>
+
+        <p>
+            The Websites should only be used for information purposes. We shall not be liable for any damage or loss that may occur in the use of any of the information contained or advice given in this site except as stated in the terms and conditions of sale (where applicable) and to the extent that such liability cannot be excluded by law. We are not responsible for the site’s accuracy or its fitness for a particular purpose or the reliability of the access to this site.
+        </p>
+
+        <p>
+            We are not liable for any damages or losses resulting from their use of or inability to use this site. We do not guarantee that this site will operate free of error or that it is free from computer viruses or any other contaminating computer program.
+        </p>
+
+        <p>
+            Tutors/Mentors acknowledge that Students/Applicants under the age of 18 have consent to engage in tutoring with themselves from a parent or legal guardian.
+        </p>
+
+        <p>
+            Tutors/Mentors must have the legal right to work as a self-employed, independent contractor in the country in which they operate. Tutors/Mentors accept full responsibility for all Income Tax, Student Loan repayments and other liabilities payable in relation work garnered through use of the Website.
+        </p>
+
+        <p>
+            Tutors/Mentors acknowledge that they are not employees of Ours (unless they have a signed Contract of Employment with Us stating otherwise) and are responsible for their actions, on and off the Website.
+        </p>
+
+        <p>
+            Tutors/Mentors must have appropriate and valid qualifications and/or experience within the subjects advertised on their profile.
+        </p>
+
+        <p>
+            Tutors/Mentors are solely responsible for managing the payment process between the Student/Parent and themselves. We will not be liable for any unpaid fees which may be due or loss to a Tutor/Mentor due to be paid by a Student or a Parent.
+        </p>
+
+        <p>
+            Tutors/Mentors shall indemnify Us from all claims, demands liabilities and damages, costs and expenses (actual or consequential) of every kind and nature, known and unknown, suspected and unsuspected, disclosed and undisclosed, arising out of or in any way connected with such disputes.
+        </p>
+
+        <p>
+            Tutors/Mentors agree that their use of the website is entirely at their own risk. Under no circumstances can We accept liability for the accuracy of any content given on the website. 
+        </p>
+
+        <p>
+            Tutors/Mentors shall take full responsibility for any risk or loss resulting from the use of, viewing access to, or relying on the content or information given on the website.
+        </p>
+
+        <p>
+            Tutors/Mentors agree that they represent themselves solely via Our platforms and cannot represent or work on behalf of a 3rd party via their profile on the Website.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Force Majeure</b></h2>
+
+        <p>
+            We will not be liable to Users or in breach of the contract for delay or failure to perform due to any causes beyond the reasonable control of Ours  or its suppliers, including, but not limited to war, riot, civil strife, industrial dispute, terrorist activity, disaster, power outages, server failure, storm or other extreme weather conditions, flood, plague and infectious disease. 
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Content and Advertisements</b></h2>
+
+        <p>
+            This Website contains links to other third party websites, such as for appointment bookings and payments, which are not under the control of Ours and are not maintained by Us. These links are provided for their convenience only and We are not responsible for the content or availability of those websites.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Data Protection</b></h2>
+
+        <p>
+            We are registered as a data controller with the UK Information Commissioner’s Office
+            and we will procure that We will, at all time comply with the applicable data
+            protection legislation including the GDPR and Data Protection Act 2018.
+            <br>
+            We will process personal data as set out in the Supeerio Privacy Notice which is available on Our website at, which can be accessed by clicking here: <a style="color: rgb(58, 61, 65); font-weight: 500;" target="_blank" href="{% url 'administration:privacy-notice' %}">Privacy Notice</a> in order to:
+            
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                comply with any court order, request from or referral to an appropriate authority, or legal, regulatory or good practice requirement; 
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                perform our obligations under this contract, and where otherwise reasonably 
+            </dd>
+        </p>
+
+        <p>
+            If information we hold or circumstances relating to the Student/Applicant, (parent), Tutors/Mentors changes during the period of the contract, we must update our Privacy Notice.
+        </p>
+
+        <p>
+            Full details of the personal data collected and processed by Us, the purposes for which it is collected and the legal basis for doing so are contained in our Privacy Notice. <br>
+            Any details which Users provide to us from which we can identify them from, are held and processed in accordance with our Privacy Notice.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Service Availability</b></h2>
+
+        <p>
+            We reserve the right to cancel or make changes to a service that We offer on our Website  without liability if obliged to by circumstances beyond its control or due to low demand or where the User’s preferred product is unavailable. In such circumstances, We will endeavour to offer the best alternative arrangements, substitutes or replacements available.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Rights and Liability</b></h2>
+
+        <p>
+            The Websites have been established to facilitate connections between Tutors/Mentors, and Students/Applicants to arrange and agree services/pricing under lawful circumstances between themselves.
+        </p>
+
+        <p>
+            Acceptance, approval and continued presentation of Tutors/Mentors profiles on the Website is solely at the discretion of Us.
+        </p>
+
+        <p>
+            Any profiles that are considered not up to standard may be sent recommendations given to suggest improvements needed, in our opinion. However, we have no obligation to accept any profiles that we do not deem suitable, for whatever reason.
+        </p>
+
+        <p>
+            Although we take reasonable care about the information we provide to our users, We cannot guarantee the accuracy of any information provided by Tutors/Mentors or Applicants/Students on our Websites. <br>
+            All Users should exercise careful consideration in their assessment of suitability of agreement of any services or payments provided by Users. <br>
+            Despite Our best efforts, We cannot guarantee every User of the website will not misrepresent themselves in a manner which is untrue, deceptive or even unlawful and therefore we must state that use of our Websites by any User must be entirely at their own risk and all Users indemnify Us of any loss or damage arising as a result of any misrepresentation by other Users.
+        </p>
+
+        <p>
+            Nothing in these Terms and Conditions excludes or restricts Our liability for fraud or fraudulent misrepresentation, for death or personal injury resulting from negligence, or for any other forms of liability which cannot be lawfully excluded or restricted.
+        </p>
+
+        <p>
+            If Users are a business user (i.e. Users are using the Website in the course of business or for commercial purposes), to the fullest extent permissible by law, We accept no liability for any loss or damage, whether foreseeable or otherwise, in contract, tort (including negligence), for breach of statutory duty, or otherwise, arising out of or in connection with the use of (or inability to use) our Website(s) or the use of or reliance upon any content or information contained on the Websites.
+        </p>
+
+        <p>
+            If Users are a business User, We accept no liability for loss of profit, sales, business, or revenue; loss of business opportunity, goodwill, or reputation; loss of anticipated savings; business interruption; or for any indirect or consequential loss or damage.
+        </p>
+
+        <p>
+            We take no responsibility for the actions of its Users on and off the Website(s).
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Reviews, comments, communications and Intellectual Property</b></h2>
+
+        <p>
+            Users of our Website may post reviews, comments, profile blogs and other content; send communications; and submit suggestions, ideas, comments, questions, or other information, as long as the content is not illegal, obscene, abusive, threatening, defamatory, invasive of privacy, infringing of intellectual property rights, or otherwise injurious to third parties, or objectionable and does not consist of or contain software viruses, political campaigning, commercial solicitation, chain letters, mass mailings, or any form of "spam." <br>
+            We may display reviews and feedback we deem suitable, in our absolute discretion on our Websites, including profiles of the User that has received such feedback or comments. 
+        </p>
+
+        <p>
+            Users may not use a false e-mail address, impersonate any person or entity, or otherwise mislead as to the origin of any content. We reserve the right (but not the obligation) to remove or edit any content.
+        </p>
+
+        <p>
+            If Users post content, blogs or submit material on our Websites, they exclusively and immediately transfer and grant assignment on all or any intellectual property rights (including moral right and background IP, if any) that have arisen from such content to Us.
+        </p>
+
+        <p>
+            This assignment includes royalty-free and fully sub-licensable rights to use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, and display such content throughout the world in any media; and grant Us (and sublicensees) the right to use the name that Users submit in connection with such content, at Our discretion. 
+        </p>
+
+        <p>
+            Users agree that this IP assignment, and rights they grant above are irrevocable during the entire period of protection of their intellectual property rights associated with such content and material.
+        </p>
+
+        <p>
+            Users agree to waive any Moral Rights, to be identified as the author of such content and their right to object to derogatory treatment of such content. 
+        </p>
+
+        <p>
+            The Tutors/Mentors agree to perform all further acts necessary to perfect any of the above rights granted by Users to Us, including the execution of deeds and documents, at Our request.
+        </p>
+
+        <p>
+            The Tutors/Mentors represent and warrant that they own or otherwise control all of the rights to the content that Users post; that, as at the date that the content or material is submitted to Us: 
+            <dd><span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                the content and material is accurate; </dd>
+            <dd><span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                use of the content and material Users supply does not breach any applicable  policies or guidelines and will not cause injury to any person or entity (including that the content or material is not defamatory).  
+            </dd>
+            
+        </p>
+
+        <p>
+            The Tutors/Mentors agree to indemnify Us for all claims brought by a third party against Us arising out of or in connection with a breach of any of these warranties. 
+        </p>
+
+        <p>
+            Users recognise that the views expressed by other users on our site do not represent our views or values. 
+        </p>
+
+        <p>
+            When submitting material to Us, Student/Applicant(s) and Tutors/Mentors also grant Us a non-exclusive, royalty-free, non-terminable licence to copy, modify, distribute, show in public and create derivative works from that material. This includes any images, background IP. 
+        </p>
+
+        <p>
+            Users are responsible for all code, video, images, information, data, text, software, music, sound, photographs, graphics, messages or other materials ("content") that Users upload, post, publish or display or email or otherwise use via the website or service.
+        </p>
+
+        <p>
+            Users agree to not use the service to email or upload any content that: <br> <br>
+            <span style="font-size: 20px; margin-left: -14px;">&bull;</span> infringes any copyright, intellectual property or other proprietary rights of any party <br>
+            <span style="font-size: 20px; margin-left: -14px;">&bull;</span> users do not have a right to upload under any law or under contractual or fiduciary relationships <br>
+            <span style="font-size: 20px; margin-left: -14px;">&bull;</span> contains software viruses or any other computer code, files or programs designed to interrupt, destroy or limit the functionality of any computer software or hardware or telecommunications equipment <br>
+            <span style="font-size: 20px; margin-left: -14px;">&bull;</span> poses or creates a privacy or security risk to any person <br>
+            <span style="font-size: 20px; margin-left: -14px;">&bull;</span>  constitutes unsolicited or unauthorised advertising, promotional materials, commercial activities and/or sales, "junk mail," "spam," "chain letters," "pyramid schemes," "contests," "sweepstakes," or any other form of solicitation<br>
+            <span style="font-size: 20px; margin-left: -14px;">&bull;</span> is unlawful, harmful, threatening, abusive, harassing, tortious, excessively violent, defamatory, vulgar, obscene, pornographic, libellous, invasive of another’s privacy, hateful racially, ethnically or otherwise objectionable <br>
+            <span style="font-size: 20px; margin-left: -14px;">&bull;</span> in Our sole judgement, is objectionable or which restricts or inhibits any other person from using or enjoying the Service, or which may expose Us  or its users to any harm or liability of any type 
+        </p>
+
+        <p>
+            We reserve the right to investigate and take appropriate legal action against anyone who, in Our sole discretion, violates this provision, including without limitation, removing the offending content from the Service, suspending or terminating the account of such violators and reporting Users to the law enforcement authorities.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Viruses, Malware & Security</b></h2>
+
+        <p>
+            We exercise reasonable skill and care to ensure that Websites are secure and free from viruses and malware, however, we can not and do not guarantee that this is always the case.
+        </p>
+
+        <p>
+            Users are responsible for protecting their hardware, software, data, and other material from viruses, malware, and other internet security risks.
+        </p>
+
+        <p>
+            Users must not deliberately introduce viruses or other malware, or any other material which is malicious or technologically harmful either to or systems, databases or Website(s).
+        </p>
+
+        <p>
+            Users must not attempt to gain unauthorised access to any part of Our Site, the server on which Our Site is stored, or any other server, computer, or database connected to our Website(s).
+        </p>
+
+        <p>
+            Users must not attack any of our Websites by means of a denial of service attack, a distributed denial of service attack, or by any other means.
+        </p>
+
+        <p>
+            By breaching the provisions of Parts 13.3 to 13.5, Users may be committing a criminal offence under the Computer Misuse Act 1990. Any and all such breaches will be reported to the relevant law enforcement authorities and We will cooperate fully with those authorities by disclosing Users identity to them. Users' right to use the Website(s) will cease immediately in the event of such a breach.
+        </p>
+        
+        <h2 style="font-size: 17px;color:#262a2e"><b>Changes to the Terms & Conditions and Agreement</b></h2>
+
+        <p>
+            We reserve the right to remove, modify or change, without notice, any information on this site from time to time. 
+        </p>
+        
+        <p>
+            We may change these terms at any time by posting notice of the changes on the site. If Users use the site after We have posted the changes Users will be bound by the new terms. Users should therefore ensure that they read the terms each time they use the site.
+        </p>
+
+        <p>
+            These Terms & Conditions supersede any previous Terms & Conditions, including those that were applicable at the time of User registration.
+        </p>
+
+        <p>
+            By either completing an order Users have read, understood and agreed to the above conditions. These terms and conditions are applicable to all customers or prospective customers.
+        </p>
+
+        <p>
+            To the extent that any provision of these terms is found by any court or authority to be invalid, unlawful or unenforceable, that provision will be deemed not to be a part of these terms and will not affect the enforceability of the remainder of these terms, nor will it affect the validity, lawfulness or enforceability of that provision in any other jurisdiction.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>General</b></h2>
+
+        <p>
+            E-mails to Users will be sent to the e-mail address they specify to us. Users must only provide us with a valid e-mail address and it is their  responsibility to inform us of any changes to that address
+        </p>
+
+        <p>
+            The headings in these terms are for convenience only and do not affect their interpretation.
+        </p>
+
+        <p>
+            These terms supersede any representation made by us or any of our employees, associates or agents.
+        </p>
+
+        <p>
+            We reserve the right to put any account on hold or permanently disable accounts due to breach of these Terms & Conditions and/or our <a style="color: rgb(58, 61, 65); font-weight: 500;" target="_blank" href="{% url 'administration:codes-of-conduct' %}">Codes of Conduct</a> or due to any illegal or inappropriate use of the Site or services.
+        </p>
+
+        <p>
+            Violation of Our Terms & Conditions and/or our Codes of Conduct may get Users accounts suspended or disabled permanently.
+        </p>
+
+        <p>
+            Users with disabled accounts will not be able to provide services or use services on Our platformas.
+        </p>
+
+        <p>
+            Users must not duplicate their accounts through use of an alternative email or identity.
+        </p>
+
+        <p>
+            Users who have violated our Terms & Conditions and/or our Codes of Conduct  and had their account disabled may contact our Support team for more information surrounding the violation and status of the account.
+        </p>
+
+        <p>
+            Disputes should be handled using the contact us feature. A member of Our support team will help Users.
+        </p>
+
+        <p>
+            We may make changes to its Terms & Conditions from time to time. When these changes are made, We will make a new copy of the Terms & Conditions available on its website.
+        </p>
+
+        <p>
+            Users understand and agree that if they continue to use the Websites at any time after on which the Terms & Conditions have changed, We will treat Users' use as acceptance of the updated Terms & Conditions.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Statutory rights</b></h2>
+
+        <p>
+            The consumer’s contract with Us does not affect the consumer’s statutory rights.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Governing Law and Jurisdiction</b></h2>
+
+        <p>
+            These terms and Users use of this site are governed by and construed in accordance with the laws of England and Wales  and any disputes will be decided only by the Courts of England and Wales of the United Kingdom.
+        </p>
+
+        <p>
+            These Terms and Conditions, and the relationship between Users and Us (whether contractual or otherwise) shall be governed by, and construed exclusively in accordance with English law. Nothing in these Terms takes away from or reduces Users legal rights as a consumer.
+        </p>
+
+        <p>
+            If Users are a consumer, or a User represented as a business, any dispute, controversy, proceedings, or claim between Users and Us relating to these Terms and Conditions or to the relationship between Users and Supeerio  (whether contractual or otherwise) shall be subject to the jurisdiction exclusively of the courts of England & Wales (in the United Kingdom).
+        </p>
+
+    </div>
+    
+
+{% endblock %}

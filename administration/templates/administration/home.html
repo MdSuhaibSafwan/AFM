@@ -1,0 +1,882 @@
+{% extends 'base/home_base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% load administration_extras %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% load socialaccount %}
+
+{% block css %}
+<link rel="stylesheet" href="bootstrap.min.css">
+
+<style>
+    .big-banner {
+    background-image: url(https://tag-afm-bucket.s3.amazonaws.com/static-afi/images/n2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    /* background-position: 100% center; */
+    padding: 0;
+    }
+
+    @media(max-width: 991px){
+        .big-banner {
+            padding-top: 22px !important;
+            height: 100% !important;
+        }
+        .banner-heading {
+            font-size: 28px;
+        }
+        .login-display {
+            font-size: 24px;
+        }
+    }
+
+    .students-chat .card-header {
+        height: 130px;
+        margin-bottom: 0;
+        background-color: #f6f6f6;
+        border-bottom: 1px solid rgba(0, 0, 0, .125);
+        display: flex;
+        justify-content: end;
+        align-items: baseline;
+    }
+
+    .banner-heading {
+        font-size: 42px;
+        color: #fff;
+        font-weight: 700;
+    }
+
+    .login-display {
+        font-size: 20px;
+        color: #fff;
+        font-weight: 500;
+    }
+
+    .content-medium {
+        font-size: 20px;
+        color: #08498E;
+        font-weight: 500;
+    }
+
+    banner-heading
+
+    .students-study {
+        background-color: #08498E;
+        display: inline-block;
+        padding: 3px 9px;
+        border-radius: 5px;
+        color: #fff;
+    }
+
+    .students-img {
+        margin-top: -85px;
+    }
+
+    .students-img-shape {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+    }
+
+    .students-img-shape img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 5px solid #fff;
+    }
+
+    card-header p {
+        text-align: right;
+    }
+
+    .card-header svg {
+        height: 10px;
+        margin-left: 6px;
+        margin-top: 5px;
+        width: auto;
+    }
+    
+    .flag-img {
+        width: 2.5rem;
+        height: 2.5rem;
+        position: absolute;
+        right: 8rem;
+        bottom: 0;
+    }
+
+    .flag-img img {
+        width: 100%;
+        height: 100%;
+        border: .3rem solid #fff;
+        border-radius: 50%;
+    }
+
+    .students-modal .form-check {
+        display: block;
+        min-height: 1.5rem;
+        padding-left: 1rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 6px 41px;
+    }
+    @media (max-width: 1440px) {
+        .parallal{
+            width: 51% !important;
+        }
+    }
+
+    @media (max-width: 1366px) {
+        .login-display {
+            font-size: 18px;
+        }
+        .banner-heading {
+            font-size: 36px;
+        }
+        }
+
+    @media (max-width: 1280px) {
+        .parallal-content {
+            transform: translateY(50%) !important;
+        }
+        .banner-heading {
+            font-size: 32px;
+        }
+        .parallal{
+            width: 60% !important;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .page-header-slant-right {
+            right: 0;
+            backdrop-filter: blur(2px);
+            -webkit-clip-path: polygon(100% 100%, 100% 100%, 100% 0, 0 0);
+            clip-path: polygon(100% 100%, 100% 100%, 100% 0, 0 0);
+        }
+
+        .page-header-slant-right {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            aspect-ratio: 157 / 429;
+        }
+
+        .page-header-slant-right:after,
+        .page-header-slant-right:before {
+            -webkit-clip-path: polygon(100% 100%, 100% 100%, 100% 0, 0 0);
+            clip-path: polygon(100% 100%, 100% 100%, 100% 0, 0 0);
+        }
+
+        .page-header-slant-left:after,
+        .page-header-slant-left:before,
+        .page-header-slant-right:after,
+        .page-header-slant-right:before {
+            content: "";
+            display: block;
+            position: absolute;
+            inset: 0;
+            opacity: .5;
+            background-color: #131e42;
+        }
+
+        .page-header-slant-right:after {
+            -webkit-transform: translateX(1rem);
+            transform: translateX(1rem);
+            right: 16px;
+        }
+
+        .page-header-slant-right:before {
+            right: 48px;
+            transform: translateX(3rem);
+        }
+
+        
+        .parallal {
+        border-bottom: 37.5rem solid #131e42;
+        border-left: 14px solid #131e42;
+        border-right: 12rem solid transparent;
+        height: 0;
+        z-index: 2;
+        width: 42%;
+    }
+
+    .parallal-content {
+        position: absolute;
+        top: 50%;
+        transform: translateY(25%);
+        width: 36rem;
+    }
+    }
+
+    @media (max-width: 1024px) {
+        .banner-heading {
+            font-size: 26px;
+        }
+        .parallal-content {
+        transform: translateY(35%);
+        width: 26rem;
+        }
+        .parallal {
+            width: 53%;
+        }
+
+    }
+    @media (max-width:991px){
+        .parallal-content {
+            transform: unset !important;
+        }
+        .parallal {
+            width: auto;
+            z-index: 99;
+            position: relative;
+        }
+        .big-banner:after{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color:#131e427a;
+        }
+    }
+    /* @media (max-width:767px){
+        .big-banner {
+            background-position: 100% center;
+        }
+    } */
+
+    .card-footer .btn-indigo , .card-footer .btn-outline-indigo {
+        border-radius: 8px;
+        width: 100%;
+        margin: 0 5px;
+    }
+
+    .card-footer .btn-indigo:hover {
+    color: #08498E !important;
+    background-color: unset;
+    border-color: #08498E;
+    border-width: thin;
+    }
+
+
+    @media(max-width: 767px){
+        .banner-heading {
+            font-size: 18px;
+        }
+        .login-display {
+            font-size: 16px !important;
+        } 
+        .parallal {
+        width: 100% !important;
+    }
+        .parallal-content {
+        /* transform: translateY(35%); */
+        width: auto !important;
+    }
+    }
+
+
+</style>
+{% endblock css %}
+
+
+{% block content %}
+<!-- Jumbotron -->
+<div class="jumbotron big-banner mb-0 jumbotron-fluid" style="height: 600px;position: relative;">
+    <div class="parallal">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col">
+
+                    <div class="col-md-10">
+                        <div class="parallal-content">
+
+                            <!-- <p class="banner-heading">Let our students do the talking!</p> -->
+                            <p class="banner-heading">Connect with our former students!</p>
+                            <!-- <p class="login-display">Connect with our current students and alumni!</p> -->
+                            <p class="login-display">Explore student life at IFG while completing your online application.</p>
+                            <p class="login-display">
+                                Message former IFG students who have completed their IFG journey and are now living the university experience. 
+                            </p> 
+                            <p class="login-display">
+                                You can even apply for your IFG course while chatting to them.
+                            </p>   
+                            <!-- <p class="login-display">Our students can provide an authentic insight into life at IFG and even guide you through the application process to ensure your making the strongest possible start.</p> -->
+
+                            <!-- <p class="login-display">You can start your application now.
+                                <a href="https://formless.ai/c/aqgNfnPx2DKY"
+                                    target="_blank" style="color: #08498E;">Click here</a>
+                            </p> -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-header-slant-right"></div>
+</div>
+
+<!-- <div style="background-color: aliceblue; padding: 20px;">
+    <div class="container" style="background-color: aliceblue;padding-top: 40px;">
+        <p class="content-medium">
+            Message our students to learn about studying at IFG. Gain unique insights from those who were recently in your shoes.
+        </p>   
+        <p class="content-medium">Our students can provide an authentic insight into life at IFG and even guide you through the application process to ensure your making the strongest possible start.</p>
+    </div>
+</div> -->
+
+
+
+<!-- Student Cards -->
+{% comment %}
+<section class="container py-5 students-chat">
+    <h2 class="text-center" style="font-size: 30px;">Current Students</h2>
+    <div class="row">
+        {% for student in random_students %}
+        <div class="col-md-6 col-lg-4 mt-4">
+            <div class="card text-center h-100">
+                
+                    <div class="card-header">
+
+                        <p>Current Student</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="76.000000pt" height="42.000000pt"
+                            viewBox="0 0 76.000000 42.000000" preserveAspectRatio="xMidYMid meet"
+                            class="header-info-role-img">
+                            <metadata>
+                                Created by potrace 1.15, written by Peter Selinger 2001-2017
+                            </metadata>
+                            <g transform="translate(0.000000,42.000000) scale(0.100000,-0.100000)" stroke="none">
+                                <path
+                                    d="M196 365 c-214 -68 -207 -65 -175 -78 l26 -10 -23 -66 c-13 -36 -24 -81 -24 -98 0 -32 2 -33 39 -33 l38 0 7 61 c3 34 6 77 6 95 0 19 5 34 10 34 6 0 10 -4 10 -10 0 -5 8 -10 18 -10 9 0 70 -18 134 -40 l117 -39 103 35 c57 19 114 36 127 39 51 9 152 48 144 55 -7 6 -377 121 -385 119 -2 0 -79 -25 -172 -54z">
+                                </path>
+                                <path
+                                    d="M140 151 c0 -74 21 -103 93 -127 69 -24 233 -24 297 0 71 27 80 39 80 118 0 37 -2 68 -5 68 -3 0 -56 -14 -117 -31 l-112 -31 -107 31 c-59 17 -113 31 -118 31 -7 0 -11 -24 -11 -59z">
+                                </path>
+                            </g>
+                        </svg>
+
+                    </div>
+
+                <div class="card-body">
+                    <div class="students-img position-relative">
+                        <div class="students-img-shape">
+                            {% if student.admin.profile_pic %}
+                            <img src="{{student.admin.profile_pic.url}}" class="img-fluid" alt="{{y.admin.first_name}}" title="" width="" height="">
+                            {% else %}
+                            <img src="{% static 'images/default_profile.png' %}" class="img-fluid" alt="{{y.admin.first_name}}" title="" width="" height="">
+                            {% endif %}
+                        </div>
+                        {% if student.admin.country %}
+                        <div class="flag-img">
+                            <img src="{{student.admin.country.flag}}" class="img-fluid" alt="{{student.admin.country.name}}" title="" width="" height="">
+                        </div>
+                        {% else %}
+                        <div class="flag-img">
+                            <img src="{% static 'img/avatar/uk.png' %}" class="img-fluid" alt="{{student.admin.country.name}}" title="" width="" height="">
+                        </div>
+                        {% endif %}
+                    </div>
+                    <h3 class="card-title pt-3 mb-0">
+                        {{student.admin.first_name}}
+                    </h3>
+                    
+                    <p class="students-study">{{student.get_area_of_study_display }}</p>
+                  
+                    <p class="card-text">{{student.admin.about_me|truncatechars:300}}</p>
+
+                    <h5 class="card-title pt-3 mb-0">&#x1F332; Hobbies & Interests</h5>
+
+                    <p>{% for hobby in student.admin.hobbies.all %} 
+                        {% if forloop.last %} &nbsp;{{hobby}} {% else %} &nbsp;{{hobby}}, {% endif %}
+                        {% endfor %}</p>
+
+                </div>
+                <div class="card-footer bg-transparent border-0 d-flex">
+                    <a href="{% url 'administration:ifg_student_public_profile' student.admin.user_slug %}" class="btn btn-outline-indigo">Profile</a>
+                    <a href="#" class="btn btn-indigo" data-toggle="modal"
+                        data-target="#Signup-Modal-for-{{student.admin.user_slug}}">Ask me a Question</a>    
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Modal -->
+        <div class="modal fade students-modal" id="Signup-Modal-for-{{student.admin.user_slug}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <div class="text-center">
+                        <h3 class="modal-title" id="exampleModalLabel">You are almost there</h3>
+                        <p>Please select how you want to signup</p>
+                    </div>
+    
+                    <!-- Select Button -->
+                    <div> 
+                        <div class="form-check">
+                                <input type="radio" class="google-radio-button" name="sso" value="sso" />
+                                <label for="google-sso">
+                                    <img src="{% static 'images/google-icon.png' %}" alt="Google Icon" loading="lazy" 
+                                    title="Google Icon" height="20" width="20"> 
+                                    Google
+                                </label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" class="local-radio-button" name="sso" value="sso" />
+                            <label for="local-email">
+                                <i class="fa fa-envelope fa-lg" aria-hidden="true"></i> 
+                                Email
+                            </label>
+                        </div>
+                    </div>
+    
+                    
+                    <!-- Google Signup -->
+                    <div class="google-registration">
+                        <input type="checkbox" class="google-marketing" name="google-marketing" value="google-marketing">
+                        <label for="google-marketing"> I agree to receive marketing communications email from IFG.</label><br>
+                        <div class="justify-content-center">
+                            <a class="googleLink btn btn-block btn-rounded btn-secondary" href="{% provider_login_url 'google' %}" data-slug="{{student.admin.user_slug}}" style="pointer-events: none;">
+                            <img src="{% static 'images/google-icon.png' %}" alt="Google Icon" loading="lazy" 
+                            title="Google Icon" height="20" width="20"> 
+                            Sign up with Google Account
+                            </a>
+                        </div>
+                    </div>
+                          
+                    <!-- Local Signup -->
+                    <form class="local-registration" action="" method="post">
+                        <div class="mt-4">
+                            {% csrf_token %}
+                            {% crispy form %}
+                        </div>
+                        <input type="checkbox" class="local-marketing" name="local-marketing" value="local-marketing">
+                        <label for="local-marketing"> I agree to receive marketing communications email from IFG.</label><br>
+                        <div class="modal-footer justify-content-center">
+                            <button class="local-registration-button" type="submit" class="btn btn-rounded btn-secondary w-100" style="pointer-events: none;">Continue</button>
+                        </div>
+                    </form>
+    
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <p>Already have an account? <a href="{% url 'administration:login' %}">Sign in</a></a></p>
+                </div>
+            </div>
+        </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endcomment %}
+
+
+<!-- Alumni Cards -->
+<section class="container py-3 students-chat">
+    <!-- <h2 class="text-center" style="font-size: 30px;">Former Students</h2> -->
+    <div class="row">
+        {% for x in mentors %}
+        {% for mentor in random_mentors %}
+        {% if x.admin.slug == mentor.admin.user_slug %}
+        <div class="col-md-6 col-lg-4 mt-4">
+            <div class="card text-center h-100">
+                
+                    <div class="card-header">
+
+                        <p>Former Student</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="76.000000pt" height="42.000000pt"
+                            viewBox="0 0 76.000000 42.000000" preserveAspectRatio="xMidYMid meet"
+                            class="header-info-role-img">
+                            <metadata>
+                                Created by potrace 1.15, written by Peter Selinger 2001-2017
+                            </metadata>
+                            <g transform="translate(0.000000,42.000000) scale(0.100000,-0.100000)" stroke="none">
+                                <path
+                                    d="M196 365 c-214 -68 -207 -65 -175 -78 l26 -10 -23 -66 c-13 -36 -24 -81 -24 -98 0 -32 2 -33 39 -33 l38 0 7 61 c3 34 6 77 6 95 0 19 5 34 10 34 6 0 10 -4 10 -10 0 -5 8 -10 18 -10 9 0 70 -18 134 -40 l117 -39 103 35 c57 19 114 36 127 39 51 9 152 48 144 55 -7 6 -377 121 -385 119 -2 0 -79 -25 -172 -54z">
+                                </path>
+                                <path
+                                    d="M140 151 c0 -74 21 -103 93 -127 69 -24 233 -24 297 0 71 27 80 39 80 118 0 37 -2 68 -5 68 -3 0 -56 -14 -117 -31 l-112 -31 -107 31 c-59 17 -113 31 -118 31 -7 0 -11 -24 -11 -59z">
+                                </path>
+                            </g>
+                        </svg>
+
+                    </div>
+
+                <div class="card-body">
+                    <div class="students-img position-relative">
+                        <div class="students-img-shape">
+                            {% if mentor.admin.profile_pic %}
+                            <img src="{{mentor.admin.profile_pic.url}}" class="img-fluid" alt="{{y.admin.first_name}}" title="" width="" height="">
+                            {% else %}
+                            <img src="{% static 'images/default_profile.png' %}" class="img-fluid" alt="{{y.admin.first_name}}" title="" width="" height="">
+                            {% endif %}
+                        </div>
+                        {% if mentor.admin.country %}
+                        <div class="flag-img">
+                            <img src="{{mentor.admin.country.flag}}" class="img-fluid" alt="{{mentor.admin.country.name}}" title="" width="" height="">
+                        </div>
+                        {% else %}
+                        <div class="flag-img">
+                            <img src="{% static 'img/avatar/uk.png' %}" class="img-fluid" alt="{{mentor.admin.country.name}}" title="" width="" height="">
+                        </div>
+                        {% endif %}
+                    </div>
+                    <h3 class="card-title pt-3 mb-0">
+                        {{mentor.admin.first_name}}
+                    </h3>
+                    <p class="students-study">
+                        {% if x.institute %}
+                        {{x.institute.institute_name}}
+                        {% else %}
+                        {{x.institute_name}}
+                        {% endif %}
+                    </p>
+                    <p class="students-study">{{mentor.currently_studying|getsubject }}</p>
+                  
+                    <p class="card-text">{{mentor.admin.about_me|truncatechars:300}}</p>
+
+                    <h5 class="card-title pt-3 mb-0">&#x1F332;  Hobbies & Interests</h5>
+
+                    <p>{% for hobby in mentor.admin.hobbies.all %} 
+                        {% if forloop.last %} &nbsp;{{hobby}} {% else %} &nbsp;{{hobby}}, {% endif %}
+                        {% endfor %}</p>
+
+                </div>
+                <div class="card-footer bg-transparent border-0 d-flex">
+                    <a href="{% url 'administration:alumni_public_profile' mentor.currently_studying_slug mentor.admin.name_slug mentor.admin.country_slug %}" 
+                        class="btn btn-outline-indigo">Profile</a>
+                    <a href="#" class="btn btn-indigo" data-toggle="modal"
+                        data-target="#Signup-Modal-for-{{mentor.admin.user_slug}}">Ask me a Question</a> 
+                </div>
+            </div>
+        </div>
+
+        <!-- Alumni Modal -->
+        <div class="modal fade students-modal" id="Signup-Modal-for-{{mentor.admin.user_slug}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <div class="text-center">
+                        <h3 class="modal-title" id="exampleModalLabel">You are almost there</h3>
+                        <p>Please select how you want to signup</p>
+                    </div>
+    
+                    <!-- Select Button -->
+                    <div> 
+                        <div class="form-check">
+                                <input type="radio" class="google-radio-button" name="sso" value="sso" />
+                                <label for="google-sso">
+                                    <img src="{% static 'images/google-icon.png' %}" alt="Google Icon" loading="lazy" 
+                                    title="Google Icon" height="20" width="20"> 
+                                    Google
+                                </label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" class="local-radio-button" name="sso" value="sso" />
+                            <label for="local-email">
+                                <i class="fa fa-envelope fa-lg" aria-hidden="true"></i> 
+                                Email
+                            </label>
+                        </div>
+                    </div>
+    
+                    
+                    <!-- Google Signup -->
+                    <div class="google-registration">
+                        <input type="checkbox" class="google-marketing" name="google-marketing" value="google-marketing">
+                        <label for="google-marketing"> I agree to receive marketing communications email from IFG.</label><br>
+                        <div class="justify-content-center">
+                            <a class="googleLink btn btn-block btn-rounded btn-secondary" href="{% provider_login_url 'google' %}" data-slug="{{student.admin.user_slug}}" style="pointer-events: none;">
+                            <img src="{% static 'images/google-icon.png' %}" alt="Google Icon" loading="lazy" 
+                            title="Google Icon" height="20" width="20"> 
+                            Sign up with Google Account
+                            </a>
+                        </div>
+                    </div>
+                          
+                    <!-- Local Signup -->
+                    <form class="local-registration" action="" method="post">
+                        <div class="mt-4">
+                            {% csrf_token %}
+                            {% crispy form %}
+                        </div>
+                        <input type="checkbox" class="local-marketing" name="local-marketing" value="local-marketing">
+                        <label for="local-marketing"> I agree to receive marketing communications email from IFG.</label><br>
+                        <div class="modal-footer justify-content-center">
+                            <button class="local-registration-button" type="submit" class="btn btn-rounded btn-secondary w-100" style="pointer-events: none;">Continue</button>
+                        </div>
+                    </form>
+    
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <p>Already have an account? <a href="{% url 'administration:login' %}">Sign in</a></a></p>
+                </div>
+            </div>
+        </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+    </div>
+</section>
+
+
+{% comment %}
+<!-- Chat card -->
+<div id="tap-pop-card">
+    <!-- <div class="pop-card-wrapper pop-card-wrapper-common" aria-label="chat pop card" tabindex="0"
+    style="background: rgba(0, 0, 0, 0.959); backdrop-filter: blur(10px); visibility: visible;"> -->
+    <div class="pop-card-wrapper pop-card-wrapper-common" aria-label="chat pop card" tabindex="0"
+    style="background: rgba(210, 210, 210, 0.3); backdrop-filter: blur(10px);  box-shadow: 0 0 5px 0 ; visibility: visible;">
+        <div class="pop-card"> 
+            <!-- <button class="hide-pop-card" aria-label="close chat pop card" role="button"
+                onclick="return hideTheAccessPlatformPopCard(),!1"></button> -->
+            <h2 class="pop-card-title text-dark">What's IFG really like?</h2>
+            <!-- <div class="avatar-wrapper" onkeypress="return handleMobileTheAccessPlatformPopCard(),!1"
+                onclick="return handleMobileTheAccessPlatformPopCard(),!1"><img
+                    src="https://fs.theambassadorplatform.com/images/204389/bfea3005-858a-414e-a6b6-f800de58a1ce/160x160.jpeg"
+                    alt="Student ambassador profile picture"><img
+                    src="https://fs.theambassadorplatform.com/images/262846/f0f80abb-4d5d-4de6-9a11-70a4fe0ff6ea/160x160.jpeg"
+                    alt="Student ambassador profile picture"><img
+                    src="https://fs.theambassadorplatform.com/images/261408/c14feb2e-7445-4c55-a61b-653c6f4f3ff8/160x160.jpeg"
+                    alt="Student ambassador profile picture"><img
+                    src="https://fs.theambassadorplatform.com/images/254704/c03a73ee-64e5-4ec4-aa7c-6359d1d382df/160x160.jpeg"
+                    alt="Student ambassador profile picture">
+            </div>  -->
+            
+            
+            <div class="avatar-wrapper" onkeypress="return handleMobileTheAccessPlatformPopCard(),!1"
+                onclick="return handleMobileTheAccessPlatformPopCard(),!1">
+                {% for x in mentors %}
+                {% for mentor in random_mentors|slice:"0:3" %}
+                {% if x.admin.slug == mentor.admin.user_slug %}
+                <img src="{{mentor.admin.profile_pic.url}}" class="img-fluid" alt="{{y.admin.first_name}}" title="" width="" height="">
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
+            </div> 
+            
+
+            <a href="#" data-toggle="modal" data-target="#floating-chat-modal"
+                class="btn btn-indigo btn-rounded"
+                aria-label="chat now" role="button"
+                style="background-color: rgb(0, 47, 108);">
+                <span class="chat-now-button-label" style="color: white;">Chat to our former students now!</span>
+            </a>
+        </div>
+    </div>
+    <div class="pop-card-wrapper-mini pop-card-wrapper-mini-common" aria-label="chat pop card"> 
+        <a href="#" data-toggle="modal" data-target="#floating-chat-modal"
+            class="button chat-now-button-mini" aria-label="chat now" role="button"
+            style="background: rgba(210, 210, 210, 0.3); backdrop-filter: blur(10px);  box-shadow: 0 0 5px 0;">
+            <div class="avatar-wrapper-mini"><img
+                    src="https://fs.theambassadorplatform.com/images/262846/f0f80abb-4d5d-4de6-9a11-70a4fe0ff6ea/160x160.jpeg"
+                    class="tap-pop-card-avatar" alt="Student ambassador profile picture">
+            </div> 
+            <span class="pop-card-wrapper-chat-btn" style="padding-top: 0px;padding-bottom: 38px;">
+                Chat to our <br>students
+            </span>
+        </a> 
+    </div>
+</div>
+
+
+<!-- Floating Chat modal -->
+<div class="modal fade students-modal" id="floating-chat-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pt-0">
+                <div class="text-center">
+                    <h3 class="modal-title" id="exampleModalLabel">You are almost there</h3>
+                    <p>Please select how you want to signup</p>
+                </div>
+
+                <!-- Select Button -->
+                <div>
+                    <div class="form-check">
+                        <input type="radio" class="google-radio-button" name="sso" value="sso" />
+                        <label for="google-sso">
+                        <img src="{% static 'images/google-icon.png' %}" alt="Google Icon" loading="lazy" 
+                        title="Google Icon" height="20" width="20"> 
+                        Google
+                    </label>
+                    </div>   
+                    
+                    <div class="form-check">
+                        <input type="radio" class="local-radio-button" name="sso" value="sso" />
+                        <label for="local-email">
+                        <i class="fa fa-envelope fa-lg" aria-hidden="true"></i> 
+                        Email
+                    </label>
+                    </div>
+                    
+                </div>
+                
+
+                
+                <!-- Google Signup -->
+                <div class="google-registration">
+                    <input type="checkbox" class="google-marketing" name="google-marketing" value="google-marketing">
+                    <label for="google-marketing"> I agree to receive marketing communications email from IFG.</label><br>
+                    <div class="justify-content-center">
+                        <a class="googleLink btn btn-block btn-rounded btn-secondary" href="{% provider_login_url 'google' %}" data-slug="{{student.admin.user_slug}}" style="pointer-events: none;">
+                        <img src="{% static 'images/google-icon.png' %}" alt="Google Icon" loading="lazy" 
+                        title="Google Icon" height="20" width="20"> 
+                        Sign up with Google Account
+                        </a>
+                    </div>
+                </div>
+                      
+                <!-- Local Signup -->
+                <form class="local-registration" action="" method="post">
+                    <div class="mt-4">
+                        {% csrf_token %}
+                        {% crispy form %}
+                    </div>
+                    <input type="checkbox" class="local-marketing" name="local-marketing" value="local-marketing">
+                    <label for="local-marketing"> I agree to receive marketing communications email from IFG.</label><br>
+                    <div class="modal-footer justify-content-center">
+                        <button class="local-registration-button" type="submit" class="btn btn-rounded btn-secondary w-100" style="pointer-events: none;">Continue</button>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer justify-content-center">
+                <p>Already have an account? <a href="{% url 'administration:login' %}">Sign in</a></a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endcomment %}
+
+{% endblock content %}
+
+
+{% block js %}
+<script>
+$( document ).ready(function() {
+    console.log( "ready!!" );
+
+    let googleRegistration = $(".google-registration");
+    let localRegistration = $(".local-registration");
+    googleRegistration.hide()
+    localRegistration.hide();
+
+    $('.google-radio-button').click(function() {
+        if ($('.google-radio-button').is(':checked')) { 
+            googleRegistration.show(); 
+            localRegistration.hide();
+        }else{
+            googleRegistration.hide();
+            localRegistration.hide(); 
+        }
+    });
+
+
+    $('.local-radio-button').click(function() {
+        if ($('.local-radio-button').is(':checked')) {
+            googleRegistration.hide() 
+            localRegistration.show(); 
+        }else{
+            googleRegistration.hide()
+            localRegistration.hide();
+        }
+    });
+
+
+    $(".google-marketing").click(function(){
+        if ($(".google-marketing").is(':checked')) {
+            $(".googleLink").removeClass('btn-secondary')
+            $(".googleLink").addClass('btn-indigo')
+            $(".googleLink").css('pointer-events',''); 
+        }else{
+            $(".googleLink").removeClass('btn-indigo')
+            $(".googleLink").addClass('btn-secondary')
+            $(".googleLink").css('pointer-events','none'); 
+        };
+    });
+
+
+    $(".local-marketing").click(function(){
+        $(".local-registration-button").css('pointer-events',''); 
+        if ($(".local-marketing").is(':checked')) {
+            $(".local-registration-button").removeClass('btn-secondary')
+            $(".local-registration-button").addClass('btn-indigo')
+            $(".local-registration-button").css('pointer-events',''); 
+        }else{
+            $(".local-registration-button").removeClass('btn-indigo')
+            $(".local-registration-button").addClass('btn-secondary')
+            $(".local-registration-button").css('pointer-events','none'); 
+        };
+    });
+
+
+
+    // Show password
+    $("body").on('click', '.toggle-password', function() {
+        $(this).toggleClass("eye eye-off");
+        let password1 = $("input[name='password1']");
+        if (password1.attr("type") === "password") {
+            password1.attr("type", "text");
+            $(this).attr("class", "feather feather-eye-off eye-close toggle-password");
+        } else {
+            password1.attr("type", "password");
+            $(this).attr("class", "feather feather-eye eye-open toggle-password");
+        }
+
+        let password2 = $("input[name='password2']");
+        if (password2.attr("type") === "password") {
+            password2.attr("type", "text");
+            $(this).attr("class", "feather feather-eye-off eye-close toggle-password");
+        } else {
+            password2.attr("type", "password");
+            $(this).attr("class", "feather feather-eye eye-open toggle-password");
+        }
+    });
+    
+
+    // $(".googleLink").on("click", function(event) {
+    //     event.preventDefault();
+    //     let href = $(this).attr('href'); 
+    //     let slug = $(this).attr("data-slug")
+    //     console.log("href - ", href);
+    //     console.log("Slug - ", slug);
+
+    //     $.ajax({
+    //     type: 'GET',
+    //     url: "{% url 'administration:ajax_google_slug_session' %}",
+    //     data: {
+    //         'slug':slug
+    //     },
+    //     success: function (response) {
+    //         console.log("Response - ", response);
+    //         console.log("Google session for slug created.....");
+    //     },
+    //     error: function (response) {
+    //         console.log("error !!");
+    //     }
+    //     });
+    
+    //     // redirect to the stored href
+    //     window.location.href = href; 
+
+    // });
+
+});
+</script>
+
+{% endblock %}

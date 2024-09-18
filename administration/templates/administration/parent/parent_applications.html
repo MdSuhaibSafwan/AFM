@@ -1,0 +1,236 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}My Applications-Page{% endblock %}
+{% block css %}
+<style>
+form{
+        display: contents;
+    }
+.applicant-name{
+    border-top:unset;
+    border-bottom: 1px solid #B9CCE0;
+}
+</style>
+{% endblock %}
+{% block content %}
+{% load administration_extras %}
+{% load widget_tweaks %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-style1">
+        <li class="breadcrumb-item"><a href="{% url 'administration:dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"> Applications of {{user.user_type|getuser}} {{user.first_name}}</li>
+        <li class="breadcrumb-item"><a href="javascript:history.back()">Back</a></li>
+    </ol>
+</nav>
+<div class="application-list">
+    <div class="row mr-b-20 mg-t-20">
+        <div class="col-12 col-sm-12">
+            <div class="all-app-list">
+                <div class="">{% if list_applications %}
+                    <div>
+                        {% for x in list_applications %}
+                        <div class="panding-app">
+                            <p>{{x.status|getstatus}} Application</p>
+                        </div>
+                        <div class="row row-sm mg-b-20">
+                            <div class="col-12 col-md-12 col-lg-12">
+                                <div class="card card-dashboard-twentysix mg-b-10">
+                                    <div class="line-3 applicant-name text-left">
+                                         <p class="text-capitalize"><strong>Applicant Name: </strong>{{x.id|getfullname}}</p>
+                                    </div>
+                                    <div class="card-body pd-30 app-status">
+                                        <div class="mantees">
+                                            <div class="row d-flex ">
+                                              <div class="col-lg-3 col-xl-3 col-md-6 mg-t-20 border-right">
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <p class="p-tag"><strong>Nationality:</strong></p>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <p><span>{{x.id|getcountry}} <img src={{x.id|getcountryflag}} alt="flag"></span></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <p class="p-tag"><strong>Subject Interest:</strong></p>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <p><span>{{x.subject|getsubject}}</span></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <p class="p-tag"><strong>Program Level:</strong></p>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <p><span>{{x.program_level|getpost}}</span></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <p class="p-tag"><strong>Desired Course:</strong></p>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <p><span>{{x.desire_course|getifnone}}</span></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <p class="p-tag"><strong>Desired Intake:</strong></p>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <p><span>{{x.intake_month|getmonth}}-{{x.intake_year}}</span></p>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                              <div class="col-lg-3 col-xl-3 col-md-6 mg-t-20 border-right">
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <p class="p-tag"><strong>English Test:</strong></p>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <p><span>
+                                                        {% getenglishlanguagescore x.id 'certificate_name' %}</span></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <p class="p-tag"><strong>Reading Score:</strong></p>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <p><span>
+                                                        {% getenglishlanguagescore x.id 'reading' %}</span></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <p class="p-tag"><strong>Listening Score:</strong></p>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <p><span>
+                                                        {% getenglishlanguagescore x.id 'listening' %}</span></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <p class="p-tag"><strong>Speaking Score:</strong></p>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <p><span>
+                                                        {% getenglishlanguagescore x.id 'speaking' %}</span></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <p class="p-tag"><strong>Writing Score:</strong></p>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <p><span>
+                                                        {% getenglishlanguagescore x.id 'writing' %}</span></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <p class="p-tag"><strong>Overall Score:</strong></p>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <p><span>
+                                                        {% getenglishlanguagescore x.id 'overall' %}</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                              <div class="col-lg-6 col-xl-6 col-md-6 mg-t-20">
+                                                <div class="row">
+                                                    {% getlatestqualification x.id 'qualification' %}
+                                                </div>
+                                                <div class="row">
+                                                    {% getlatestqualification x.id 'grade' %}
+                                                </div>
+                                                <div class="row">
+                                                    {% getlatestqualification x.id 'country' %}
+                                                </div>
+                                                <div class="row border-top pt-3">
+                                                    <div class="col-lg-4">
+                                                        <p class="p-tag"><strong>Fees affordability per year:</strong></p>
+                                                    </div>
+                                                    <div class="col-lg-8">
+                                                        <p><span>{{x.fees_affordability}} GBP</span></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <p class="p-tag"><strong>Interested in Scholarship?:</strong></p>
+                                                    </div>
+                                                    <div class="col-lg-8">
+                                                        <p><span>{{x.scholarship_option|getyesnostatus}}</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+<!--                                    <div class="line-3">-->
+<!--                                        <div class="last-edited">-->
+<!--                                            <div class="row">-->
+<!--                                                <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12">-->
+<!--                                                    <p><i data-feather="clipboard"></i>Application ID: <strong-->
+<!--                                                            class="text-uppercase">{{x.slug}}</strong></p>-->
+<!--                                                </div>-->
+
+<!--                                                <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12">-->
+<!--                                                    <p><i data-feather="clock"></i>Created on:-->
+<!--                                                        {{x.created_at|date:"d/m/Y"}} </p>-->
+<!--                                                </div>-->
+
+<!--                                                <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12">-->
+<!--                                                    <p><i data-feather="send"></i> Submitted on:-->
+<!--                                                        {{x.submitted_at|date:"d/m/Y"}} </p>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+                                    <div class="line-3">
+                                        <div class="last-edited">
+                                              <div class="row">
+                                                 <div class="col-md-12 col-lg-3 col-xl-3 col-sm-12">
+                                                     <p><i data-feather="clipboard"></i>Application Id : <strong class="text-uppercase">{{x.slug}}</strong></p>
+                                                 </div>
+
+                                                 <div class="col-md-12 col-lg-3 col-xl-3 col-sm-12">
+                                                    <p> <i data-feather="clock"></i>Created on: {{x.created_at|date:"d/m/Y"}} </p>
+                                                 </div>
+                                                 <div class="col-md-12 col-lg-3 col-xl-3 col-sm-12">
+                                                     {% if x.status == 0 or x.status == 2 %}
+                                                        <p> <i data-feather="send"></i> Submitted on: {{x.submitted_at|date:"d/m/Y"}}</p>
+                                                     {% else %}
+                                                        <p> <i data-feather="clock"></i> Last Edited on: {{x.updated_at|date:"d/m/Y"}}</p>
+                                                     {% endif %}
+                                                 </div>
+                                                 <div class="col-md-12 col-lg-3 col-xl-3 col-sm-12">
+                                                    <a href="{% url 'application:view_application_twfl' x.slug %}">
+                                                        <button class="btn btn-rounded btn-md btn-outline-indigo">View
+                                                            Details
+                                                        </button>
+                                                    </a>
+                                                 </div>
+                                              </div>
+                                           </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                    {% else %}
+                    <div style="text-align:center; margin:10px auto;">
+                        no record found
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

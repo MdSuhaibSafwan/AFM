@@ -1,0 +1,364 @@
+{% extends 'registration/reg_base.html' %}
+
+<style>
+    a.cky-banner-element {
+        padding: 8px 30px;
+        background: #F8F9FA;
+        color: #858A8F;
+        border: 1px solid #DEE2E6;
+        box-sizing: border-box;
+        border-radius: 2px;
+        cursor: pointer;
+}
+</style>
+
+{% block content %}
+
+    <div class="container pt-5 cookie">
+    
+        
+        <h1 style="font-size: 1rem;color:#262a2e"  class="cookie-policy-h1 text-center"><b>Safeguarding Policy</b></h1>
+        <p class="text-center">
+            Last Updated: 30-May-2022
+        </p>
+        &nbsp;  
+        
+        <h2 style="font-size: 17px;color:#262a2e"><b>About Us</b></h2>
+
+        <p>To be read by all Users, considered and agreed to in conjunction with Supeerio’s other Policies and <a style="color: rgb(58, 61, 65); font-weight: 500;" target="_blank" href="{% url 'administration:terms-and-conditions' %}">Terms & Conditions</a>, which will provide context and definitions.
+        </p>
+
+        <p>
+            The Student Code of Conduct  applies to Supeerio Ltd. and all its subsidiary companies. The subsidiary companies are owned, controlled and operated by Supeerio Ltd with CRN: 1404630 and registered office at: 71-75 Shelton Street, Covent Garden, London, WC2H 9JQ United Kingdom.
+        </p>
+        
+        <p>
+            When we mention Supeerio Ltd.  or refer to  ‘We/Our/Us’ in the Safeguarding Policy we are referring to all the relevant subsidiary companies that are responsible for upholding these terms.
+        </p>
+
+        <p>
+            <dt>The relevant Supeerio Ltd companies are;</dt> <br>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                <b style="color:#262a2e;"> The Apply Group Ltd. </b>,(‘TAG’) with CRN: 12938105 has its registered office at: Suite 209, Mayfair Point, 34 South Molton Street, London W1K 5RG, United Kingdom.
+            </dd>
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Essence Summary</b></h2>
+
+        <p>
+            All children and young people have the right to protection from any kind of abuse and the right to exist in a safe and friendly environment whilst using Our Websites.
+        </p>
+
+        <p>
+            This policy relates to all Students using our services regardless of gender, age, ethnicity, nationality, religion or disability. We understand that the child’s needs are paramount. We are committed to providing as far as is reasonably practicable, an environment that is safe from any kind of harm, for all those under the age of 18. While harm is rare whilst using our platform, all staﬀ and Alumni/Tutors working with us are advised to maintain an attitude of ‘it could happen here'.
+        </p>
+
+        <p>
+            We provide a platform for Students and or their parents to find an appropriate tutor or Alumni for Students aged 13+. It also allows Tutors/Alumni to create a profile where they can offer their Services on a range of different topics to enhance university applications of their Students. All Users will adhere to our relevant codes of conduct and be required to adhere to this Safeguarding Policy.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>We aim to</b></h2>
+
+        <p>
+            Include best practice advice and policies from accreditation, governmental and charity bodies (such as the British Council, English UK, YLEUK and NSPCC), into existing policies such as this Safeguarding Policy and Staﬀ Code of Conduct and compliance with statutory guidance with particular reference to such publications as Keeping Children Safe in Education, September 2021.
+        </p>
+
+        <p>
+            Have eﬀective systems in place ensuring that our facilities, procedures and activities take account of the Students health, safety and welfare requirements. This is overseen by the designated TAG senior management.
+        </p>
+
+        <p>
+            Follow safer recruitment procedures with all the required checks carefully, for all staﬀ, ensuring the suitability of our  Students to work with anyone under the age of 18.
+        </p>
+
+        <p>
+            Ensure Students have a clear channel of communication in time of need by ensuring that all staﬀ and  Students understand general child safeguarding principles.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Distribution and review</b></h2>
+
+        <p>
+            This policy is available on the website and is given to all staff and  Students on conﬁrmation of employment and completion of our signing up process. If appropriate, this policy will be updated each year by the senior management team, taking into consideration risk assessments, current policy guidance, feedback and any incident reports.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Deﬁnitions</b></h2>
+
+        <p>
+            Where policy or procedure applies to all companies we use them collectively by the name Supeerio or refer to  ‘We/Our/Us’ as defined on the accompanying <a style="color: rgb(58, 61, 65); font-weight: 500;" target="_blank" href="{% url 'administration:terms-and-conditions' %}">Terms & Conditions</a>.
+        </p>
+
+        <p>
+            <b>Safeguarding:</b> The overarching principles are that all staﬀ have the responsibility to safeguard under-18s, be vigilant and know to report concerns, including small ones, or allegations and who to contact both within and outside of Our platforms. All staﬀ and  Students must be trained in Safeguarding to the level of Basic Awareness.
+        </p>
+
+        <p>
+            <b>Child Protection:</b> Part of the Safeguarding process. It focuses on protecting individual children or young people identiﬁed as suﬀering or likely to suﬀer from signiﬁcant harm. This includes child protection procedures which detail how to respond to concerns about a child or young person, using referral processes to other agencies. Safeguarding and child protection sit alongside each other, however, We are not an investigating agency. Any allegation or suspicion of abuse or signiﬁcant harm will normally be carried out by the social services or police.
+        </p>
+
+        <p>
+            <b>Minor:</b> Any person under the age of 18 is a minor by law. The age of adulthood in the UK is 18. We refer to minors as child(ren) and also sometimes as young people, to acknowledge that older teenagers have some awareness and responsibilities of adults, but are not legally adults. Typically we may refer to 16-17-year- olds as young people.
+        </p>
+
+        <p>
+            <b>Senior Management Team:</b> Senior staff who are employed by Supeerio and work as part of the senior leadership team. They liaise with external professionals who have been trained in safeguarding and child protection.
+        </p>
+
+        <p>
+            <b>Duty of Care:</b> This is the responsibility of all staﬀ and group leaders to protect under-18 from direct harmful behaviour, for example, emotional abuse, physical abuse or any other physical harm, sexual abuse and neglect.
+        </p>
+
+        <p>
+            <b>Best practice:</b> This is a term we use to deﬁne professional procedures that are accepted as being correct or most eﬀective.
+        </p>
+
+        <p>
+            <b>Type of Abuse:</b> This is one deﬁnition of child safeguarding: “The process of protecting children from abuse or neglect, preventing impairment of their health and development, and ensuring they are growing up in circumstances consistent with the provision of safe and eﬀective care that enables children to have optimum life chances and enter adulthood successfully”.
+        </p>
+
+        <p>
+            <dt> The 4 main types of harm are: We may collect, use, store and transfer different kinds of personal data about you which we have grouped together as follows:
+            </dt> <br>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Sexual abuse
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Physical abuse
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Emotional abuse  
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Neglect
+            </dd>
+        </p>
+
+        <p>
+            <dt> And more speciﬁcally could also include:</dt> <br>
+            
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Domestic violence
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Inappropriate supervision by staff or volunteers
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Bullying, cyberbullying, acts of violence and aggression within our schools and campuses Victimisation 
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Self-harm
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Unsafe environments and activities Crime
+            </dd>
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Supporting Policies</b></h2>
+        
+        <p>
+            <dt>To support our Safeguarding, TAG also has the following policies:</dt> <br>
+            
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Staff & Tutor/Mentor Code of Conduct
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Student Code of Conduct
+            </dd>
+            <dd>
+                <span style="font-size: 20px; margin-left: -14px;">&bull;</span>
+                Online Safety  
+            </dd>
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Staff Code of Conduct</b></h2>
+
+        <p>
+            We provide all staff/Tutors/Mentors and Students with the relevant <a style="color: rgb(58, 61, 65); font-weight: 500;" target="_blank" href="{% url 'administration:codes-of-conduct' %}">Code of Conduct</a> as guidance. The aim of this guidance is to provide a comprehensive guide for all staff/Mentors/Tutors and Students/Applicants, regardless of position, to follow when it comes to behaviour and interactions with colleagues, clients, and partners that promote a safe and productive workplace.
+        </p>
+
+        <p>
+            All staff/Mentors/Tutors and Students/Applicants are required to read and understand the Code of Conduct Guidance when they complete the signing up process or inducted or if it is updated.
+        </p>
+
+        <p>
+            No staff member or Tutor/Mentor may have any kind of intimate relationship with a Student/Applicant (of any age) and staﬀ and  Students/Applicants are informed that any person in a Position of Trust engaged in any kind of sexual activity of any sort with a Student/Applicant aged under 18 is breaking the Law, even though the legal age of consent is 16. Details are given on the safe use of social and digital media and the restrictions given on giving personal contact information to Students/Applicants (and former Students/Applicants).
+        </p>
+
+        <p>
+            All staff and Tutors/Mentors are required by law to report any concerns about a colleague (Whistleblowing) not following the Staﬀ Code of Conduct. Any report made will remain conﬁdential and they will not be penalised for reporting it.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Respect of the Individual & Cross-Cultural Sensitivity</b></h2>
+
+        <p>
+            Our organisation values the individuality of all our children and young people. We are committed to giving all our Students/Applicants every opportunity to be the ‘best they can be’. Within our online environment of learning and healthy interaction, we do not tolerate any lack of sensitivity, disrespect, bullying or harassment of any kind.
+        </p>
+
+        <p>
+            We ensure that we promote the individuality of all our Students/Applicants, irrespective of ethnicity, attainment, age, disability, gender or background.
+        </p>
+
+        <p>
+            We aim to reﬂect the multi-ethnic nature of our society here in the UK and ensure that the courses we oﬀer include positive attitudes to all people. This is expected of not only Mentees to Tutees, but to each other.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Photography (and ﬁlming)</b></h2>
+
+        <p>
+            Our aim is to ensure we are compliant with any accrediting body, law and/or regulation, but ﬁrst and foremost keeping Students/Applicants safe.
+        </p>
+
+        <p>
+            Tutors/Mentors are not permitted to take photos or film the lessons with their Students/Applicants. 
+        </p>
+
+        <p>
+            We will record all booked Mentoring/Tutoring sessions for due diligence purposes and as a way of monitoring the level of experience any User is receiving. 
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Our Codes of Conduct</b></h2>
+
+        <p>
+            Students/Applicants and Tutors/Mentors must read through our Code of Conduct policies and may ask any questions if they need to. They are made aware of expected behaviour norms in and out of the Mentoring/Tutoring lessons.
+        </p>
+
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Abusive Behaviour</b></h2>
+
+        <p>
+            Abusive behaviour is a general term for various behaviours that may be or interpreted as aggressive, hateful, coercive or controlling, destructive, harassing, discriminatory, intimidating, isolating, or threatening that an individual may use to dominate the actions, thoughts, or mental and physical health of another individual
+        </p>
+
+        <p>
+            The Student/Applicant Code of Conduct helps Students/Applicants to understand what behaviour is expected of them and it is the responsibility of Student/Applicant to model good behaviour, tolerance and respect at all times.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Bullying</b></h2>
+        
+        <p>
+            We are committed to providing a caring, friendly and safe environment for all of our Students/Applicants so they can learn in a relaxed and secure atmosphere. Bullying of any kind is unacceptable at any time whilst using our services. If bullying does occur, all Students/Applicants should be able to tell us and know that incidents will be dealt with promptly and eﬀectively. We are a TELLING environment This means that anyone who knows that bullying is happening is expected to tell the staff or Students/Applicants.
+        </p>
+
+        <p>
+            The Student/Applicant Code of Conduct helps Students/Applicants to understand what behaviour is expected of them. 
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Prevent</b></h2>
+
+        <p>
+            Part of creating a safe and supportive environment is promoting the key values of British society. This includes, but is not limited to, Democracy, Rule of Law, Respect & Tolerance and Individual Liberty. Staﬀ and  Students/Applicants must embody these values in the way they work.
+        </p>
+        
+        <h2 style="font-size: 17px;color:#262a2e"><b>Safeguarding Under 18s Online</b></h2>
+
+        <p>
+            All staff and Tutors/Mentors will have seen a copy of the Online Safety guidance.
+        </p>
+
+        <p>
+            We have our own recording guidance where lessons will be recorded not by the Students/Applicants but by the Supeerio group. This is solely for monitoring the lessons and ensuring the same standards of mentoring/tutoring are given to all Students/Applicants. 
+        </p>
+
+        <p>
+            Parents/guardians will be able to read and accept  the online safety guidance for both Students/Applicants and staﬀ so they are aware of the behaviours required by their child and that can be expected from the Tutors/Mentors.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Child Protection</b></h2>
+
+        <p>
+            We recognise that the Children Act 1989 states that the welfare of the child is the paramount concern. It also recognises that hasty or ill-informed decisions in connection with a member of staﬀ can irreparably damage an individual’s reputation, conﬁdence and career. Staff and Tutors/Mentors are required to read through our guidance through the signing up period before any mentoring/tutoring begins.
+        </p>
+
+        <p>
+            All staff and Tutors/Mentors have a duty of care and must follow the 5 ‘R’s:
+        </p>
+
+        <p class="text-center">
+            <b>Recognise - Respond - Record - Report - Refer</b>
+        </p>
+        
+        <h2 style="font-size: 17px;color:#262a2e"><b>Recognising a safeguarding concern</b></h2>
+
+        <p>
+            Staff and  Students/Applicants are given basic training in recognising signs that could be cause for concern. We also advise of free online courses that are available to  Students/Applicants about safeguarding. 
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Responding to a concern or an allegation</b></h2>
+
+        <p>
+            All staff and  Students/Applicants must be prepared to respond to allegations of abuse or neglect. Child abuse does not necessarily have to be physical or sexual. It can also be emotional or psychological, or due to the neglect of a child’s physical or emotional needs.
+        </p>
+
+        <p>
+            If a tutor is approached by a Student/Applicant who wishes to make a disclosure about what could be a safeguarding matter, the staﬀ or tutor must prioritise this above any other duty they have at the time.
+        </p>
+
+        <p>
+            They must take the learner to a private place within view but out of ear-shot of other people. They must not interrogate or interview the child, avoiding leading questions. Promises of conﬁdentiality must not be given but that only those people whose responsibility it is to know and act will be told.
+        </p>
+
+        <p>
+            Any member of staﬀ or Students/Applicants with an issue or concern relating to safeguarding or child protection, including but not limited to allegations of child abuse, should discuss it immediately with a member of the senior management team.
+        </p>
+
+        <p>
+            Anyone who hears an allegation of abuse against another member of staﬀ or Students/Applicants, or has concerns about the behaviour of another member of staﬀ or Tutor/Mentor, must report the matter immediately to the senior management team who will then direct this to an externally trained person who will decide on an appropriate course of action. At no point should an attempt be made to investigate the situation. This will be undertaken by Social Services and/or the Police as necessary.
+        </p>
+    
+        <p>
+            We are an ‘agent of referral’ and not of investigation.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Recording of an Allegation</b></h2>
+
+        <p>
+            A full record must be made as soon as possible detailing the nature of the allegation using the ‘Safeguarding Incident/Concern Form’. Record in writing everything that was said, using the child’s own words. Note the place, date, time, and names of persons to whom the information was given. Include The nature of the alleged abuse, a description (if applicable) of any injuries observed, an account of the allegation. The Referral Form - ‘Safeguarding Incident/Concern Form’ can be obtained from The senior management team.  The completed form must be signed and dated by the staﬀ making the report and given to a senior management team as soon as possible. A Student/Applicant must not be asked to write the report or sign a report.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Refer a concern or allegation</b></h2>
+
+        <p>
+            The Designated Safeguarding team/person will decide on a course of action and where appropriate refer the case to outside authorities, usually either the police or social services.
+        </p>
+
+        <p>
+            Do not confront any person against whom an allegation has been made. The senior management team will guide you and your team in dealing with any allegation or suspicion of abuse, and if applicable, report allegations and incidents of abuse to the LADO (Local Area Designated Oﬃcer) at the local County Council Children’s Social Services.
+        </p>
+
+        <p>
+            Any staﬀ member, Students/Applicants that have any queries relating to this policy or the implementation of it should contact a member of the senior management team.
+        </p>
+
+        <h2 style="font-size: 17px;color:#262a2e"><b>Data Protection</b></h2>
+
+        <p>
+            References in this clause to the DPA are to the Data Protection Act 1998 and to the UK/EU GDPR are to the General Data Protection Regulation.
+        </p>
+
+        <p>
+            In order to deliver education and protect Students/Applicants’ welfare, We will collect and process personal data, including sensitive and special category personal data (as deﬁned in the DPA and GDPR respectively) that relates to the Student/Applicant and their circumstances.
+        </p>
+
+        <p>
+            Full details of the personal data collected and processed by Us, the purposes for which it is collected and the legal basis for doing so are contained in Our <a style="color: rgb(58, 61, 65); font-weight: 500;" target="_blank" href="{% url 'administration:codes-of-conduct' %}">Privacy Notice</a>.
+        </p>
+
+        <p>
+            We will comply at all times with our obligations under the DPA and the UK/EU GDPR in relation to all User’s personal data.
+        </p>
+
+    </div>
+    
+
+{% endblock %}
