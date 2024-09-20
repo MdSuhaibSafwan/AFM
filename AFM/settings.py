@@ -38,8 +38,8 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'daphne',
-    'channels',
+    # 'daphne',
+    # 'channels',
 
     # stock
     'django.forms',
