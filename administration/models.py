@@ -414,7 +414,7 @@ class InstituteAdmin(models.Model):
     institute = models.ForeignKey(Institute, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return str(str(self.admin.first_name))
+        return str(str(self.id))
 
     class Meta:
         db_table = "institute_admin"
@@ -429,7 +429,7 @@ class School(models.Model):
     updated_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.admin.username)
+        return str(self.id)
 
     class Meta:
         db_table = "School"
@@ -459,7 +459,7 @@ class Mentor(models.Model):
     q8 = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return str(self.admin.first_name)
+        return str(self.id)
 
     def save(self, *args, **kwargs):
         self.institute_name_slug = slugify(self.institute_name)
@@ -495,7 +495,7 @@ class Student(models.Model):
     q6 = models.TextField(null=True)
 
     def __str__(self):
-        return str(self.admin.username)
+        return str(self.id)
 
     class Meta:
         db_table = "student"
@@ -524,7 +524,7 @@ class FutureStudent(models.Model):
     updated_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.admin.username)
+        return str(self.id)
 
     class Meta:
         db_table = "future_student"
