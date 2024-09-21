@@ -22,5 +22,7 @@
         "src": "/static/(.*)",
         "dest": "/static/$1"
       }
-    ]
+    ],
+    "devCommand": "python3 manage.py runserver",
+    "framework": "django"
   }
