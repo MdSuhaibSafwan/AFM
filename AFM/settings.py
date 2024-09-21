@@ -370,7 +370,7 @@ MEDIA_URL = '/media/'
 
 
 # AWS S3 buckets for static + media storages.
-from AFM.aws.conf import *
+# from AFM.aws.conf import *
 
 
 
