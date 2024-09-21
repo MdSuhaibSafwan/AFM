@@ -23,6 +23,5 @@
         "dest": "/static/$1"
       }
     ],
-    "devCommand": "python3 manage.py runserver",
-    "framework": "django"
+    "devCommand": "python3 manage.py runserver"
   }
