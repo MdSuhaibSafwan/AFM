@@ -1,11 +1,9 @@
-from celery import shared_task
 from django.core.mail import send_mail
 from django.template import loader
 from smtplib import SMTPException
 
 
 
-@shared_task(name="celery_send_email_notification")
 def send_email_notification(subject, template_path_string, recipient_list, var_dict):
     html_message = loader.render_to_string(template_path_string, var_dict)
     try:
@@ -25,7 +23,6 @@ def send_email_notification(subject, template_path_string, recipient_list, var_d
         return True
 
 
-@shared_task(name="celery_test")
 def test():
     print('Celery worked successfully')
     return True

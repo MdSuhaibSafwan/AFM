@@ -14,9 +14,12 @@ from pathlib import Path
 from decouple import config
 import sys
 import dj_database_url
+from environ import Env
 
 _ = lambda text: text
 
+env = Env()
+env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,12 +31,13 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
+os.environ.setdefault("AFM_LINK", "sd")
 
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = "1234"
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
-DEVELOPMENT_MODE = config('DEVELOPMENT_MODE')
-ALLOWED_HOSTS = ['127.0.0.1', ".vercel.app", ".vercel", ".app", ".now.sh"]
+DEBUG = True
+DEVELOPMENT_MODE = True
+ALLOWED_HOSTS = ['127.0.0.1', ".vercel.app"]
 
 # Application definition
 
@@ -159,6 +163,9 @@ CRISPY_TEMPLATE_PACK = 'uni_form'
 # drag and drop file
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
+DATABASE_URL_GENERAL = "postgres://default:rNHA56xmcltf@ep-green-morning-a2xgg12f.eu-central-1.aws.neon.tech:5432/verceldb?sslmode=require"
+DATABASE_URL_PERSONAL="postgres://default:rNHA56xmcltf@ep-green-morning-a2xgg12f.eu-central-1.aws.neon.tech:5432/verceldb?sslmode=require"
+
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 if DEVELOPMENT_MODE:
@@ -182,17 +189,17 @@ if DEVELOPMENT_MODE:
         #     'HOST': config('DB_personal_information_HOST'),
         #     'PORT': config('DB_personal_information_PORT'),
         # }
-        'default': dj_database_url.parse(config('DATABASE_URL_GENERAL')),
-        'afm': dj_database_url.parse(config('DATABASE_URL_GENERAL')),
-        'afm_personal_information': dj_database_url.parse(config('DATABASE_URL_GENERAL')),
+        'default': dj_database_url.parse(DATABASE_URL_GENERAL),
+        'afm': dj_database_url.parse(DATABASE_URL_GENERAL),
+        'afm_personal_information': dj_database_url.parse(DATABASE_URL_GENERAL),
     }
 elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
     if config('DATABASE_URL_GENERAL', None) is None or config('DATABASE_URL_PERSONAL', None) is None:
         raise Exception("DATABASE_URL environment variable not defined")
     DATABASES = {
         'default': {},
-        'afm': dj_database_url.parse(config('DATABASE_URL_GENERAL')),
-        'afm_personal_information': dj_database_url.parse(config('DATABASE_URL_PERSONAL')),
+        'afm': dj_database_url.parse(DATABASE_URL_GENERAL),
+        'afm_personal_information': dj_database_url.parse(DATABASE_URL_PERSONAL),
     }
 
 import random
@@ -285,7 +292,7 @@ class Afm_personal_information_router:
         return None
 
 
-# DATABASE_ROUTERS = ['AFM.settings.AuthRouter', 'AFM.settings.Afm_personal_information_router']
+DATABASE_ROUTERS = ['AFM.settings.AuthRouter', 'AFM.settings.Afm_personal_information_router']
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -333,7 +340,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-SITE_ID = int(config('SITE_ID'))
+SITE_ID = 1
 
 AUTH_USER_MODEL = 'administration.CustomUser'
 LOGIN_REDIRECT_URL = 'administration:dashboard'
@@ -346,16 +353,16 @@ LOGIN_URL = 'administration:login'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_BACKEND = 'post_office.EmailBackend'
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
-MAIL_SEND_FROM = config('MAIL_SEND_FROM', default=EMAIL_HOST_USER)
+DEFAULT_FROM_EMAIL = ""
+MAIL_SEND_FROM = ""
 
 # Google Captcha
-RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY')
-RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
+RECAPTCHA_PUBLIC_KEY = ""
+RECAPTCHA_PRIVATE_KEY = ""
 RECAPTCHA_REQUIRED_SCORE = 0.85
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -382,11 +389,13 @@ MEDIA_URL = '/media/'
 #     }
 # }
 
+REDIS_URL = ""
+
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [os.environ.get("REDIS_URL", "redis://localhost:6379"), ],
+            "hosts": [REDIS_URL, ],
         },
     },
 }
@@ -649,9 +658,9 @@ CELERY_TIMEZONE = 'Europe/London'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MAX_UPLOAD_SIZE = 5242880
-SCHOOL_ID = config('SCHOOL_ID')
+SCHOOL_ID = 1
 
-SPECIAL_MENTOR_SLUG = config('SPECIAL_MENTOR_SLUG', default='')
+SPECIAL_MENTOR_SLUG = ''
 
 def TWFL_EMAIL():
     return None
