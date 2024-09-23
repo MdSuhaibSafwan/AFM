@@ -50,6 +50,7 @@ pytz==2024.2
 pywebpush==2.0.0
 requests==2.32.3
 six==1.16.0
+setuptools==75.1.0
 sqlparse==0.5.1
 swapper==1.4.0
 tablib==3.5.0
