@@ -68,6 +68,7 @@ INSTALLED_APPS = [
 
     # 3rd party apps
     'crispy_forms',
+    'crispy_bootstrap4',
     'widget_tweaks',
     'blogs',
     'notifications',
