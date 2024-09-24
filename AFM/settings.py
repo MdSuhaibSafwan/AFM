@@ -42,8 +42,8 @@ ALLOWED_HOSTS = ['127.0.0.1', ".vercel.app"]
 # Application definition
 
 INSTALLED_APPS = [
-    # 'daphne',
-    # 'channels',
+    'daphne',
+    'channels',
 
     # stock
     'django.forms',
@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     'webpush',
     'gdpr_cookie_consent',
     'tz_detect',
+    'storages',
 
     #allauth
     'django.contrib.sites',
@@ -366,19 +367,35 @@ RECAPTCHA_PUBLIC_KEY = ""
 RECAPTCHA_PRIVATE_KEY = ""
 RECAPTCHA_REQUIRED_SCORE = 0.85
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static/")
-]
-STATIC_URL = '/static/'
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static/")
+# ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# AWS_ACCESS_KEY_ID = 'AKIAQUFLQJC35CIES7MV'
+# AWS_SECRET_ACCESS_KEY = '5ukEQv/qHXCTU1xjTSNZMl8d7sddJWFYQNOCBGxM'
+# AWS_STORAGE_BUCKET_NAME = 'apply-pal-bucket'
+# AWS_S3_REGION_NAME = 'stockholm'  # e.g., us-east-1
+# AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+
+# # For serving static files directly from S3
+# AWS_S3_URL_PROTOCOL = 'https'
+
+
+# # Static and media file configuration
+# STATIC_URL = f'{AWS_S3_URL_PROTOCOL}://{AWS_S3_CUSTOM_DOMAIN}/static/'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# MEDIA_URL = f'{AWS_S3_URL_PROTOCOL}://{AWS_S3_CUSTOM_DOMAIN}/media/'
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
 # AWS S3 buckets for static + media storages.
-# from AFM.aws.conf import *
+from AFM.aws.conf import *
 
 
 

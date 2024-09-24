@@ -1,19 +1,20 @@
 import datetime
 from decouple import config
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_ACCESS_KEY_ID = 'AKIAQUFLQJC35CIES7MV'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'apply-pal-bucket'
 # AWS_FILE_EXPIRE = 200
 AWS_PRELOAD_METADATA = True
 AWS_QUERYSTRING_AUTH = False
 AWS_QUERYSTRING_EXPIRE = 1800
 AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = 'public-read'
+# AWS_DEFAULT_ACL = 'public-read'
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
 DEFAULT_FILE_STORAGE = 'AFM.aws.utils.MediaRootS3BotoStorage'
 STATICFILES_STORAGE = 'AFM.aws.utils.StaticRootS3BotoStorage'
-AWS_STORAGE_BUCKET_NAME = 'tag-afm-bucket'
+# AWS_STORAGE_BUCKET_NAME = 'tag-afm-bucket'
 AWS_S3_REGION_NAME = 'ap-south-1'
 S3_URL = '//%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 MEDIA_URL = '//%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
