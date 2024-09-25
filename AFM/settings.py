@@ -407,7 +407,7 @@ RECAPTCHA_REQUIRED_SCORE = 0.85
 #     }
 # }
 
-REDIS_URL = ""
+REDIS_URL = "redis://default:WhWQBzmarWtdmV0UqFLSNeuZfHWS1DD0@redis-17585.c14.us-east-1-3.ec2.redns.redis-cloud.com:17585"
 
 CHANNEL_LAYERS = {
     "default": {
