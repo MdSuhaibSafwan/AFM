@@ -395,7 +395,7 @@ RECAPTCHA_REQUIRED_SCORE = 0.85
 
 
 # AWS S3 buckets for static + media storages.
-# from AFM.aws.conf import *
+from AFM.aws.conf import *
 
 
 
