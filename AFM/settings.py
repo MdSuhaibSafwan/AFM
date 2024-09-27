@@ -31,9 +31,9 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-os.environ.setdefault("AFM_LINK", "sd")
+os.environ.setdefault("AFM_LINK", "http://127.0.0.1:8000")
 
-SECRET_KEY = "1234"
+SECRET_KEY = os.environ.get("SECRET_KEY", None)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 DEVELOPMENT_MODE = True
@@ -165,8 +165,8 @@ CRISPY_TEMPLATE_PACK = 'uni_form'
 # drag and drop file
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
-DATABASE_URL_GENERAL = "postgres://default:rNHA56xmcltf@ep-green-morning-a2xgg12f.eu-central-1.aws.neon.tech:5432/verceldb?sslmode=require"
-DATABASE_URL_PERSONAL="postgres://default:rNHA56xmcltf@ep-green-morning-a2xgg12f.eu-central-1.aws.neon.tech:5432/verceldb?sslmode=require"
+DATABASE_URL_GENERAL = os.environ.get("DATABASE_URL_GENERAL", None)
+DATABASE_URL_PERSONAL = os.environ.get("DATABASE_URL_PERSONAL", None)
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -355,44 +355,17 @@ LOGIN_URL = 'administration:login'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_BACKEND = 'post_office.EmailBackend'
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = ""
-EMAIL_HOST_PASSWORD = ""
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = ""
-MAIL_SEND_FROM = ""
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "")
+MAIL_SEND_FROM = os.environ.get("MAIL_SEND_FROM", "")
 
 # Google Captcha
-RECAPTCHA_PUBLIC_KEY = ""
-RECAPTCHA_PRIVATE_KEY = ""
+RECAPTCHA_PUBLIC_KEY = os.environ.get("RECAPTCHA_PUBLIC_KEY", "")
+RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_PRIVATE_KEY", "")
 RECAPTCHA_REQUIRED_SCORE = 0.85
-
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static/")
-# ]
-
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
-# AWS_ACCESS_KEY_ID = 'AKIAQUFLQJC35CIES7MV'
-# AWS_SECRET_ACCESS_KEY = '5ukEQv/qHXCTU1xjTSNZMl8d7sddJWFYQNOCBGxM'
-# AWS_STORAGE_BUCKET_NAME = 'apply-pal-bucket'
-# AWS_S3_REGION_NAME = 'stockholm'  # e.g., us-east-1
-# AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-
-# # For serving static files directly from S3
-# AWS_S3_URL_PROTOCOL = 'https'
-
-
-# # Static and media file configuration
-# STATIC_URL = f'{AWS_S3_URL_PROTOCOL}://{AWS_S3_CUSTOM_DOMAIN}/static/'
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-# MEDIA_URL = f'{AWS_S3_URL_PROTOCOL}://{AWS_S3_CUSTOM_DOMAIN}/media/'
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
 
 # AWS S3 buckets for static + media storages.
 from AFM.aws.conf import *
@@ -407,7 +380,7 @@ from AFM.aws.conf import *
 #     }
 # }
 
-REDIS_URL = "redis://default:WhWQBzmarWtdmV0UqFLSNeuZfHWS1DD0@redis-17585.c14.us-east-1-3.ec2.redns.redis-cloud.com:17585"
+REDIS_URL = os.environ.get("REDIS_URL", None)
 
 CHANNEL_LAYERS = {
     "default": {
@@ -666,8 +639,8 @@ SUMMERNOTE_CONFIG = {
 
 
 # CELERY STUFF
-BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+BROKER_URL = REDIS_URL
+CELERY_RESULT_BACKEND = REDIS_URL
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
