@@ -86,7 +86,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
+    # 'allauth.socialaccount.providers.google',
     'captcha',
     'django.contrib.sitemaps',
     #import-export
@@ -342,7 +342,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-SITE_ID = 1
+SITE_ID = 2
 
 AUTH_USER_MODEL = 'administration.CustomUser'
 LOGIN_REDIRECT_URL = 'administration:dashboard'

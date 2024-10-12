@@ -63,7 +63,7 @@ urlpatterns = [
     # path('captcha/', include('captcha.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('cookies/', include('gdpr_cookie_consent.urls', namespace='cookie_consent')),
-    # url(r'^oauth/', include('social_django.urls', namespace='social')),
+    # re_path(r'^oauth/', include('social_django.urls', namespace='social')),
     re_path(r'^webpush/', include('webpush.urls')),
     # # url(r'^%s(?P<path>.*)$' % settings.MEDIA_URL[1:], protected_serve, {'document_root': settings.MEDIA_ROOT}),
 

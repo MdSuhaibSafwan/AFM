@@ -114,9 +114,11 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="{% provider_login_url 'google' %}" id="google_signup" class="theme-btn not-active">
-                    Continue
-                </a>
+                {% comment %}
+                    <a href="{% provider_login_url 'google' %}" id="google_signup" class="theme-btn not-active">
+                        Continue
+                    </a>
+                {% endcomment %}
             </div>
         </div>
     </div>

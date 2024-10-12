@@ -282,12 +282,12 @@ class RegistrationForm(UserCreationForm):
     #     widget=forms.TextInput(
     #         attrs={'class': 'form-control',
     #                'placeholder': 'Please be specific - include exact names, so we can thank them!'}))
-    captcha = ReCaptchaField(widget=ReCaptchaV3())
+    # captcha = ReCaptchaField(widget=ReCaptchaV3())
 
     class Meta:
         model = CustomUser
         fields = ['first_name', 'last_name', 'user_type', 'email',
-                  'password1', 'password2', 'captcha']
+                  'password1', 'password2', ]
         labels = {
             'first_name': 'First Name*',
             'last_name': 'Last Name*',
@@ -334,11 +334,11 @@ class RegistrationForm(UserCreationForm):
 
             Row(
                 Column(
-                    AppendedText('password1', '<i data-feather="eye" class="eye-open toggle-password"></i>', active=True), 
+                    'password1', 
                     css_class='form-group col-sm-6 col-lg-6'
                 ),
                 Column(
-                    AppendedText('password2', '<i data-feather="eye" class="eye-open toggle-password"></i>', active=True), 
+                    'password2', 
                     css_class='form-group col-sm-6 col-lg-6'
                 ),
             ),
