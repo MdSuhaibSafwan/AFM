@@ -93,8 +93,8 @@ Return     : Create blank object of CustomUser in respective user object
 '''
 
 @receiver(post_save, sender=CustomUser)
-def make_active(sender, instance, craeted, **kwargs):
-    if craeted:
+def make_active(sender, instance, created, **kwargs):
+    if created:
         instance.active = True
         instance.save()
 
