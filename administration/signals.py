@@ -92,6 +92,12 @@ Parameters : CustomUser Instance
 Return     : Create blank object of CustomUser in respective user object
 '''
 
+@receiver(post_save, sender=CustomUser)
+def make_active(sender, instance, craeted, **kwargs):
+    if craeted:
+        instance.active = True
+        instance.save()
+
 
 @receiver(post_save, sender=CustomUser)
 def create_user_profile(sender, instance, created, **kwargs):
