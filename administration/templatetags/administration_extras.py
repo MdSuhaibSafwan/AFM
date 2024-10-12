@@ -680,7 +680,7 @@ def getbirthdomain(value):
         # return 'http://' + get_current_site(request).domain + '/uk-medical-schools'
         return config('AFM_LINK') + '/uk-medical-schools'
     else:
-        return config('AFU_LINK') + '/university-application-mentors'
+        return config('AFM_LINK') + '/university-application-mentors'
 
 
 # @register.filter
@@ -880,9 +880,17 @@ def get_if_user_from_EU_countries(value):
     return show
 
 @register.filter
-def check_if_file_exists(value):
+def check_if_file_exists(value=None):
+    if value is None:
+        return False
+
     # Get the absolute path of the file in the static directory
-    image_file_path = os.path.join(settings.STATIC_ROOT, value)
+    try:
+        image_file_path = os.path.join(settings.STATIC_ROOT, value)
+    except TypeError as e:
+        print(e)
+        return False
+    
     print("Value - ", value)
     print('image_file_path ', image_file_path, os.path.exists(image_file_path))
 

@@ -360,8 +360,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_API_KEY')
 
-DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "")
-MAIL_SEND_FROM = os.environ.get("MAIL_SEND_FROM", "")
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "applypalsu@theapplygroup.com")
+MAIL_SEND_FROM = os.environ.get("MAIL_SEND_FROM", "applypalsu@theapplygroup.com")
 
 # Google Captcha
 RECAPTCHA_PUBLIC_KEY = os.environ.get("RECAPTCHA_PUBLIC_KEY", "")

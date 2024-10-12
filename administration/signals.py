@@ -93,13 +93,6 @@ Return     : Create blank object of CustomUser in respective user object
 '''
 
 @receiver(post_save, sender=CustomUser)
-def make_active(sender, instance, created, **kwargs):
-    if created:
-        instance.active = True
-        instance.save()
-
-
-@receiver(post_save, sender=CustomUser)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         super_admin = CustomUser.objects.filter(user_type=0)
@@ -760,3 +753,12 @@ def on_mentor_update_profile_3(sender, instance: Mentor, **kwargs):
                 if url:
                     user_pi.url_slug = url
                     user_pi.save()
+
+
+@receiver(post_save, sender=CustomUser)
+def make_active(sender, instance, created, **kwargs):
+    if created:
+        instance.active = True
+        print("Saving instance")
+        instance.save()
+

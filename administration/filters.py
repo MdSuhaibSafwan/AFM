@@ -295,7 +295,7 @@ class MentorPersonalFilter(django_filters.FilterSet):
         return queryset.filter(Q(admin__first_name__icontains=value) | Q(admin__last_name__icontains=value))
 
     def filter_by_email(self, queryset, name, value):
-        apps = CustomUser.objects.filter(email__icontains=value).exclude(admin=None)
+        apps = CustomUser.objects.filter(email__icontains=value).exclude(is_staff=False)
         temp = []
         for i in apps:
             temp.append(i.slug)

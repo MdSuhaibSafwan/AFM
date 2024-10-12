@@ -125,10 +125,8 @@
 
 
 
-{% if personal_info_list %}
 {% for x in mentors %}
 {% for y in personal_info_list %}
-{% if x.admin.slug == y.admin.user_slug %}
 <div class="row row-sm mg-b-20 ">
     <div class="col-12 col-md-12 col-lg-12">
         <div class="card card-dashboard-twentysix mg-b-10">
@@ -249,14 +247,9 @@
         </div>
     </div>
 </div>
-{% endif %}
 {% endfor %}
 {% endfor %}
-{% else %}
-<div style="text-align:center;">
-    <p>Please broaden your search criteria for a great choice of potential mentors.</p>
-</div>
-{% endif %}
+
 
 <div class="">
     <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>

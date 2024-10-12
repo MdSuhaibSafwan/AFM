@@ -621,7 +621,7 @@ def registration(request, mentor_slug=''):
                 msg = EmailMultiAlternatives(
                                 subject = subject, 
                                 body = plain_message,
-                                from_email =  settings.EMAIL_HOST_USER,
+                                from_email =  settings.MAIL_SEND_FROM,
                                 to= [student.email,]
                                 )
 
@@ -696,7 +696,7 @@ def former_student_registration(request):
                 msg = EmailMultiAlternatives(
                                 subject = subject, 
                                 body = plain_message,
-                                from_email =  settings.EMAIL_HOST_USER,
+                                from_email =  settings.MAIL_SEND_FROM,
                                 to= [mentor.email,]
                                 )
 
@@ -765,7 +765,7 @@ def current_student_registration(request):
                 msg = EmailMultiAlternatives(
                                 subject = subject, 
                                 body = plain_message,
-                                from_email =  settings.EMAIL_HOST_USER,
+                                from_email =  settings.MAIL_SEND_FROM,
                                 to= [ifgstudent.email,]
                                 )
 
@@ -836,7 +836,7 @@ def confirmAccount(request, slug, mentor_slug=''):
         if obj.user_type == 4:
             msg = "You are just a few steps to having your profile made visible to potential applicants and " \
                   "mentees around the world."
-        send_email_notification.delay('Please complete your profile',
+        send_email_notification('Please complete your profile',
                                 'administration/email/complete_your_profile.html', [obj.email],
                                 {'link': link, 'msg': msg})
         # Check if user is mentor
@@ -1493,8 +1493,8 @@ def new_search_alumni(request):
     
     # List of Mentors
     mentors = Mentor.objects.filter(
-        admin__is_active=True,profile_status=True,
-        school=SCHOOL_OBJECT).exclude(Q(admin__id__in=reported_users) | Q(admin__id__in=reported_by_users), )
+        admin__is_active=True,profile_status=True).exclude(Q(admin__id__in=reported_users) | Q(admin__id__in=reported_by_users), )
+    mentors = Mentor.objects.all()
     temp =[]
     for i in mentors:
         if i.admin.slug and i.admin.slug not in temp:
