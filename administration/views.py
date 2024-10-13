@@ -203,9 +203,12 @@ def home(request):
     print("Mentors slug list - ", mentorslug_list)
 
     mentors_pi = MentorPersonalInformation.objects.using('afm_personal_information').filter(admin__user_slug__in=mentorslug_list)
-    if mentors_pi is not None and mentors_pi.count() >= 2:
+    if mentors_pi.exists():
         mentor_list = list(mentors_pi)
-        random_mentors = random.sample(mentor_list,2)
+        if mentors_pi.count() > 6:
+            random_mentors = random.sample(mentor_list, 6)
+        else:
+            random_mentors = random.sample(mentor_list, len(mentor_list))
     else:
         random_mentors = []
 
