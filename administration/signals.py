@@ -44,7 +44,7 @@ def send_email_notification_for_application(app, msg):
     mail_send_from = MAIL_SEND_FROM
     link = ''.join(['https://', get_current_site(request).domain, '/application/application/', str(app.slug)])
     # print(link, 'Application page Link')
-    send_email_notification.delay('Notification from International Foundation Group',
+    send_email_notification('Notification from International Foundation Group',
                                   'application/notification_mail.html',
                                   [mail_send_from],
                                   {
@@ -655,7 +655,7 @@ def on_mentor_update_profile(sender, instance: MentorPersonalInformation, **kwar
             print("Mail send from recipient - ", mail_send_from)
             print("--------------------------Celery Email triggered-----------------------------")
             link = ''.join(['https://', get_current_site(request).domain, '/mentor-profile/', str(instance.admin.user_slug)])
-            send_email_notification.delay('Notification from International Foundation Group',
+            send_email_notification('Notification from International Foundation Group',
                                         'administration/email/mentor_profile_completed.html',
                                         [mail_send_from],
                                         {

@@ -357,7 +357,7 @@ class RegistrationForm(UserCreationForm):
 
 
 class MentorRegistrationForm(UserCreationForm):
-    captcha = ReCaptchaField(widget=ReCaptchaV3())
+    # captcha = ReCaptchaField(widget=ReCaptchaV3())
    
     class Meta:
         model = CustomUser
@@ -450,7 +450,7 @@ class MentorRegistrationForm(UserCreationForm):
 
 
 class IFGStudentRegistrationForm(UserCreationForm):
-    captcha = ReCaptchaField(widget=ReCaptchaV3())
+    # captcha = ReCaptchaField(widget=ReCaptchaV3())
    
     class Meta:
         model = CustomUser
@@ -521,7 +521,7 @@ class IFGStudentRegistrationForm(UserCreationForm):
 
 
 class ChatRegistrationForm(UserCreationForm):
-    captcha = ReCaptchaField(widget=ReCaptchaV3())
+    # captcha = ReCaptchaField(widget=ReCaptchaV3())
 
     class Meta:
         model = CustomUser
@@ -721,7 +721,7 @@ class ProfilePhotoForm(forms.ModelForm):
 
             image = Image.open(photo.profile_pic)
             cropped_image = image.crop((x, y, w + x, h + y))
-            resized_image = cropped_image.resize((300, 300), Image.ANTIALIAS)
+            resized_image = cropped_image.resize((300, 300), Image.LANCZOS)
 
             fh = storage.open(photo.profile_pic.name, "wb")
             picture_format = 'png'

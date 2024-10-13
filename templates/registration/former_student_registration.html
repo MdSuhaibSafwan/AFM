@@ -127,11 +127,13 @@
                      age of 15.</label>
                </div>
            </div>
-           <div class="modal-footer">
-               <a href="{% provider_login_url 'google' %}" id="google_signup" class="theme-btn not-active">
-                   Continue
-               </a>
-           </div>
+           {% comment %}
+            <div class="modal-footer">
+                  <a href="{% provider_login_url 'google' %}" id="google_signup" class="theme-btn not-active">
+                     Continue
+                  </a>
+            </div>
+           {% endcomment %}
       </div>
   </div>
 </div>
