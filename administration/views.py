@@ -203,21 +203,21 @@ def home(request):
     print("Mentors slug list - ", mentorslug_list)
 
     mentors_pi = MentorPersonalInformation.objects.using('afm_personal_information').filter(admin__user_slug__in=mentorslug_list)
-    if mentors_pi is not None and mentors_pi.count() >= 6:
+    if mentors_pi is not None and mentors_pi.count() >= 2:
         mentor_list = list(mentors_pi)
-        random_mentors = random.sample(mentor_list,6)
+        random_mentors = random.sample(mentor_list,2)
     else:
         random_mentors = []
 
-    students = Student.objects.filter(profile_status=True).exclude(admin=None)
+    students = Student.objects.filter(profile_status=True)
     studentslug_list = []
     for student in students:
         studentslug_list.append(student.admin.slug)
     
     student_pi = StudentPersonalInformation.objects.using('afm_personal_information').filter(admin__user_slug__in=studentslug_list)
-    if student_pi is not None and student_pi.count() >= 3:
+    if student_pi is not None and student_pi.count() >= 1:
         student_list = list(student_pi)
-        random_students = random.sample(student_list,3)
+        random_students = random.sample(student_list,1)
     else:
         random_students = []
 
