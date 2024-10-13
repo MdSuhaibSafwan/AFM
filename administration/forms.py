@@ -571,10 +571,6 @@ class ChatRegistrationForm(UserCreationForm):
                     css_class='form-group col-sm-6 col-lg-6'
                 ),
             ),
-            Row(
-                Column('captcha', css_class='form-group col-sm-6 col-lg-6 d-none'),
-                css_class='form-row'
-            ),
         )
 
 

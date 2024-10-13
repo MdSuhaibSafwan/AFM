@@ -269,6 +269,9 @@ def comment_reply_twfl(request, comment_id):
 
 def live_unread_comments(request):
     # Exclude reported users
+    if not request.user.is_authenticated:
+        return JsonResponse({"unread_count": 0})
+        
     reported_users = ReportUser.objects.filter(Q(report_by_user=request.user) | Q(reported_user=request.user),
                                                is_removed=False).values_list('reported_user')
     # Exclude users from which current user get reported from
@@ -284,6 +287,9 @@ def live_unread_comments(request):
 
 def user_live_unread_comments(request):
     unread_count = 0
+    if not request.user.is_authenticated:
+        return JsonResponse({"unread_count": unread_count})
+
     if request.method == 'GET':
         user_slug = request.GET['user_slug']
         if user_slug:
