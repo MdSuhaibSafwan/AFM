@@ -218,9 +218,13 @@ def home(request):
         studentslug_list.append(student.admin.slug)
     
     student_pi = StudentPersonalInformation.objects.using('afm_personal_information').filter(admin__user_slug__in=studentslug_list)
-    if student_pi is not None and student_pi.count() >= 1:
+    if student_pi.exists():
         student_list = list(student_pi)
-        random_students = random.sample(student_list,1)
+        if student_pi.count() > 6:
+            random_students = random.sample(student_list, 6)
+        else:
+            random_students = random.sample(student_list, len(student_list))
+
     else:
         random_students = []
 
