@@ -1875,7 +1875,7 @@ def alumni_public_profile(request,currently_studying_slug,name_slug,country_slug
     for i in mentors_from_pi:
         temp.append(i.admin.user_slug)
     print("slugs in temp - ", temp)
-    mentor = Mentor.objects.get(admin__slug__in=temp, profile_status=True,school=SCHOOL_OBJECT)
+    mentor = Mentor.objects.get(admin__slug__in=temp, profile_status=True)
 
     mentor_pi = MentorPersonalInformation.objects.using('afm_personal_information').get(
         admin__user_slug=mentor.admin.slug,

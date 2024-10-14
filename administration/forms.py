@@ -563,11 +563,11 @@ class ChatRegistrationForm(UserCreationForm):
             ),
             Row(
                 Column(
-                    AppendedText('password1', '<i data-feather="eye" class="eye-open toggle-password"></i>', active=True), 
+                    'password1', 
                     css_class='form-group col-sm-6 col-lg-6'
                 ),
                 Column(
-                    AppendedText('password2', '<i data-feather="eye" class="eye-open toggle-password"></i>', active=True), 
+                    'password2', 
                     css_class='form-group col-sm-6 col-lg-6'
                 ),
             ),
