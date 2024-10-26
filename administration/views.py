@@ -622,7 +622,7 @@ def registration(request, mentor_slug=''):
             plain_message = strip_tags(html_message)
 
             # Celery Email:
-            # send_email_notification.delay(subject, email_template, [student.email,],email_data)
+            # send_email_notification(subject, email_template, [student.email,],email_data)
 
             try:  
                 msg = EmailMultiAlternatives(
@@ -697,7 +697,7 @@ def former_student_registration(request):
             plain_message = strip_tags(html_message)
 
             # Celery Email:
-            # send_email_notification.delay(subject, email_template, [student.email,],email_data)
+            # send_email_notification(subject, email_template, [student.email,],email_data)
 
             try:  
                 msg = EmailMultiAlternatives(
@@ -766,7 +766,7 @@ def current_student_registration(request):
             plain_message = strip_tags(html_message)
             
             # Celery Email:
-            # send_email_notification.delay(subject, email_template, [student.email,],email_data)
+            # send_email_notification(subject, email_template, [student.email,],email_data)
             
             try:  
                 msg = EmailMultiAlternatives(
@@ -2365,7 +2365,7 @@ def tech_support_twfl(request):
             instance = form.save(commit=False)
             instance.user = request.user
             instance.save()
-            send_email_notification.delay('Tech Support Request',
+            send_email_notification('Tech Support Request',
                                     'administration/email/tech_support_mail.html',
                                     [mail_send_from],
                                     {
@@ -2884,7 +2884,7 @@ def approve_mentor_twfl(request, admin_slug):
             # Get mentor profile url to add it in mail
             # link = getmentorprofileurl(user.admin.slug)
             link = request.build_absolute_uri(reverse('login'))
-            send_email_notification.delay('Your Profile is Approved',
+            send_email_notification('Your Profile is Approved',
                                     'administration/email/mentor_profile_approved.html',
                                     [user.admin.email],
                                     {
@@ -2892,7 +2892,7 @@ def approve_mentor_twfl(request, admin_slug):
                                         'link': link,
                                     }
                                     )
-            send_email_notification.delay('New Mentor Profile on International Foundation Group',
+            send_email_notification('New Mentor Profile on International Foundation Group',
                                     'administration/email/standard_template.html', [EMAIL_HOST_USER,],
                                     {
                                         'first_name': 'Team',
@@ -2929,7 +2929,7 @@ def approve_student_twfl(request, admin_slug):
             # Get mentor profile url to add it in mail
             # link = getmentorprofileurl(user.admin.slug)
             link = request.build_absolute_uri(reverse('login'))
-            send_email_notification.delay('Your Profile is Approved',
+            send_email_notification('Your Profile is Approved',
                                     'administration/email/mentor_profile_approved.html',
                                     [user.admin.email],
                                     {
@@ -2937,7 +2937,7 @@ def approve_student_twfl(request, admin_slug):
                                         'link': link,
                                     }
                                     )
-            send_email_notification.delay('New Student Profile on International Foundation Group',
+            send_email_notification('New Student Profile on International Foundation Group',
                                     'administration/email/standard_template.html', [EMAIL_HOST_USER,],
                                     {
                                         'first_name': 'Team',
@@ -3357,7 +3357,7 @@ def contact_us_twfl(request):
                 var_dict['admin_first_name'] = contact.admin.first_name
                 var_dict['admin_slug'] = contact.admin.slug
 
-            response = send_email_notification.delay('New Contact Lead',
+            response = send_email_notification('New Contact Lead',
                                                'administration/email/contact_mail.html',
                                                [mail_send_from],
                                                var_dict
