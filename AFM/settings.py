@@ -475,7 +475,7 @@ COOKIE_CONSENT_SETTINGS = {
             "providers": [
                 {
                     # Translatable title of the provider
-                    "title": _("International Foundation Group"),
+                    "title": _("ApplyPal"),
 
                     # Provider description will be used at the extended cookie explanation in the cookie management view.
                     # Provide either a translatable string or a HTML template name.
@@ -534,7 +534,7 @@ COOKIE_CONSENT_SETTINGS = {
             "description_template_name": "",
             "providers": [
                 {
-                    "title": _("International Foundation Group"),
+                    "title": _("ApplyPal"),
                     "description": _(""),
                     "description_template_name": "",
                     "cookies": [
@@ -562,7 +562,7 @@ COOKIE_CONSENT_SETTINGS = {
             "description_template_name": "",
             "providers": [
                 {
-                    "title": _("International Foundation Group"),
+                    "title": _("ApplyPal"),
                     "description": _(""),
                     "description_template_name": "",
                     "cookies": [
@@ -590,7 +590,7 @@ COOKIE_CONSENT_SETTINGS = {
             "description_template_name": "",
             "providers": [
                 {
-                    "title": _("International Foundation Group"),
+                    "title": _("ApplyPal"),
                     "description": _(""),
                     "description_template_name": "",
                     "cookies": [

@@ -43,7 +43,7 @@
             <div class="col-md-12">
                 <div class="site-breadcrub mb-4">
                     <p>
-                        <a href="/">International Foundation Group</a>
+                        <a href="/">ApplyPal</a>
                         <span> > Student >
                         </span>
                         <span class="text-capitalize">
@@ -69,7 +69,7 @@
                         <h2 data-animate="fadeInUp" data-animate-delay="0">
                             Study
                             {{student_pi.get_area_of_study_display}} at 
-                            IFG( {{student_pi.admin.currently_living_in.name}} )
+                            AP( {{student_pi.admin.currently_living_in.name}} )
                         </h2>
                     </div>
                 </div>
@@ -146,7 +146,7 @@
                     <p>
                         <strong>Studying at :</strong>
                         <span>
-                            IFG {{student_pi.admin.currently_living_in.name}}</span>
+                            AP {{student_pi.admin.currently_living_in.name}}</span>
                         <img src="{{student_pi.admin.currently_living_in.flag}}" alt="{{student_pi.admin.currently_living_in.name}}">
                     </p>
                     <p>
@@ -163,7 +163,7 @@
                         </li>
                         
                         <li class="social-tweet">
-                            {% post_to_twitter "" "Check out this Alumni on International Foundation Group" "" %}
+                            {% post_to_twitter "" "Check out this Alumni on ApplyPal" "" %}
                         </li>
 
                         <li class="social-whatsapp">
@@ -191,7 +191,7 @@
                     <h4>Ask me your questions and: </h4>
                     <ul>
                         <li>&bull; Learn from my experiences.</li>
-                        <li>&bull; Discover what it's really like to study at IFG.</li>
+                        <li>&bull; Discover what it's really like to study at AP.</li>
                         <li>&bull; Start your application to help secure your admission.</li>
                         <li>&bull; Apply and enrol with confidence.</li>
                     </ul>
@@ -199,8 +199,8 @@
                     <!-- <h4>Get Started now!</h4>
                     <ul>
                         <li>&bull; Start building your network with current students and alumni.</li>
-                        <li>&bull; Get a genuine understanding of what it's like to study at IFG.</li>
-                        <li>&bull; Discover why IFG is the right choice for you.</li>
+                        <li>&bull; Get a genuine understanding of what it's like to study at AP.</li>
+                        <li>&bull; Discover why AP is the right choice for you.</li>
                         <li>&bull; Use AI with student help to complete yor application form.</li>
                     </ul> -->
                     <div class="mt-5">
@@ -252,7 +252,7 @@ aria-hidden="true">
             <!-- Google Signup -->
             <div class="google-registration">
                 <input type="checkbox" class="google-marketing" name="google-marketing" value="google-marketing">
-                <label for="google-marketing"> I agree to receive marketing communications email from IFG.</label><br>
+                <label for="google-marketing"> I agree to receive marketing communications email from AP.</label><br>
                 <div class="justify-content-center">
                     <a class="googleLink btn btn-block btn-rounded btn-secondary" href="{% provider_login_url 'google' %}" data-slug="{{student.admin.user_slug}}" style="pointer-events: none;">
                     <img src="{% static 'images/google-icon.png' %}" alt="Google Icon" loading="lazy" 
@@ -269,7 +269,7 @@ aria-hidden="true">
                     {% crispy form %}
                 </div>
                 <input type="checkbox" class="local-marketing" name="local-marketing" value="local-marketing">
-                <label for="local-marketing"> I agree to receive marketing communications email from IFG.</label><br>
+                <label for="local-marketing"> I agree to receive marketing communications email from AP.</label><br>
                 <div class="modal-footer justify-content-center">
                     <button class="local-registration-button btn btn-rounded btn-secondary" type="submit" style="pointer-events: none;">Continue</button>
                 </div>

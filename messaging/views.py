@@ -401,7 +401,7 @@ def send_ajax_message_with_keyword(request):
 
         # Generate default mentor message for given keywords
         keyword_message = Messaging(sender=receiver_profile, receiver=request.user, 
-                                    comment="Sorry, I can't advise on visas, specific fees or entry requirements, IFG will advise on this after you have applied. Please ask me about the course, student life  or if you would like me to help you apply?")
+                                    comment="Sorry, I can't advise on visas, specific fees or entry requirements, AP will advise on this after you have applied. Please ask me about the course, student life  or if you would like me to help you apply?")
         keyword_message.save()
         print("Default keyword message - ", keyword_message.comment)
         

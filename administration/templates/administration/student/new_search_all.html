@@ -58,18 +58,18 @@
 
 {% block content %}
 
-<h3 class="text-center">Search all IFG Students and Alumni</h3>
+<h3 class="text-center">Search all AP Students and Alumni</h3>
 <br>
 
 <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
     <div class="btn-group mr-2" role="group" aria-label="First group">
-        <a href="{% url 'administration:new_search_all' %}" class="btn btn-lg btn-rounded btn-outline-secondary"><h3><i data-feather="award"></i>All IFG Students</h3></a>
+        <a href="{% url 'administration:new_search_all' %}" class="btn btn-lg btn-rounded btn-outline-secondary"><h3><i data-feather="award"></i>All AP Students</h3></a>
     </div>
     <div class="btn-group mr-2" role="group" aria-label="Second group">
-        <a href="{% url 'administration:new_search_alumni' %}" class="btn btn-lg btn-rounded btn-outline-secondary"><h3><i data-feather="award"></i>IFG Alumni</h3></a>
+        <a href="{% url 'administration:new_search_alumni' %}" class="btn btn-lg btn-rounded btn-outline-secondary"><h3><i data-feather="award"></i>AP Alumni</h3></a>
     </div>
     <div class="btn-group mr-2" role="group" aria-label="Third group">
-        <a href="{% url 'administration:new_search_students' %}" class="btn btn-lg btn-rounded btn-outline-secondary"><h3><i data-feather="award"></i>IFG Students</h3></a>
+        <a href="{% url 'administration:new_search_students' %}" class="btn btn-lg btn-rounded btn-outline-secondary"><h3><i data-feather="award"></i>AP Students</h3></a>
     </div>
 </div>
 
@@ -156,7 +156,7 @@
                             </div>
                             <div class="text-center">
                                 
-                                <img src="{% static 'assets/img/logo/IFG-Colour-Logo-338x100.png' %}"
+                                <img src="{% static 'assets/img/logo/AP-Colour-Logo-338x100.png' %}"
                                     alt="{{x.school.name}}" style="max-height:100px; max-width: 100px;">
                                 
                                 <p>
@@ -311,7 +311,7 @@
                                 <i data-feather="user"></i>Alumnus ID :
                                 <strong class="text-uppercase">{{x.admin.slug}} </strong>
                                 {% if y.university_start_year %}
-                                | Left IFG in {{ y.university_start_year|getifnone}}
+                                | Left AP in {{ y.university_start_year|getifnone}}
                                 {% endif %}
                             </p>
                         </div>

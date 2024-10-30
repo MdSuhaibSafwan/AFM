@@ -16,7 +16,7 @@ from AFM import settings
 from AFM.settings import MAIL_SEND_FROM, EMAIL_HOST_USER
 from AFM.tasks import send_email_notification
 from administration.forms import RegistrationForm, InstituteRegistrationForm, MentorRegistrationForm, \
-    MentorPersonalInformationForm, IFGStudentRegistrationForm, \
+    MentorPersonalInformationForm, APStudentRegistrationForm, \
     StudentPersonalInformationForm, CustomUserPersonalInformationForm, MentorProfileForm, StudentProfileForm, \
     AppAdminRegistrationForm, InstituteUpdateForm, \
     InstituteAdminRegistrationForm, parent_form, update_user_info, UpdateProfilePicForm, \
@@ -611,7 +611,7 @@ def registration(request, mentor_slug=''):
             print(link, " - Confirm Account link")
 
             # Send Email: Applicant/Parent/Mentor
-            subject = 'Account confirmation - International Foundation Group'
+            subject = 'Account confirmation - ApplyPal'
             email_template = 'administration/email/verification.html'
             email_data = {'link': link,'first_name': student.first_name + student.last_name,}
             context = {
@@ -686,7 +686,7 @@ def former_student_registration(request):
             print("Confirm Account Email link - ", link)
 
             # Send Email: Applicant/Parent/Mentor
-            subject = 'Account confirmation - International Foundation Group'
+            subject = 'Account confirmation - ApplyPal'
             email_template = 'administration/email/verification.html'
             email_data = {'link': link,'first_name': mentor.first_name + mentor.last_name,}
             context = {
@@ -728,17 +728,17 @@ def former_student_registration(request):
 
 
 def current_student_registration(request):
-    form = IFGStudentRegistrationForm()
+    form = APStudentRegistrationForm()
     if request.method != "POST":
         return render(request, 'registration/current_student_registration.html', {'form': form})
     else:
-        form = IFGStudentRegistrationForm(request.POST)
+        form = APStudentRegistrationForm(request.POST)
         if form.is_valid():
-            ifgstudent = form.save(commit=False)
-            ifgstudent.user_type = 3
-            ifgstudent.is_active = False
-            ifgstudent.save()
-            print("CustomUser type - ", ifgstudent, ifgstudent.user_type)
+            APstudent = form.save(commit=False)
+            APstudent.user_type = 3
+            APstudent.is_active = False
+            APstudent.save()
+            print("CustomUser type - ", APstudent, APstudent.user_type)
             print("Triggered create_user_profile signal successfully.")        
             print("----------------------Signal successful------------------------")
             
@@ -748,18 +748,18 @@ def current_student_registration(request):
             print(base_link, mentor_slug)
             if mentor_slug:
                 # Will redirect to mentor comment page
-                link = f"{base_link}/confirmAccount/{ifgstudent.slug}/{mentor_slug}"
+                link = f"{base_link}/confirmAccount/{APstudent.slug}/{mentor_slug}"
             else:
-                link = f"{base_link}/confirmAccount/{ifgstudent.slug}"
+                link = f"{base_link}/confirmAccount/{APstudent.slug}"
 
             print("Confirm Account Email link - ", link)
 
             # Send Email: Applicant/Parent/Mentor
-            subject = 'Account confirmation - International Foundation Group'
+            subject = 'Account confirmation - ApplyPal'
             email_template = 'administration/email/verification.html'
-            email_data = {'link': link,'first_name': ifgstudent.first_name + ifgstudent.last_name,}
+            email_data = {'link': link,'first_name': APstudent.first_name + APstudent.last_name,}
             context = {
-                "first_name": f"{ifgstudent.first_name} {ifgstudent.last_name}",
+                "first_name": f"{APstudent.first_name} {APstudent.last_name}",
                 "link":link
             }
             html_message = render_to_string(email_template, context)
@@ -773,7 +773,7 @@ def current_student_registration(request):
                                 subject = subject, 
                                 body = plain_message,
                                 from_email =  settings.MAIL_SEND_FROM,
-                                to= [ifgstudent.email,]
+                                to= [APstudent.email,]
                                 )
 
                 msg.attach_alternative(html_message, "text/html")
@@ -835,7 +835,7 @@ def confirmAccount(request, slug, mentor_slug=''):
         link = config('AFM_LINK') + "/accounts/login/"
         msg = ''
 
-        # # Check if user is current student at IFG
+        # # Check if user is current student at AP
         # if obj.user_type == 3:
         #     pass # Current Student Logic
 
@@ -1043,7 +1043,7 @@ def dashboard(request):
                        'mentors': mentors, 'mentors_list': mentors_list,
                        'pi_info': pi_info})
     
-    # If user is Current Student at IFG
+    # If user is Current Student at AP
     elif current_user.user_type == 3:
         stud_mentor = Student.objects.get(admin=request.user)
         if stud_mentor.school != SCHOOL_OBJECT:
@@ -1235,7 +1235,7 @@ def update_profile_twfl(request, mentor_slug=''):
         # Check if user has already completed their profile by checking any of the required field is None.
         if pi_user.gender is None:
             messages.success(request,
-                             "Welcome to International Foundation Group, Please complete your profile below.")
+                             "Welcome to ApplyPal, Please complete your profile below.")
         return render(request, 'administration/student/update_profile.html',
                       {'form': user_pi_form, 'form2': custom_user_pi_form, 'form3': user_form,
                        'pic_form': UpdateProfilePicForm(), 'pi_user': pi_user})
@@ -1913,7 +1913,7 @@ def alumni_public_profile(request,currently_studying_slug,name_slug,country_slug
 
 
 
-def ifg_student_public_profile(request,user_slug):
+def AP_student_public_profile(request,user_slug):
     
     print("slug - ", user_slug)
     student_pi = StudentPersonalInformation.objects.using('afm_personal_information').get(
@@ -2847,7 +2847,7 @@ Return     : create object message objects
 
 def greetings_message_twfl(request, receiver):
     admin_profile = CustomUser.objects.filter(user_type=0).first()
-    message = "Please use this page to send messages directly to the International Foundation Group Team with your questions, feedback " \
+    message = "Please use this page to send messages directly to the ApplyPal Team with your questions, feedback " \
               "and anything of interest, we would love to hear from you!<br><br>" \
               "Please add signup@theapplygroup.com to your email contacts to avoid messages from potential " \
               "students/parents being blocked or sent to your junk/spam folder."
@@ -2892,12 +2892,12 @@ def approve_mentor_twfl(request, admin_slug):
                                         'link': link,
                                     }
                                     )
-            send_email_notification('New Mentor Profile on International Foundation Group',
+            send_email_notification('New Mentor Profile on ApplyPal',
                                     'administration/email/standard_template.html', [EMAIL_HOST_USER,],
                                     {
                                         'first_name': 'Team',
                                         'link': link,
-                                        'content': 'New Alumnus profile is available on International Foundation Group. Please '
+                                        'content': 'New Alumnus profile is available on ApplyPal. Please '
                                                    'Index this Profile URL.',
                                         'button_text': 'View Profile',
                                     }
@@ -2937,12 +2937,12 @@ def approve_student_twfl(request, admin_slug):
                                         'link': link,
                                     }
                                     )
-            send_email_notification('New Student Profile on International Foundation Group',
+            send_email_notification('New Student Profile on ApplyPal',
                                     'administration/email/standard_template.html', [EMAIL_HOST_USER,],
                                     {
                                         'first_name': 'Team',
                                         'link': link,
-                                        'content': 'New Student profile is available on International Foundation Group. Please '
+                                        'content': 'New Student profile is available on ApplyPal. Please '
                                                    'Index this Profile URL.',
                                         'button_text': 'View Profile',
                                     }

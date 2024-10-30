@@ -63,7 +63,7 @@ $("#msg-send-button").click(function () {
                         // let word_html = "<div class='media reverse'>" +
                         //             "<div class='media-body'>" +
                         //             "<div class='az-msg-wrapper unread-msg' style='background-color: #f7d3df;'>" +
-                        //             "Sorry, I'm unable to advise on visas, specific fees, etc. IFG will assist with this after you have applied." +
+                        //             "Sorry, I'm unable to advise on visas, specific fees, etc. AP will assist with this after you have applied." +
                         //             "</div>" +
                         //             "</div>" +
                         //             "</div>";

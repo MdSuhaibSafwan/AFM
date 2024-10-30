@@ -677,7 +677,7 @@ def review_submit_twfl(request, app_slug):
                     verb=verb)
         # url_name = '/application/application/%s' % (app.slug)
         # verb = 'You have been given a feedback by ' + app.admin.first_name + '(' + app.admin.slug + ')' + \
-        #        ' for Application submission on International Foundation Group'
+        #        ' for Application submission on ApplyPal'
         # notify.send(app.mentor.admin,
         #             recipient=app.mentor.admin,
         #             description=url_name,
@@ -1435,7 +1435,7 @@ def fill_application_form_permission_twfl(request, app_slug):
         link = ''.join(
             [config('AFM_LINK'), '/application/application/', str(app.slug)])
 
-        send_email_notification.delay('Notification from International Foundation Group',
+        send_email_notification.delay('Notification from ApplyPal',
                                       'application/notification_mail.html',
                                       [app.admin.email],
                                       {

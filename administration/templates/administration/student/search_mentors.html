@@ -45,7 +45,7 @@ div.btn,.filter {
                 <a class="nav-item nav-link active" href="#"><h5><i data-feather="award"></i> Search Alumni</h5></a>
                 <a class="nav-item nav-link" href="{% url 'administration:search_students_twfl' %}" data-toggle="tooltip" data-placement="bottom"
                    title="This feature will come soon">
-                    <h5><i data-feather="book"></i> Search Students currently studying at IFG</h5>
+                    <h5><i data-feather="book"></i> Search Students currently studying at AP</h5>
                 </a>
             </nav>
         </div>
@@ -253,7 +253,7 @@ div.btn,.filter {
                                      <i data-feather="user"></i>Alumnus ID :
                                      <strong class="text-uppercase">{{x.admin.slug}} </strong>
                                      {% if y.university_start_year %}
-                                     | Left IFG in {{ y.university_start_year|getifnone}}
+                                     | Left AP in {{ y.university_start_year|getifnone}}
                                      {% endif %}
                                  </p>
                              </div>

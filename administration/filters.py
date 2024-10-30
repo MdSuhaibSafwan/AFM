@@ -164,7 +164,7 @@ class MentorFilter(django_filters.FilterSet):
         self.filters['admin__last_name'].label = "Last Name"
         self.filters['admin__spoken_languages'].label = "Languages they speak"
         self.filters['admin__country'].label = "Alumni originally from"
-        self.filters['university_start_year'].label = "Alumni left IFG in"
+        self.filters['university_start_year'].label = "Alumni left AP in"
         self.filters[
             'admin__spoken_languages'].help_text = "<span>You can view the current exchange rate on : <a href='https://xe.com/' target='_blank'>xe.com</a></span>"
 
@@ -271,7 +271,7 @@ class MentorPersonalFilter(django_filters.FilterSet):
         super(MentorPersonalFilter, self).__init__(*args, **kwargs)
         self.filters['admin__spoken_languages'].label = "Languages they speak"
         self.filters['admin__country'].label = "Alumni originally from"
-        self.filters['university_start_year'].label = "Alumni left IFG in"
+        self.filters['university_start_year'].label = "Alumni left AP in"
         self.filters[
             'admin__spoken_languages'].help_text = "<span>You can view the current exchange rate on : <a href='https://xe.com/' target='_blank'>xe.com</a></span>"
 

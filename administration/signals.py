@@ -44,7 +44,7 @@ def send_email_notification_for_application(app, msg):
     mail_send_from = MAIL_SEND_FROM
     link = ''.join(['https://', get_current_site(request).domain, '/application/application/', str(app.slug)])
     # print(link, 'Application page Link')
-    send_email_notification('Notification from International Foundation Group',
+    send_email_notification('Notification from ApplyPal',
                                   'application/notification_mail.html',
                                   [mail_send_from],
                                   {
@@ -212,7 +212,7 @@ def create_user_profile(sender, instance, created, **kwargs):
                             target=instance,
                             level='info',
                             verb=verb)
-        verb = 'Welcome to IFG %s' % instance.first_name
+        verb = 'Welcome to AP %s' % instance.first_name
         # Send user notification
         notify.send(instance,
                     recipient=instance,
@@ -634,7 +634,7 @@ def update_mentor_profile_link_url_slug(user_slug, name_slug, currently_studying
 
 '''
 Function   : on_mentor_update_profile 
-Description: On Mentor successfully update profile notify International Foundation Group by an email notification
+Description: On Mentor successfully update profile notify ApplyPal by an email notification
 Parameters : ApplicationComment Instance
 Return     : email notification, application log, user notification
 '''
@@ -655,7 +655,7 @@ def on_mentor_update_profile(sender, instance: MentorPersonalInformation, **kwar
             print("Mail send from recipient - ", mail_send_from)
             print("--------------------------Celery Email triggered-----------------------------")
             link = ''.join(['https://', get_current_site(request).domain, '/mentor-profile/', str(instance.admin.user_slug)])
-            send_email_notification('Notification from International Foundation Group',
+            send_email_notification('Notification from ApplyPal',
                                         'administration/email/mentor_profile_completed.html',
                                         [mail_send_from],
                                         {

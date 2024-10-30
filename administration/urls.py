@@ -99,8 +99,8 @@ urlpatterns = [
     path('alumni/public-profile/study-<slug:currently_studying_slug>/<slug:name_slug>-from-<slug:country_slug>/',
         views.alumni_public_profile, name='alumni_public_profile'),
 
-    path('ifg/student/public-profile/<slug:user_slug>/',
-        views.ifg_student_public_profile, name='ifg_student_public_profile'),
+    path('AP/student/public-profile/<slug:user_slug>/',
+        views.AP_student_public_profile, name='AP_student_public_profile'),
 
     path(
         'uk-medical-schools/study-<slug:currently_studying_slug>-at-<slug:institute_in>/<slug:name_slug>-from-<slug:country_slug>/',

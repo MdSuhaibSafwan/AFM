@@ -37,7 +37,7 @@ area_of_study_choice = (
 )
 
 
-IFG_COURSE = (
+AP_COURSE = (
     (1, 'University Foundation Programme in Business Management'),
     (2, 'University Foundation Programme in Engineering'),
     (3, 'University Foundation Programme in Social Sciences'),
@@ -532,7 +532,7 @@ class StudentPersonalInformation(models.Model):
     institute_email = models.EmailField(null=True, blank=True) #New
 
     # When do you hope to join us?
-    area_of_study = models.PositiveIntegerField(null=True, choices=IFG_COURSE)
+    area_of_study = models.PositiveIntegerField(null=True, choices=AP_COURSE)
     programme_level = models.IntegerField(null=True, choices=programme_level_choices_mentor)
     subject_foundation = models.ForeignKey('SubjectFoundation', on_delete= models.SET_NULL, null=True, blank=True) #New
     level_of_english = models.IntegerField(null=True, choices=level_of_english_choices)

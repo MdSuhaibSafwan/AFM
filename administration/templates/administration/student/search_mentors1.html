@@ -45,7 +45,7 @@ div.btn,.filter {
                 <a class="nav-item nav-link active" href="#"><h5><i data-feather="award"></i> Search Alumni</h5></a>
                 <a class="nav-item nav-link" href="{% url 'administration:search_students_twfl' %}" data-toggle="tooltip" data-placement="bottom"
                    title="This feature will come soon">
-                    <h5><i data-feather="book"></i> Search Students currently studying at IFG</h5>
+                    <h5><i data-feather="book"></i> Search Students currently studying at AP</h5>
                 </a>
             </nav>
         </div>
@@ -253,7 +253,7 @@ div.btn,.filter {
                                      <i data-feather="user"></i>Alumnus ID :
                                      <strong class="text-uppercase">{{x.admin.slug}} </strong>
                                      {% if y.university_start_year %}
-                                     | Left IFG in {{ y.university_start_year|getifnone}}
+                                     | Left AP in {{ y.university_start_year|getifnone}}
                                      {% endif %}
                                  </p>
                              </div>
@@ -298,7 +298,7 @@ div.btn,.filter {
 </div>
 
 
-<!-- Modal-1 : For Existing IFG Students -->
+<!-- Modal-1 : For Existing AP Students -->
 {% if request.user.user_type == 3 %}
 {% if basic_info.about_me is None %}
 <div class="modal fade bd-example-modal-lg" id="additional-questions" tabindex="-1"
@@ -309,7 +309,7 @@ div.btn,.filter {
           <form method="post">
               {% csrf_token %}
               <div class="modal-body">
-                  <h5>Please add <strong>at least three</strong> questions you would most like to ask a student that has left IFG
+                  <h5>Please add <strong>at least three</strong> questions you would most like to ask a student that has left AP
                       and is now at a partner university.</h5>
                     <p>The more questions you ask and write about yourself, the more personalised the advice and guidance will be.</p>
                     <p class="consent-p"></p>
@@ -344,7 +344,7 @@ div.btn,.filter {
 {% endif %}
 {% endif %}
 
-<!-- Modal-2 : For Existing IFG Students -->
+<!-- Modal-2 : For Existing AP Students -->
 {% if student.currently_studying_course is None %}
 <div class="modal fade text-left bd-example-modal-lg" id="questions-about-school" tabindex="-1"
                        role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"
@@ -355,10 +355,10 @@ div.btn,.filter {
               {% csrf_token %}
               <div class="modal-body">
                   <h5>Please can you answer the
-                      following 4 questions about IFG:</h5>
+                      following 4 questions about AP:</h5>
                       <!-- <h5>Thanks for your questions for our alumni, you'll be able to connect with them shortly. So we can
-                        help future IFG students, who were in your position last year, please can you answer the
-                        following 4 questions about IFG:</h5> -->
+                        help future AP students, who were in your position last year, please can you answer the
+                        following 4 questions about AP:</h5> -->
                     <p class="consent-p"></p>
                   <div class="row row-sm mg-b-20">
                     <div class="col-sm-12 col-lg-12">

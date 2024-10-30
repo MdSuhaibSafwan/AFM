@@ -33,7 +33,7 @@ LIST_OF_INSTITUTES = (
     ('Canterbury Christ Church University', 'Canterbury Christ Church University'),
     ('University of Buckingham', 'University of Buckingham'),
     ('University of Aberdeen', 'University of Aberdeen'),
-    ('International Foundation Group (IFG)', 'International Foundation Group (IFG)'),
+    ('ApplyPal (AP)', 'ApplyPal (AP)'),
     ('Abertay University', 'Abertay University'),
     ('University of the West of Scotland', 'University of the West of Scotland'),
     ('Aberystwyth University', 'Aberystwyth University'),
@@ -270,7 +270,7 @@ class UpdateProfilePicForm(forms.ModelForm):
 class RegistrationForm(UserCreationForm):
     # course = forms.ChoiceField(required=False, choices=COURSE)
     USER_TYPE_CHOICE = (
-        # (3, 'Current IFG Student'),
+        # (3, 'Current AP Student'),
         (12, 'Student'),
         (5, 'Parent'),
         )
@@ -449,7 +449,7 @@ class MentorRegistrationForm(UserCreationForm):
 
 
 
-class IFGStudentRegistrationForm(UserCreationForm):
+class APStudentRegistrationForm(UserCreationForm):
     # captcha = ReCaptchaField(widget=ReCaptchaV3())
    
     class Meta:
@@ -882,10 +882,10 @@ class MentorUpdateInformationSecondStepForm(forms.ModelForm):
             # 'foundation_provider': 'What was the name of this course/foundation/pathway provider?*',
             'year': 'Year*',
             # 'study_year': 'What year are you studying on your current course?*',
-            'university_start_year': 'What year did you leave IFG?',
+            'university_start_year': 'What year did you leave AP?',
             # 'year_graduated': 'Year Graduated*',
             'student_id': 'Student ID',
-            'name_of_school': 'Please enter the name of the school where you studied before starting at IFG',
+            'name_of_school': 'Please enter the name of the school where you studied before starting at AP',
             'are_you_registered_as_an_ambassador': 'Are you registered as an Ambassador for your existing university?',
             # 'tutoring_subject': 'I can tutor you with',
             # 'tutoring_with': 'I can help you with',
@@ -918,7 +918,7 @@ class MentorUpdateInformationSecondStepForm(forms.ModelForm):
             # 'dbs_certificate': 'Upload a scanned copy of your DBS certificate',
             # 'tutoring_subject_other': 'Tutoring Subject',
             # 'tutoring_in_level': 'Subject Level',
-            'previous_qualification': 'Please state the course you studied at IFG and the grade you achieved',
+            'previous_qualification': 'Please state the course you studied at AP and the grade you achieved',
             # 'brp_card': 'Please upload a scanned copy/image of your <a href="https://www.gov.uk/biometric-residence-permits" target="blank">BRP (Biometric Residence Permits)</a> card',
 
         }
@@ -1017,7 +1017,7 @@ class StudentQuestionForm(forms.ModelForm):
             'q1': forms.Textarea(
                 attrs={'class': 'form-control', 'placeholder': 'Eg: what to focus on, practice speaking English, mix with other students, new experiences', 'rows': 3}),
             'q2': forms.Textarea(
-                attrs={'class': 'form-control', 'placeholder': 'Eg: more about university options, life abroad , how to connect with current IFG students', 'rows': 3}),
+                attrs={'class': 'form-control', 'placeholder': 'Eg: more about university options, life abroad , how to connect with current AP students', 'rows': 3}),
             'q3': forms.Textarea(
                 attrs={'class': 'form-control', 'placeholder': 'Eg: Learning to focus during tutorials, asking questions, focussing on certain modules', 'rows': 3}),
             'q4': forms.Textarea(
@@ -1027,10 +1027,10 @@ class StudentQuestionForm(forms.ModelForm):
         }
         labels = {
             'q1': 'What advice would you give to a future student?',
-            'q2': 'What do you wish you had known before you started your IFG Course?',
-            'q3': 'What important skills do you think you have developed so far at IFG?',
-            'q4': 'Please summarise your experience studying at IFG?',
-            'q5': 'Please give information on the cost of living/accommodation while studying at IFG?',
+            'q2': 'What do you wish you had known before you started your AP Course?',
+            'q3': 'What important skills do you think you have developed so far at AP?',
+            'q4': 'Please summarise your experience studying at AP?',
+            'q5': 'Please give information on the cost of living/accommodation while studying at AP?',
         }
 
     def __init__(self, *args, **kwargs):
@@ -1057,11 +1057,11 @@ class StudentProfileStep1Form(forms.ModelForm):
         }
 
         labels = {
-            # 'subject_foundation': 'IFG Course',
+            # 'subject_foundation': 'AP Course',
             'area_of_study': 'Course you are currently studying',  
             'student_id_card': 'Upload photo of your student ID card', 
-            'institute_email': 'Your IFG email',
-            # 'study_destination': 'Country where studying IFG Course'
+            'institute_email': 'Your AP email',
+            # 'study_destination': 'Country where studying AP Course'
         }
 
         def __init__(self, *args, **kwargs):
@@ -1100,7 +1100,7 @@ class StudentConsentForm(forms.ModelForm):
             # 'media_consent': "I consent for the above information to be used internally for administrative purpose "
             #             "and some information to be made public on my public profile.",
             'media_consent': "I give permission for this photograph, or other data that I may submit, will be used on my profile "
-                        "and for other promotional purposes for the IFG, including their website homepage.", 
+                        "and for other promotional purposes for the AP, including their website homepage.", 
             'consent1': "I consent that my personal data will be used in accordance to the <a "
                         "href='" + config('AFM_LINK') + "/privacy-notice' target='_blank'>Privacy Notice.</a> "
                        
@@ -1150,7 +1150,7 @@ class MentorConsentForm(forms.ModelForm):
             'consent3': "I consent that my personal data will be used in accordance to the <a "
                         "href='" + config('AFM_LINK') + "/privacy-notice' target='_blank'>Privacy Notice.</a> ",
             'consent4': "I give permission for this photograph, or other data that I may submit, will be used on my profile "
-                        "and for other promotional purposes for the IFG, including their website homepage.",
+                        "and for other promotional purposes for the AP, including their website homepage.",
         }
         widgets = {
             'consent1': CheckboxInput(attrs={'required': 'required'}),
@@ -1230,7 +1230,7 @@ class MentorProfileForm(forms.ModelForm):
             'q1': forms.Textarea(
                 attrs={'class': 'form-control', 'placeholder': 'Eg: what to focus on, practice speaking English, mix with other students, new experiences', 'rows': 3}),
             'q2': forms.Textarea(
-                attrs={'class': 'form-control', 'placeholder': 'Eg: more about university options, life abroad , how to connect with current IFG students', 'rows': 3}),
+                attrs={'class': 'form-control', 'placeholder': 'Eg: more about university options, life abroad , how to connect with current AP students', 'rows': 3}),
             'q3': forms.Textarea(
                 attrs={'class': 'form-control', 'placeholder': 'Eg: social life, accommodation options,  clubs/societies, number of students, travel', 'rows': 3}),
             'q4': forms.Textarea(
@@ -1247,12 +1247,12 @@ class MentorProfileForm(forms.ModelForm):
             'institute_name': 'Institute name*',
             'institute': 'Select Institute*',
             'q1': 'What advice would you give to a future student?',
-            'q2': 'What do you wish you had known before you started your IFG Course?',
+            'q2': 'What do you wish you had known before you started your AP Course?',
             'q3': 'What do you wish you had known about your current university before you started? ',
-            'q4': 'What important  skills did you develop while at IFG?',
-            'q5': 'Please summarise your experience studying at IFG and living in London/Abu Dhabi ?',
+            'q4': 'What important  skills did you develop while at AP?',
+            'q5': 'Please summarise your experience studying at AP and living in London/Abu Dhabi ?',
             'q6': 'What top tips to can you provide to apply to university?',
-            'q7': 'Please give information on the cost of living/accommodation when studying at IFG?',            
+            'q7': 'Please give information on the cost of living/accommodation when studying at AP?',            
         }
         
 
@@ -2019,7 +2019,7 @@ class StudentQuestionsAboutSchool(forms.ModelForm):
     are_you_studying_an_online_course = forms.ChoiceField(choices=questions_choice,
                                                           widget=forms.RadioSelect(attrs={'required': 'required'}),
                                                           required=True,
-                                                          label='Are you studying an <strong>online</strong> IFG '
+                                                          label='Are you studying an <strong>online</strong> AP '
                                                                 'Course/Programme?')
 
     currently_studying_course = forms.ChoiceField(required=True, choices=COURSES_LIST)
@@ -2032,10 +2032,10 @@ class StudentQuestionsAboutSchool(forms.ModelForm):
                   ]
         labels = {
             'q1': '<strong>What advice would you give to future students?</strong>',
-            'q2': '<strong>What do you most like about studying at IFG?</strong>',
-            'q3': '<strong>How does IFG help you to progress your goals?</strong>',
+            'q2': '<strong>What do you most like about studying at AP?</strong>',
+            'q3': '<strong>How does AP help you to progress your goals?</strong>',
             'q4': '<strong>Any other information you would like to share?</strong>',
-            'currently_studying_course': 'Currently Studying (IFG programmes)',
+            'currently_studying_course': 'Currently Studying (AP programmes)',
         }
         widgets = {
             'q1': forms.Textarea(
@@ -2060,7 +2060,7 @@ class StudentQuestionsAboutSchool(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
-        self.fields['q1'].help_text = "Eg: Student life, teaching and making the most of their time at IFG., etc"
+        self.fields['q1'].help_text = "Eg: Student life, teaching and making the most of their time at AP., etc"
         self.fields['q2'].help_text = "Eg: Teaching,  expert guidance, etc"
         self.fields['q3'].help_text = "Eg: University progression, improve English, etc"
         self.fields['q4'].help_text = "Eg: Accommodation, Student support, activities, etc"
@@ -2102,7 +2102,7 @@ class FutureStudentInformation(forms.ModelForm):
     have_you_already_applied_to_this_school = forms.ChoiceField(choices=questions_choice, widget=forms.RadioSelect(),
                                                                 required=True,
                                                                 label='Have you already applied to International '
-                                                                      'Foundation Group (IFG)?')
+                                                                      'Foundation Group (AP)?')
 
     class Meta:
         model = FutureStudent
@@ -2156,7 +2156,7 @@ class FutureStudentSignupForm(forms.ModelForm):
     have_you_already_applied_to_this_school = forms.ChoiceField(choices=questions_choice, widget=forms.RadioSelect(),
                                                                 required=True,
                                                                 label='Applied to International '
-                                                                      'Foundation Group (IFG) before?')
+                                                                      'Foundation Group (AP) before?')
     class Meta:
         model = FutureStudent
         fields = ['have_you_already_applied_to_this_school', 'where_are_you_from', 'intake_year', 'intake_month',

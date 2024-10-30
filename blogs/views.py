@@ -170,12 +170,12 @@ def change_status_publish_twfl(request, post_id):
                 level='success',
                 verb='Congratulations !! Your Blog is Published')
 
-    send_email_notification.delay('New Blog Published on International Foundation Group',
+    send_email_notification.delay('New Blog Published on ApplyPal',
                                   'administration/email/standard_template.html', [EMAIL_HOST_USER],
                                   {
                                       'first_name': 'Team',
                                       'link': link,
-                                      'content': 'New Blog Published on International Foundation Group. Please '
+                                      'content': 'New Blog Published on ApplyPal. Please '
                                                  'Index this Blog URL.',
                                       'button_text': 'View Blog',
                                   }
