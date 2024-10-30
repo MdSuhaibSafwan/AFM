@@ -9,9 +9,15 @@
 {% block css %}
 <link rel="stylesheet" href="bootstrap.min.css">
 
+<!-- https://tag-afm-bucket.s3.amazonaws.com/static-afi/images/n2.jpg -->
+<!--  -->
+<!-- "" -->
+
+<img id="n2-image" style="display: none;" src="{% static 'assets/img/n2.jpg' %}">
+
 <style>
     .big-banner {
-    background-image: url(https://tag-afm-bucket.s3.amazonaws.com/static-afi/images/n2.jpg);
+    background-image: url("https://apply-pal-bucket.s3.amazonaws.com/static-afi/assets/img/n2.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQUFLQJC356HO3PP3%2F20241030%2Feu-north-1%2Fs3%2Faws4_request&X-Amz-Date=20241030T121212Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=965a8186723181d41cb4daedceb2f52aa0b69d18459d2b6b275af0181a604b3d");
     background-size: cover;
     background-repeat: no-repeat;
     /* background-position: 100% center; */
@@ -298,12 +304,12 @@
                             <!-- <p class="banner-heading">Let our students do the talking!</p> -->
                             <p class="banner-heading">Connect with our former students!</p>
                             <!-- <p class="login-display">Connect with our current students and alumni!</p> -->
-                            <p class="login-display">Explore student life at AP while completing your online application.</p>
+                            <p class="login-display">Explore student life while completing your online application.</p>
                             <p class="login-display">
-                                Message former AP students who have completed their AP journey and are now living the university experience. 
+                                Message former students who have completed their journey and are now living the university experience. 
                             </p> 
                             <p class="login-display">
-                                You can even apply for your AP course while chatting to them.
+                                You can even apply for your course while chatting to them.
                             </p>   
                             <!-- <p class="login-display">Our students can provide an authentic insight into life at AP and even guide you through the application process to ensure your making the strongest possible start.</p> -->
 
@@ -879,6 +885,12 @@ $( document ).ready(function() {
     // });
 
 });
+</script>
+
+<script>
+    var n2 = document.getElementById("n2-image");
+    var bigBanner = document.querySelectorAll(".big-banner")[0];
+    bigBanner.style.backgroundImage = `url(${n2.getAttribute("src")})`;
 </script>
 
 {% endblock %}
